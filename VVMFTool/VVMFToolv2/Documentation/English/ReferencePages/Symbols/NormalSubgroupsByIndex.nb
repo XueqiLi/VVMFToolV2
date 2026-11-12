@@ -1,0 +1,104 @@
+Notebook[{Cell["NormalSubgroupsByIndex", "ObjectName"], 
+  Cell["NormalSubgroupsByIndex[presentation, bound, opts] searches normal \
+subgroups at an exact or bounded index, returning subgroup words, finite \
+quotient presentations and explicit completeness.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["Searches a supplied possibly \
+infinite presentation using LINS. No finite Group object or modular \
+recognition is implied. IndexMode is Exact or UpTo; MaxResults may cap the \
+returned list.", "Notes"], Cell["Each item has Index, GeneratorWords, \
+GeneratorSemantics=\"Subgroup\" and a checked finite QuotientPresentation. \
+The words generate the subgroup itself, not merely its normal closure. \
+SmallGenerators requests reduction without promising minimality.", "Notes"], 
+  Cell["Result fields include Items, Complete, CapReached, Bound, IndexMode, \
+MaxResults, SmallGenerators, Presentation, Method and LINSVersion. A capped \
+result distinguishes proven exhaustion from truncation by lookahead. \
+Unsupported bounds, timeout or interruption return Failure, not falsely \
+complete data.", "Notes"], Cell["LINS is required. This operation runs one \
+bounded sequential worker and has no StoreGAPState or GroupModel option.", 
+   "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["IndexMode"], "TableText"], Cell["\"Exact\"", 
+        "TableText"], Cell["\"Exact\" selects exactly the bound; \"UpTo\" \
+selects indices at most the bound.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["MaxResults"], "TableText"], 
+       Cell["All", "TableText"], Cell["All or a positive integer result cap. \
+Completeness and CapReached distinguish exhaustion from truncation.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["SmallGenerators"], "TableText"], 
+       Cell["True", "TableText"], Cell["True requests a smaller generating \
+set for each normal subgroup; False retains the native one. No minimality \
+guarantee.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Verification"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["Automatic, \"Exact\", \"Numerical\" or None (the \
+Validate functions: Automatic, \"Exact\" or \"Numerical\"; the modular-form \
+functions have no \"Exact\" route).", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["AttemptTimeLimit"], 
+        "TableText"], Cell["600", "TableText"], Cell["Positive seconds or \
+Infinity, per attempt including verification and saving. Automatic method \
+attempts each receive this limit.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["CoreBudget"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Positive integer at most \
+$ProcessorCount, or Automatic to use the available count. Sequential \
+algorithms run as separate worker processes.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["MemoryBudget"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Positive integer bytes, or \
+Automatic using half system memory less current kernel usage. Admission \
+estimates and sampled total worker RSS enforce the allocation.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["ProgressFunction"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Automatic shows a notebook \
+monitor when a front end is available; None is silent; a Function or user \
+symbol receives progress associations. Callbacks should return promptly; \
+failures/cancellation clean owned workers.", "TableText"]}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, GridBoxItemSize -> 
+      {"Columns" -> {Scaled[0.02], Scaled[0.3], Scaled[0.18], 
+         Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["GroupPresentation", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"GroupPresentation.nb", None}], "  |  ", 
+     ButtonBox["GroupSubgroups", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"GroupSubgroups.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{"r", "=", RowBox[
+             {"NormalSubgroupsByIndex", "[", RowBox[{RowBox[
+                 {"GroupPresentation", "[", RowBox[{RowBox[{"{", "\"a\"", 
+                      "}"}], ",", RowBox[{"{", "}"}]}], "]"}], ",", "3"}], 
+              "]"}]}], "}"}], ",", RowBox[
+         {"{", RowBox[{RowBox[{"r", "[", "\"Complete\"", "]"}], ",", 
+            RowBox[{"Lookup", "[", RowBox[{RowBox[{"r", "[", "\"Items\"", 
+                  "]"}], ",", "\"Index\""}], "]"}]}], "}"}]}], "]"}]], 
+   "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{"True", ",", RowBox[{"{", "3", "}"}]}], 
+      "}"}]], "Output"], Cell["Possible Issues", "ExampleSection"], 
+  Cell["Invalid input returns a structured Failure. Check FailureQ before \
+using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"NormalSubgroupsByIndex", 
+        "[", RowBox[{RowBox[{"GroupPresentation", "[", 
+            RowBox[{RowBox[{"{", "\"a\"", "}"}], ",", RowBox[{"{", "}"}]}], 
+            "]"}], ",", "0"}], "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/NormalSubgroupsByIndex", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "NormalSubgroupsByIndex \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

@@ -1,0 +1,158 @@
+Notebook[{Cell["ToPython", "ObjectName"], Cell["ToPython[out] generates a \
+standalone NumPy (default) or mpmath Python module that evaluates the outputs \
+of the ModelOutput out, with validated inputs and finite checked results.", 
+   "Usage"], Cell["Status: Alpha.", "Notes"], Cell["ToPython[out] generates a \
+standalone Python module of the ModelOutput out: evaluate(params, \
+fields=None) returns every output as an ordered dict, and one function per \
+output takes the same inputs. params is a sequence of complex values in the \
+order of parameter_ids; fields maps required field IDs to full component \
+vectors.", "Notes"], Cell["Inputs are validated (types, lengths, field keys, \
+finite values) with TypeError or ValueError; a non-finite output or a domain \
+error (singular point, Surd of a nonreal number) raises EvaluationError \
+naming the output. Powers use Wolfram's principal complex branch, Surd the \
+real root; exact constants are evaluated at the working precision. The module \
+never uses eval or exec and changes no global precision.", "Notes"], 
+  Cell["Options: PythonBackend (\"NumPy\" at machine precision, or \"mpmath\" \
+with WorkingPrecision digits in a private context per call), \
+WorkingPrecision, FunctionNames, ParameterNames, CommonSubexpressions. \
+Nothing is imported or executed by ToPython.", "Notes"], 
+  Cell["Stage 9: ToPython also accepts ModularFormOutput and modular model \
+outputs (tau_point, q_point, evaluate(params, point, fields, form_values), \
+evaluate_report) with FormEvaluation, ExportEvaluationMethod, SeriesOrder, \
+AccuracyGoal, PrecisionGoal, MaxSeriesOrder, TimeLimit and RequireProof; \
+finite-group modules are unchanged. Accuracy and precision goals stay at \
+least two digits below the backend digits; estimated errors never fall below \
+the roundoff of the values and are propagated through model outputs.", 
+   "Notes"], Cell["For modular outputs, RequireProof -> True currently fails \
+with ProofRequired: no implemented route produces a Proven form (there is no \
+exact identity certificate, and the S check is sampled).", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["PythonBackend"], "TableText"], Cell["\"NumPy\"", 
+        "TableText"], Cell["\"NumPy\" (default; complex128 arrays at machine \
+precision) or \"mpmath\" (mpmath values in a private context with \
+WorkingPrecision digits per call; matrices as nested lists). Other values \
+fail with InvalidOption.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["WorkingPrecision"], "TableText"], 
+       Cell["Automatic", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["FunctionNames"], 
+        "TableText"], Cell["<||>", "TableText"], Cell["Explicit names must be \
+unique valid identifiers that are not reserved by the module (for example \
+evaluate, manifest or Python keywords).", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["ParameterNames"], 
+        "TableText"], Cell["<||>", "TableText"], Cell["<||> (default: each \
+parameter's label, sanitized and made unique) or an association from \
+parameter IDs to identifiers. Unknown IDs, invalid or duplicate identifiers \
+fail with InvalidOption.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["CommonSubexpressions"], "TableText"], 
+       Cell["True", "TableText"], 
+       Cell["True (default) or False (every output written in full).", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["FormEvaluation"], "TableText"], Cell["\"Embedded\"", 
+        "TableText"], Cell["Default \"Embedded\" (needs every used slot bound \
+with resolved coefficients); External reports UnknownExternalError and is \
+incompatible with RequireProof.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["ExportEvaluationMethod"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Default Automatic; FiniteSeries \
+reports a finite approximation without a tail bound and refuses accuracy \
+goals.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["SeriesOrder"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["Automatic (default: chosen from the accuracy goal \
+and the point, or 6 orders for construction checks) or a positive integer; an \
+explicit order is required to evaluate a finite jet (the result then has \
+EstimatedError Missing[\"NoTailBound\"] or the next-order difference).", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["AccuracyGoal"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["See the method choices in this page's details.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["PrecisionGoal"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["See the method choices in this page's details.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["MaxSeriesOrder"], "TableText"], 
+       Cell["2000", "TableText"], Cell["2000 (default) or a positive integer; \
+reaching it fails with ConvergenceFailure and the best estimate.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], Cell[BoxData["TimeLimit"], 
+        "TableText"], Cell["600", "TableText"], Cell["600 (default), a \
+positive number or Infinity; exceeding it fails with TimeLimit and changes \
+nothing.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["RequireProof"], "TableText"], 
+       Cell["False", "TableText"], Cell["False (default) or True: a result \
+that is not Proven (numerical fits, verified reconstructions, sampled checks) \
+fails with ProofRequired.", "TableText"]}}, GridBoxAlignment -> 
+      {"Columns" -> {{Left}}}, GridBoxItemSize -> 
+      {"Columns" -> {Scaled[0.02], Scaled[0.3], Scaled[0.18], 
+         Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["PrepareModelOutput", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"PrepareModelOutput.nb", None}], "  |  ", 
+     ButtonBox["PythonSource", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"PythonSource.nb", None}], "  |  ", 
+     ButtonBox["PythonManifest", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"PythonManifest.nb", None}], "  |  ", 
+     ButtonBox["ExportPython", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ExportPython.nb", None}], "  |  ", 
+     ButtonBox["PythonBackend", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"PythonBackend.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "d", ",", "l", ",", "r", ",", "m", ",", "mass"}], "}"}], 
+        ",", RowBox[{RowBox[{"d", "=", RowBox[{"First", "[", 
+              RowBox[{"Select", "[", RowBox[{RowBox[{"g", "[", 
+                    "\"IrrepOrder\"", "]"}], ",", RowBox[{RowBox[
+                     {RowBox[{"RepDim", "[", RowBox[{"GroupRepresentation", 
+                          "[", RowBox[{"g", ",", "#1"}], "]"}], "]"}], "===", 
+                      "2"}], "&"}]}], "]"}], "]"}]}], ";", 
+          RowBox[{"l", "=", RowBox[{"CreateField", "[", RowBox[{"g", ",", 
+                "d", ",", "\"L\""}], "]"}]}], ";", 
+          RowBox[{"r", "=", RowBox[{"CreateField", "[", RowBox[{"g", ",", 
+                "d", ",", "\"R\""}], "]"}]}], ";", 
+          RowBox[{"m", "=", RowBox[{"CreateModel", "[", RowBox[{"g", ",", 
+                RowBox[{"{", RowBox[{"l", ",", "r"}], "}"}]}], "]"}]}], ";", 
+          RowBox[{"m", "=", RowBox[{"AddModelTerm", "[", RowBox[{"m", ",", 
+                RowBox[{"CoupleContractions", "[", RowBox[{"Contractions", 
+                    "[", RowBox[{"m", ",", RowBox[{"{", RowBox[{"l", ",", 
+                          "r"}], "}"}]}], "]"}], "]"}]}], "]"}]}], ";", 
+          RowBox[{"mass", "=", RowBox[{"ExtractBilinearMatrix", "[", 
+              RowBox[{RowBox[{"ModelExpression", "[", "m", "]"}], ",", "l", 
+                ",", "r"}], "]"}]}], ";", RowBox[{"StringContainsQ", "[", 
+            RowBox[{RowBox[{"PythonSource", "[", RowBox[{"ToPython", "[", 
+                  RowBox[{"PrepareModelOutput", "[", RowBox[{"m", ",", 
+                      RowBox[{"Association", "[", RowBox[{"\"M\"", "\[Rule]", 
+                          "mass"}], "]"}]}], "]"}], "]"}], "]"}], ",", 
+              "\"def M(params, fields=None):\""}], "]"}]}]}], "]"}]], 
+   "Input", CellTags -> "VerifiedExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"ToPython", "[", 
+        RowBox[{"PrepareModelOutput", "[", "\"x\"", "]"}], "]"}], "]"}]], 
+   "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/ToPython", "Categorization", CellLabel -> "URI"]}, 
+    Closed]]}, WindowTitle -> "ToPython \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

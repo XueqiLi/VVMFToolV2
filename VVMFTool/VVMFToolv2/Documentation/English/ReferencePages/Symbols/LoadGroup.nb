@@ -1,0 +1,72 @@
+Notebook[{Cell["LoadGroup", "ObjectName"], Cell["LoadGroup[label] loads a \
+group computed in the VVMFUse project from the package's library (irreps, S \
+and T, CG coefficients, labels), without GAP; LoadGroup[label, \
+\"Information\"] gives its library entry.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["LoadGroup[label] loads a group \
+computed in the VVMFUse project from the package's library: irreps in the \
+paper's basis, the S and T assignment, CG coefficients, element words, and \
+the paper's names of irreps and classes. No GAP is started and nothing is \
+re-checked: the library holds verified data only, and an unchanged library \
+file is trusted through the package's own ledger, so its CG coefficients are \
+served without a check. Verification -> \"Exact\" loads a new copy and \
+re-checks everything (with GAP); Automatic (default), \"Numerical\" and None \
+load without re-checking.", "Notes"], Cell["LoadGroup[label, \"Information\"] \
+gives the library entry (status, numbers of irreps, representations, stored \
+CG pairs and slow pairs). A group already loaded is returned again unless \
+Fresh -> True. The loaded group is an ordinary group: it can be extended and \
+saved anywhere.", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Fresh"], "TableText"], Cell["False", "TableText"], 
+       Cell[
+        "Whether a new copy is loaded even if the group is already loaded.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Verification"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["Automatic, \"Exact\", \"Numerical\" or None (the \
+Validate functions: Automatic, \"Exact\" or \"Numerical\"; the modular-form \
+functions have no \"Exact\" route).", "TableText"]}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, GridBoxItemSize -> 
+      {"Columns" -> {Scaled[0.02], Scaled[0.3], Scaled[0.18], 
+         Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["LibraryGroups", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"LibraryGroups.nb", None}], "  |  ", 
+     ButtonBox["Fresh", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"Fresh.nb", None}], "  |  ", ButtonBox["Verification", 
+      BaseStyle -> "Hyperlink", ButtonData -> {"Verification.nb", None}]}], 
+   "SeeAlso"], Cell["Examples Initialization", 
+   "ExamplesInitializationSection"], Cell["Open this notebook in its \
+repository location. GAP must be installed; LINS is required for its bounded \
+search page. Evaluate the setup before the examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{"g", "=", RowBox[{"LoadGroup", "[", 
+              "\"24-3I\"", "]"}]}], "}"}], ",", 
+        RowBox[{"{", RowBox[{RowBox[{"g", "[", "\"Order\"", "]"}], ",", 
+            RowBox[{"g", "[", "\"CatalogueLabel\"", "]"}]}], "}"}]}], "]"}]], 
+   "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{"24", ",", "\"24-3I\""}], "}"}]], 
+   "Output"], Cell["Possible Issues", "ExampleSection"], 
+  Cell["Invalid input returns a structured Failure. Check FailureQ before \
+using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"LoadGroup", "[", 
+        "\"no-such-group\"", "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/LoadGroup", "Categorization", CellLabel -> "URI"]}, 
+    Closed]]}, WindowTitle -> "LoadGroup \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

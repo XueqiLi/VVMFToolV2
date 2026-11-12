@@ -1,0 +1,94 @@
+Notebook[{Cell["ModularDimensionTable", "ObjectName"], 
+  Cell["ModularDimensionTable[c, irreps, weights] gives an ordered \
+association irrep -> weight -> dimension, keeping zero, Missing and Failure \
+cells.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["ModularDimensionTable[c] gives the table of every irrep at the \
+weights Range[0, 20] (option Weights; exact rationals) as a document that \
+displays itself as in v1: index, name, automatic label, dimension, then one \
+column per weight, \"-\" for no forms and \"/\" where the formula cannot be \
+evaluated; weight-1 values come from the formula with a note. \
+ModularDimensionTable[c, irreps, weights] selects irreps (indices or IDs) and \
+weights. DisplayData[table][\"Table\"] gives the values as index -> weight -> \
+dimension.", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Method"], "TableText"], Cell["Automatic", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["DimensionCache"], 
+        "TableText"], Cell["True", "TableText"], 
+       Cell["True (default) or False.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["Weights"], "TableText"], 
+       Cell["{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, \
+18, 19, 20}", "TableText"], 
+       Cell["The weights of the table (exact rationals).", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["IrrepForm"], "TableText"], 
+       Cell["\"Index\"", "TableText"], 
+       Cell[
+        "How irreps are named in the result: \"Index\", \"ID\" or \"Label\"."\
+, "TableText"]}, {Cell[" ", "TableRowIcon"], Cell[BoxData["IrrepLabels"], 
+        "TableText"], Cell["<||>", "TableText"], Cell["An association from \
+known irrep IDs to plain strings (escaped) or TeXFragment values (raw TeX, \
+shown literally in notebooks). Labels never replace the ID column.", 
+        "TableText"]}}, GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+     GridBoxItemSize -> {"Columns" -> {Scaled[0.02], Scaled[0.3], 
+         Scaled[0.18], Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["ModularDimension", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ModularDimension.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "d", ",", "one"}], "}"}], ",", 
+        RowBox[{RowBox[{"AssignModularGenerators", "[", 
+            RowBox[{"g", ",", RowBox[{"GroupWord", "[", "\"t^-1.s.t\"", 
+                "]"}], ",", RowBox[{"GroupWord", "[", "\"s\"", "]"}], ",", 
+              RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}], ";", 
+          RowBox[{"d", "=", RowBox[{"First", "[", RowBox[{"Select", "[", 
+                RowBox[{RowBox[{"g", "[", "\"IrrepOrder\"", "]"}], ",", 
+                  RowBox[{RowBox[{RowBox[{"RepDim", "[", RowBox[
+                         {"GroupRepresentation", "[", RowBox[{"g", ",", 
+                          "#1"}], "]"}], "]"}], "===", "2"}], "&"}]}], "]"}], 
+              "]"}]}], ";", RowBox[{"one", "=", RowBox[
+             {RowBox[{"g", "[", "\"CharacterData\"", "]"}], "[", 
+              "\"TrivialIrrepID\"", "]"}]}], ";", 
+          RowBox[{"Values", "[", RowBox[{"First", "[", RowBox[{
+                RowBox[{"DisplayData", "[", RowBox[{"ModularDimensionTable", 
+                    "[", RowBox[{"g", ",", RowBox[{"{", "d", "}"}], ",", 
+                      RowBox[{"Range", "[", RowBox[{"0", ",", "8"}], "]"}]}], 
+                    "]"}], "]"}], "[", "\"Table\"", "]"}], "]"}], "]"}]}]}], 
+      "]"}]], "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{"0", ",", "0", ",", "1", ",", "0", ",", 
+        "1", ",", "0", ",", "1", ",", "0", ",", "2"}], "}"}]], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"ModularDimensionTable", "[", 
+        "\"g\"", "]"}], "]"}]], "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/ModularDimensionTable", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "ModularDimensionTable \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

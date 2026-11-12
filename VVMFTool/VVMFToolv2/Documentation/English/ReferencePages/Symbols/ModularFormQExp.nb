@@ -1,0 +1,88 @@
+Notebook[{Cell["ModularFormQExp", "ObjectName"], 
+  Cell["ModularFormQExp[y, n] computes the q-expansion of the modular form y \
+below order n and stores it in y atomically; it returns y.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["ModularFormQExp[y, n] computes the \
+q-expansion of y below order n (default 5) and stores it in y atomically \
+(y[\"QExpansion\"]); it returns y. A stored expansion with the same \
+coefficient binding that covers n is reused and a longer one is never \
+shortened; the update never changes weight, representation, definition or \
+normalization.", "Notes"], Cell["Unresolved coefficients fail with \
+UnresolvedCoefficients unless ApplyCoefficients -> False; a finite jet cannot \
+be extended (InsufficientOrder).", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["ApplyCoefficients"], "TableText"], 
+       Cell["True", "TableText"], Cell["True (default) or False (the raw \
+parameterized definition; numerical evaluation then fails with \
+SymbolicCoefficients).", "TableText"]}}, GridBoxAlignment -> 
+      {"Columns" -> {{Left}}}, GridBoxItemSize -> 
+      {"Columns" -> {Scaled[0.02], Scaled[0.3], Scaled[0.18], 
+         Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["QExpansionExpression", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"QExpansionExpression.nb", None}], "  |  ", 
+     ButtonBox["ApplyCoefficients", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ApplyCoefficients.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "d", ",", "one"}], "}"}], ",", 
+        RowBox[{RowBox[{"AssignModularGenerators", "[", 
+            RowBox[{"g", ",", RowBox[{"GroupWord", "[", "\"t^-1.s.t\"", 
+                "]"}], ",", RowBox[{"GroupWord", "[", "\"s\"", "]"}], ",", 
+              RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}], ";", 
+          RowBox[{"d", "=", RowBox[{"First", "[", RowBox[{"Select", "[", 
+                RowBox[{RowBox[{"g", "[", "\"IrrepOrder\"", "]"}], ",", 
+                  RowBox[{RowBox[{RowBox[{"RepDim", "[", RowBox[
+                         {"GroupRepresentation", "[", RowBox[{"g", ",", 
+                          "#1"}], "]"}], "]"}], "===", "2"}], "&"}]}], "]"}], 
+              "]"}]}], ";", RowBox[{"one", "=", RowBox[
+             {RowBox[{"g", "[", "\"CharacterData\"", "]"}], "[", 
+              "\"TrivialIrrepID\"", "]"}]}], ";", 
+          RowBox[{RowBox[{"QExpansionCoefficients", "[", RowBox[{
+                RowBox[{"ModularFormQExp", "[", RowBox[{RowBox[
+                     {"CreateModularForm", "[", RowBox[{"g", ",", "one", ",", 
+                        "4", ",", RowBox[{"ModularFormDefinition", "[", 
+                          RowBox[{RowBox[{"{", RowBox[
+                          {"ScalarModularExpression", "[", RowBox[{"\"E4\"", 
+                          ",", "q"}], "]"}], "}"}], ",", "q"}], "]"}]}], 
+                      "]"}], ",", "3"}], "]"}], "[", "\"QExpansion\"", "]"}], 
+              "]"}], "[", "\"Components\"", "]"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{"Association", "[", 
+        RowBox[{RowBox[{"0", "\[Rule]", "1"}], ",", 
+          RowBox[{"1", "\[Rule]", "240"}], ",", RowBox[{"2", "\[Rule]", 
+            "2160"}]}], "]"}], "}"}]], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"ModularFormQExp", "[", "5", 
+        "]"}], "]"}]], "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/ModularFormQExp", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "ModularFormQExp \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

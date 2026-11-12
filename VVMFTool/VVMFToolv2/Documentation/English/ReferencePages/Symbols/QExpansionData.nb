@@ -1,0 +1,54 @@
+Notebook[{Cell["QExpansionData", "ObjectName"], 
+  Cell["QExpansionData[data] is an immutable vector q-series: per component \
+an exponent -> coefficient map with exact rational exponents, its cutoff \
+(remainder O(q^cutoff)), arithmetic and binding.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["QExpansionData[data] is an immutable \
+vector q-series: per component an exponent -> coefficient map with exact \
+rational exponents, the component cutoffs (every exponent below a cutoff is \
+known; the remainder is O(q^cutoff)), the common cutoff, arithmetic, \
+precision, coefficient binding and source.", "Notes"], 
+  Cell["qexp[\"Cutoff\"], qexp[\"Binding\"] and qexp[\"Components\"] read \
+fields. An empty truncation is never evidence of the zero function.", 
+   "Notes"], Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["QExpansionExpression", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"QExpansionExpression.nb", None}], "  |  ", 
+     ButtonBox["QExpansionCoefficients", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"QExpansionCoefficients.nb", None}], "  |  ", 
+     ButtonBox["ModularFormQExp", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ModularFormQExp.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{RowBox[{"ScalarQSeries", "[", 
+        RowBox[{RowBox[{"ScalarModularExpression", "[", 
+            RowBox[{"\"E4\"", ",", "q"}], "]"}], ",", "q", ",", "3"}], "]"}], 
+      "[", "\"Cutoff\"", "]"}]], "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData["3"], "Output"], Cell["Possible Issues", "ExampleSection"], 
+  Cell["Invalid input returns a structured Failure. Check FailureQ before \
+using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"QExpansionCoefficients", 
+        "[", InterpretationBox[TemplateBox[{"\"QExpansionData[\"", "\"?\"", 
+           "\" components, O(q^\"", "\"?\"", "\")]\""}, "RowDefault"], 
+         QExpansionData[Association[]]], "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/QExpansionData", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "QExpansionData \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

@@ -1,0 +1,81 @@
+Notebook[{Cell["ExtractBilinearMatrix", "ObjectName"], 
+  Cell["ExtractBilinearMatrix[expr, rows, cols] gives M with selected == rows \
+. M . cols (fields for rows and cols use their components); the remainder is \
+kept. Numerical input needs Arithmetic -> \"Numerical\".", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["ExtractBilinearMatrix[expr, rows, \
+cols] gives a MassMatrix with selected == rows . M . cols, where selected is \
+the part of expr of degree one in rows and one in cols; other terms remain in \
+Remainder.", "Notes"], Cell["rows and cols are nonempty, duplicate-free, \
+disjoint lists of variables (for example joined FieldComponents); \
+ExtractBilinearMatrix[expr, f1, f2] uses the components of Fields. No complex \
+conjugation is applied.", "Notes"], Cell["Options: RequirePure (default \
+False), Arithmetic (\"Exact\" by default, or \"Numerical\" with \
+WorkingPrecision and Tolerance). The extraction takes an expression, not a \
+model, so a numerical model's matrix needs Arithmetic -> \"Numerical\"; \
+approximate input with exact arithmetic fails with NumericalInput, and \
+reconstruction is then judged within the declared tolerance.", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["RequirePure"], "TableText"], Cell["False", "TableText"], 
+       Cell["False (default) or True (fail with ImpureSector unless the \
+remainder is zero).", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Arithmetic"], "TableText"], Cell["\"Exact\"", 
+        "TableText"], Cell["\"Exact\" proves identities exactly and refuses \
+numerical input; \"Numerical\" works at WorkingPrecision (default 50) and \
+checks residuals against Tolerance (default 10^(-Floor[p/2])). Tolerance is \
+accepted only with numerical arithmetic.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["WorkingPrecision"], 
+        "TableText"], Cell["50", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["Tolerance"], "TableText"], 
+       Cell["Automatic", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, GridBoxItemSize -> 
+      {"Columns" -> {Scaled[0.02], Scaled[0.3], Scaled[0.18], 
+         Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["ExtractQuadraticMatrix", 
+      BaseStyle -> "Hyperlink", ButtonData -> {"ExtractQuadraticMatrix.nb", 
+        None}], "  |  ", ButtonBox["MatrixValues", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"MatrixValues.nb", None}], "  |  ", 
+     ButtonBox["ValidateMassMatrix", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ValidateMassMatrix.nb", None}], "  |  ", 
+     ButtonBox["RequirePure", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"RequirePure.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"MatrixValues", "[", 
+      RowBox[{"ExtractBilinearMatrix", "[", 
+        RowBox[{RowBox[{RowBox[{"3", " ", "p", " ", "q"}], "+", 
+            RowBox[{"2", " ", "p"}]}], ",", RowBox[{"{", "p", "}"}], ",", 
+          RowBox[{"{", "q", "}"}]}], "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{"{", "3", "}"}], "}"}]], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"ExtractBilinearMatrix", "[", 
+        RowBox[{RowBox[{"p", " ", "q"}], ",", RowBox[{"{", "p", "}"}], ",", 
+          RowBox[{"{", "p", "}"}]}], "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/ExtractBilinearMatrix", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "ExtractBilinearMatrix \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

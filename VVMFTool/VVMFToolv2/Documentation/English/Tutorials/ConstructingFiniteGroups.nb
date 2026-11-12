@@ -1,0 +1,117 @@
+Notebook[{Cell["Constructing finite groups", "Title"], 
+  Cell["Status: Alpha. Stage 1 provides character-only workflows; use \
+ComputeRepresentations->False until stage 2 is implemented.", "Text"], 
+  Cell["Open this notebook in its repository location and evaluate the \
+package-loading cell first. GAP with JSON and IO workspace support is \
+required. Loading alone does not start GAP.", "Text"], 
+  Cell["This complete workflow builds the recorded 24-3I realization with its \
+verified irreducible representations (the builder's default representation \
+stage: unitary, and here also T-diagonal through SL2Reps), saves and imports \
+its exact mathematical data including the matrices, restores retained state \
+and computes a normal subgroup later. After eviction, a typed construction \
+can be reconstructed while preserving characters, representations and IDs.", 
+   "Text"], Cell["The example isolates the GAP cache in a temporary \
+directory, restores your configuration and removes its files. SaveGroupData \
+registers the saved mathematical bytes in the independent local export \
+ledger, which GAP cache cleanup does not remove.", "Text"], 
+  Cell["Check FailureQ before using an operation result. Operational failures \
+return structured data with applicable attempt diagnostics and partial \
+results; a successful-looking process exit is not sufficient. The example \
+stops on the first failure and still performs cleanup.", "Text"], 
+  Cell["Load the package", "Section"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "4"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "Input"], Cell["Build, save, restore and enrich", 
+   "Section"], Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"previous", "=", 
+              RowBox[{"VVMFToolConfiguration", "[", "]"}]}], ",", 
+            RowBox[{"directory", "=", RowBox[{"AbsoluteFileName", "[", 
+                RowBox[{"CreateDirectory", "[", "]"}], "]"}]}], ",", "g", 
+            ",", "h", ",", "file", ",", "restored", ",", "subgroups", ",", 
+            "before", ",", "afterEviction", ",", "result", ",", "ids"}], 
+          "}"}], ",", RowBox[{RowBox[{"WithCleanup", "[", 
+            RowBox[{RowBox[{"ConfigureVVMFTool", "[", RowBox[
+                 {RowBox[{"CacheDirectory", "\[Rule]", RowBox[
+                     {"FileNameJoin", "[", RowBox[{"{", RowBox[{"directory", 
+                          ",", "\"cache\""}], "}"}], "]"}]}], ",", 
+                  RowBox[{"CoreBudget", "\[Rule]", "1"}], ",", RowBox[
+                   {"ProgressFunction", "\[Rule]", "None"}]}], "]"}], ",", 
+              RowBox[{"result", "=", RowBox[{"Catch", "[", RowBox[
+                   {RowBox[{"g", "=", RowBox[{"BuildModularGroup", "[", 
+                        "\"24-3I\"", "]"}]}], ";", RowBox[{"If", "[", 
+                      RowBox[{RowBox[{"FailureQ", "[", "g", "]"}], ",", 
+                        RowBox[{"Throw", "[", "g", "]"}]}], "]"}], ";", 
+                    RowBox[{"file", "=", RowBox[{"SaveGroupData", "[", 
+                        RowBox[{"g", ",", RowBox[{"FileNameJoin", "[", 
+                          RowBox[{"{", RowBox[{"directory", ",", 
+                          "\"group.json\""}], "}"}], "]"}]}], "]"}]}], ";", 
+                    RowBox[{"If", "[", RowBox[{RowBox[{"FailureQ", "[", 
+                          "file", "]"}], ",", RowBox[{"Throw", "[", "file", 
+                          "]"}]}], "]"}], ";", RowBox[{"h", "=", RowBox[
+                       {"ImportGroupData", "[", "file", "]"}]}], ";", 
+                    RowBox[{"If", "[", RowBox[{RowBox[{"FailureQ", "[", "h", 
+                          "]"}], ",", RowBox[{"Throw", "[", "h", "]"}]}], 
+                      "]"}], ";", RowBox[{"restored", "=", RowBox[
+                       {"RestoreGAPState", "[", "h", "]"}]}], ";", 
+                    RowBox[{"If", "[", RowBox[{RowBox[{"FailureQ", "[", 
+                          "restored", "]"}], ",", RowBox[{"Throw", "[", 
+                          "restored", "]"}]}], "]"}], ";", RowBox[
+                     {"subgroups", "=", RowBox[{"GroupSubgroups", "[", 
+                        RowBox[{"h", ",", RowBox[{"SubgroupKind", "\[Rule]", 
+                          "\"Normal\""}], ",", RowBox[{"SubgroupOrder", 
+                          "\[Rule]", "8"}]}], "]"}]}], ";", RowBox[{"If", 
+                      "[", RowBox[{RowBox[{"FailureQ", "[", "subgroups", 
+                          "]"}], ",", RowBox[{"Throw", "[", "subgroups", 
+                          "]"}]}], "]"}], ";", RowBox[{"before", "=", 
+                      RowBox[{"h", "[", "\"CharacterData\"", "]"}]}], ";", 
+                    RowBox[{"CleanGAPCache", "[", "\"All\"", "]"}], ";", 
+                    RowBox[{"afterEviction", "=", RowBox[{"GroupWordOrder", 
+                        "[", RowBox[{"h", ",", RowBox[{"GroupWord", "[", 
+                          RowBox[{"{", "}"}], "]"}]}], "]"}]}], ";", 
+                    RowBox[{"If", "[", RowBox[{RowBox[{"FailureQ", "[", 
+                          "afterEviction", "]"}], ",", RowBox[{"Throw", "[", 
+                          "afterEviction", "]"}]}], "]"}], ";", RowBox[
+                     {"ids", "=", RowBox[{"h", "[", "\"IrrepOrder\"", 
+                        "]"}]}], ";", RowBox[{"{", RowBox[{RowBox[{"h", "[", 
+                          "\"Order\"", "]"}], ",", RowBox[{"NumberOfRep", 
+                          "[", "h", "]"}], ",", RowBox[{"h", "=!=", "g"}], 
+                        ",", RowBox[{"restored", "[", "\"Restored\"", "]"}], 
+                        ",", RowBox[{"subgroups", "[", "\"Complete\"", "]"}], 
+                        ",", RowBox[{"Length", "[", RowBox[{"subgroups", "[", 
+                          "\"Items\"", "]"}], "]"}], ",", "afterEviction", 
+                        ",", RowBox[{RowBox[{"h", "[", "\"CharacterData\"", 
+                          "]"}], "===", "before"}], ",", RowBox[{"AllTrue", 
+                          "[", RowBox[{"ids", ",", RowBox[{RowBox[{RowBox[
+                          {"GroupRepresentation", "[", RowBox[{"h", ",", 
+                          "#1"}], "]"}], "===", RowBox[{
+                          "GroupRepresentation", "[", RowBox[{"g", ",", 
+                          "#1"}], "]"}]}], "&"}]}], "]"}], ",", RowBox[
+                         {"AllTrue", "[", RowBox[{"ids", ",", RowBox[
+                          {RowBox[{RowBox[{"UnitaryRepresentationQ", "[", 
+                          RowBox[{"GroupRepresentation", "[", RowBox[{"h", 
+                          ",", "#1"}], "]"}], "]"}], "&&", RowBox[
+                          {"DiagonalMatrixQ", "[", RowBox[{"TRep", "[", 
+                          RowBox[{"h", ",", RowBox[{"GroupRepresentation", 
+                          "[", RowBox[{"h", ",", "#1"}], "]"}]}], "]"}], 
+                          "]"}]}], "&"}]}], "]"}]}], "}"}]}], "]"}]}], ",", 
+              RowBox[{RowBox[{"CleanGAPCache", "[", "\"All\"", "]"}], ";", 
+                RowBox[{"ConfigureVVMFTool", "[", RowBox[{"Sequence", "@@", 
+                    RowBox[{"Normal", "[", "previous", "]"}]}], "]"}], ";", 
+                RowBox[{"DeleteDirectory", "[", RowBox[{"directory", ",", 
+                    RowBox[{"DeleteContents", "\[Rule]", "True"}]}], 
+                  "]"}]}]}], "]"}], ";", "result"}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{"24", ",", "7", ",", "True", ",", "True", 
+        ",", "True", ",", "1", ",", "1", ",", "True", ",", "True", ",", 
+        "True"}], "}"}]], "Output"], Cell["General groups", "Section"], 
+  Cell["BuildGroup does not assign S,T. Character and subgroup work does not \
+require them. AssignModularGenerators checks supplied words and changes the \
+same object; a failed pair leaves the previous assignment unchanged.", 
+   "Text"], Cell[TextData[{ButtonBox["BuildGroup reference", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../ReferencePages/Symbols/BuildGroup.nb", None}]}], "Text"]}, 
+ WindowSize -> {1000, 850}, WindowTitle -> 
+  "Constructing finite groups \[LongDash] VVMFTool", 
+ StyleDefinitions -> "Default.nb"]

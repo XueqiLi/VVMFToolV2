@@ -1,0 +1,132 @@
+{
+ "CreateModularModel": {
+  "Kind": "Function",
+  "Details": [
+   "CreateModularModel[c, fields, FieldWeights -> <|id -> kf, ...|>] gives an empty model whose fields carry exact rational weight labels kf (for example 1/2) (actual weight -kf) over a group or context with an S,T assignment.",
+   "Options: FieldWeights (required), SuperpotentialWeight (kW, default 0), and Name, TargetIrrep (degree one), Arithmetic, WorkingPrecision, Tolerance as CreateModel. Each call starts a new form-slot namespace."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], c, d, one, df, rf, m0}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; c = RepresentationContext[g]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; df = CreateField[c, d, \"D\"]; rf = CreateField[c, one, \"R\"]; m0 = CreateModularModel[c, {df, rf}, FieldWeights -> <|df[\"ID\"] -> 1, rf[\"ID\"] -> 1|>]; Values[First[m0][\"ModularData\"][\"ActualFieldWeights\"]]]",
+  "Expected": "{-1, -1}",
+  "ErrorExample": "FailureQ[CreateModularModel[1, 2]]",
+  "SeeAlso": [
+   "FieldModularWeight",
+   "ModularContractions"
+  ]
+ },
+ "FieldModularWeight": {
+  "Kind": "Function",
+  "Details": [
+   "FieldModularWeight[m, f] gives the weight label kf of the field f (a Field or field ID) of the modular model m; the field's actual weight is -kf."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], c, d, one, df, rf, m0}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; c = RepresentationContext[g]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; df = CreateField[c, d, \"D\"]; rf = CreateField[c, one, \"R\"]; m0 = CreateModularModel[c, {df, rf}, FieldWeights -> <|df[\"ID\"] -> 1, rf[\"ID\"] -> 1|>]; FieldModularWeight[m0, rf]]",
+  "Expected": "1",
+  "ErrorExample": "FailureQ[FieldModularWeight[1, 2]]",
+  "SeeAlso": [
+   "CreateModularModel"
+  ]
+ },
+ "WeightedRepVector": {
+  "Kind": "Function",
+  "Details": [
+   "WeightedRepVector[data] is a representation-valued vector with one actual modular weight (an exact rational) per channel, and the form-slot records its channels use; read it with WeightedVectorData."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], c, d, one, df, rf, m0}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; c = RepresentationContext[g]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; df = CreateField[c, d, \"D\"]; rf = CreateField[c, one, \"R\"]; m0 = CreateModularModel[c, {df, rf}, FieldWeights -> <|df[\"ID\"] -> 1, rf[\"ID\"] -> 1|>]; Head[WeightedFieldVector[m0, {df}]]]",
+  "Expected": "WeightedRepVector",
+  "ErrorExample": "FailureQ[WeightedVectorData[WeightedRepVector[<||>]]]",
+  "SeeAlso": [
+   "WeightedVectorData",
+   "MakeWeightedRepVector"
+  ]
+ },
+ "MakeWeightedRepVector": {
+  "Kind": "Function",
+  "Details": [
+   "MakeWeightedRepVector[v, weights] attaches one actual weight (an exact rational) to every channel of the RepVector v; weights is keyed by channel ID or by record position 1..n.",
+   "The weights are a declared grading; a modular model checks them against the field content when the vector is used as a factor."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], c, d, one, df, rf, m0}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; c = RepresentationContext[g]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; df = CreateField[c, d, \"D\"]; rf = CreateField[c, one, \"R\"]; m0 = CreateModularModel[c, {df, rf}, FieldWeights -> <|df[\"ID\"] -> 1, rf[\"ID\"] -> 1|>]; Values[WeightedVectorData[MakeWeightedRepVector[FieldVector[df], <|1 -> -3|>]][\"Weights\"]]]",
+  "Expected": "{-3}",
+  "ErrorExample": "FailureQ[MakeWeightedRepVector[1, <||>]]",
+  "SeeAlso": [
+   "WeightedRepVector",
+   "TensorProductWeightedVectors"
+  ]
+ },
+ "WeightedFieldVector": {
+  "Kind": "Function",
+  "Details": [
+   "WeightedFieldVector[m, {f1, ...}] gives the weighted vector of the listed fields of the modular model m (a direct sum in caller order), each channel with actual weight -kf."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], c, d, one, df, rf, m0}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; c = RepresentationContext[g]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; df = CreateField[c, d, \"D\"]; rf = CreateField[c, one, \"R\"]; m0 = CreateModularModel[c, {df, rf}, FieldWeights -> <|df[\"ID\"] -> 1, rf[\"ID\"] -> 1|>]; Values[WeightedVectorData[WeightedFieldVector[m0, {df, rf}]][\"Weights\"]]]",
+  "Expected": "{-1, -1}",
+  "ErrorExample": "FailureQ[WeightedFieldVector[1, {}]]",
+  "SeeAlso": [
+   "JoinWeightedRepVectors",
+   "CreateModularModel"
+  ]
+ },
+ "JoinWeightedRepVectors": {
+  "Kind": "Function",
+  "Details": [
+   "JoinWeightedRepVectors[{w1, ...}] concatenates weighted vectors of one context; two channels with the same path fail DuplicateChannel."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], c, d, one, df, rf, m0}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; c = RepresentationContext[g]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; df = CreateField[c, d, \"D\"]; rf = CreateField[c, one, \"R\"]; m0 = CreateModularModel[c, {df, rf}, FieldWeights -> <|df[\"ID\"] -> 1, rf[\"ID\"] -> 1|>]; Length[WeightedVectorData[JoinWeightedRepVectors[{WeightedFieldVector[m0, {df}], WeightedFieldVector[m0, {rf}]}]][\"ChannelIDs\"]]]",
+  "Expected": "2",
+  "ErrorExample": "FailureQ[JoinWeightedRepVectors[{}]]",
+  "SeeAlso": [
+   "WeightedFieldVector"
+  ]
+ },
+ "TensorProductWeightedVectors": {
+  "Kind": "Function",
+  "Details": [
+   "TensorProductWeightedVectors[c, {w1, ...}] multiplies weighted vectors through CG duals; each channel keeps its path and its weight is the sum of its factors' weights (one Stage 4 traversal).",
+   "Options as TensorProductVectors (TargetIrreps, CG options)."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], c, d, one, df, rf, m0}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; c = RepresentationContext[g]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; df = CreateField[c, d, \"D\"]; rf = CreateField[c, one, \"R\"]; m0 = CreateModularModel[c, {df, rf}, FieldWeights -> <|df[\"ID\"] -> 1, rf[\"ID\"] -> 1|>]; Values[WeightedVectorData[TensorProductWeightedVectors[c, {WeightedFieldVector[m0, {df}], WeightedFieldVector[m0, {df}]}]][\"Weights\"]]]",
+  "Expected": "{-2, -2, -2}",
+  "ErrorExample": "FailureQ[TensorProductWeightedVectors[1, {2}]]",
+  "SeeAlso": [
+   "TensorProductVectors",
+   "WeightedVectorData"
+  ]
+ },
+ "WeightedVectorData": {
+  "Kind": "Function",
+  "Details": [
+   "WeightedVectorData[w] gives the vector, channel IDs, weights, form slots, candidate report and selection of the weighted vector w."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], c, d, one, df, rf, m0}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; c = RepresentationContext[g]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; df = CreateField[c, d, \"D\"]; rf = CreateField[c, one, \"R\"]; m0 = CreateModularModel[c, {df, rf}, FieldWeights -> <|df[\"ID\"] -> 1, rf[\"ID\"] -> 1|>]; Keys[WeightedVectorData[WeightedFieldVector[m0, {rf}]]]]",
+  "Expected": "{\"Vector\", \"ChannelIDs\", \"Weights\", \"FormSlots\", \"CandidateReport\", \"Selection\"}",
+  "ErrorExample": "FailureQ[WeightedVectorData[5]]",
+  "SeeAlso": [
+   "WeightedRepVector"
+  ]
+ },
+ "ModularFormCandidates": {
+  "Kind": "Function",
+  "Details": [
+   "ModularFormCandidates[m, factors] gives the formal modular-form spaces and copies (slots) that a product of the model's fields needs to reach its target at the model's weight kW.",
+   "For a choice of factor channels of actual weight w the forms need kY = kW - w; a known count d gives d slots, an unknown count or missing spectrum makes the report incomplete instead of zero. A space established by SupplyModularFormSpace gives its supplied number of slots with Status \"Supplied\" in \"Spaces\"; \"Complete\" is then conditional on the user's spanning claim. Options: TargetIrreps, DimensionCache."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], c, d, one, df, rf, m0}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; c = RepresentationContext[g]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; df = CreateField[c, d, \"D\"]; rf = CreateField[c, one, \"R\"]; m0 = CreateModularModel[c, {df, rf}, FieldWeights -> <|df[\"ID\"] -> 1, rf[\"ID\"] -> 1|>]; With[{cand = ModularFormCandidates[m0, {df, rf}]}, {cand[\"Complete\"], Length[cand[\"Slots\"]]}]]",
+  "Expected": "{True, 1}",
+  "ErrorExample": "FailureQ[ModularFormCandidates[1, {}]]",
+  "SeeAlso": [
+   "ModularContractions",
+   "ModularFormCandidateData"
+  ]
+ },
+ "ModularFormCandidateData": {
+  "Kind": "Function",
+  "Details": [
+   "ModularFormCandidateData[data] is the immutable candidate report of ModularFormCandidates: Complete, Slots, Spaces, Unknown, Combinations, TargetIrreps and Factors (read by property name)."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], c, d, one, df, rf, m0}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; c = RepresentationContext[g]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; df = CreateField[c, d, \"D\"]; rf = CreateField[c, one, \"R\"]; m0 = CreateModularModel[c, {df, rf}, FieldWeights -> <|df[\"ID\"] -> 1, rf[\"ID\"] -> 1|>]; Head[ModularFormCandidates[m0, {df, rf}]]]",
+  "Expected": "ModularFormCandidateData",
+  "ErrorExample": "FailureQ[ModularFormCandidates[1, 2]]",
+  "SeeAlso": [
+   "ModularFormCandidates"
+  ]
+ }
+}

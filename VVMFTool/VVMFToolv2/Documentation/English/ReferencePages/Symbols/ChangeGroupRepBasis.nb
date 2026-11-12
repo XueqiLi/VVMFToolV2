@@ -1,0 +1,141 @@
+Notebook[{Cell["ChangeGroupRepBasis", "ObjectName"], 
+  Cell["ChangeGroupRepBasis[g, id, b] stores the active representation of \
+irrep id in the basis given by b, with matrices b.M.Inverse[b], and makes it \
+active.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["ChangeGroupRepBasis[g, id, b] computes the matrices b.M.Inverse[b] of \
+the active representation M of irrep id, verifies them and makes them the \
+active variant, recording the derivation (the previous active variant as \
+witness and b as conjugator).", "Notes"], Cell["With the default Basis -> \
+\"Unitary\" the new matrices must be unitary; use Basis -> \"General\" for \
+any invertible b. A singular b gives SingularBasis.", "Notes"], 
+  Cell["A native active variant with cyclotomic b is recomputed and verified \
+in GAP. Otherwise (a scaled, Wolfram-tier or numerical active variant, or b \
+with other exact or numerical entries) the result is verified in Wolfram and \
+stored with Tier \"Wolfram\", or \"Numerical\" when numerical data are \
+involved; b multiplies the visible matrices M. ChangeRepBasis changes the \
+basis of a standalone Rep without touching the group.", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["GroupModel"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["Automatic, \"Original\", \"Permutation\" or \
+\"PC\" for new method calculations; PC requires a solvable group. Restoration \
+and compatible cache hits do not convert models. Import uses it only when \
+computing a new character-validation source.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["StoreGAPState"], 
+        "TableText"], Cell["True", "TableText"], Cell["True retains verified \
+state across calls; False keeps only call-local temporary checkpoints. Cached \
+mathematical values remain available.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["AttemptTimeLimit"], 
+        "TableText"], Cell["600", "TableText"], Cell["Positive seconds or \
+Infinity, per attempt including verification and saving. Automatic method \
+attempts each receive this limit.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["CoreBudget"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Positive integer at most \
+$ProcessorCount, or Automatic to use the available count. Sequential \
+algorithms run as separate worker processes.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["MemoryBudget"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Positive integer bytes, or \
+Automatic using half system memory less current kernel usage. Admission \
+estimates and sampled total worker RSS enforce the allocation.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["ProgressFunction"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Automatic shows a notebook \
+monitor when a front end is available; None is silent; a Function or user \
+symbol receives progress associations. Callbacks should return promptly; \
+failures/cancellation clean owned workers.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["Basis"], "TableText"], 
+       Cell["\"Unitary\"", "TableText"], Cell["\"Unitary\" requires unitary \
+matrices on every recorded generator; \"General\" accepts any verified basis. \
+\"UnitaryTDiagonal\" (ComputeGroupRepresentations, the builders and \
+TransformGroupRepresentations) additionally requires the assigned T to be \
+diagonal, with its phases in the TPhaseOrder order and the PhaseConvention \
+applied (the group needs a modular S,T assignment). SetGroupRepresentation \
+and ChangeGroupRepBasis accept \"Unitary\" and \"General\"; \
+TransformGroupRepresentations \"Unitary\" and \"UnitaryTDiagonal\". For \
+DiagonalizeRepresentationT, \"Unitary\" requires unitary input and keeps the \
+result unitary.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["FieldMethod"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["Automatic, \"Cyclotomic\", \"PrimitiveElement\", \
+\"Radical\", \"RootReduce\" or a duplicate-free list of these.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Verification"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["Automatic, \"Exact\", \"Numerical\" or None (the \
+Validate functions: Automatic, \"Exact\" or \"Numerical\"; the modular-form \
+functions have no \"Exact\" route).", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["WorkingPrecision"], 
+        "TableText"], Cell["50", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, GridBoxItemSize -> 
+      {"Columns" -> {Scaled[0.02], Scaled[0.3], Scaled[0.18], 
+         Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["ChangeRepBasis", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ChangeRepBasis.nb", None}], "  |  ", 
+     ButtonBox["SetGroupRepresentation", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"SetGroupRepresentation.nb", None}], "  |  ", 
+     ButtonBox["TransformGroupRepresentations", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"TransformGroupRepresentations.nb", None}]}], 
+   "SeeAlso"], Cell["Examples Initialization", 
+   "ExamplesInitializationSection"], Cell["Open this notebook in its \
+repository location. GAP must be installed; LINS is required for its bounded \
+search page. Evaluate the setup before the examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "id", ",", "before"}], "}"}], ",", 
+        RowBox[{RowBox[{"id", "=", RowBox[{"Last", "[", RowBox[{"g", "[", 
+                "\"IrrepOrder\"", "]"}], "]"}]}], ";", 
+          RowBox[{"before", "=", RowBox[{"GroupRepresentation", "[", 
+              RowBox[{"g", ",", "id"}], "]"}]}], ";", 
+          RowBox[{"ChangeGroupRepBasis", "[", RowBox[{"g", ",", "id", ",", 
+              RowBox[{"{", RowBox[{RowBox[{"{", RowBox[{"0", ",", "1"}], 
+                    "}"}], ",", RowBox[{"{", RowBox[{"1", ",", "0"}], 
+                    "}"}]}], "}"}], ",", RowBox[{"StoreGAPState", "\[Rule]", 
+                "False"}]}], "]"}], ";", RowBox[
+           {RowBox[{"GroupRepresentation", "[", RowBox[{"g", ",", "id"}], 
+              "]"}], "===", RowBox[{"ChangeRepBasis", "[", RowBox[{"before", 
+                ",", RowBox[{"{", RowBox[{RowBox[{"{", RowBox[{"0", ",", 
+                        "1"}], "}"}], ",", RowBox[{"{", RowBox[{"1", ",", 
+                        "0"}], "}"}]}], "}"}]}], "]"}]}]}]}], "]"}]], 
+   "Input", CellTags -> "VerifiedExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{"g", "=", RowBox[{"BuildGroup", "[", 
+              RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                   {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], ",", 
+                    RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", ",", 
+                        "\"(s.t)^3\""}], "}"}]}], "]"}], ",", RowBox[
+                 {"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], "}"}], 
+        ",", RowBox[{"FailureQ", "[", RowBox[{"ChangeGroupRepBasis", "[", 
+            RowBox[{"g", ",", RowBox[{"Last", "[", RowBox[{"g", "[", 
+                  "\"IrrepOrder\"", "]"}], "]"}], ",", RowBox[{"{", 
+                RowBox[{RowBox[{"{", RowBox[{"1", ",", "1"}], "}"}], ",", 
+                  RowBox[{"{", RowBox[{"1", ",", "1"}], "}"}]}], "}"}], ",", 
+              RowBox[{"Basis", "\[Rule]", "\"General\""}]}], "]"}], "]"}]}], 
+      "]"}]], "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/ChangeGroupRepBasis", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "ChangeGroupRepBasis \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

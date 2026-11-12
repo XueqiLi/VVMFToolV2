@@ -1,0 +1,171 @@
+Notebook[{Cell["Verification", "ObjectName"], Cell["Verification sets how a \
+calculation checks its result: Automatic (the usual checks), \"Exact\", \
+\"Numerical\" (checks at WorkingPrecision) or None (no checks; the result is \
+marked \"Unverified\"). Its session default (ConfigureVVMFTool) is the CG \
+family's.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["Option of the CG family (CGCoefficients, CacheCG, ValidateCG and the \
+functions built on CG coefficients), of the Validate functions and of the \
+Wolfram calculations that check their results (Phase 2C), and a session \
+default of ConfigureVVMFTool for CGCoefficients and CacheCG: how a result is \
+checked. Automatic (default) checks exactly for exact arithmetic and \
+numerically for numerical arithmetic. \"Exact\" requires exact checks (with \
+numerical data it is InapplicableOption). \"Numerical\" checks the identities \
+on N[] at WorkingPrecision. None skips the checks of results (input, \
+structural and positivity checks always run) and marks the result \
+\"Unverified\".", "Notes"], Cell["Automatic, \"Exact\", \"Numerical\" or None \
+(the Validate functions: Automatic, \"Exact\" or \"Numerical\"; the \
+modular-form functions have no \"Exact\" route).", "Notes"], 
+  Cell["Every stored CG entry carries a VerificationStatus, \"Exact\", \
+\"Numerical\" or \"Unverified\", that is saved with the group; CGData reports \
+it per target (\"Provenance\") and overall (\"VerificationStatus\"), and \
+CGCacheInformation counts it per pair. A later call at a higher level checks \
+a weaker stored entry and raises its status, or recomputes and replaces it \
+when the check fails; a call with None serves stored entries as they are. The \
+functions built on CG coefficients (TensorProductVectors, Contractions, \
+CGPolynomialResult, TensorProductWeightedVectors, \
+ModularTensorProductVectors, ModularContractions) pass their Verification to \
+the inner CG call; its default there is plain Automatic, not the session's CG \
+value. A call whose level asks for more than its input representations are \
+verified at serves its result at their status and says so in one notice. The \
+package library holds exactly verified coefficients only.", "Notes"], 
+  Cell["Every record carries a verification status, the weakest of its own \
+check and its inputs (Phase 2C): CG coefficients are served at the weakest of \
+their own check, the participating representation variants and the group \
+(Provenance \"Verification\"; \"CheckStatus\" is the entry's own check); \
+vector records, contraction sets, model terms and models, mass matrices and \
+modular forms follow the same rule; RepresentationView shows the status \
+column when a stored variant is weaker than Exact.", "Notes"], 
+  Cell["The switch on other calculations (Phase 2C-ii): \
+ValidateRepresentation, ValidateModel, ValidateMassMatrix, \
+ValidateModularModel (the level of their checks), ValidateModularForm \
+(Automatic or \"Numerical\"); UnitarizeRepresentation, \
+DiagonalizeRepresentationT, DecomposeRepresentation (result identities; their \
+Validation records \"VerificationStatus\" and \"NotChecked\" for skipped \
+checks); AddModelTerm and AddModularFormCouplings (covariance; None adds \
+unchecked terms whose Symmetry is \"Unchecked\"; a later ValidateModel checks \
+them, bounded by their sources); BindModularForms (the Stage 7 validation of \
+each form); ConstructModularForms (recipe evidence); SolveModularCoefficients \
+and ModularFormGetCoeff (None: ProofStatus \"Unchecked\"); ImportModelData \
+(the archive's model and matrices; None keeps a registered export's recorded \
+statuses and makes any other file \"Unverified\"). The export ledger records \
+the weakest record of every saved file, and model archives record weak term \
+and model statuses. Functions without a result check of their own carry their \
+inputs' statuses: CreateModel, CreateModularModel, CoupleContractions, \
+CoupleExpressions, ImportModularFormData (structural checks only), the \
+extraction and evaluation functions.", "Notes"], 
+  Cell["Representations (Phase 2C-iii): ComputeGroupRepresentations at None \
+has GAP match class traces only and stores each new variant as an inert \
+record with status \"Unverified\" (no GAP unitarization runs); at \
+\"Numerical\" each one is then checked on N[] in Wolfram and stored again at \
+\"Numerical\". SetGroupRepresentation, ChangeGroupRepBasis and \
+TransformGroupRepresentations (Wolfram route) at \"Numerical\" or None store \
+inert records with that status. GAP never holds an unverified variant \
+natively: weak variants are inert there, never outrank a verified one and \
+never satisfy a full-level request (a later full request computes verified \
+variants, which become active). ValidateRepresentation[g, id] stores a \
+verified copy of a weak active variant (same matrices and identity) and makes \
+it active (write-back). A variant's status is not part of the context \
+identity, so raising it keeps every context, vector and model built before.", 
+   "Notes"], Cell["Groups (Phase 2C-iii): BuildGroup, BuildGroupFromGAP and \
+BuildModularGroup take Verification. At \"Numerical\" GAP computes the \
+characters and their class transport without its consistency proof (the row \
+comparison and orthogonality), and Wolfram checks orthogonality, degrees and \
+integrality numerically: the group's status is \"Numerical\". At None nothing \
+is checked: \"Unverified\" (BuildModularGroup and AssignModularGenerators at \
+None also skip the S,T proof; AssignModularGenerators has no \"Numerical\"). \
+The representations a weak build computes are weak too. Every record derived \
+from a weak group is bounded by its status. ValidateGroup raises it. \
+ImportGroupData and LoadGroup: a registered file (the user's export ledger or \
+the package library) imports at its recorded level without re-checking \
+anything (its CG coefficients keep their recorded statuses); \"Exact\" \
+re-checks it in GAP (LoadGroup then loads a new copy); an unregistered file \
+at Automatic or \"Exact\" is re-proved in GAP, at \"Numerical\" or None it \
+imports without GAP, with its claims weakened to what was checked: \
+\"Numerical\" when only its character table is checked numerically, \
+\"Unverified\" at None or when it holds an S,T assignment, representations, a \
+generator presentation certificate or element words (no numerical check \
+exists for them); receipt \"UnverifiedImport\". The numerical check covers \
+the character table only: such a group's order and GAP ID are the file's \
+claims until ValidateGroup proves them, and its subgroup lists are not \
+imported (GroupSubgroups recomputes them). Ordinary operations never raise \
+such a group; ValidateGroup proves it. GroupSubgroups, \
+NormalSubgroupsByIndex, GroupElementWords and CheckGeneratorMap are exact by \
+construction (\"Numerical\" is InapplicableOption). The package library holds \
+exactly verified groups only.", "Notes"], Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["CGCoefficients", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"CGCoefficients.nb", None}], "  |  ", 
+     ButtonBox["CacheCG", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"CacheCG.nb", None}], "  |  ", 
+     ButtonBox["ValidateCG", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ValidateCG.nb", None}], "  |  ", 
+     ButtonBox["FieldMethod", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"FieldMethod.nb", None}], "  |  ", 
+     ButtonBox["CGCacheInformation", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"CGCacheInformation.nb", None}], "  |  ", 
+     ButtonBox["ValidateModel", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ValidateModel.nb", None}], "  |  ", 
+     ButtonBox["UnitarizeRepresentation", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"UnitarizeRepresentation.nb", None}], "  |  ", 
+     ButtonBox["AddModelTerm", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"AddModelTerm.nb", None}], "  |  ", 
+     ButtonBox["LoadGroup", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"LoadGroup.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "d"}], "}"}], ",", RowBox[
+         {RowBox[{"d", "=", RowBox[{"First", "[", RowBox[{"Select", "[", 
+                RowBox[{RowBox[{"g", "[", "\"IrrepOrder\"", "]"}], ",", 
+                  RowBox[{RowBox[{RowBox[{"RepDim", "[", RowBox[
+                         {"GroupRepresentation", "[", RowBox[{"g", ",", 
+                          "#1"}], "]"}], "]"}], "===", "2"}], "&"}]}], "]"}], 
+              "]"}]}], ";", RowBox[{"Block", "[", 
+            RowBox[{RowBox[{"{", "Print", "}"}], ",", RowBox[{"{", 
+                RowBox[{RowBox[{RowBox[{"First", "[", RowBox[
+                       {"CGCoefficients", "[", RowBox[{"g", ",", RowBox[
+                          {"{", RowBox[{"d", ",", "d"}], "}"}], ",", "d", 
+                          ",", RowBox[{"Verification", "\[Rule]", "None"}]}], 
+                        "]"}], "]"}], "[", "\"VerificationStatus\"", "]"}], 
+                  ",", RowBox[{RowBox[{"First", "[", RowBox[
+                       {"CGCoefficients", "[", RowBox[{"g", ",", RowBox[
+                          {"{", RowBox[{"d", ",", "d"}], "}"}], ",", "d"}], 
+                        "]"}], "]"}], "[", "\"VerificationStatus\"", "]"}]}], 
+                "}"}]}], "]"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{"\"Unverified\"", ",", "\"Exact\""}], 
+      "}"}]], "Output"], Cell["Possible Issues", "ExampleSection"], 
+  Cell["Invalid input returns a structured Failure. Check FailureQ before \
+using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"CGCoefficients", "[", 
+        RowBox[{"\"no group\"", ",", RowBox[{"{", RowBox[{"\"a\"", ",", 
+              "\"b\""}], "}"}], ",", RowBox[{"Verification", "\[Rule]", 
+            "\"Sometimes\""}]}], "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/Verification", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "Verification \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

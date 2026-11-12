@@ -1,0 +1,56 @@
+Notebook[{Cell["Basis", "ObjectName"], Cell["Basis specifies the requested \
+representation basis: \"Unitary\" (default), \"General\" or \
+\"UnitaryTDiagonal\" (unitary with diagonal assigned T), as each function \
+allows.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["Option for ComputeGroupRepresentations, the builders (BuildGroup, \
+BuildModularGroup, BuildGroupFromGAP), SetGroupRepresentation, \
+ChangeGroupRepBasis, TransformGroupRepresentations, \
+DiagonalizeRepresentationT and DecomposeRepresentation. Default: \
+\"Unitary\".", "Notes"], Cell["\"Unitary\" requires unitary matrices on every \
+recorded generator; \"General\" accepts any verified basis. \
+\"UnitaryTDiagonal\" (ComputeGroupRepresentations, the builders and \
+TransformGroupRepresentations) additionally requires the assigned T to be \
+diagonal, with its phases in the TPhaseOrder order and the PhaseConvention \
+applied (the group needs a modular S,T assignment). SetGroupRepresentation \
+and ChangeGroupRepBasis accept \"Unitary\" and \"General\"; \
+TransformGroupRepresentations \"Unitary\" and \"UnitaryTDiagonal\". For \
+DiagonalizeRepresentationT, \"Unitary\" requires unitary input and keeps the \
+result unitary.", "Notes"], 
+  Cell["The owning function rejects other values before computation.", 
+   "Notes"], Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["ComputeGroupRepresentations", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"ComputeGroupRepresentations.nb", None}], "  |  ", 
+     ButtonBox["BuildGroup", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"BuildGroup.nb", None}], "  |  ", 
+     ButtonBox["DiagonalizeRepresentationT", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"DiagonalizeRepresentationT.nb", None}], "  |  ", 
+     ButtonBox["DecomposeRepresentation", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"DecomposeRepresentation.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"MemberQ", "[", 
+      RowBox[{RowBox[{"First", "/@", RowBox[{"Options", "[", 
+            "ComputeGroupRepresentations", "]"}]}], ",", "Basis"}], "]"}]], 
+   "Input", CellTags -> "VerifiedExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/Basis", "Categorization", CellLabel -> "URI"]}, 
+    Closed]]}, WindowTitle -> "Basis \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

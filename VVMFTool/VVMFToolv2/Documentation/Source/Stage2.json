@@ -1,0 +1,572 @@
+{
+ "Rep": {
+  "Kind": "Function",
+  "Details": [
+   "Rep[{m1, ..., mk}] is a transparent value: the generator matrices in the recorded generator order are exactly what the value contains. Matrices are square, of one positive dimension and invertible, with exact algebraic entries or explicit numerical entries. Symbolic parameters are not supported.",
+   "Rep[{}, d] is the d-dimensional representation of a group with no recorded generators; Rep[{}] without a dimension is invalid.",
+   "RepDim, NumberOfGenerator, GeneratorMatrix and RepMatrix are shared methods of every Rep value. Operations return new values and never change an existing Rep. A valid shape does not by itself certify the matrices as a representation of a particular group."
+  ],
+  "Example": "Module[{r=Rep[{{{0, 1}, {1, 0}}, {{Root[#^2 + # + 1 &, 2], 0}, {0, Root[#^2 + # + 1 &, 1]}}}]}, {RepDim[r], NumberOfGenerator[r]}]",
+  "Expected": "{2,2}",
+  "ErrorExample": "FailureQ[RepDim[Rep[{}]]]",
+  "SeeAlso": [
+   "RepDim",
+   "RepMatrix",
+   "RepresentationContext"
+  ]
+ },
+ "RepDim": {
+  "Kind": "Function",
+  "Details": [
+   "Returns the common dimension of the generator matrices, or the explicit dimension of Rep[{}, d]. Malformed values give a Failure rather than a guessed size."
+  ],
+  "Example": "RepDim[Rep[{}, 3]]",
+  "Expected": "3",
+  "ErrorExample": "FailureQ[RepDim[Rep[{{{1, 2}}}]]]",
+  "SeeAlso": [
+   "Rep",
+   "NumberOfGenerator"
+  ]
+ },
+ "NumberOfGenerator": {
+  "Kind": "Function",
+  "Details": [
+   "Returns the number of generator matrices, which equals the number of recorded generators of the group the value belongs to. Rep[{}, d] has none."
+  ],
+  "Example": "NumberOfGenerator[Rep[{{{1}}, {{-1}}}]]",
+  "Expected": "2",
+  "ErrorExample": "FailureQ[NumberOfGenerator[3]]",
+  "SeeAlso": [
+   "Rep",
+   "GeneratorMatrix"
+  ]
+ },
+ "GeneratorMatrix": {
+  "Kind": "Function",
+  "Details": [
+   "Returns the stored matrix of the i-th recorded generator, counting from 1, exactly as held in the value. Positions do not imply modular roles; use SRep and TRep with a group's explicit assignment."
+  ],
+  "Example": "GeneratorMatrix[Rep[{{{0, 1}, {1, 0}}, {{1, 0}, {0, -1}}}], 2]",
+  "Expected": "{{1,0},{0,-1}}",
+  "ErrorExample": "FailureQ[GeneratorMatrix[Rep[{{{1}}}], 2]]",
+  "SeeAlso": [
+   "Rep",
+   "RepMatrix",
+   "SRep"
+  ]
+ },
+ "RepMatrix": {
+  "Kind": "Function",
+  "Details": [
+   "Evaluates an ordered GroupWord (syllables or text) on the matrices, with names giving the generator names in the matrices' order. Syllables multiply from left to right and negative powers use inverses. Exact results are returned in RootReduce canonical form.",
+   "Only matrices are evaluated; no group relation is asserted. The names must be distinct and one per matrix; Rep[{}, d] accepts only the empty word, whose value is the identity matrix."
+  ],
+  "Example": "RepMatrix[Rep[{{{0, -1}, {1, 0}}}], GroupWord[\"s^-3\"], {\"s\"}]",
+  "Expected": "{{0,-1},{1,0}}",
+  "ErrorExample": "FailureQ[RepMatrix[Rep[{{{0, -1}, {1, 0}}}], GroupWord[\"t\"], {\"s\"}]]",
+  "SeeAlso": [
+   "Rep",
+   "GroupWord",
+   "SRep"
+  ]
+ },
+ "SRep": {
+  "Kind": "Function",
+  "Details": [
+   "Evaluates the group's assigned S word on the representation's matrices, which must be one per recorded generator in recorded order. There is no positional fallback: a group without an assignment gives MissingModularAssignment.",
+   "The first argument is a live Group or a RepresentationContext bound in this kernel; an unbound or altered context gives UnverifiedContext. SRep does not certify that the matrices represent the group."
+  ],
+  "Example": "Module[{g=BuildModularGroup[\"24-3I\", ComputeRepresentations -> False, StoreGAPState -> False], r}, r=Rep[Replace[Lookup[g[\"Generators\"], \"Name\"], {\"S\" -> {{1}}, \"T\" -> {{Root[#^2 + # + 1 &, 2]}}}, {1}]]; SRep[g, r]]",
+  "Expected": "{{1}}",
+  "ErrorExample": "Module[{g=BuildGroup[CatalogueGroup[\"CyclicGroup\", 3], ComputeRepresentations -> False, StoreGAPState -> False]}, FailureQ[SRep[g, Rep[{{{1}}}]]]]",
+  "SeeAlso": [
+   "TRep",
+   "AssignModularGenerators",
+   "RepresentationContext"
+  ]
+ },
+ "TRep": {
+  "Kind": "Function",
+  "Details": [
+   "Evaluates the group's assigned T word on the representation's matrices, like SRep. The assigned word, not the generator position, selects the matrix."
+  ],
+  "Example": "Module[{g=BuildModularGroup[\"24-3I\", ComputeRepresentations -> False, StoreGAPState -> False], r}, r=Rep[Replace[Lookup[g[\"Generators\"], \"Name\"], {\"S\" -> {{1}}, \"T\" -> {{Root[#^2 + # + 1 &, 2]}}}, {1}]]; TRep[g, r]]",
+  "Expected": "{{(-1 + I*Sqrt[3])/2}}",
+  "ErrorExample": "Module[{g=BuildGroup[CatalogueGroup[\"CyclicGroup\", 3], ComputeRepresentations -> False, StoreGAPState -> False]}, FailureQ[TRep[g, Rep[{{{1}}}]]]]",
+  "SeeAlso": [
+   "SRep",
+   "BuildModularGroup",
+   "RepresentationContext"
+  ]
+ },
+ "RepresentationContext": {
+  "Kind": "Function",
+  "Details": [
+   "RepresentationContext[g] freezes the accepted group's GroupIdentity, GeneratorIdentity, GeneratorIDs, GeneratorNames, Order, Construction, StateGeneration, CharacterData, ModularAssignment and Representations. context[\"Field\"] reads a field.",
+   "The snapshot is immutable: later changes to the group, such as a new modular assignment, do not change it. A copy of a context remains valid in the kernel where it was bound; an altered snapshot is not accepted by group-aware operations."
+  ],
+  "Example": "Module[{g=BuildGroup[CatalogueGroup[\"CyclicGroup\", 3], ComputeRepresentations -> False, StoreGAPState -> False], c}, c=RepresentationContext[g]; {c[\"Order\"], c[\"GeneratorNames\"], c[\"ModularAssignment\"]}]",
+  "Expected": "{3,{\"g1\"},Missing[\"NotAssigned\"]}",
+  "ErrorExample": "FailureQ[RepresentationContext[3]]",
+  "SeeAlso": [
+   "SRep",
+   "TRep",
+   "Group"
+  ]
+ },
+ "ComputeGroupRepresentations": {
+  "Kind": "Function",
+  "Details": [
+   "Computes verified irreducible representation matrices on the recorded generators and stores them in the same Group, keyed by stable irrep ID. Every result is checked in GAP on the actual group (relations of a presentation on the recorded generators and class traces equal to the bound character) and published as a new group generation, so work already verified is kept if a later route fails or the call is cancelled.",
+   "Basis -> \"Unitary\" (default) runs three phases, each batch within one phase: direct unitary routes (SL2Reps when the group has an S,T assignment, LinearCharacter, unitary Dixon, Baum-Clausen, unitary induction); then general routes whose verified matrices are unitarized in GAP (an invariant form from a stabilizer-chain or group average and its LDL factorization, all in cyclotomic arithmetic), starting with general matrices already kept; then general routes alone, whose verified matrices are kept as accepted partials. If an irrep still has no unitary basis, the call returns UnitaryConstructionUnavailable with the group as PartialResult, the remaining irrep IDs, RouteOutcomes (each attempted method and model with its outcome) and Suggestions: explicit commands retrying just those irreps with a longer time limit, and, for groups without an assignment, assigning S,T so SL2Reps can apply. Basis -> \"UnitaryTDiagonal\" (needs a modular S,T assignment) then diagonalizes the assigned T in GAP for every irrep, starting from its variant of smallest conductor. The T phases are then nondecreasing in [0, 1) (TPhaseOrder -> \"Ascending\", default; \"Unchanged\" keeps a diagonal T as constructed) and PhaseConvention -> \"FirstSRow\" makes the first-row S entries real and nonnegative; an irrep whose diagonal T from a direct route is in another order or convention is diagonalized again in GAP. Basis -> \"General\" accepts any verified basis.",
+   "A unitarized or T-diagonal variant is stored as native matrices N with positive scales sigma: its matrices are DiagonalMatrix[Sqrt[sigma]].N.Inverse[DiagonalMatrix[Sqrt[sigma]]], and RepresentationData shows its Tier (\"ScaledNative\"), Scales and Derivation (the variant it was derived from and the conjugating matrix).",
+   "RepresentationMethod selects one route; MethodData supplies route data (subgroup generator words and an optional subgroup Rep for subgroup routes; AtlasName and RepresentationNumber for AtlasRep, which uses only locally stored data). A request that is already satisfied returns immediately without starting GAP.",
+   "UnitarizationMethod chooses GAP's unitarizer and WitnessVariant the variant it starts from; GroupModel may be an ordered list of models."
+  ],
+  "Example": "Module[{g=BuildGroup[CatalogueGroup[\"SymmetricGroup\", 3], ComputeRepresentations -> False, StoreGAPState -> False]}, ComputeGroupRepresentations[g, Basis -> \"General\", StoreGAPState -> False]; {g[\"AvailableData\"][\"Representations\"], Sort[RepDim[GroupRepresentation[g, #]] & /@ g[\"IrrepOrder\"]]}]",
+  "Expected": "{\"Complete\", {1, 1, 2}}",
+  "ErrorExample": "Module[{g=BuildGroup[CatalogueGroup[\"SymmetricGroup\", 3], ComputeRepresentations -> False, StoreGAPState -> False]}, FailureQ[ComputeGroupRepresentations[g, \"unknown-irrep\"]]]",
+  "SeeAlso": [
+   "GroupRepresentation",
+   "RepresentationData",
+   "Basis",
+   "RepresentationMethod"
+  ]
+ },
+ "GroupRepresentation": {
+  "Kind": "Function",
+  "Details": [
+   "Returns the Rep of the irrep's active variant, the basis that satisfied the request, or Missing[\"NotComputed\"]. Reading never starts a computation. Unknown irrep IDs give a Failure."
+  ],
+  "Example": "Module[{g=BuildGroup[CatalogueGroup[\"SymmetricGroup\", 3], ComputeRepresentations -> False, StoreGAPState -> False]}, GroupRepresentation[g, First[g[\"IrrepOrder\"]]]]",
+  "Expected": "Missing[\"NotComputed\"]",
+  "ErrorExample": "Module[{g=BuildGroup[CatalogueGroup[\"SymmetricGroup\", 3], ComputeRepresentations -> False, StoreGAPState -> False]}, FailureQ[GroupRepresentation[g, \"unknown-irrep\"]]]",
+  "SeeAlso": [
+   "ComputeGroupRepresentations",
+   "RepresentationData",
+   "Rep"
+  ]
+ },
+ "RepresentationData": {
+  "Kind": "Function",
+  "Details": [
+   "Returns CharacterID, Dimension, GeneratorIdentity, Variants, ActiveVariant and AcceptedPartial. Each variant holds its Rep, realization Identity, Tier, Arithmetic (\"Exact\" or \"Numerical\"), BasisProperties (Unitary; TDiagonal and AssignmentIdentity for an assigned S,T), SourceMethod, Scales and NativeMatrices (the positive scales and cyclotomic matrices N of a scaled variant, or Missing) and Derivation (the witness variant and conjugating matrix of a derived variant, or Missing). An accepted partial is a verified general basis kept while a unitary one is missing.",
+   "Tiers: \"Native\" and \"ScaledNative\" variants are verified in GAP; \"Wolfram\" (exact, not cyclotomic) and \"Numerical\" (declared precision) variants are verified in Wolfram when accepted and again when a saved group is imported by correspondence, and GAP stores them unchanged. A numerical variant becomes active only when chosen explicitly (for example with SetGroupRepresentation), and an exact computation of the irrep later replaces it. After a new modular assignment, a Wolfram or Numerical variant reports TDiagonal False until it is transformed again.",
+   "A variant's T-phase order and phase convention are not stored separately: RepresentationTSpectrum (with TPhaseOrder -> \"Unchanged\") and SRep recompute them from the matrices, and SourceMethod names the route (for example TDiagonalize with its witness variant as the model)."
+  ],
+  "Example": "Module[{g=BuildGroup[CatalogueGroup[\"SymmetricGroup\", 3], ComputeRepresentations -> False, StoreGAPState -> False], id}, id = First[g[\"IrrepOrder\"]]; Keys[RepresentationData[g, id]]]",
+  "Expected": "{\"CharacterID\", \"Dimension\", \"GeneratorIdentity\", \"Variants\", \"ActiveVariant\", \"AcceptedPartial\"}",
+  "ErrorExample": "Module[{g=BuildGroup[CatalogueGroup[\"SymmetricGroup\", 3], ComputeRepresentations -> False, StoreGAPState -> False]}, FailureQ[RepresentationData[g, \"unknown-irrep\"]]]",
+  "SeeAlso": [
+   "GroupRepresentation",
+   "ComputeGroupRepresentations"
+  ]
+ },
+ "Basis": {
+  "Kind": "Option",
+  "Details": [
+   "Option for ComputeGroupRepresentations, the builders (BuildGroup, BuildModularGroup, BuildGroupFromGAP), SetGroupRepresentation, ChangeGroupRepBasis, TransformGroupRepresentations, DiagonalizeRepresentationT and DecomposeRepresentation. Default: \"Unitary\".",
+   "\"Unitary\" requires unitary matrices on every recorded generator; \"General\" accepts any verified basis. \"UnitaryTDiagonal\" (ComputeGroupRepresentations, the builders and TransformGroupRepresentations) additionally requires the assigned T to be diagonal, with its phases in the TPhaseOrder order and the PhaseConvention applied (the group needs a modular S,T assignment). SetGroupRepresentation and ChangeGroupRepBasis accept \"Unitary\" and \"General\"; TransformGroupRepresentations \"Unitary\" and \"UnitaryTDiagonal\". For DiagonalizeRepresentationT, \"Unitary\" requires unitary input and keeps the result unitary.",
+   "The owning function rejects other values before computation."
+  ],
+  "Example": "MemberQ[First /@ Options[ComputeGroupRepresentations], Basis]",
+  "Expected": "True",
+  "SeeAlso": [
+   "ComputeGroupRepresentations",
+   "BuildGroup",
+   "DiagonalizeRepresentationT",
+   "DecomposeRepresentation"
+  ]
+ },
+ "RepresentationMethod": {
+  "Kind": "Option",
+  "Details": [
+   "Option for ComputeGroupRepresentations and the builders (BuildGroup, BuildModularGroup, BuildGroupFromGAP). Default: Automatic.",
+   "Automatic, \"SL2Reps\", \"LinearCharacter\", \"DixonUnitary\", \"BaumClausen\", \"InducedUnitary\", \"Dixon\", \"REPSN\", \"CharacterSubgroup\", \"Induction\", \"Extension\", \"NormalExtension\", \"AtlasRep\" or \"GAP\". Automatic runs direct unitary routes before general ones; every result is verified on the actual group.",
+   "Per-call setting; not part of the package configuration."
+  ],
+  "Example": "MemberQ[First /@ Options[ComputeGroupRepresentations], RepresentationMethod]",
+  "Expected": "True",
+  "SeeAlso": [
+   "ComputeGroupRepresentations",
+   "MethodData"
+  ]
+ },
+ "MethodData": {
+  "Kind": "Option",
+  "Details": [
+   "Option for ComputeGroupRepresentations and the builders (BuildGroup, BuildModularGroup, BuildGroupFromGAP). Default: Automatic.",
+   "<|\"SubgroupGenerators\" -> {GroupWord..}, \"Representation\" -> Rep|> for CharacterSubgroup, Induction, InducedUnitary, Extension and NormalExtension (the Representation is optional and not used by CharacterSubgroup); <|\"AtlasName\" -> name, \"RepresentationNumber\" -> n|> for AtlasRep.",
+   "Requires an explicit RepresentationMethod; keys foreign to that route are rejected before computation.",
+   "For the CG method SubgroupEmbedding, MethodData gives \"SubgroupGenerators\" or \"SubgroupRecord\"; without them a recorded proper subgroup is used, and a cyclic or the identity subgroup only with \"SubgroupSource\" -> \"Any\"."
+  ],
+  "Example": "MemberQ[First /@ Options[ComputeGroupRepresentations], MethodData]",
+  "Expected": "True",
+  "SeeAlso": [
+   "RepresentationMethod",
+   "ComputeGroupRepresentations"
+  ]
+ },
+ "UnitaryRepresentationQ": {
+  "Kind": "Function",
+  "Details": [
+   "Tests every generator matrix of a Rep value: M^†.M == I. Unitary generators make every element matrix unitary.",
+   "Exact matrices are decided exactly. Numerical matrices are compared with Tolerance (default 10^(-Floor[p/2]) for precision p; 16 digits for machine numbers); Tolerance with exact matrices is refused.",
+   "Unitarity is a property of the matrices, so no group is needed; an invalid or singular Rep gives a Failure rather than False."
+  ],
+  "Example": "{UnitaryRepresentationQ[Rep[{{{0, 1}, {1, 0}}}]], UnitaryRepresentationQ[Rep[{{{1, 1}, {0, 1}}}]]}",
+  "Expected": "{True,False}",
+  "ErrorExample": "FailureQ[UnitaryRepresentationQ[Rep[{{{0}}}]]]",
+  "SeeAlso": [
+   "UnitarizeRepresentation",
+   "ChangeRepBasis",
+   "Rep"
+  ]
+ },
+ "ChangeRepBasis": {
+  "Kind": "Function",
+  "Details": [
+   "ChangeRepBasis[r, b] returns the Rep with matrices b.M.Inverse[b] for every generator matrix M of r; coordinate vectors transform by b. The input value is unchanged.",
+   "b must be an invertible square matrix of the representation's dimension with exact algebraic or explicit numerical entries. The result is exact when r and b are exact.",
+   "An explicit basis change can make a unitary representation nonunitary."
+  ],
+  "Example": "ChangeRepBasis[Rep[{{{0, 1}, {1, 0}}}], {{1, 1}, {1, -1}}]",
+  "Expected": "Rep[{{{1,0},{0,-1}}}]",
+  "ErrorExample": "FailureQ[ChangeRepBasis[Rep[{{{0, 1}, {1, 0}}}], {{1, 1}, {1, 1}}]]",
+  "SeeAlso": [
+   "UnitarizeRepresentation",
+   "DiagonalizeRepresentationT",
+   "Rep"
+  ]
+ },
+ "UnitarizeRepresentation": {
+  "Kind": "Function",
+  "Details": [
+   "UnitarizeRepresentation[g, r] finds a positive Hermitian form H with M^†.H.M == H on every recorded generator, factors H == B^†.B and returns the unitary Rep with matrices B.M.Inverse[B], together with BasisChange, InverseBasisChange, InvariantForm, Arithmetic, Validation and Attempts.",
+   "UnitarizationMethod: \"GroupAverage\" averages over the image of the group (bounded by the group order), \"GeneratorEquations\" solves the generator equations, and \"BSGSAverage\" is the native GAP route of automatic representation computation. Automatic tries GroupAverage, then GeneratorEquations. FormFactorizationMethod: Automatic tries \"Cholesky\", \"LDL\", \"Spectral\". An explicit method never switches to another.",
+   "Arithmetic -> \"Exact\" (default) proves every identity exactly, working in the number field of the input entries when one is found quickly. Arithmetic -> \"Numerical\" uses WorkingPrecision and Tolerance and records residuals; a numerical result is never labeled exact and keeps the exact input's identity as ExactReference. AttemptTimeLimit bounds the call."
+  ],
+  "Example": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False], r, u}, r=ChangeRepBasis[Rep[{{{0, 1}, {1, 0}}, {{0, Root[#^2 + # + 1 &, 2]}, {Root[#^2 + # + 1 &, 1], 0}}}], {{1, 1}, {0, 1}}]; u=UnitarizeRepresentation[g, r]; {UnitaryRepresentationQ[r], UnitaryRepresentationQ[u[\"Rep\"]], u[\"Validation\"][\"UnitarizationMethod\"]}]",
+  "Expected": "{False,True,\"GroupAverage\"}",
+  "ErrorExample": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False]}, FailureQ[UnitarizeRepresentation[g, Rep[{{{1}}}]]]]",
+  "SeeAlso": [
+   "UnitaryRepresentationQ",
+   "DiagonalizeRepresentationT",
+   "UnitarizationMethod",
+   "FormFactorizationMethod"
+  ]
+ },
+ "DiagonalizeRepresentationT": {
+  "Kind": "Function",
+  "Details": [
+   "DiagonalizeRepresentationT[g, r] returns a Rep in which the assigned modular generator T of g is diagonal, with BasisChange, InverseBasisChange, TSpectrum, Validation and Attempts. The group must have a modular S,T assignment.",
+   "Basis -> \"Unitary\" (default) requires unitary input and returns an orthonormal eigenbasis, so the result stays unitary; Basis -> \"General\" accepts any input. TPhaseOrder -> \"Ascending\" orders T phases in [0,1); \"Unchanged\" keeps the basis order where possible. PhaseConvention -> \"FirstSRow\" applies a diagonal unitary rephasing making every nonzero entry of the first row of S after the first real and nonnegative.",
+   "DiagonalizationMethod: Automatic tries \"Exact\" (eigenspaces computed and every identity proved exactly), then \"NumericalReconstruction\" (a high-precision eigenbasis whose exact entries are recovered and proved); \"Numerical\" requires Arithmetic -> \"Numerical\" and records residuals."
+  ],
+  "Example": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False], r, d}, AssignModularGenerators[g, GroupWord[\"s\"], GroupWord[\"t\"], StoreGAPState -> False]; r=UnitarizeRepresentation[g, ChangeRepBasis[Rep[{{{0, 1}, {1, 0}}, {{0, Root[#^2 + # + 1 &, 2]}, {Root[#^2 + # + 1 &, 1], 0}}}], {{1, 1}, {0, 1}}]][\"Rep\"]; d=DiagonalizeRepresentationT[g, r, PhaseConvention -> \"FirstSRow\"]; {TRep[g, d[\"Rep\"]], d[\"TSpectrum\"][\"Phases\"], UnitaryRepresentationQ[d[\"Rep\"]]}]",
+  "Expected": "{{{1,0},{0,-1}},{0,1/2},True}",
+  "ErrorExample": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False]}, FailureQ[DiagonalizeRepresentationT[g, Rep[{{{0, 1}, {1, 0}}, {{1, 0}, {0, 1}}}]]]]",
+  "SeeAlso": [
+   "RepresentationTSpectrum",
+   "UnitarizeRepresentation",
+   "TRep",
+   "TPhaseOrder",
+   "PhaseConvention",
+   "DiagonalizationMethod"
+  ]
+ },
+ "RepresentationTSpectrum": {
+  "Kind": "Function",
+  "Details": [
+   "RepresentationTSpectrum[g, r] returns Eigenvalues, Phases, Multiplicities, TOrder and Arithmetic of the assigned modular generator T of g in the representation r, distinct phases ascending in [0,1).",
+   "Exact phases are certified fractions k/n: n is the order of T in r, and the eigenspaces for the n-th roots of unity are computed exactly and must span the space. The spectrum is data, not an irrep identity."
+  ],
+  "Example": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False]}, AssignModularGenerators[g, GroupWord[\"s\"], GroupWord[\"t\"], StoreGAPState -> False]; RepresentationTSpectrum[g, ChangeRepBasis[Rep[{{{0, 1}, {1, 0}}, {{0, Root[#^2 + # + 1 &, 2]}, {Root[#^2 + # + 1 &, 1], 0}}}], {{1, 1}, {0, 1}}]][\"Phases\"]]",
+  "Expected": "{0,1/2}",
+  "ErrorExample": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False]}, FailureQ[RepresentationTSpectrum[g, ChangeRepBasis[Rep[{{{0, 1}, {1, 0}}, {{0, Root[#^2 + # + 1 &, 2]}, {Root[#^2 + # + 1 &, 1], 0}}}], {{1, 1}, {0, 1}}]]]]",
+  "SeeAlso": [
+   "DiagonalizeRepresentationT",
+   "TRep"
+  ]
+ },
+ "UnitarizationMethod": {
+  "Kind": "Option",
+  "Details": [
+   "Option for UnitarizeRepresentation and TransformGroupRepresentations. Default: Automatic (UnitarizeRepresentation: GroupAverage, then GeneratorEquations; TransformGroupRepresentations: the GAP unitarizers BSGSAverage, then GroupAverage).",
+   "\"GroupAverage\" averages M^†.M over the image of the group; \"GeneratorEquations\" solves M^†.H.M == H on the generators and chooses a positive solution; \"BSGSAverage\" is a native GAP route (automatic representation computation and TransformGroupRepresentations in GAP) and is refused where the work runs in Wolfram.",
+   "The owning function rejects other values before computation.",
+   "Also an option of ComputeGroupRepresentations and the group builders (GAP unitarizers: Automatic, \"BSGSAverage\", \"GroupAverage\"), of DecomposeRepresentation (the invariant form of the unitary coordinates: Automatic, \"GroupAverage\", \"GeneratorEquations\") and of the CG functions (the temporary unitarization of a transported spectral route: Automatic, \"GroupAverage\", \"GeneratorEquations\"). An explicit choice is used as given, without a fallback."
+  ],
+  "Example": "MemberQ[First /@ Options[UnitarizeRepresentation], UnitarizationMethod]",
+  "Expected": "True",
+  "SeeAlso": [
+   "UnitarizeRepresentation"
+  ]
+ },
+ "FormFactorizationMethod": {
+  "Kind": "Option",
+  "Details": [
+   "Option for UnitarizeRepresentation and TransformGroupRepresentations. Default: Automatic (Cholesky, then LDL, then Spectral).",
+   "Each method returns B with H == B^†.B and is verified: \"Cholesky\" the upper-triangular factor, \"LDL\" Sqrt[D].L^† from H == L.D.L^†, \"Spectral\" the positive square root.",
+   "The owning function rejects other values before computation."
+  ],
+  "Example": "MemberQ[First /@ Options[UnitarizeRepresentation], FormFactorizationMethod]",
+  "Expected": "True",
+  "SeeAlso": [
+   "UnitarizeRepresentation"
+  ]
+ },
+ "DiagonalizationMethod": {
+  "Kind": "Option",
+  "Details": [
+   "Option for DiagonalizeRepresentationT and TransformGroupRepresentations. Default: Automatic (Exact, then NumericalReconstruction; Numerical for numerical arithmetic).",
+   "\"Exact\" and \"NumericalReconstruction\" prove every identity exactly and require Arithmetic -> \"Exact\"; \"Numerical\" requires Arithmetic -> \"Numerical\".",
+   "The owning function rejects other values and inapplicable combinations before computation."
+  ],
+  "Example": "MemberQ[First /@ Options[DiagonalizeRepresentationT], DiagonalizationMethod]",
+  "Expected": "True",
+  "SeeAlso": [
+   "DiagonalizeRepresentationT"
+  ]
+ },
+ "Arithmetic": {
+  "Kind": "Option",
+  "Details": [
+   "Option for UnitarizeRepresentation, DiagonalizeRepresentationT, RepresentationTSpectrum, RepresentationCharacter, ValidateRepresentation, DecomposeRepresentation and TransformGroupRepresentations. Default: \"Exact\".",
+   "\"Exact\" proves identities exactly and refuses numerical input; \"Numerical\" works at WorkingPrecision (default 50) and checks residuals against Tolerance (default 10^(-Floor[p/2])). Tolerance is accepted only with numerical arithmetic.",
+   "The owning function rejects other values before computation."
+  ],
+  "Example": "MemberQ[First /@ Options[UnitarizeRepresentation], Arithmetic]",
+  "Expected": "True",
+  "SeeAlso": [
+   "UnitarizeRepresentation",
+   "DiagonalizeRepresentationT",
+   "RepresentationTSpectrum"
+  ]
+ },
+ "TPhaseOrder": {
+  "Kind": "Option",
+  "Details": [
+   "Option for DiagonalizeRepresentationT, TransformGroupRepresentations, ComputeGroupRepresentations and the builders (the last two with Basis -> \"UnitaryTDiagonal\" only). Default: \"Ascending\".",
+   "\"Ascending\" orders the diagonal T by phase in [0,1) (nondecreasing); \"Unchanged\" orders basis vectors by their first nonzero coordinate, so an already diagonal T keeps its basis. Vectors of one eigenvalue keep their order. With ComputeGroupRepresentations, an irrep whose diagonal T is in another order (for example from SL2Reps) is diagonalized again in GAP.",
+   "The owning function rejects other values before computation."
+  ],
+  "Example": "MemberQ[First /@ Options[DiagonalizeRepresentationT], TPhaseOrder]",
+  "Expected": "True",
+  "SeeAlso": [
+   "DiagonalizeRepresentationT"
+  ]
+ },
+ "PhaseConvention": {
+  "Kind": "Option",
+  "Details": [
+   "Option for DiagonalizeRepresentationT, TransformGroupRepresentations, ComputeGroupRepresentations and the builders (the last two with Basis -> \"UnitaryTDiagonal\" only). Default: None.",
+   "\"FirstSRow\" applies a diagonal unitary rephasing after diagonalization: the first basis phase is one, and each nonzero first-row entry of S after the first becomes real and nonnegative; zero entries keep their phase and S11 is unchanged.",
+   "The owning function rejects other values before computation."
+  ],
+  "Example": "MemberQ[First /@ Options[DiagonalizeRepresentationT], PhaseConvention]",
+  "Expected": "True",
+  "SeeAlso": [
+   "DiagonalizeRepresentationT"
+  ]
+ },
+ "RepresentationCharacter": {
+  "Kind": "Function",
+  "Details": [
+   "RepresentationCharacter[g, r] returns the traces of r on the bound class representative words of g, as an association class ID -> value in the order of g's classes.",
+   "It works for reducible representations and does not by itself certify r as a representation of the group; ValidateRepresentation does. Arithmetic -> \"Numerical\" evaluates at WorkingPrecision."
+  ],
+  "Example": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False]}, Values[RepresentationCharacter[g, Rep[{{{0, 1}, {1, 0}}, {{0, Root[#^2 + # + 1 &, 2]}, {Root[#^2 + # + 1 &, 1], 0}}}]]]]",
+  "Expected": "{2,0,-1}",
+  "ErrorExample": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False]}, FailureQ[RepresentationCharacter[g, Rep[{{{1}}}]]]]",
+  "SeeAlso": [
+   "ValidateRepresentation",
+   "DecomposeRepresentation"
+  ]
+ },
+ "ValidateRepresentation": {
+  "Kind": "Function",
+  "Details": [
+   "ValidateRepresentation[g, r] checks r against g: Homomorphism (every relator of a complete presentation on the recorded generators evaluates to the identity), Character and Multiplicities (character inner products), Irreducible (the matched irrep ID, or None) and BasisProperties (Unitary; TDiagonal for an assigned S,T).",
+   "The presentation of a live group is certified once in GAP when it is not yet stored; a context uses a presentation-built construction or an accepted group of the same state in this kernel. A matrix assignment that fails the relators gives Homomorphism -> False, a proven invalid result, distinct from a Failure.",
+   "Arithmetic -> \"Exact\" (default) decides everything exactly; \"Numerical\" reports residuals with Status \"Numerical\".",
+   "ValidateRepresentation[g, id] validates the stored active variant of irrep id. When the check (Verification -> Automatic or \"Exact\": exact; \"Numerical\": on N[]) proves it the irrep at a level above its stored status, the same matrices are stored again at that level (a new variant with the same identity; the weak one stays stored) and made active (one GAP generation; an exactly verified cyclotomic variant is then a native GAP variant), and the report has \"WrittenBack\" -> True. The report's \"VerificationStatus\" is the level of the checks, bounded by the group's status."
+  ],
+  "Example": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False], v}, v = ValidateRepresentation[g, Rep[{{{0, 1}, {1, 0}}, {{0, Root[#^2 + # + 1 &, 2]}, {Root[#^2 + # + 1 &, 1], 0}}}]]; {v[\"Homomorphism\"], Values[v[\"Multiplicities\"]], StringQ[v[\"Irreducible\"]]}]",
+  "Expected": "{True,{1},True}",
+  "ErrorExample": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False]}, ValidateRepresentation[g, Rep[{{{1}}, {{-1}}}]][\"Irreducible\"] === None]",
+  "SeeAlso": [
+   "RepresentationCharacter",
+   "DecomposeRepresentation",
+   "Rep"
+  ]
+ },
+ "DecomposeRepresentation": {
+  "Kind": "Function",
+  "Details": [
+   "DecomposeRepresentation[g, r] validates r, computes its multiplicities and returns Rep (the block representation built from the target irreps, unchanged), Blocks (CharacterID, Copy, Indices, Target), Multiplicities, Embedding U with M.U == U.block for every generator matrix M, BasisChange (Inverse[U]), InverseBasisChange (U), Arithmetic and Validation.",
+   "Targets are the group's stored irreps (computed on a live group when missing) or TargetRepresentations, an association irrep ID -> Rep covering every constituent and validated against its irrep. Basis -> \"Unitary\" (default) uses unitary targets and orthonormal multiplicity coordinates: U^†.H.U == I for an invariant form H of r, so U is unitary when r is. Basis -> \"General\" accepts general targets.",
+   "Method -> Automatic tries, for exact cyclotomic input on a live group (or a context whose group is live in this kernel), the native GAP routes \"Serre\", \"Alternative\" and \"Canonical\" (RepnDecomp, with the targets supplied as irreps), \"REPSNConstituents\" and \"REPSNBlocks\", then \"GeneratorEquations\", which solves M.X == X.D for each constituent in Wolfram exactly (or numerically with Arithmetic -> \"Numerical\"). A native route supplies intertwiner bases checked in GAP; normalization and the exact proofs are the same for every route. IsomorphismMethod selects the native alignment. Validation reports the Method used and the Attempts.",
+   "UnitarizationMethod chooses the invariant form of the unitary coordinates (recorded under Validation \"UnitarizationMethod\"); FieldMethod chooses the exact domain (Validation \"Domain\")."
+  ],
+  "Example": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False], r, dec}, r = Rep[{{{1, 0, 0}, {0, 0, 1}, {0, 1, 0}}, {{0, 1, 0}, {1, 0, 0}, {0, 0, 1}}}]; ComputeGroupRepresentations[g, StoreGAPState -> False]; dec = DecomposeRepresentation[g, r, StoreGAPState -> False]; {Sort[Values[dec[\"Multiplicities\"]]], dec[\"Validation\"][\"Covariance\"], UnitaryRepresentationQ[dec[\"Rep\"]]}]",
+  "Expected": "{{1,1},True,True}",
+  "ErrorExample": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False]}, FailureQ[DecomposeRepresentation[g, Rep[{{{1}}, {{-1}}}], Method -> \"GeneratorEquations\", IsomorphismMethod -> \"BSGS\"]]]",
+  "SeeAlso": [
+   "ValidateRepresentation",
+   "TargetRepresentations",
+   "IsomorphismMethod",
+   "ComputeGroupRepresentations"
+  ]
+ },
+ "IsomorphismMethod": {
+  "Kind": "Option",
+  "Details": [
+   "Option for DecomposeRepresentation. Default: Automatic.",
+   "Selects the native alignment of decomposition subspaces to the target irreps: \"BSGS\" (RepnDecomp's stabilizer-chain group sum), \"GroupAverage\" (a sum over the group) and \"OrbitSum\" apply to one copy of a target on an irreducible subspace; \"GeneratorEquations\" solves the intertwiner equations for any multiplicity. Automatic tries them in that order where they apply. A native IsomorphismMethod with Method -> \"GeneratorEquations\" or numerical arithmetic is refused.",
+   "The owning function rejects other values before computation."
+  ],
+  "Example": "MemberQ[First /@ Options[DecomposeRepresentation], IsomorphismMethod]",
+  "Expected": "True",
+  "SeeAlso": [
+   "DecomposeRepresentation"
+  ]
+ },
+ "TargetRepresentations": {
+  "Kind": "Option",
+  "Details": [
+   "Option for DecomposeRepresentation. Default: Automatic.",
+   "Automatic uses the group's stored active irreps in the requested basis, computing missing ones on a live group; an association irrep ID -> Rep supplies the targets, each validated against the same group and its irrep ID, and must cover every constituent.",
+   "The owning function rejects other values before computation."
+  ],
+  "Example": "MemberQ[First /@ Options[DecomposeRepresentation], TargetRepresentations]",
+  "Expected": "True",
+  "SeeAlso": [
+   "DecomposeRepresentation"
+  ]
+ },
+ "ReorderGroupIrreps": {
+  "Kind": "Function",
+  "Details": [
+   "ReorderGroupIrreps[g, ids] sets g[\"IrrepOrder\"], the presentation order of the irreducible representations, to ids, a permutation of the irrep IDs.",
+   "Only the presentation order changes: irrep IDs, character rows, representation matrices, bases and caches keyed by irrep ID are unchanged, and no GAP work or new generation is involved. The order is saved and restored with SaveGroupData and ImportGroupData."
+  ],
+  "Example": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], ids}, ids = g[\"IrrepOrder\"]; ReorderGroupIrreps[g, Reverse[ids]]; g[\"IrrepOrder\"] === Reverse[ids]]",
+  "Expected": "True",
+  "ErrorExample": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False]}, FailureQ[ReorderGroupIrreps[g, Rest[g[\"IrrepOrder\"]]]]]",
+  "SeeAlso": [
+   "SortGroupIrreps",
+   "GroupRepresentation"
+  ]
+ },
+ "SortGroupIrreps": {
+  "Kind": "Function",
+  "Details": [
+   "SortGroupIrreps[g] sorts g[\"IrrepOrder\"] by degree; irreps of equal degree keep their current relative order.",
+   "Like ReorderGroupIrreps it changes only the presentation order."
+  ],
+  "Example": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False]}, ReorderGroupIrreps[g, Reverse[g[\"IrrepOrder\"]]]; SortGroupIrreps[g]; RepDim[GroupRepresentation[g, #]] & /@ g[\"IrrepOrder\"]]",
+  "Expected": "{1,1,2}",
+  "ErrorExample": "FailureQ[SortGroupIrreps[3]]",
+  "SeeAlso": [
+   "ReorderGroupIrreps"
+  ]
+ },
+ "RepresentationElementMatrices": {
+  "Kind": "Function",
+  "Details": [
+   "RepresentationElementMatrices[g, id] returns the matrices of all group elements (in the order of GroupElementWords[g]) in the active representation of irrep id; RepresentationElementMatrices[g, id, words] evaluates just the given GroupWord values, in order and with duplicates kept.",
+   "The irrep must have an active representation (compute it first with ComputeGroupRepresentations). Matrices are exact and cached by the active variant's realization identity, so a later basis change never reuses them; CleanRepresentationCache removes them.",
+   "Words may also be plain strings such as \"S\" or \"T^2.S\", and the irrep may be given by its index. The matrices are exact and readable: radicals, e^{2 pi i k/n}, or sums of rational multiples of roots of unity; a value whose form is not found within the display time budget keeps its exact Root form."
+  ],
+  "Example": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], id}, id = Last[g[\"IrrepOrder\"]]; RepresentationElementMatrices[g, id, {GroupWord[{}], GroupWord[\"s\"]}] === {IdentityMatrix[2], GeneratorMatrix[GroupRepresentation[g, id], 1]}]",
+  "Expected": "True",
+  "ErrorExample": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False]}, FailureQ[RepresentationElementMatrices[g, \"unknown-irrep\", {GroupWord[{}]}]]]",
+  "SeeAlso": [
+   "GroupElementWords",
+   "GroupRepresentation",
+   "CleanRepresentationCache"
+  ]
+ },
+ "CleanRepresentationCache": {
+  "Kind": "Function",
+  "Details": [
+   "CleanRepresentationCache[g] removes derived representation data of g — element matrices, cached validation results (Unitarity), decompositions and derived intermediates such as invariant forms — and returns Removed (entries removed per kind), Protected and the new Epoch.",
+   "Active variants, accepted partials, derivation witnesses and characters are never removed. The eviction epoch advances atomically and is saved with SaveGroupData; later GAP work on an older retained workspace drops that workspace's derived data first. CleanGAPCache manages GAP workspace files."
+  ],
+  "Example": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], id}, id = Last[g[\"IrrepOrder\"]]; RepresentationElementMatrices[g, id, {GroupWord[\"s\"]}]; CleanRepresentationCache[g, CacheKinds -> \"ElementMatrices\"][\"Removed\"]]",
+  "Expected": "<|\"ElementMatrices\" -> 1|>",
+  "ErrorExample": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False]}, FailureQ[CleanRepresentationCache[g, CacheKinds -> \"Other\"]]]",
+  "SeeAlso": [
+   "CacheKinds",
+   "RepresentationElementMatrices",
+   "CleanGAPCache"
+  ]
+ },
+ "CacheKinds": {
+  "Kind": "Option",
+  "Details": [
+   "Option for CleanRepresentationCache. Default: All.",
+   "\"ElementMatrices\", \"Unitarity\" (cached ValidateRepresentation results, also cleared when the modular assignment changes), \"Decompositions\" and \"DerivedIntermediates\" (invariant forms), or a list of them.",
+   "The owning function rejects other values before computation."
+  ],
+  "Example": "MemberQ[First /@ Options[CleanRepresentationCache], CacheKinds]",
+  "Expected": "True",
+  "SeeAlso": [
+   "CleanRepresentationCache"
+  ]
+ },
+ "SetGroupRepresentation": {
+  "Kind": "Function",
+  "Details": [
+   "SetGroupRepresentation[g, id, r] replaces the active representation of irrep id by r after verifying r on the actual group: the relators of a complete presentation hold and the class traces equal the irrep's character. A matching dimension is not enough.",
+   "r becomes a stored variant with source method Supplied and is made active; earlier variants stay stored. With the default Basis -> \"Unitary\", r must be unitary; Basis -> \"General\" accepts any verified realization.",
+   "Cyclotomic matrices are verified in GAP (another irrep's matrices give RepresentationMethodFailed with the WrongCharacter outcome). Other exact matrices are verified exactly in Wolfram and stored with Tier \"Wolfram\"; numerical matrices (machine precision or at least 16 digits) are verified within the automatic tolerance at their precision and stored with Tier \"Numerical\". For these, another irrep's matrices give WrongCharacter."
+  ],
+  "Example": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], id, r}, id = Last[g[\"IrrepOrder\"]]; r = ChangeRepBasis[GroupRepresentation[g, id], {{1, 1}, {0, 1}}]; SetGroupRepresentation[g, id, r, Basis -> \"General\", StoreGAPState -> False]; GroupRepresentation[g, id] === r]",
+  "Expected": "True",
+  "ErrorExample": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], id}, id = Last[g[\"IrrepOrder\"]]; FailureQ[SetGroupRepresentation[g, id, GroupRepresentation[g, First[g[\"IrrepOrder\"]]]]]]",
+  "SeeAlso": [
+   "ChangeGroupRepBasis",
+   "TransformGroupRepresentations",
+   "GroupRepresentation",
+   "ValidateRepresentation"
+  ]
+ },
+ "ChangeGroupRepBasis": {
+  "Kind": "Function",
+  "Details": [
+   "ChangeGroupRepBasis[g, id, b] computes the matrices b.M.Inverse[b] of the active representation M of irrep id, verifies them and makes them the active variant, recording the derivation (the previous active variant as witness and b as conjugator).",
+   "With the default Basis -> \"Unitary\" the new matrices must be unitary; use Basis -> \"General\" for any invertible b. A singular b gives SingularBasis.",
+   "A native active variant with cyclotomic b is recomputed and verified in GAP. Otherwise (a scaled, Wolfram-tier or numerical active variant, or b with other exact or numerical entries) the result is verified in Wolfram and stored with Tier \"Wolfram\", or \"Numerical\" when numerical data are involved; b multiplies the visible matrices M. ChangeRepBasis changes the basis of a standalone Rep without touching the group."
+  ],
+  "Example": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], id, before}, id = Last[g[\"IrrepOrder\"]]; before = GroupRepresentation[g, id]; ChangeGroupRepBasis[g, id, {{0, 1}, {1, 0}}, StoreGAPState -> False]; GroupRepresentation[g, id] === ChangeRepBasis[before, {{0, 1}, {1, 0}}]]",
+  "Expected": "True",
+  "ErrorExample": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False]}, FailureQ[ChangeGroupRepBasis[g, Last[g[\"IrrepOrder\"]], {{1, 1}, {1, 1}}, Basis -> \"General\"]]]",
+  "SeeAlso": [
+   "ChangeRepBasis",
+   "SetGroupRepresentation",
+   "TransformGroupRepresentations"
+  ]
+ },
+ "TransformGroupRepresentations": {
+  "Kind": "Function",
+  "Details": [
+   "TransformGroupRepresentations[g] transforms every computed irrep of g whose active representation is not unitary to a unitary basis; TransformGroupRepresentations[g, ids] restricts the transform to the given irrep IDs.",
+   "Each result is derived from a stored variant and verified; a result with the same matrices as a stored variant reuses that variant. The selected irreps change together: if any one fails, no active variant changes (AtomicTransformFailed). Computing missing irreps with ComputeGroupRepresentations instead accepts verified irreps one at a time.",
+   "Basis -> \"UnitaryTDiagonal\" (with a modular assignment) re-derives every selected irrep with a diagonal T, ordered by TPhaseOrder and normalized by PhaseConvention. By default GAP unitarizes (BSGSAverage, then GroupAverage) and diagonalizes, and verifies the result. UnitarizationMethod -> \"GeneratorEquations\" with Basis -> \"Unitary\" unitarizes in Wolfram and sends the conjugator and scales to GAP, which recomputes and verifies them.",
+   "The work runs in Wolfram instead — UnitarizeRepresentation and DiagonalizeRepresentationT on each active variant, verified in Wolfram and stored with Tier \"Wolfram\" (exact) or \"Numerical\", derived from the active variant, with the methods used as its source method — for Arithmetic -> \"Numerical\", FormFactorizationMethod -> \"Spectral\", DiagonalizationMethod -> \"NumericalReconstruction\" or \"Numerical\", GeneratorEquations with UnitaryTDiagonal, and irreps without a native variant. UnitarizationMethod -> \"BSGSAverage\" is refused there (InapplicableOption).",
+   "TPhaseOrder, PhaseConvention and an explicit DiagonalizationMethod apply to Basis -> \"UnitaryTDiagonal\" only; with Basis -> \"Unitary\" they are refused (InapplicableOption).",
+   "An explicit FormFactorizationMethod (\"Cholesky\" or \"LDL\") unitarizes the active variant on the Wolfram route (the GAP route unitarizes GAP's own witness variant). With Basis -> \"UnitaryTDiagonal\", an explicit DiagonalizationMethod -> \"Exact\" also takes the Wolfram route, whose eigenbasis choice it names."
+  ],
+  "Example": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], id}, id = Last[g[\"IrrepOrder\"]]; SetGroupRepresentation[g, id, ChangeRepBasis[GroupRepresentation[g, id], {{1, 1}, {0, 1}}], Basis -> \"General\", StoreGAPState -> False]; TransformGroupRepresentations[g, StoreGAPState -> False]; UnitaryRepresentationQ[GroupRepresentation[g, id]]]",
+  "Expected": "True",
+  "ErrorExample": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False]}, FailureQ[TransformGroupRepresentations[g, Basis -> \"UnitaryTDiagonal\"]]]",
+  "SeeAlso": [
+   "UnitarizeRepresentation",
+   "DiagonalizeRepresentationT",
+   "ComputeGroupRepresentations",
+   "AssignModularGenerators"
+  ]
+ }
+}

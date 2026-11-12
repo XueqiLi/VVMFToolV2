@@ -1,0 +1,73 @@
+Notebook[{Cell["MatrixGroupSpecification", "ObjectName"], 
+  Cell["MatrixGroupSpecification[generators, names, domain] specifies a group \
+of exact matrices over the declared domain.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["Square invertible generators share \
+one positive dimension and an explicit exact domain. Domains are \
+<|\"Type\"->\"Rationals\"|>, <|\"Type\"->\"Cyclotomics\"|>, \
+<|\"Type\"->\"PrimeField\",\"Characteristic\"->p|> for prime p, or \
+<|\"Type\"->\"IntegersMod\",\"Modulus\"->n|> for n>=2.", "Notes"], 
+  Cell["Rational entries are exact integers/rationals. Finite-domain entries \
+are integers reduced in that domain. For cyclotomics, exact nonrational \
+values use a scalar association with type=\"cyclotomic\", rootOrder=n and n \
+rational coefficient pairs in ascending powers of Exp[2 Pi I/n]; coefficients \
+are decimal-string numerator/positive-denominator pairs.", "Notes"], 
+  Cell["An empty matrix-generator list requires \"Dimension\" in the domain. \
+Modular-ring determinants must be units. These are construction matrices; \
+they are not the complex irreducible matrices supplied in stage 2.", 
+   "Notes"], Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["BuildGroup", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"BuildGroup.nb", None}], "  |  ", 
+     ButtonBox["PermutationGroupSpecification", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"PermutationGroupSpecification.nb", None}]}], 
+   "SeeAlso"], Cell["Examples Initialization", 
+   "ExamplesInitializationSection"], Cell["Open this notebook in its \
+repository location. GAP must be installed; LINS is required for its bounded \
+search page. Evaluate the setup before the examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{"g", "=", RowBox[{"BuildGroup", "[", 
+              RowBox[{RowBox[{"MatrixGroupSpecification", "[", RowBox[
+                   {RowBox[{"{", RowBox[{"{", RowBox[{RowBox[{"{", RowBox[
+                          {"0", ",", RowBox[{"-", "1"}]}], "}"}], ",", 
+                          RowBox[{"{", RowBox[{"1", ",", "0"}], "}"}]}], 
+                        "}"}], "}"}], ",", RowBox[{"{", "\"r\"", "}"}], ",", 
+                    RowBox[{"Association", "[", RowBox[{"\"Type\"", 
+                        "\[Rule]", "\"Rationals\""}], "]"}]}], "]"}], ",", 
+                RowBox[{"ComputeRepresentations", "\[Rule]", "False"}], ",", 
+                RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+          "}"}], ",", RowBox[{"GroupWordOrder", "[", 
+          RowBox[{"g", ",", RowBox[{"GroupWord", "[", "\"r\"", "]"}]}], 
+          "]"}]}], "]"}]], "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData["4"], "Output"], Cell["Possible Issues", "ExampleSection"], 
+  Cell["Invalid input returns a structured Failure. Check FailureQ before \
+using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"BuildGroup", "[", 
+        RowBox[{RowBox[{"MatrixGroupSpecification", "[", 
+            RowBox[{RowBox[{"{", RowBox[{"{", RowBox[{RowBox[{"{", RowBox[
+                       {"2", ",", "0"}], "}"}], ",", RowBox[{"{", RowBox[
+                       {"0", ",", "1"}], "}"}]}], "}"}], "}"}], ",", 
+              RowBox[{"{", "\"r\"", "}"}], ",", RowBox[{"Association", "[", 
+                RowBox[{RowBox[{"\"Type\"", "\[Rule]", "\"IntegersMod\""}], 
+                  ",", RowBox[{"\"Modulus\"", "\[Rule]", "4"}]}], "]"}]}], 
+            "]"}], ",", RowBox[{"ComputeRepresentations", "\[Rule]", 
+            "False"}]}], "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/MatrixGroupSpecification", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "MatrixGroupSpecification \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

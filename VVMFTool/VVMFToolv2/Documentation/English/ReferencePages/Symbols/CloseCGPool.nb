@@ -1,0 +1,48 @@
+Notebook[{Cell["CloseCGPool", "ObjectName"], Cell["CloseCGPool[] closes the \
+subkernels that CacheCG and CGCoefficients launched to race CG methods under \
+Method -> Automatic (they are kept for the session) and reports how many were \
+closed.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["CloseCGPool[] closes the Wolfram subkernels that CGCoefficients and \
+CacheCG launched to run the CG methods of Method Automatic at the same time, \
+and reports <|\"Closed\" -> n|>. The subkernels are otherwise kept for the \
+session, so a long series of calls (one pair at a time) does not launch them \
+again.", "Notes"], Cell["Only the subkernels the package launched are closed. \
+Closing is never needed for correctness: the subkernels end with the session, \
+and a later Automatic call launches them again. A race's abort also cancels \
+any other ParallelSubmit job queued on the pool's subkernels.", "Notes"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["CGCoefficients", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"CGCoefficients.nb", None}], "  |  ", 
+     ButtonBox["CacheCG", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"CacheCG.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{RowBox[{RowBox[{"CloseCGPool", "[", "]"}], "[", 
+        "\"Closed\"", "]"}], "\[GreaterEqual]", "0"}]], "Input", 
+   CellTags -> "VerifiedExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"CloseCGPool", "[", "1", 
+        "]"}], "]"}]], "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/CloseCGPool", "Categorization", CellLabel -> "URI"]}, 
+    Closed]]}, WindowTitle -> "CloseCGPool \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

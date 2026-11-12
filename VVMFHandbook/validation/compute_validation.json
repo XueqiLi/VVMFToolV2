@@ -1,0 +1,10 @@
+{
+  "all174_computed_order": 0,
+  "final_export_reused_freshly_computed_order0_cache": true,
+  "roundtrip_verified": true,
+  "fresh_reader_order0": true,
+  "resets_assigned_q_and_parameters": true,
+  "default_order_follows_new_data": true,
+  "runtime": "Mathics3 10.0.1",
+  "native_mathematica_available": false
+}

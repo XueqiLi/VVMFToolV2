@@ -1,0 +1,14 @@
+{
+  "order20": true,
+  "names820": true,
+  "example_coefficients": true,
+  "default_order20": true,
+  "alias_default20": true,
+  "all820_alias_definitions": true,
+  "all174_order20_arrays_match_reference": true,
+  "latex_parameters_no_private_context": true,
+  "manuscript_only_section62_changed": true,
+  "references_unchanged": true,
+  "manuscript_source_hash_matches": true,
+  "data_source_hash_matches": true
+}

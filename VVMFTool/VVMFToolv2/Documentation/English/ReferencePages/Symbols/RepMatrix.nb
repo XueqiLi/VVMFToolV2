@@ -1,0 +1,68 @@
+Notebook[{Cell["RepMatrix", "ObjectName"], Cell["RepMatrix[r, word, names] \
+evaluates the GroupWord word on the matrices of r, where names are the \
+ordered generator names of those matrices.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["Evaluates an ordered GroupWord \
+(syllables or text) on the matrices, with names giving the generator names in \
+the matrices' order. Syllables multiply from left to right and negative \
+powers use inverses. Exact results are returned in RootReduce canonical \
+form.", "Notes"], Cell["Only matrices are evaluated; no group relation is \
+asserted. The names must be distinct and one per matrix; Rep[{}, d] accepts \
+only the empty word, whose value is the identity matrix.", "Notes"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["Rep", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"Rep.nb", None}], "  |  ", ButtonBox["GroupWord", 
+      BaseStyle -> "Hyperlink", ButtonData -> {"GroupWord.nb", None}], 
+     "  |  ", ButtonBox["SRep", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"SRep.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"RepMatrix", "[", 
+      RowBox[{InterpretationBox[TemplateBox[{"\"Rep[\"", 
+           TemplateBox[{", ", "\", \"", TagBox[RowBox[{"(", "\[NoBreak]", 
+                GridBox[{{"0", RowBox[{"-", "1"}]}, {"1", "0"}}, 
+                 RowSpacings -> 1, ColumnSpacings -> 1, RowAlignments -> 
+                  Baseline, ColumnAlignments -> Center], "\[NoBreak]", ")"}], 
+              Function[BoxForm`e$, MatrixForm[BoxForm`e$]]]}, 
+            "RowWithSeparators"], "\"]\""}, "RowDefault"], 
+         Rep[{{{0, -1}, {1, 0}}}]], ",", RowBox[{"GroupWord", "[", 
+          "\"s^-3\"", "]"}], ",", RowBox[{"{", "\"s\"", "}"}]}], "]"}]], 
+   "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[
+     {"{", RowBox[{RowBox[{"{", RowBox[{"0", ",", RowBox[{"-", "1"}]}], 
+          "}"}], ",", RowBox[{"{", RowBox[{"1", ",", "0"}], "}"}]}], "}"}]], 
+   "Output"], Cell["Possible Issues", "ExampleSection"], 
+  Cell["Invalid input returns a structured Failure. Check FailureQ before \
+using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"RepMatrix", "[", 
+        RowBox[{InterpretationBox[TemplateBox[{"\"Rep[\"", 
+             TemplateBox[{", ", "\", \"", TagBox[RowBox[{"(", "\[NoBreak]", 
+                  GridBox[{{"0", RowBox[{"-", "1"}]}, {"1", "0"}}, 
+                   RowSpacings -> 1, ColumnSpacings -> 1, RowAlignments -> 
+                    Baseline, ColumnAlignments -> Center], "\[NoBreak]", 
+                  ")"}], Function[BoxForm`e$, MatrixForm[BoxForm`e$]]]}, 
+              "RowWithSeparators"], "\"]\""}, "RowDefault"], 
+           Rep[{{{0, -1}, {1, 0}}}]], ",", RowBox[{"GroupWord", "[", "\"t\"", 
+            "]"}], ",", RowBox[{"{", "\"s\"", "}"}]}], "]"}], "]"}]], 
+   "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/RepMatrix", "Categorization", CellLabel -> "URI"]}, 
+    Closed]]}, WindowTitle -> "RepMatrix \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

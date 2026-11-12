@@ -1,0 +1,72 @@
+Notebook[{Cell["CleanGAPCache", "ObjectName"], Cell["CleanGAPCache[opts] \
+removes least-recently-used managed GAP checkpoints until the byte cap is \
+met.\nCleanGAPCache[\"All\"] removes all eligible entries; active entries are \
+deferred until their leases end.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["CleanGAPCache[MaxBytes->n] evicts least-recently-used managed entries \
+until the byte cap is met. Default n=10^9 bytes. CleanGAPCache[\"All\"] \
+removes all eligible entries in the configured cache.", "Notes"], 
+  Cell["Only managed checkpoint files are eligible. Active leases defer \
+deletion until release; the report records deferred entries and any unmet \
+cap. Mathematical group data and the independent export ledger remain \
+available.", "Notes"], Cell["Examples isolate CacheDirectory so cache cleanup \
+cannot remove other project workspaces.", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["MaxBytes"], "TableText"], Cell["1000000000", 
+        "TableText"], Cell["Nonnegative integer bytes for least-recently-used \
+cleanup. Zero removes every eligible entry.", "TableText"]}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, GridBoxItemSize -> 
+      {"Columns" -> {Scaled[0.02], Scaled[0.3], Scaled[0.18], 
+         Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["StoreGAPState", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"StoreGAPState.nb", None}], "  |  ", 
+     ButtonBox["RestoreGAPState", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"RestoreGAPState.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"old", "=", RowBox[{
+                "VVMFToolConfiguration", "[", "]"}]}], ",", 
+            RowBox[{"d", "=", RowBox[{"AbsoluteFileName", "[", 
+                RowBox[{"CreateDirectory", "[", "]"}], "]"}]}], ",", "r"}], 
+          "}"}], ",", RowBox[{"WithCleanup", "[", 
+          RowBox[{RowBox[{"ConfigureVVMFTool", "[", RowBox[{"CacheDirectory", 
+                "\[Rule]", RowBox[{"FileNameJoin", "[", RowBox[{"{", 
+                    RowBox[{"d", ",", "\"cache\""}], "}"}], "]"}]}], "]"}], 
+            ",", RowBox[{RowBox[{"r", "=", RowBox[{"CleanGAPCache", "[", 
+                  "\"All\"", "]"}]}], ";", RowBox[{"AssociationQ", "[", "r", 
+                "]"}]}], ",", RowBox[{RowBox[{"ConfigureVVMFTool", "[", 
+                RowBox[{"Sequence", "@@", RowBox[{"Normal", "[", "old", 
+                    "]"}]}], "]"}], ";", RowBox[{"DeleteDirectory", "[", 
+                RowBox[{"d", ",", RowBox[{"DeleteContents", "\[Rule]", 
+                    "True"}]}], "]"}]}]}], "]"}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"CleanGAPCache", "[", 
+        RowBox[{"MaxBytes", "\[Rule]", RowBox[{"-", "1"}]}], "]"}], "]"}]], 
+   "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/CleanGAPCache", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "CleanGAPCache \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

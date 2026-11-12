@@ -1,0 +1,92 @@
+Notebook[{Cell["FieldMethod", "ObjectName"], Cell["FieldMethod selects the \
+exact arithmetic domain of the CG family: Automatic (the package's choice), \
+\"Cyclotomic\" (Q(zeta_N) from the cyclotomic hints, with no size gate), \
+\"PrimitiveElement\", \"Radical\", \"RootReduce\" or an ordered list of these \
+tried in turn. An explicit choice is used as given; FieldMethodUnavailable if \
+none applies.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["Option of CGCoefficients, CacheCG, ValidateCG, Contractions, \
+TensorProductVectors, CGPolynomialResult, TensorProductWeightedVectors, \
+ModularTensorProductVectors and ModularContractions, and a session default of \
+ConfigureVVMFTool: the exact arithmetic domain of CG work. Automatic \
+(default) is the package's own choice. \"Cyclotomic\" uses Q(zeta_N) from the \
+cyclotomic data of the representation entries, completing other values with \
+certified coordinates and with no size gate. \"PrimitiveElement\" uses a \
+primitive element of the values, \"Radical\" a field of prime radicals, \
+\"RootReduce\" exact Root arithmetic; a list such as {\"Cyclotomic\", \
+\"RootReduce\"} is tried in order.", "Notes"], 
+  Cell["Automatic, \"Cyclotomic\", \"PrimitiveElement\", \"Radical\", \
+\"RootReduce\" or a duplicate-free list of these.", "Notes"], 
+  Cell["An explicit choice is used as given: when none of its domains applies \
+the call fails with FieldMethodUnavailable (never another domain silently); a \
+one-line note says when a cyclotomic field is much larger than the values. \
+NumberField -> False allows only Automatic or \"RootReduce\", and NumberField \
+-> True not \"RootReduce\" alone (InapplicableOption). The domain is recorded \
+per target under the CGData's \"Provenance\" (\"Domain\" of the computation, \
+\"ValidationDomain\" of its check); it is not part of the stored key, so a \
+stored result is returned whatever FieldMethod says.", "Notes"], 
+  Cell["Since Phase 2 (2B) FieldMethod is also an option of \
+UnitarizeRepresentation, DiagonalizeRepresentationT, DecomposeRepresentation, \
+RepresentationTSpectrum, RepresentationCharacter, ValidateRepresentation, \
+SetGroupRepresentation, ChangeGroupRepBasis, TransformGroupRepresentations \
+and RepresentationElementMatrices (default Automatic; the session default \
+applies to the CG functions only); their results record the domain under \
+Validation \"Domain\".", "Notes"], Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["CGCoefficients", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"CGCoefficients.nb", None}], "  |  ", 
+     ButtonBox["NumberField", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"NumberField.nb", None}], "  |  ", 
+     ButtonBox["Verification", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"Verification.nb", None}], "  |  ", 
+     ButtonBox["ConfigureVVMFTool", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ConfigureVVMFTool.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "d"}], "}"}], ",", RowBox[
+         {RowBox[{"d", "=", RowBox[{"First", "[", RowBox[{"Select", "[", 
+                RowBox[{RowBox[{"g", "[", "\"IrrepOrder\"", "]"}], ",", 
+                  RowBox[{RowBox[{RowBox[{"RepDim", "[", RowBox[
+                         {"GroupRepresentation", "[", RowBox[{"g", ",", 
+                          "#1"}], "]"}], "]"}], "===", "2"}], "&"}]}], "]"}], 
+              "]"}]}], ";", RowBox[{"Length", "[", RowBox[{"CGIntertwiners", 
+              "[", RowBox[{RowBox[{"CGCoefficients", "[", RowBox[{"g", ",", 
+                    RowBox[{"{", RowBox[{"d", ",", "d"}], "}"}], ",", "d", 
+                    ",", RowBox[{"FieldMethod", "\[Rule]", RowBox[{"{", 
+                        RowBox[{"\"Cyclotomic\"", ",", "\"RootReduce\""}], 
+                        "}"}]}]}], "]"}], ",", "d"}], "]"}], "]"}]}]}], 
+      "]"}]], "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData["1"], "Output"], Cell["Possible Issues", "ExampleSection"], 
+  Cell["Invalid input returns a structured Failure. Check FailureQ before \
+using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"CGCoefficients", "[", 
+        RowBox[{"\"no group\"", ",", RowBox[{"{", RowBox[{"\"a\"", ",", 
+              "\"b\""}], "}"}], ",", RowBox[{"FieldMethod", "\[Rule]", 
+            "\"Cyclotomic\""}]}], "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/FieldMethod", "Categorization", CellLabel -> "URI"]}, 
+    Closed]]}, WindowTitle -> "FieldMethod \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

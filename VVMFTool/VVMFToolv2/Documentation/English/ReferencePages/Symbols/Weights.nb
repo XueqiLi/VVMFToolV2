@@ -1,0 +1,42 @@
+Notebook[{Cell["Weights", "ObjectName"], Cell["Weights (the System symbol) is \
+an option of ModularDimensionTable: the weights of the table, exact \
+rationals. Default: Range[0, 20]. A list given as the second argument is the \
+list of irreps, not of weights.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["Weights (the System symbol) is an option of ModularDimensionTable: \
+the weights of the table, exact rationals. Default: Range[0, 20]. A list \
+given as the second argument is the list of irreps, not of weights.", 
+   "Notes"], Cell["The weights of the table (exact rationals).", "Notes"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["ModularDimensionTable", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ModularDimensionTable.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Keys", "[", RowBox[{"First", "[", 
+        RowBox[{RowBox[{"DisplayData", "[", RowBox[{"ModularDimensionTable", 
+              "[", RowBox[{RowBox[{"LoadGroup", "[", "\"24-3I\"", "]"}], ",", 
+                RowBox[{"{", "7", "}"}], ",", RowBox[{"Weights", "\[Rule]", 
+                  RowBox[{"{", RowBox[{"2", ",", "4"}], "}"}]}]}], "]"}], 
+            "]"}], "[", "\"Table\"", "]"}], "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{"2", ",", "4"}], "}"}]], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/Weights", "Categorization", CellLabel -> "URI"]}, 
+    Closed]]}, WindowTitle -> "Weights \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

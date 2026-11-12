@@ -1,0 +1,112 @@
+Notebook[{Cell["CreateModel", "ObjectName"], Cell["CreateModel[g, {f1, f2, \
+...}] creates an empty model of the fields over the group or context g \
+(TargetIrrep: the trivial irrep or another degree-one irrep).", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["CreateModel[g, {f1, f2, ...}] \
+creates an empty model (expression 0, no parameters) of the listed fields \
+over the Group or RepresentationContext g.", "Notes"], 
+  Cell["Every field must belong to the same frozen context (same group, \
+generators and bases); field IDs and names must be unique. An empty field \
+list is allowed. With a Group, a model of fields whose context differs from \
+the group's current one only by its state generation (a native GAP CG route \
+ran a worker query) uses the fields' context; a changed basis or modular \
+assignment, or fields of another group, fails with ContextMismatch.", 
+   "Notes"], Cell["Options: Name (default \"Model\"), TargetIrrep (Automatic: \
+the trivial irrep), Arithmetic (\"Exact\" or \"Numerical\"), WorkingPrecision \
+and Tolerance. When a field's or the target's accepted matrices are numerical \
+(a Stage 2 numerical-tier variant), the model is numerical whatever \
+arithmetic was requested, and its WorkingPrecision never exceeds the digits \
+those matrices carry; matrices with fewer than 16 digits fail with \
+NumericalInput. A Tolerance below 10^-digits of the effective precision fails \
+with InvalidOption, and over numerical-tier matrices it must be at least the \
+automatic tolerance 10^-Floor[digits/2] (numerical certificates never claim \
+more accuracy than the data carry).", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Name"], "TableText"], Cell["\"Model\"", "TableText"], 
+       Cell["Automatic or a display-name string. Does not identify \
+mathematical equivalence.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["TargetIrrep"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["Automatic (default, the recorded trivial irrep) \
+or the ID of an irrep of degree one with accepted matrices.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["Arithmetic"], "TableText"], 
+       Cell["\"Exact\"", "TableText"], Cell["\"Exact\" proves identities \
+exactly and refuses numerical input; \"Numerical\" works at WorkingPrecision \
+(default 50) and checks residuals against Tolerance (default \
+10^(-Floor[p/2])). Tolerance is accepted only with numerical arithmetic.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["WorkingPrecision"], "TableText"], 
+       Cell["50", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["Tolerance"], "TableText"], 
+       Cell["Automatic", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, GridBoxItemSize -> 
+      {"Columns" -> {Scaled[0.02], Scaled[0.3], Scaled[0.18], 
+         Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["Model", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"Model.nb", None}], "  |  ", ButtonBox["TargetIrrep", 
+      BaseStyle -> "Hyperlink", ButtonData -> {"TargetIrrep.nb", None}], 
+     "  |  ", ButtonBox["Contractions", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"Contractions.nb", None}], "  |  ", 
+     ButtonBox["AddModelTerm", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"AddModelTerm.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "d", ",", "sign", ",", "l", ",", "r", ",", "m"}], "}"}], 
+        ",", RowBox[{RowBox[{"d", "=", RowBox[{"First", "[", 
+              RowBox[{"Select", "[", RowBox[{RowBox[{"g", "[", 
+                    "\"IrrepOrder\"", "]"}], ",", RowBox[{RowBox[
+                     {RowBox[{"RepDim", "[", RowBox[{"GroupRepresentation", 
+                          "[", RowBox[{"g", ",", "#1"}], "]"}], "]"}], "===", 
+                      "2"}], "&"}]}], "]"}], "]"}]}], ";", 
+          RowBox[{"sign", "=", RowBox[{"First", "[", RowBox[{"DeleteCases", 
+                "[", RowBox[{RowBox[{"Select", "[", RowBox[{RowBox[{"g", "[", 
+                        "\"IrrepOrder\"", "]"}], ",", RowBox[{RowBox[
+                         {RowBox[{"RepDim", "[", RowBox[
+                          {"GroupRepresentation", "[", RowBox[{"g", ",", 
+                          "#1"}], "]"}], "]"}], "===", "1"}], "&"}]}], "]"}], 
+                  ",", RowBox[{RowBox[{"g", "[", "\"CharacterData\"", "]"}], 
+                    "[", "\"TrivialIrrepID\"", "]"}]}], "]"}], "]"}]}], ";", 
+          RowBox[{"l", "=", RowBox[{"CreateField", "[", RowBox[{"g", ",", 
+                "d", ",", "\"L\""}], "]"}]}], ";", 
+          RowBox[{"r", "=", RowBox[{"CreateField", "[", RowBox[{"g", ",", 
+                "d", ",", "\"R\""}], "]"}]}], ";", 
+          RowBox[{"m", "=", RowBox[{"CreateModel", "[", RowBox[{"g", ",", 
+                RowBox[{"{", RowBox[{"l", ",", "r"}], "}"}]}], "]"}]}], ";", 
+          RowBox[{"ModelExpression", "[", "m", "]"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], Cell[BoxData["0"], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"CreateModel", "[", 
+        RowBox[{"\"no group\"", ",", RowBox[{"{", "}"}]}], "]"}], "]"}]], 
+   "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/CreateModel", "Categorization", CellLabel -> "URI"]}, 
+    Closed]]}, WindowTitle -> "CreateModel \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

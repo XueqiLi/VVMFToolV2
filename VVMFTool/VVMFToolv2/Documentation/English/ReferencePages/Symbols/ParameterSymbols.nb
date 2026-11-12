@@ -1,0 +1,125 @@
+Notebook[{Cell["ParameterSymbols", "ObjectName"], 
+  Cell["ParameterSymbols declares the user symbols or indexed atoms that are \
+parameters in Couplings or in the supplied expressions; each declaration \
+becomes a new parameter (share one between terms through its Coupling atom)."\
+, "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["Option for CoupleContractions and CoupleExpressions: user symbols or \
+indexed atoms that are parameters, in the Couplings and in the supplied \
+expressions. Each declaration that occurs becomes a new Coupling with the \
+symbol's spelling as label and HoldForm[symbol] as SourceAtom; later \
+definitions of the symbol do not change the term.", "Notes"], 
+  Cell["{} (default) or a duplicate-free list of symbols or indexed atoms; \
+known constants such as Pi need no declaration. A spelling that already \
+labels a parameter in this session gets a suffixed label (lambda_2): to share \
+one parameter between terms, use its Coupling atom from CouplingParameters.", 
+   "Notes"], Cell["Duplicates, non-symbols, patterns and package atoms \
+(Coupling, FieldComponent, VectorComponent) fail with InvalidOption; \
+undeclared symbols, indexed atoms (including kk[2] when only kk is declared), \
+strings or foreign atoms in coefficients fail with UndeclaredSymbol. \
+Declaring both kk and kk[1] makes them two parameters; kk counts as used only \
+where it occurs outside kk[1].", "Notes"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["Couplings", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"Couplings.nb", None}], "  |  ", 
+     ButtonBox["CoupleExpressions", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"CoupleExpressions.nb", None}], "  |  ", 
+     ButtonBox["CouplingParameters", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"CouplingParameters.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{"x", ",", RowBox[{"g", "=", 
+              RowBox[{"BuildGroup", "[", RowBox[{RowBox[{"GroupPresentation", 
+                    "[", RowBox[{RowBox[{"{", RowBox[{"\"s\"", ",", 
+                          "\"t\""}], "}"}], ",", RowBox[{"{", RowBox[
+                         {"\"s^2\"", ",", "\"t^2\"", ",", "\"(s.t)^3\""}], 
+                        "}"}]}], "]"}], ",", RowBox[{"StoreGAPState", 
+                    "\[Rule]", "False"}]}], "]"}]}], ",", "d", ",", "sign", 
+            ",", "l", ",", "r", ",", "m"}], "}"}], ",", 
+        RowBox[{RowBox[{"d", "=", RowBox[{"First", "[", RowBox[{"Select", 
+                "[", RowBox[{RowBox[{"g", "[", "\"IrrepOrder\"", "]"}], ",", 
+                  RowBox[{RowBox[{RowBox[{"RepDim", "[", RowBox[
+                         {"GroupRepresentation", "[", RowBox[{"g", ",", 
+                          "#1"}], "]"}], "]"}], "===", "2"}], "&"}]}], "]"}], 
+              "]"}]}], ";", RowBox[{"sign", "=", RowBox[{"First", "[", 
+              RowBox[{"DeleteCases", "[", RowBox[{RowBox[{"Select", "[", 
+                    RowBox[{RowBox[{"g", "[", "\"IrrepOrder\"", "]"}], ",", 
+                      RowBox[{RowBox[{RowBox[{"RepDim", "[", RowBox[
+                          {"GroupRepresentation", "[", RowBox[{"g", ",", 
+                          "#1"}], "]"}], "]"}], "===", "1"}], "&"}]}], "]"}], 
+                  ",", RowBox[{RowBox[{"g", "[", "\"CharacterData\"", "]"}], 
+                    "[", "\"TrivialIrrepID\"", "]"}]}], "]"}], "]"}]}], ";", 
+          RowBox[{"l", "=", RowBox[{"CreateField", "[", RowBox[{"g", ",", 
+                "d", ",", "\"L\""}], "]"}]}], ";", 
+          RowBox[{"r", "=", RowBox[{"CreateField", "[", RowBox[{"g", ",", 
+                "d", ",", "\"R\""}], "]"}]}], ";", 
+          RowBox[{"m", "=", RowBox[{"CreateModel", "[", RowBox[{"g", ",", 
+                RowBox[{"{", RowBox[{"l", ",", "r"}], "}"}]}], "]"}]}], ";", 
+          RowBox[{"x", "=", RowBox[{"FieldComponents", "[", "l", "]"}]}], 
+          ";", RowBox[{RowBox[{"First", "[", RowBox[{"CouplingParameters", 
+                "[", RowBox[{"CoupleExpressions", "[", RowBox[
+                   {RowBox[{"{", RowBox[{"x", ".", "x"}], "}"}], ",", 
+                    RowBox[{"Couplings", "\[Rule]", RowBox[{"{", "kappa", 
+                        "}"}]}], ",", RowBox[{"ParameterSymbols", "\[Rule]", 
+                      RowBox[{"{", "kappa", "}"}]}]}], "]"}], "]"}], "]"}], 
+            "[", "\"SourceAtom\"", "]"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], Cell[BoxData[TagBox["kappa", HoldForm]], 
+   "Output"], Cell["Possible Issues", "ExampleSection"], 
+  Cell["Invalid input returns a structured Failure. Check FailureQ before \
+using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{"x", ",", RowBox[{"g", "=", 
+              RowBox[{"BuildGroup", "[", RowBox[{RowBox[{"GroupPresentation", 
+                    "[", RowBox[{RowBox[{"{", RowBox[{"\"s\"", ",", 
+                          "\"t\""}], "}"}], ",", RowBox[{"{", RowBox[
+                         {"\"s^2\"", ",", "\"t^2\"", ",", "\"(s.t)^3\""}], 
+                        "}"}]}], "]"}], ",", RowBox[{"StoreGAPState", 
+                    "\[Rule]", "False"}]}], "]"}]}], ",", "d", ",", "sign", 
+            ",", "l", ",", "r", ",", "m"}], "}"}], ",", 
+        RowBox[{RowBox[{"d", "=", RowBox[{"First", "[", RowBox[{"Select", 
+                "[", RowBox[{RowBox[{"g", "[", "\"IrrepOrder\"", "]"}], ",", 
+                  RowBox[{RowBox[{RowBox[{"RepDim", "[", RowBox[
+                         {"GroupRepresentation", "[", RowBox[{"g", ",", 
+                          "#1"}], "]"}], "]"}], "===", "2"}], "&"}]}], "]"}], 
+              "]"}]}], ";", RowBox[{"sign", "=", RowBox[{"First", "[", 
+              RowBox[{"DeleteCases", "[", RowBox[{RowBox[{"Select", "[", 
+                    RowBox[{RowBox[{"g", "[", "\"IrrepOrder\"", "]"}], ",", 
+                      RowBox[{RowBox[{RowBox[{"RepDim", "[", RowBox[
+                          {"GroupRepresentation", "[", RowBox[{"g", ",", 
+                          "#1"}], "]"}], "]"}], "===", "1"}], "&"}]}], "]"}], 
+                  ",", RowBox[{RowBox[{"g", "[", "\"CharacterData\"", "]"}], 
+                    "[", "\"TrivialIrrepID\"", "]"}]}], "]"}], "]"}]}], ";", 
+          RowBox[{"l", "=", RowBox[{"CreateField", "[", RowBox[{"g", ",", 
+                "d", ",", "\"L\""}], "]"}]}], ";", 
+          RowBox[{"r", "=", RowBox[{"CreateField", "[", RowBox[{"g", ",", 
+                "d", ",", "\"R\""}], "]"}]}], ";", 
+          RowBox[{"m", "=", RowBox[{"CreateModel", "[", RowBox[{"g", ",", 
+                RowBox[{"{", RowBox[{"l", ",", "r"}], "}"}]}], "]"}]}], ";", 
+          RowBox[{"x", "=", RowBox[{"FieldComponents", "[", "l", "]"}]}], 
+          ";", RowBox[{"FailureQ", "[", RowBox[{"CoupleExpressions", "[", 
+              RowBox[{RowBox[{"{", RowBox[{"x", ".", "x"}], "}"}], ",", 
+                RowBox[{"Couplings", "\[Rule]", RowBox[{"{", "kappa", 
+                    "}"}]}]}], "]"}], "]"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/ParameterSymbols", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "ParameterSymbols \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

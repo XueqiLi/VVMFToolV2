@@ -1,0 +1,15 @@
+{
+  "exported_order": true,
+  "all_names": true,
+  "default_order_tracks_file": true,
+  "alias_defaults": true,
+  "example_coefficients": true,
+  "example_weight": true,
+  "new_chapter_numbers": true,
+  "stored_order_guard": true,
+  "all_alias_definitions": true,
+  "latex_private_context_removed": true,
+  "latex_contains_parameters": true,
+  "all_174_recomputed_models_match_reference": true,
+  "reader_needs_no_engine": true
+}

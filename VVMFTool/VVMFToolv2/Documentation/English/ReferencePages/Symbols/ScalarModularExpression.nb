@@ -1,0 +1,63 @@
+Notebook[{Cell["ScalarModularExpression", "ObjectName"], 
+  Cell["ScalarModularExpression[name, z] gives the inert scalar modular \
+ingredient name (\"Eta\", \"E2\", \"E4\", \"E6\", \"Delta\", \"j\", \"K\") in \
+the variable z.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["ScalarModularExpression[name, z] gives the inert scalar ingredient \
+name in the variable z: \"Eta\" (with q^(1/24)), \"E2\", \"E4\", \"E6\", \
+\"Delta\", \"j\" (q^-1 leading) and \"K\" = 1728/j.", "Notes"], 
+  Cell["The nodes may occur in modular-form definitions and scalar \
+expressions; they never multiply modular-form objects. Option Coordinate \
+(\"q\" or \"tau\").", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Coordinate"], "TableText"], Cell["\"q\"", "TableText"], 
+       Cell[
+        "\"q\" (default) or \"tau\". Other values fail with InvalidOption.", 
+        "TableText"]}}, GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+     GridBoxItemSize -> {"Columns" -> {Scaled[0.02], Scaled[0.3], 
+         Scaled[0.18], Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["ScalarQSeries", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ScalarQSeries.nb", None}], "  |  ", 
+     ButtonBox["HypergeometricK", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"HypergeometricK.nb", None}], "  |  ", 
+     ButtonBox["ModularDerivativeExpression", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ModularDerivativeExpression.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{RowBox[{"QExpansionCoefficients", "[", 
+        RowBox[{"ScalarQSeries", "[", RowBox[
+           {RowBox[{"ScalarModularExpression", "[", RowBox[{"\"j\"", ",", 
+                "q"}], "]"}], ",", "q", ",", "2"}], "]"}], "]"}], "[", 
+      "\"Components\"", "]"}]], "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{"Association", "[", 
+        RowBox[{RowBox[{RowBox[{"-", "1"}], "\[Rule]", "1"}], ",", 
+          RowBox[{"0", "\[Rule]", "744"}], ",", RowBox[{"1", "\[Rule]", 
+            "196884"}]}], "]"}], "}"}]], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"ScalarModularExpression", 
+        "[", RowBox[{"\"E8\"", ",", "q"}], "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/ScalarModularExpression", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "ScalarModularExpression \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

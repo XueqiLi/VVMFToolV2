@@ -1,0 +1,72 @@
+Notebook[{Cell["Group", "ObjectName"], Cell["Group[id] is a handle to a \
+finite-group object. group[\"property\"] reads a stored property without \
+starting a computation.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["A Group is a live handle. Assigning h=g shares the same object; \
+successful enrichment is visible through both handles. ImportGroupData \
+creates a distinct handle.", "Notes"], Cell["Properties are read with \
+strings: g[\"Order\"], g[\"CharacterData\"], g[\"Generators\"], \
+g[\"AvailableData\"], g[\"ModularAssignment\"], g[\"Elements\"], \
+g[\"SubgroupData\"], g[\"Representations\"], g[\"IrrepOrder\"] (presentation \
+order of the irrep IDs, initially the character table's order), g[\"Name\"], \
+g[\"InstanceID\"], g[\"Construction\"], g[\"CatalogueID\"], \
+g[\"GAPCachePath\"], g[\"GAPCacheMetadata\"] and g[\"LastComputation\"]. \
+Reading a property never starts GAP.", "Notes"], 
+  Cell["CharacterData contains Values, IrrepIDs, ClassIDs, ClassSizes, \
+ClassOrders, ClassRepresentativeWords, IdentityClassID, TrivialIrrepID, \
+Degrees and Identity. Values has one row per irreducible character and one \
+column per conjugacy class. Public words are GroupWord values using recorded \
+generator names; generator IDs are used in JSON interchange.", "Notes"], 
+  Cell["BuildGroup and BuildModularGroup create handles only after complete \
+character validation. Missing[\"NotComputed\"] and Missing[\"NotAssigned\"] \
+differ from a computed empty collection. Direct property assignment is \
+unsupported.", "Notes"], Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["BuildGroup", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"BuildGroup.nb", None}], "  |  ", 
+     ButtonBox["ImportGroupData", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ImportGroupData.nb", None}], "  |  ", 
+     ButtonBox["GroupSubgroups", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"GroupSubgroups.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"CatalogueGroup", "[", RowBox[
+                     {"\"CyclicGroup\"", ",", "3"}], "]"}], ",", 
+                  RowBox[{"ComputeRepresentations", "\[Rule]", "False"}], 
+                  ",", RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], 
+                "]"}]}], ",", "h"}], "}"}], ",", 
+        RowBox[{RowBox[{"h", "=", "g"}], ";", 
+          RowBox[{"{", RowBox[{RowBox[{"h", "===", "g"}], ",", 
+              RowBox[{"g", "[", "\"Order\"", "]"}], ",", RowBox[{
+                "NumberOfRep", "[", "h", "]"}]}], "}"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{"True", ",", "3", ",", "3"}], "}"}]], 
+   "Output"], Cell["Possible Issues", "ExampleSection"], 
+  Cell["Invalid input returns a structured Failure. Check FailureQ before \
+using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"NumberOfRep", "[", 
+        InterpretationBox[TemplateBox[{"\"Group[\"", "\"unknown-handle\"", 
+           "\"]\""}, "RowDefault"], Group["unknown-handle"]], "]"}], "]"}]], 
+   "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/Group", "Categorization", CellLabel -> "URI"]}, 
+    Closed]]}, WindowTitle -> "Group \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

@@ -1,0 +1,58 @@
+Notebook[{Cell["ModularFormDefinition", "ObjectName"], 
+  Cell["ModularFormDefinition[{f1, ...}, var, opts] parses a modular-form \
+definition held, replacing var and the declared NormalizationParameters by \
+inert atoms.\nModularFormDefinition[qexp] defines a form by the explicitly \
+finite QExpansionData qexp.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["ModularFormDefinition[{f1, ...}, var, opts] parses a modular-form \
+definition held: the components (a literal list, or a symbol whose stored \
+value is the list) may use var, numeric constants, declared \
+NormalizationParameters and the scalar ingredients ScalarModularExpression \
+and HypergeometricK.", "Notes"], Cell["ModularFormDefinition[qexp] defines a \
+form by an explicitly finite QExpansionData (a literal value or a symbol \
+bound to it); a jet defines only its known coefficients.", "Notes"], 
+  Cell["Undeclared symbols fail with UndeclaredSymbol; executable or \
+unsupported heads, symbols with DownValues and non-lists fail with \
+InvalidDefinition. Options: Coordinate, NormalizationParameters, FamilyID.", 
+   "Notes"], Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["CreateModularForm", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"CreateModularForm.nb", None}], "  |  ", 
+     ButtonBox["QExpansionData", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"QExpansionData.nb", None}], "  |  ", 
+     ButtonBox["FormVariable", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"FormVariable.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{RowBox[{"First", "[", RowBox[{"ModularFormDefinition", 
+          "[", RowBox[{RowBox[{"{", RowBox[{"2", " ", RowBox[
+                 {"ScalarModularExpression", "[", RowBox[{"\"E4\"", ",", 
+                    "q"}], "]"}]}], "}"}], ",", "q"}], "]"}], "]"}], "[", 
+      "\"Dimension\"", "]"}]], "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData["1"], "Output"], Cell["Possible Issues", "ExampleSection"], 
+  Cell["Invalid input returns a structured Failure. Check FailureQ before \
+using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"ModularFormDefinition", "[", 
+        RowBox[{RowBox[{"{", RowBox[{RowBox[{"Print", "[", "1", "]"}], " ", 
+              "q"}], "}"}], ",", "q"}], "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/ModularFormDefinition", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "ModularFormDefinition \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

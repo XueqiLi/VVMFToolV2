@@ -1,0 +1,190 @@
+Notebook[{Cell["DiagonalizeRepresentationT", "ObjectName"], 
+  Cell["DiagonalizeRepresentationT[g, r] transforms the representation r so \
+that the assigned modular generator T of g is diagonal, returning the new \
+Rep, the basis change, the T spectrum and validation data.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["DiagonalizeRepresentationT[g, r] \
+returns a Rep in which the assigned modular generator T of g is diagonal, \
+with BasisChange, InverseBasisChange, TSpectrum, Validation and Attempts. The \
+group must have a modular S,T assignment.", "Notes"], 
+  Cell["Basis -> \"Unitary\" (default) requires unitary input and returns an \
+orthonormal eigenbasis, so the result stays unitary; Basis -> \"General\" \
+accepts any input. TPhaseOrder -> \"Ascending\" orders T phases in [0,1); \
+\"Unchanged\" keeps the basis order where possible. PhaseConvention -> \
+\"FirstSRow\" applies a diagonal unitary rephasing making every nonzero entry \
+of the first row of S after the first real and nonnegative.", "Notes"], 
+  Cell["DiagonalizationMethod: Automatic tries \"Exact\" (eigenspaces \
+computed and every identity proved exactly), then \"NumericalReconstruction\" \
+(a high-precision eigenbasis whose exact entries are recovered and proved); \
+\"Numerical\" requires Arithmetic -> \"Numerical\" and records residuals.", 
+   "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["FieldMethod"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["Automatic, \"Cyclotomic\", \"PrimitiveElement\", \
+\"Radical\", \"RootReduce\" or a duplicate-free list of these.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["DiagonalizationMethod"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["\"Exact\" and \
+\"NumericalReconstruction\" prove every identity exactly and require \
+Arithmetic -> \"Exact\"; \"Numerical\" requires Arithmetic -> \"Numerical\"."\
+, "TableText"]}, {Cell[" ", "TableRowIcon"], Cell[BoxData["Basis"], 
+        "TableText"], Cell["\"Unitary\"", "TableText"], 
+       Cell["\"Unitary\" requires unitary matrices on every recorded \
+generator; \"General\" accepts any verified basis. \"UnitaryTDiagonal\" \
+(ComputeGroupRepresentations, the builders and TransformGroupRepresentations) \
+additionally requires the assigned T to be diagonal, with its phases in the \
+TPhaseOrder order and the PhaseConvention applied (the group needs a modular \
+S,T assignment). SetGroupRepresentation and ChangeGroupRepBasis accept \
+\"Unitary\" and \"General\"; TransformGroupRepresentations \"Unitary\" and \
+\"UnitaryTDiagonal\". For DiagonalizeRepresentationT, \"Unitary\" requires \
+unitary input and keeps the result unitary.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["TPhaseOrder"], "TableText"], 
+       Cell["\"Ascending\"", "TableText"], Cell["\"Ascending\" orders the \
+diagonal T by phase in [0,1) (nondecreasing); \"Unchanged\" orders basis \
+vectors by their first nonzero coordinate, so an already diagonal T keeps its \
+basis. Vectors of one eigenvalue keep their order. With \
+ComputeGroupRepresentations, an irrep whose diagonal T is in another order \
+(for example from SL2Reps) is diagonalized again in GAP.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["PhaseConvention"], 
+        "TableText"], Cell["None", "TableText"], Cell["\"FirstSRow\" applies \
+a diagonal unitary rephasing after diagonalization: the first basis phase is \
+one, and each nonzero first-row entry of S after the first becomes real and \
+nonnegative; zero entries keep their phase and S11 is unchanged.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Arithmetic"], "TableText"], Cell["\"Exact\"", 
+        "TableText"], Cell["\"Exact\" proves identities exactly and refuses \
+numerical input; \"Numerical\" works at WorkingPrecision (default 50) and \
+checks residuals against Tolerance (default 10^(-Floor[p/2])). Tolerance is \
+accepted only with numerical arithmetic.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["WorkingPrecision"], 
+        "TableText"], Cell["50", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["Tolerance"], "TableText"], 
+       Cell["Automatic", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["AttemptTimeLimit"], 
+        "TableText"], Cell["600", "TableText"], Cell["Positive seconds or \
+Infinity, per attempt including verification and saving. Automatic method \
+attempts each receive this limit.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["Verification"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Automatic, \"Exact\", \
+\"Numerical\" or None (the Validate functions: Automatic, \"Exact\" or \
+\"Numerical\"; the modular-form functions have no \"Exact\" route).", 
+        "TableText"]}}, GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+     GridBoxItemSize -> {"Columns" -> {Scaled[0.02], Scaled[0.3], 
+         Scaled[0.18], Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["RepresentationTSpectrum", 
+      BaseStyle -> "Hyperlink", ButtonData -> {"RepresentationTSpectrum.nb", 
+        None}], "  |  ", ButtonBox["UnitarizeRepresentation", 
+      BaseStyle -> "Hyperlink", ButtonData -> {"UnitarizeRepresentation.nb", 
+        None}], "  |  ", ButtonBox["TRep", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"TRep.nb", None}], "  |  ", ButtonBox["TPhaseOrder", 
+      BaseStyle -> "Hyperlink", ButtonData -> {"TPhaseOrder.nb", None}], 
+     "  |  ", ButtonBox["PhaseConvention", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"PhaseConvention.nb", None}], "  |  ", 
+     ButtonBox["DiagonalizationMethod", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"DiagonalizationMethod.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"ComputeRepresentations", "\[Rule]", "False"}], 
+                  ",", RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], 
+                "]"}]}], ",", "r", ",", "d"}], "}"}], ",", 
+        RowBox[{RowBox[{"AssignModularGenerators", "[", 
+            RowBox[{"g", ",", RowBox[{"GroupWord", "[", "\"s\"", "]"}], ",", 
+              RowBox[{"GroupWord", "[", "\"t\"", "]"}], ",", 
+              RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}], ";", 
+          RowBox[{"r", "=", RowBox[{RowBox[{"UnitarizeRepresentation", "[", 
+                RowBox[{"g", ",", RowBox[{"ChangeRepBasis", "[", RowBox[
+                     {InterpretationBox[TemplateBox[{"\"Rep[\"", TemplateBox[
+                          {", ", "\", \"", TagBox[RowBox[{"(", "\[NoBreak]", 
+                          GridBox[{{"0", "1"}, {"1", "0"}}, RowSpacings -> 1, 
+                          ColumnSpacings -> 1, RowAlignments -> Baseline, 
+                          ColumnAlignments -> Center], "\[NoBreak]", ")"}], 
+                          Function[BoxForm`e$, MatrixForm[BoxForm`e$]]], 
+                          TagBox[RowBox[{"(", "\[NoBreak]", GridBox[
+                          {{"0", SuperscriptBox["\[ExponentialE]", 
+                          FractionBox[RowBox[{"2", " ", "\[ImaginaryI]", " ", 
+                          "\[Pi]"}], "3"]]}, {SuperscriptBox[
+                          "\[ExponentialE]", RowBox[{"-", FractionBox[RowBox[
+                          {"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], 
+                          "3"]}]], "0"}}, RowSpacings -> 1, ColumnSpacings -> 
+                          1, RowAlignments -> Baseline, ColumnAlignments -> 
+                          Center], "\[NoBreak]", ")"}], Function[BoxForm`e$, 
+                          MatrixForm[BoxForm`e$]]]}, "RowWithSeparators"], 
+                         "\"]\""}, "RowDefault"], Rep[{{{0, 1}, {1, 0}}, 
+                         {{0, Root[#1^2 + #1 + 1 & , 2]}, {Root[#1^2 + #1 + 
+                          1 & , 1], 0}}}]], ",", RowBox[{"{", RowBox[
+                         {RowBox[{"{", RowBox[{"1", ",", "1"}], "}"}], ",", 
+                          RowBox[{"{", RowBox[{"0", ",", "1"}], "}"}]}], 
+                        "}"}]}], "]"}]}], "]"}], "[", "\"Rep\"", "]"}]}], 
+          ";", RowBox[{"d", "=", RowBox[{"DiagonalizeRepresentationT", "[", 
+              RowBox[{"g", ",", "r", ",", RowBox[{"PhaseConvention", 
+                  "\[Rule]", "\"FirstSRow\""}]}], "]"}]}], ";", 
+          RowBox[{"{", RowBox[{RowBox[{"TRep", "[", RowBox[{"g", ",", 
+                  RowBox[{"d", "[", "\"Rep\"", "]"}]}], "]"}], ",", 
+              RowBox[{RowBox[{"d", "[", "\"TSpectrum\"", "]"}], "[", 
+                "\"Phases\"", "]"}], ",", RowBox[{"UnitaryRepresentationQ", 
+                "[", RowBox[{"d", "[", "\"Rep\"", "]"}], "]"}]}], "}"}]}]}], 
+      "]"}]], "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[
+     {"{", RowBox[{RowBox[{"{", RowBox[{RowBox[{"{", RowBox[{"1", ",", "0"}], 
+              "}"}], ",", RowBox[{"{", RowBox[{"0", ",", RowBox[
+                 {"-", "1"}]}], "}"}]}], "}"}], ",", 
+        RowBox[{"{", RowBox[{"0", ",", FractionBox["1", "2"]}], "}"}], ",", 
+        "True"}], "}"}]], "Output"], Cell["Possible Issues", 
+   "ExampleSection"], Cell["Invalid input returns a structured Failure. Check \
+FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{"g", "=", RowBox[{"BuildGroup", "[", 
+              RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                   {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], ",", 
+                    RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", ",", 
+                        "\"(s.t)^3\""}], "}"}]}], "]"}], ",", RowBox[
+                 {"ComputeRepresentations", "\[Rule]", "False"}], ",", 
+                RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+          "}"}], ",", RowBox[{"FailureQ", "[", 
+          RowBox[{"DiagonalizeRepresentationT", "[", 
+            RowBox[{"g", ",", InterpretationBox[TemplateBox[{"\"Rep[\"", 
+                 TemplateBox[{", ", "\", \"", TagBox[RowBox[{"(", 
+                      "\[NoBreak]", GridBox[{{"0", "1"}, {"1", "0"}}, 
+                       RowSpacings -> 1, ColumnSpacings -> 1, 
+                       RowAlignments -> Baseline, ColumnAlignments -> 
+                        Center], "\[NoBreak]", ")"}], Function[BoxForm`e$, 
+                     MatrixForm[BoxForm`e$]]], TagBox[RowBox[{"(", 
+                      "\[NoBreak]", GridBox[{{"1", "0"}, {"0", "1"}}, 
+                       RowSpacings -> 1, ColumnSpacings -> 1, 
+                       RowAlignments -> Baseline, ColumnAlignments -> 
+                        Center], "\[NoBreak]", ")"}], Function[BoxForm`e$, 
+                     MatrixForm[BoxForm`e$]]]}, "RowWithSeparators"], 
+                 "\"]\""}, "RowDefault"], Rep[{{{0, 1}, {1, 0}}, 
+                 {{1, 0}, {0, 1}}}]]}], "]"}], "]"}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/DiagonalizeRepresentationT", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "DiagonalizeRepresentationT \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

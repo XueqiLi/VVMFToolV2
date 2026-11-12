@@ -1,0 +1,75 @@
+Notebook[{Cell["DisplayDocument", "ObjectName"], 
+  Cell["DisplayDocument[kind, data] is an immutable display snapshot of \
+accepted group data; v[\"field\"] reads a field. Later group changes do not \
+alter it.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["DisplayDocument[kind, data] is an immutable snapshot of accepted \
+group data for display, with kind \"GroupSummary\", \"Representation\", \
+\"RepresentationTable\" or \"CharacterTable\". Its data record the schema \
+version, the source identities (state, generators, character table, modular \
+assignment), revision and generation, the observation time, ordered exact \
+cells, labels, the caption and the presentation defaults of the view.", 
+   "Notes"], Cell["A document is a value: later changes to the group, such as \
+a basis change, a new irrep order or a new assignment, never alter it. \
+Rebuild the view to show the new state. v[\"field\"] reads a field; \
+DisplayData[v] returns the whole association. A document certifies nothing \
+mathematically: it reproduces accepted data.", "Notes"], 
+  Cell["Views are built by GroupSummary, CharacterTableView, \
+RepresentationTable and RepresentationView; ToNotebook, ToLaTeX and \
+ExportDisplay render them. A manually built or altered document fails \
+validation before rendering.", "Notes"], Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["DisplayData", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"DisplayData.nb", None}], "  |  ", 
+     ButtonBox["CharacterTableView", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"CharacterTableView.nb", None}], "  |  ", 
+     ButtonBox["ToLaTeX", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ToLaTeX.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"ComputeRepresentations", "\[Rule]", "False"}], 
+                  ",", RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], 
+                "]"}]}], ",", "v"}], "}"}], ",", 
+        RowBox[{RowBox[{"v", "=", RowBox[{"CharacterTableView", "[", "g", 
+              "]"}]}], ";", RowBox[{"{", RowBox[{RowBox[{"Head", "[", "v", 
+                "]"}], ",", RowBox[{"v", "[", "\"Kind\"", "]"}], ",", 
+              RowBox[{RowBox[{"v", "[", "\"IrrepIDs\"", "]"}], "===", 
+                RowBox[{"g", "[", "\"IrrepOrder\"", "]"}]}]}], "}"}]}]}], 
+      "]"}]], "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{"DisplayDocument", ",", 
+        "\"CharacterTable\"", ",", "True"}], "}"}]], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"DisplayData", "[", 
+        InterpretationBox[TemplateBox[{"\"DisplayDocument[\"", 
+           StyleBox["\"CharacterTable\"", Bold, StripOnInput -> False], 
+           "\", \"", "\"\"", "\"]\""}, "RowDefault"], DisplayDocument[
+          "CharacterTable", Association["Kind" -> "CharacterTable"]]], "]"}], 
+      "]"}]], "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/DisplayDocument", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "DisplayDocument \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

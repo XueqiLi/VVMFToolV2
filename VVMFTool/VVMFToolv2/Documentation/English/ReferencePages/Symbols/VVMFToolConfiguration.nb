@@ -1,0 +1,45 @@
+Notebook[{Cell["VVMFToolConfiguration", "ObjectName"], 
+  Cell["VVMFToolConfiguration[] returns the current package configuration as \
+an association keyed by option symbols.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["Returns symbol-keyed session \
+defaults. No discovery, directory creation or workers occur. Reloading \
+preserves configuration and live objects.", "Notes"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["ConfigureVVMFTool", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ConfigureVVMFTool.nb", None}], "  |  ", 
+     ButtonBox["CheckGAP", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"CheckGAP.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{RowBox[{"AssociationQ", "[", 
+        RowBox[{"VVMFToolConfiguration", "[", "]"}], "]"}], "&&", 
+      RowBox[{"KeyExistsQ", "[", RowBox[{RowBox[{"VVMFToolConfiguration", 
+            "[", "]"}], ",", "StoreGAPState"}], "]"}]}]], "Input", 
+   CellTags -> "VerifiedExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"VVMFToolConfiguration", "[", 
+        "1", "]"}], "]"}]], "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/VVMFToolConfiguration", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "VVMFToolConfiguration \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

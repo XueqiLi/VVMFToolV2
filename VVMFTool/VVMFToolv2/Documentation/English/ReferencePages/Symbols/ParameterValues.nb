@@ -1,0 +1,109 @@
+Notebook[{Cell["ParameterValues", "ObjectName"], 
+  Cell["ParameterValues gives explicit parameter substitutions for \
+PrepareModelOutput: an association from parameter IDs to finite numeric \
+constants.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["Option for PrepareModelOutput: explicit parameter substitutions, an \
+association from parameter IDs to finite numeric constants (exact constants \
+such as Pi or Sqrt[2] allowed).", "Notes"], Cell["<||> (default). Fixed \
+parameters are recorded in the output and its manifest and are not Python \
+inputs; fixing a coupling to 1 is an explicit choice, never an automatic \
+scale removal. Unknown IDs or values with parameters, fields or infinities \
+fail with InvalidOption.", "Notes"], Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["PrepareModelOutput", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"PrepareModelOutput.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "d", ",", "l", ",", "r", ",", "m", ",", "mass"}], "}"}], 
+        ",", RowBox[{RowBox[{"d", "=", RowBox[{"First", "[", 
+              RowBox[{"Select", "[", RowBox[{RowBox[{"g", "[", 
+                    "\"IrrepOrder\"", "]"}], ",", RowBox[{RowBox[
+                     {RowBox[{"RepDim", "[", RowBox[{"GroupRepresentation", 
+                          "[", RowBox[{"g", ",", "#1"}], "]"}], "]"}], "===", 
+                      "2"}], "&"}]}], "]"}], "]"}]}], ";", 
+          RowBox[{"l", "=", RowBox[{"CreateField", "[", RowBox[{"g", ",", 
+                "d", ",", "\"L\""}], "]"}]}], ";", 
+          RowBox[{"r", "=", RowBox[{"CreateField", "[", RowBox[{"g", ",", 
+                "d", ",", "\"R\""}], "]"}]}], ";", 
+          RowBox[{"m", "=", RowBox[{"CreateModel", "[", RowBox[{"g", ",", 
+                RowBox[{"{", RowBox[{"l", ",", "r"}], "}"}]}], "]"}]}], ";", 
+          RowBox[{"m", "=", RowBox[{"AddModelTerm", "[", RowBox[{"m", ",", 
+                RowBox[{"CoupleContractions", "[", RowBox[{"Contractions", 
+                    "[", RowBox[{"m", ",", RowBox[{"{", RowBox[{"l", ",", 
+                          "r"}], "}"}]}], "]"}], "]"}]}], "]"}]}], ";", 
+          RowBox[{"mass", "=", RowBox[{"ExtractBilinearMatrix", "[", 
+              RowBox[{RowBox[{"ModelExpression", "[", "m", "]"}], ",", "l", 
+                ",", "r"}], "]"}]}], ";", RowBox[
+           {RowBox[{"PrepareModelOutput", "[", RowBox[{"m", ",", 
+                RowBox[{"Association", "[", RowBox[{"\"M\"", "\[Rule]", 
+                    "mass"}], "]"}], ",", RowBox[{"ParameterValues", 
+                  "\[Rule]", RowBox[{"Association", "[", RowBox[
+                     {RowBox[{RowBox[{"First", "[", RowBox[
+                          {"ModelParameters", "[", "m", "]"}], "]"}], "[", 
+                        "\"ID\"", "]"}], "\[Rule]", "1"}], "]"}]}]}], "]"}], 
+            "[", "\"RuntimeParameters\"", "]"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], Cell[BoxData[RowBox[{"{", "}"}]], 
+   "Output"], Cell["Possible Issues", "ExampleSection"], 
+  Cell["Invalid input returns a structured Failure. Check FailureQ before \
+using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"Module", "[", 
+        RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                  "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                       {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                        ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                    RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+              ",", "d", ",", "l", ",", "r", ",", "m", ",", "mass"}], "}"}], 
+          ",", RowBox[{RowBox[{"d", "=", RowBox[{"First", "[", 
+                RowBox[{"Select", "[", RowBox[{RowBox[{"g", "[", 
+                      "\"IrrepOrder\"", "]"}], ",", RowBox[{RowBox[
+                       {RowBox[{"RepDim", "[", RowBox[{"GroupRepresentation", 
+                          "[", RowBox[{"g", ",", "#1"}], "]"}], "]"}], "===", 
+                        "2"}], "&"}]}], "]"}], "]"}]}], ";", 
+            RowBox[{"l", "=", RowBox[{"CreateField", "[", RowBox[{"g", ",", 
+                  "d", ",", "\"L\""}], "]"}]}], ";", 
+            RowBox[{"r", "=", RowBox[{"CreateField", "[", RowBox[{"g", ",", 
+                  "d", ",", "\"R\""}], "]"}]}], ";", 
+            RowBox[{"m", "=", RowBox[{"CreateModel", "[", RowBox[{"g", ",", 
+                  RowBox[{"{", RowBox[{"l", ",", "r"}], "}"}]}], "]"}]}], 
+            ";", RowBox[{"m", "=", RowBox[{"AddModelTerm", "[", 
+                RowBox[{"m", ",", RowBox[{"CoupleContractions", "[", 
+                    RowBox[{"Contractions", "[", RowBox[{"m", ",", RowBox[
+                         {"{", RowBox[{"l", ",", "r"}], "}"}]}], "]"}], 
+                    "]"}]}], "]"}]}], ";", RowBox[{"mass", "=", 
+              RowBox[{"ExtractBilinearMatrix", "[", RowBox[
+                 {RowBox[{"ModelExpression", "[", "m", "]"}], ",", "l", ",", 
+                  "r"}], "]"}]}], ";", RowBox[{"PrepareModelOutput", "[", 
+              RowBox[{"m", ",", RowBox[{"ParameterValues", "\[Rule]", 
+                  RowBox[{"Association", "[", RowBox[{"\"unknown\"", 
+                      "\[Rule]", "1"}], "]"}]}]}], "]"}]}]}], "]"}], "]"}]], 
+   "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/ParameterValues", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "ParameterValues \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

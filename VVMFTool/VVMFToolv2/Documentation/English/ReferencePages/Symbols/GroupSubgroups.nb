@@ -1,0 +1,133 @@
+Notebook[{Cell["GroupSubgroups", "ObjectName"], 
+  Cell["GroupSubgroups[group, opts] returns a complete collection of embedded \
+subgroup classes, all subgroups or normal subgroups, with optional \
+order/index filters and descriptions.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["Returns an association with Items, \
+Kind, Filters, Complete, Descriptions and Provenance. Items identify actual \
+embedded subgroups by generator words, order, index and conjugacy-class \
+information; descriptions are optional.", "Notes"], 
+  Cell["SubgroupKind=\"ConjugacyClasses\" chooses one representative per \
+class; \"All\" gives each embedding; \"Normal\" gives normal subgroups. \
+Filters preserve explicit empty complete results.", "Notes"], 
+  Cell["Method->\"GAP\" supports every kind; \"ClassExpansion\" supports All; \
+\"ClassFilter\" supports Normal. Automatic retries eligible routes/models. \
+Compatible cached data take priority over method selection. Description \
+upgrades preserve embeddings and share class descriptions.", "Notes"], 
+  Cell["The whole-group structure description is available on demand: select \
+SubgroupIndex->1 with SubgroupDescriptions->True, then read the sole item's \
+\"Description\". The display name is independent of this mathematical \
+description.", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["GroupModel"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["Automatic, \"Original\", \"Permutation\" or \
+\"PC\" for new method calculations; PC requires a solvable group. Restoration \
+and compatible cache hits do not convert models. Import uses it only when \
+computing a new character-validation source.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["StoreGAPState"], 
+        "TableText"], Cell["True", "TableText"], Cell["True retains verified \
+state across calls; False keeps only call-local temporary checkpoints. Cached \
+mathematical values remain available.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["AttemptTimeLimit"], 
+        "TableText"], Cell["600", "TableText"], Cell["Positive seconds or \
+Infinity, per attempt including verification and saving. Automatic method \
+attempts each receive this limit.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["CoreBudget"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Positive integer at most \
+$ProcessorCount, or Automatic to use the available count. Sequential \
+algorithms run as separate worker processes.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["MemoryBudget"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Positive integer bytes, or \
+Automatic using half system memory less current kernel usage. Admission \
+estimates and sampled total worker RSS enforce the allocation.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["ProgressFunction"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Automatic shows a notebook \
+monitor when a front end is available; None is silent; a Function or user \
+symbol receives progress associations. Callbacks should return promptly; \
+failures/cancellation clean owned workers.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["WordRecovery"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Automatic or a duplicate-free \
+list of \"Native\", \"FP\", \"Cayley\".", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["Method"], "TableText"], 
+       Cell["Automatic", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["SubgroupKind"], "TableText"], 
+       Cell["\"ConjugacyClasses\"", "TableText"], Cell["\"ConjugacyClasses\", \
+\"All\" or \"Normal\". Class representatives and individual embeddings are \
+distinct result kinds.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["SubgroupOrder"], "TableText"], Cell["All", "TableText"], 
+       Cell["All or a positive integer group order. An unmatched filter \
+produces a complete empty collection.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["SubgroupIndex"], 
+        "TableText"], Cell["All", "TableText"], 
+       Cell["All or a positive integer index in the parent group.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["SubgroupDescriptions"], "TableText"], 
+       Cell["False", "TableText"], Cell["True requests actual subgroup \
+structure descriptions; in builders it implies ComputeSubgroups.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Verification"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["Automatic, \"Exact\", \"Numerical\" or None (the \
+Validate functions: Automatic, \"Exact\" or \"Numerical\"; the modular-form \
+functions have no \"Exact\" route).", "TableText"]}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, GridBoxItemSize -> 
+      {"Columns" -> {Scaled[0.02], Scaled[0.3], Scaled[0.18], 
+         Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["NormalSubgroupsByIndex", 
+      BaseStyle -> "Hyperlink", ButtonData -> {"NormalSubgroupsByIndex.nb", 
+        None}], "  |  ", ButtonBox["BuildGroup", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"BuildGroup.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"CatalogueGroup", "[", RowBox[
+                     {"\"SymmetricGroup\"", ",", "3"}], "]"}], ",", 
+                  RowBox[{"ComputeRepresentations", "\[Rule]", "False"}], 
+                  ",", RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], 
+                "]"}]}], ",", "q"}], "}"}], ",", 
+        RowBox[{RowBox[{"q", "=", RowBox[{"GroupSubgroups", "[", 
+              RowBox[{"g", ",", RowBox[{"SubgroupKind", "\[Rule]", 
+                  "\"Normal\""}], ",", RowBox[{"StoreGAPState", "\[Rule]", 
+                  "False"}]}], "]"}]}], ";", 
+          RowBox[{"{", RowBox[{RowBox[{"q", "[", "\"Complete\"", "]"}], ",", 
+              RowBox[{"Sort", "[", RowBox[{"Lookup", "[", RowBox[
+                   {RowBox[{"q", "[", "\"Items\"", "]"}], ",", "\"Order\""}], 
+                  "]"}], "]"}]}], "}"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{"True", ",", 
+        RowBox[{"{", RowBox[{"1", ",", "3", ",", "6"}], "}"}]}], "}"}]], 
+   "Output"], Cell["Possible Issues", "ExampleSection"], 
+  Cell["Invalid input returns a structured Failure. Check FailureQ before \
+using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"GroupSubgroups", "[", 
+        RowBox[{InterpretationBox[TemplateBox[{"\"Group[\"", "\"unknown\"", 
+             "\"]\""}, "RowDefault"], Group["unknown"]], ",", 
+          RowBox[{"SubgroupKind", "\[Rule]", "\"All\""}], ",", 
+          RowBox[{"Method", "\[Rule]", "\"ClassFilter\""}]}], "]"}], "]"}]], 
+   "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/GroupSubgroups", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "GroupSubgroups \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

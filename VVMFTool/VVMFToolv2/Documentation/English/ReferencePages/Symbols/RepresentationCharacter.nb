@@ -1,0 +1,112 @@
+Notebook[{Cell["RepresentationCharacter", "ObjectName"], 
+  Cell["RepresentationCharacter[g, r] returns the values of the character of \
+the representation r on the conjugacy classes of the group or context g, \
+keyed by class ID.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["RepresentationCharacter[g, r] returns the traces of r on the bound \
+class representative words of g, as an association class ID -> value in the \
+order of g's classes.", "Notes"], Cell["It works for reducible \
+representations and does not by itself certify r as a representation of the \
+group; ValidateRepresentation does. Arithmetic -> \"Numerical\" evaluates at \
+WorkingPrecision.", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["FieldMethod"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["Automatic, \"Cyclotomic\", \"PrimitiveElement\", \
+\"Radical\", \"RootReduce\" or a duplicate-free list of these.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Arithmetic"], "TableText"], Cell["\"Exact\"", 
+        "TableText"], Cell["\"Exact\" proves identities exactly and refuses \
+numerical input; \"Numerical\" works at WorkingPrecision (default 50) and \
+checks residuals against Tolerance (default 10^(-Floor[p/2])). Tolerance is \
+accepted only with numerical arithmetic.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["WorkingPrecision"], 
+        "TableText"], Cell["50", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["Tolerance"], "TableText"], 
+       Cell["Automatic", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, GridBoxItemSize -> 
+      {"Columns" -> {Scaled[0.02], Scaled[0.3], Scaled[0.18], 
+         Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["ValidateRepresentation", 
+      BaseStyle -> "Hyperlink", ButtonData -> {"ValidateRepresentation.nb", 
+        None}], "  |  ", ButtonBox["DecomposeRepresentation", 
+      BaseStyle -> "Hyperlink", ButtonData -> {"DecomposeRepresentation.nb", 
+        None}]}], "SeeAlso"], Cell["Examples Initialization", 
+   "ExamplesInitializationSection"], Cell["Open this notebook in its \
+repository location. GAP must be installed; LINS is required for its bounded \
+search page. Evaluate the setup before the examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{"g", "=", RowBox[{"BuildGroup", "[", 
+              RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                   {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], ",", 
+                    RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", ",", 
+                        "\"(s.t)^3\""}], "}"}]}], "]"}], ",", RowBox[
+                 {"ComputeRepresentations", "\[Rule]", "False"}], ",", 
+                RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+          "}"}], ",", RowBox[{"Values", "[", 
+          RowBox[{"RepresentationCharacter", "[", RowBox[{"g", ",", 
+              InterpretationBox[TemplateBox[{"\"Rep[\"", TemplateBox[
+                  {", ", "\", \"", TagBox[RowBox[{"(", "\[NoBreak]", 
+                      GridBox[{{"0", "1"}, {"1", "0"}}, RowSpacings -> 1, 
+                       ColumnSpacings -> 1, RowAlignments -> Baseline, 
+                       ColumnAlignments -> Center], "\[NoBreak]", ")"}], 
+                    Function[BoxForm`e$, MatrixForm[BoxForm`e$]]], 
+                   TagBox[RowBox[{"(", "\[NoBreak]", GridBox[{{"0", 
+                         SuperscriptBox["\[ExponentialE]", FractionBox[
+                          RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], 
+                          "3"]]}, {SuperscriptBox["\[ExponentialE]", RowBox[
+                          {"-", FractionBox[RowBox[{"2", " ", 
+                          "\[ImaginaryI]", " ", "\[Pi]"}], "3"]}]], "0"}}, 
+                       RowSpacings -> 1, ColumnSpacings -> 1, 
+                       RowAlignments -> Baseline, ColumnAlignments -> 
+                        Center], "\[NoBreak]", ")"}], Function[BoxForm`e$, 
+                     MatrixForm[BoxForm`e$]]]}, "RowWithSeparators"], 
+                 "\"]\""}, "RowDefault"], Rep[{{{0, 1}, {1, 0}}, 
+                 {{0, Root[#1^2 + #1 + 1 & , 2]}, {Root[#1^2 + #1 + 1 & , 1], 
+                   0}}}]]}], "]"}], "]"}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{"2", ",", "0", ",", RowBox[{"-", "1"}]}], 
+      "}"}]], "Output"], Cell["Possible Issues", "ExampleSection"], 
+  Cell["Invalid input returns a structured Failure. Check FailureQ before \
+using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{"g", "=", RowBox[{"BuildGroup", "[", 
+              RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                   {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], ",", 
+                    RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", ",", 
+                        "\"(s.t)^3\""}], "}"}]}], "]"}], ",", RowBox[
+                 {"ComputeRepresentations", "\[Rule]", "False"}], ",", 
+                RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+          "}"}], ",", RowBox[{"FailureQ", "[", 
+          RowBox[{"RepresentationCharacter", "[", RowBox[{"g", ",", 
+              InterpretationBox[TemplateBox[{"\"Rep[\"", TemplateBox[
+                  {", ", "\", \"", TagBox[RowBox[{"(", "\[NoBreak]", 
+                      GridBox[{{"1"}}, RowSpacings -> 1, ColumnSpacings -> 1, 
+                       RowAlignments -> Baseline, ColumnAlignments -> 
+                        Center], "\[NoBreak]", ")"}], Function[BoxForm`e$, 
+                     MatrixForm[BoxForm`e$]]]}, "RowWithSeparators"], 
+                 "\"]\""}, "RowDefault"], Rep[{{{1}}}]]}], "]"}], "]"}]}], 
+      "]"}]], "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/RepresentationCharacter", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "RepresentationCharacter \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

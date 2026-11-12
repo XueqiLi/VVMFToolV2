@@ -1,0 +1,116 @@
+Notebook[{Cell["CreateModularModel", "ObjectName"], 
+  Cell["CreateModularModel[c, fields, FieldWeights -> <|id -> kf, ...|>] \
+gives an empty model whose fields carry exact rational weight labels kf \
+(actual weight -kf) and whose target has actual weight SuperpotentialWeight."\
+, "Usage"], Cell["Status: Alpha.", "Notes"], Cell["CreateModularModel[c, \
+fields, FieldWeights -> <|id -> kf, ...|>] gives an empty model whose fields \
+carry exact rational weight labels kf (for example 1/2) (actual weight -kf) \
+over a group or context with an S,T assignment.", "Notes"], 
+  Cell["Options: FieldWeights (required), SuperpotentialWeight (kW, default \
+0), and Name, TargetIrrep (degree one), Arithmetic, WorkingPrecision, \
+Tolerance as CreateModel. Each call starts a new form-slot namespace.", 
+   "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["FieldWeights"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["Required (Automatic fails MissingFieldWeights); \
+unknown field IDs or labels that are not exact rationals (for example 0.5) \
+fail InvalidFieldWeights. A term with one form of weight kY is admitted when \
+kY - Sum kf = kW.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["SuperpotentialWeight"], "TableText"], 
+       Cell["0", "TableText"], Cell["An exact rational, default 0; every \
+monomial of every term must have total actual weight kW (fields -kf, forms \
+kY).", "TableText"]}, {Cell[" ", "TableRowIcon"], Cell[BoxData["Name"], 
+        "TableText"], Cell["\"Model\"", "TableText"], 
+       Cell["Automatic or a display-name string. Does not identify \
+mathematical equivalence.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["TargetIrrep"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["Automatic (default, the recorded trivial irrep) \
+or the ID of an irrep of degree one with accepted matrices.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["Arithmetic"], "TableText"], 
+       Cell["\"Exact\"", "TableText"], Cell["\"Exact\" proves identities \
+exactly and refuses numerical input; \"Numerical\" works at WorkingPrecision \
+(default 50) and checks residuals against Tolerance (default \
+10^(-Floor[p/2])). Tolerance is accepted only with numerical arithmetic.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["WorkingPrecision"], "TableText"], 
+       Cell["50", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["Tolerance"], "TableText"], 
+       Cell["Automatic", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, GridBoxItemSize -> 
+      {"Columns" -> {Scaled[0.02], Scaled[0.3], Scaled[0.18], 
+         Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["FieldModularWeight", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"FieldModularWeight.nb", None}], "  |  ", 
+     ButtonBox["ModularContractions", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ModularContractions.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "c", ",", "d", ",", "one", ",", "df", ",", "rf", ",", 
+            "m0"}], "}"}], ",", RowBox[{RowBox[{"AssignModularGenerators", 
+            "[", RowBox[{"g", ",", RowBox[{"GroupWord", "[", "\"t^-1.s.t\"", 
+                "]"}], ",", RowBox[{"GroupWord", "[", "\"s\"", "]"}], ",", 
+              RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}], ";", 
+          RowBox[{"c", "=", RowBox[{"RepresentationContext", "[", "g", 
+              "]"}]}], ";", RowBox[{"d", "=", RowBox[{"First", "[", 
+              RowBox[{"Select", "[", RowBox[{RowBox[{"g", "[", 
+                    "\"IrrepOrder\"", "]"}], ",", RowBox[{RowBox[
+                     {RowBox[{"RepDim", "[", RowBox[{"GroupRepresentation", 
+                          "[", RowBox[{"g", ",", "#1"}], "]"}], "]"}], "===", 
+                      "2"}], "&"}]}], "]"}], "]"}]}], ";", 
+          RowBox[{"one", "=", RowBox[{RowBox[{"g", "[", "\"CharacterData\"", 
+                "]"}], "[", "\"TrivialIrrepID\"", "]"}]}], ";", 
+          RowBox[{"df", "=", RowBox[{"CreateField", "[", RowBox[{"c", ",", 
+                "d", ",", "\"D\""}], "]"}]}], ";", 
+          RowBox[{"rf", "=", RowBox[{"CreateField", "[", RowBox[{"c", ",", 
+                "one", ",", "\"R\""}], "]"}]}], ";", 
+          RowBox[{"m0", "=", RowBox[{"CreateModularModel", "[", 
+              RowBox[{"c", ",", RowBox[{"{", RowBox[{"df", ",", "rf"}], 
+                  "}"}], ",", RowBox[{"FieldWeights", "\[Rule]", 
+                  RowBox[{"Association", "[", RowBox[{RowBox[{RowBox[{"df", 
+                          "[", "\"ID\"", "]"}], "\[Rule]", "1"}], ",", 
+                      RowBox[{RowBox[{"rf", "[", "\"ID\"", "]"}], "\[Rule]", 
+                        "1"}]}], "]"}]}]}], "]"}]}], ";", 
+          RowBox[{"Values", "[", RowBox[{RowBox[{RowBox[{"First", "[", "m0", 
+                  "]"}], "[", "\"ModularData\"", "]"}], "[", 
+              "\"ActualFieldWeights\"", "]"}], "]"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{RowBox[{"-", "1"}], ",", 
+        RowBox[{"-", "1"}]}], "}"}]], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"CreateModularModel", "[", 
+        RowBox[{"1", ",", "2"}], "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/CreateModularModel", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "CreateModularModel \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

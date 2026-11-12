@@ -1,0 +1,49 @@
+Notebook[{Cell["MethodData", "ObjectName"], Cell["MethodData supplies \
+route-specific data: subgroup generator words and an optional subgroup \
+representation, or an Atlas group name and representation number.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["Option for \
+ComputeGroupRepresentations and the builders (BuildGroup, BuildModularGroup, \
+BuildGroupFromGAP). Default: Automatic.", "Notes"], 
+  Cell["<|\"SubgroupGenerators\" -> {GroupWord..}, \"Representation\" -> \
+Rep|> for CharacterSubgroup, Induction, InducedUnitary, Extension and \
+NormalExtension (the Representation is optional and not used by \
+CharacterSubgroup); <|\"AtlasName\" -> name, \"RepresentationNumber\" -> n|> \
+for AtlasRep.", "Notes"], Cell["Requires an explicit RepresentationMethod; \
+keys foreign to that route are rejected before computation.", "Notes"], 
+  Cell["For the CG method SubgroupEmbedding, MethodData gives \
+\"SubgroupGenerators\" or \"SubgroupRecord\"; without them a recorded proper \
+subgroup is used, and a cyclic or the identity subgroup only with \
+\"SubgroupSource\" -> \"Any\".", "Notes"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["RepresentationMethod", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"RepresentationMethod.nb", None}], "  |  ", 
+     ButtonBox["ComputeGroupRepresentations", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ComputeGroupRepresentations.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"MemberQ", "[", 
+      RowBox[{RowBox[{"First", "/@", RowBox[{"Options", "[", 
+            "ComputeGroupRepresentations", "]"}]}], ",", "MethodData"}], 
+      "]"}]], "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/MethodData", "Categorization", CellLabel -> "URI"]}, 
+    Closed]]}, WindowTitle -> "MethodData \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

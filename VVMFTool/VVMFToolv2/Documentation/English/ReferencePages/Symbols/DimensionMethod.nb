@@ -1,0 +1,55 @@
+Notebook[{Cell["DimensionMethod", "ObjectName"], 
+  Cell["DimensionMethod is an option of MinimumModularWeight, \
+ModularFormCandidates, ModularTensorProductVectors and ModularContractions: \
+the Method of the modular dimensions they use (Automatic, \"Profile\" or \
+\"TraceFormula\").", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["Option of MinimumModularWeight, ModularFormCandidates, \
+ModularTensorProductVectors and ModularContractions: the Method of the \
+modular dimensions they use (as ModularDimensionData's Method): Automatic, \
+\"Profile\" or \"TraceFormula\". For MinimumModularWeight, Automatic takes \
+the weight profile when it decides and searches otherwise, \"Profile\" uses \
+the profile only, and \"TraceFormula\" always searches with trace-formula \
+dimensions.", "Notes"], Cell["Automatic, \"Profile\" or \"TraceFormula\".", 
+   "Notes"], Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["ModularDimensionData", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ModularDimensionData.nb", None}], "  |  ", 
+     ButtonBox["MinimumModularWeight", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"MinimumModularWeight.nb", None}], "  |  ", 
+     ButtonBox["ModularFormCandidates", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ModularFormCandidates.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"MemberQ", "[", 
+      RowBox[{RowBox[{"First", "/@", RowBox[{"Options", "[", 
+            "MinimumModularWeight", "]"}]}], ",", "DimensionMethod"}], 
+      "]"}]], "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Possible Issues", "ExampleSection"], 
+  Cell["Invalid input returns a structured Failure. Check FailureQ before \
+using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"MinimumModularWeight", "[", 
+        RowBox[{"\"no group\"", ",", "\"a\"", ",", 
+          RowBox[{"DimensionMethod", "\[Rule]", "\"Profile\""}]}], "]"}], 
+      "]"}]], "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/DimensionMethod", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "DimensionMethod \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

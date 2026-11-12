@@ -1,0 +1,79 @@
+Notebook[{Cell["Recompute", "ObjectName"], Cell["Recompute is an option of \
+CGCoefficients: True computes the coefficients with the requested Method even \
+when the store already holds them (the result is stored only where nothing is \
+stored yet).", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["Option of CGCoefficients. Default: False. With an explicit Method, a \
+target the store already holds is returned from the store with a one-line \
+note naming the method that made it; Recompute -> True computes it with the \
+requested Method instead.", "Notes"], Cell["True or False.", "Notes"], 
+  Cell["A recomputation never replaces a stored entry (vectors made earlier \
+refer to its channels): it is returned with its own channel IDs and \
+Provenance \"Recomputed\" -> True, and stored only where the store holds \
+nothing for that target.", "Notes"], Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["CGCoefficients", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"CGCoefficients.nb", None}], "  |  ", 
+     ButtonBox["CacheCG", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"CacheCG.nb", None}], "  |  ", 
+     ButtonBox["CleanCGCache", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"CleanCGCache.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "d"}], "}"}], ",", RowBox[
+         {RowBox[{"d", "=", RowBox[{"First", "[", RowBox[{"Select", "[", 
+                RowBox[{RowBox[{"g", "[", "\"IrrepOrder\"", "]"}], ",", 
+                  RowBox[{RowBox[{RowBox[{"RepDim", "[", RowBox[
+                         {"GroupRepresentation", "[", RowBox[{"g", ",", 
+                          "#1"}], "]"}], "]"}], "===", "2"}], "&"}]}], "]"}], 
+              "]"}]}], ";", RowBox[{"Block", "[", 
+            RowBox[{RowBox[{"{", "Print", "}"}], ",", RowBox[{RowBox[
+                 {"CGCoefficients", "[", RowBox[{"g", ",", RowBox[{"{", 
+                      RowBox[{"d", ",", "d"}], "}"}], ",", "d"}], "]"}], ";", 
+                RowBox[{RowBox[{RowBox[{RowBox[{"First", "[", RowBox[
+                         {"CGCoefficients", "[", RowBox[{"g", ",", RowBox[
+                          {"{", RowBox[{"d", ",", "d"}], "}"}], ",", "d", 
+                          ",", RowBox[{"Method", "\[Rule]", 
+                          "\"ProjectionLazy\""}], ",", RowBox[{"Recompute", 
+                          "\[Rule]", "True"}]}], "]"}], "]"}], "[", 
+                      "\"Provenance\"", "]"}], "[", "d", "]"}], 
+                  "\[LeftDoubleBracket]", RowBox[{"{", RowBox[{"\"Method\"", 
+                      ",", "\"Recomputed\""}], "}"}], 
+                  "\[RightDoubleBracket]"}]}]}], "]"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"Association", "[", 
+      RowBox[{RowBox[{"\"Method\"", "\[Rule]", "\"ProjectionLazy\""}], ",", 
+        RowBox[{"\"Recomputed\"", "\[Rule]", "True"}]}], "]"}]], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"CGCoefficients", "[", 
+        RowBox[{"\"no group\"", ",", RowBox[{"{", RowBox[{"\"a\"", ",", 
+              "\"b\""}], "}"}], ",", RowBox[{"Recompute", "\[Rule]", "1"}]}], 
+        "]"}], "]"}]], "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/Recompute", "Categorization", CellLabel -> "URI"]}, 
+    Closed]]}, WindowTitle -> "Recompute \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

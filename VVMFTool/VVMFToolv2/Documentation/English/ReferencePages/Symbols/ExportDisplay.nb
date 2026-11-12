@@ -1,0 +1,125 @@
+Notebook[{Cell["ExportDisplay", "ObjectName"], Cell["ExportDisplay[file, v] \
+writes the display document v to a LaTeX file.\nExportDisplay[file, v, \
+\"Notebook\"] writes a static notebook.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["ExportDisplay[file, v] writes the \
+LaTeX of a display document; ExportDisplay[file, v, \"Notebook\"] writes a \
+static, self-contained notebook of explicit boxes with every row (PageSize \
+only organizes sections; no Dynamic content or package code).", "Notes"], 
+  Cell["The file is written to a temporary sibling and renamed; an existing \
+file is refused unless Overwrite -> True, and a failure keeps the old file. \
+Nothing is compiled. The result is the absolute path.", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["ScalarNotation"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["\"Standard\" writes a certified root of unity as \
+exact radicals a + b i when possible; \"Exponential\" as e^{2 pi i k/n}; \
+\"Omega\" as omega_n^k (with its definition once when DefineOmega is True). \
+Only exactly certified rational phases are converted; other values are \
+unaffected. In \"Standard\" a table can therefore mix forms (fifth roots of \
+unity have radical forms, 25th roots are written exponentially); \
+\"Exponential\" and \"Omega\" give a uniform table.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["NotationStyle"], 
+        "TableText"], Cell["Automatic", "TableText"], Cell["\"Standard\" uses \
+ordinary LaTeX commands; \"Paper\" uses the macros \\ii, \\ee and \\rep, \
+defined by the preamble with \\providecommand.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["OneByOneMatrix"], 
+        "TableText"], Cell["Automatic", "TableText"], Cell["\"Scalar\" writes \
+a 1 x 1 matrix as its entry (the row data still identify it as a \
+one-dimensional matrix); \"Matrix\" writes a 1 x 1 pmatrix.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["DefineOmega"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["True includes the definition \
+omega_a^b = e^{2 pi i b/a} once in the legend when omega notation is used; \
+False leaves it to the caller.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Digits"], "TableText"], Cell["Automatic", "TableText"], 
+       Cell["A positive integer limits the digits displayed for numerical \
+values. Exact values are never rounded, and stored values are not changed.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], Cell[BoxData["Caption"], 
+        "TableText"], Cell["Automatic", "TableText"], 
+       Cell["A plain string (escaped) or a TeXFragment replaces the automatic \
+caption.", "TableText"]}, {Cell[" ", "TableRowIcon"], Cell[BoxData["Label"], 
+        "TableText"], Cell["Automatic", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["PageSize"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Rows per page of an interactive \
+notebook view: a positive integer or All. Exports are always complete; in an \
+exported notebook PageSize only organizes sections.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["Standalone"], "TableText"], 
+       Cell["False", "TableText"], Cell["True produces a complete LaTeX \
+document (document class, packages, macros); False a fragment whose \
+dependencies LaTeXPreamble gives.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["Overwrite"], "TableText"], 
+       Cell["False", "TableText"], 
+       Cell["False refuses an existing file; True replaces it atomically.", 
+        "TableText"]}}, GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+     GridBoxItemSize -> {"Columns" -> {Scaled[0.02], Scaled[0.3], 
+         Scaled[0.18], Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["ToLaTeX", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ToLaTeX.nb", None}], "  |  ", 
+     ButtonBox["ToNotebook", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ToNotebook.nb", None}], "  |  ", 
+     ButtonBox["Overwrite", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"Overwrite.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"ComputeRepresentations", "\[Rule]", "False"}], 
+                  ",", RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], 
+                "]"}]}], ",", RowBox[{"file", "=", RowBox[{"FileNameJoin", 
+                "[", RowBox[{"{", RowBox[{"$TemporaryDirectory", ",", 
+                    RowBox[{RowBox[{"CreateUUID", "[", "]"}], "<>", 
+                      "\".tex\""}]}], "}"}], "]"}]}], ",", "r"}], "}"}], ",", 
+        RowBox[{RowBox[{"r", "=", RowBox[{"ExportDisplay", "[", 
+              RowBox[{"file", ",", RowBox[{"CharacterTableView", "[", "g", 
+                  "]"}], ",", RowBox[{"Standalone", "\[Rule]", "True"}]}], 
+              "]"}]}], ";", RowBox[{"{", RowBox[{RowBox[{"r", "===", 
+                "file"}], ",", RowBox[{"FailureQ", "[", RowBox[
+                 {"ExportDisplay", "[", RowBox[{"file", ",", RowBox[
+                     {"CharacterTableView", "[", "g", "]"}]}], "]"}], "]"}], 
+              ",", RowBox[{"DeleteFile", "[", "file", "]"}]}], "}"}]}]}], 
+      "]"}]], "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{"True", ",", "True", ",", "Null"}], 
+      "}"}]], "Output"], Cell["Possible Issues", "ExampleSection"], 
+  Cell["Invalid input returns a structured Failure. Check FailureQ before \
+using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{"g", "=", RowBox[{"BuildGroup", "[", 
+              RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                   {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], ",", 
+                    RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", ",", 
+                        "\"(s.t)^3\""}], "}"}]}], "]"}], ",", RowBox[
+                 {"ComputeRepresentations", "\[Rule]", "False"}], ",", 
+                RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+          "}"}], ",", RowBox[{"FailureQ", "[", RowBox[{"ExportDisplay", "[", 
+            RowBox[{RowBox[{"FileNameJoin", "[", RowBox[{"{", RowBox[
+                   {"$TemporaryDirectory", ",", "\"x.pdf\""}], "}"}], "]"}], 
+              ",", RowBox[{"CharacterTableView", "[", "g", "]"}], ",", 
+              "\"PDF\""}], "]"}], "]"}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/ExportDisplay", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "ExportDisplay \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

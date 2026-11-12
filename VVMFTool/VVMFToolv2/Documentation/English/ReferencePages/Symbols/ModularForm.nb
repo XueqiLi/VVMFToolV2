@@ -1,0 +1,71 @@
+Notebook[{Cell["ModularForm", "ObjectName"], Cell["ModularForm[id] is a \
+handle to a registered modular form; aliases of one ID observe its validated \
+updates.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["ModularForm[id] is a handle to a registered modular form; aliases of \
+one ID observe its validated updates (coefficients, expansions), and \
+properties are read with y[\"Property\"].", "Notes"], 
+  Cell["Each record holds its frozen context, the actual representation and \
+basis, weight, definition, expression, value, q-expansion, coefficient and \
+normalization record, validation evidence and provenance; the group is \
+provenance only.", "Notes"], Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["CreateModularForm", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"CreateModularForm.nb", None}], "  |  ", 
+     ButtonBox["ConstructModularForms", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ConstructModularForms.nb", None}], "  |  ", 
+     ButtonBox["ModularFormData", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ModularFormData.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "d", ",", "one"}], "}"}], ",", 
+        RowBox[{RowBox[{"AssignModularGenerators", "[", 
+            RowBox[{"g", ",", RowBox[{"GroupWord", "[", "\"t^-1.s.t\"", 
+                "]"}], ",", RowBox[{"GroupWord", "[", "\"s\"", "]"}], ",", 
+              RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}], ";", 
+          RowBox[{"d", "=", RowBox[{"First", "[", RowBox[{"Select", "[", 
+                RowBox[{RowBox[{"g", "[", "\"IrrepOrder\"", "]"}], ",", 
+                  RowBox[{RowBox[{RowBox[{"RepDim", "[", RowBox[
+                         {"GroupRepresentation", "[", RowBox[{"g", ",", 
+                          "#1"}], "]"}], "]"}], "===", "2"}], "&"}]}], "]"}], 
+              "]"}]}], ";", RowBox[{"one", "=", RowBox[
+             {RowBox[{"g", "[", "\"CharacterData\"", "]"}], "[", 
+              "\"TrivialIrrepID\"", "]"}]}], ";", 
+          RowBox[{"Head", "[", RowBox[{"First", "[", RowBox[{
+                "ConstructModularForms", "[", RowBox[{"g", ",", "d"}], "]"}], 
+              "]"}], "]"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], Cell[BoxData["ModularForm"], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"ModularFormData", "[", 
+        InterpretationBox[TemplateBox[{"\"ModularForm[\"", 
+           TemplateBox[{"\"weight \"", "\"?\"", "\", dimension \"", "\"?\""}, 
+            "RowDefault"], "\"]\""}, "RowDefault"], ModularForm["nope"]], 
+        "]"}], "]"}]], "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/ModularForm", "Categorization", CellLabel -> "URI"]}, 
+    Closed]]}, WindowTitle -> "ModularForm \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

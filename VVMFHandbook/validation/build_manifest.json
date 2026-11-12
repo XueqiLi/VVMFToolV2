@@ -1,0 +1,33 @@
+{
+  "source_sha256": "dcc04dd90750b5727257e2f1eda805aea18aa0d1bc62a496251c2c961b6811e5",
+  "vectors": 820,
+  "models": 174,
+  "catalogue_section": 7,
+  "engine_api_functions": [
+    "VVMFKeyTake",
+    "VVMFFailureQ",
+    "VVMFPolynomialValue",
+    "VVMFRootSelect",
+    "VVMFParameters",
+    "VVMFResolve",
+    "VVMFList",
+    "VVMFGet",
+    "VVMFSeriesFromData",
+    "VVMFQExpansion",
+    "VVMFCoefficient",
+    "VVMFSerreDerivative",
+    "VVMFScalarMultiply",
+    "VVMFEisenstein",
+    "VVMFMonomial",
+    "VVMFConv",
+    "VVMFInfo",
+    "VVMFNames",
+    "VVMFNamedExpansion",
+    "VVMFResults",
+    "VVMFAll",
+    "VVMFComputeAll",
+    "VVMFTeX",
+    "VVMFStatus",
+    "VVMFLaTeX"
+  ]
+}

@@ -1,0 +1,228 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      7724,        218]
+NotebookOptionsPosition[      5941,        182]
+NotebookOutlinePosition[      6379,        200]
+CellTagsIndexPosition[      6336,        197]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["VVMF handbook: compute and export", "Title",ExpressionUUID->"8a31ea83-852e-45c8-b211-3af1a1e857c2"],
+
+Cell["\<\
+Change qOrder only, then choose Evaluation > Evaluate Notebook. Keep \
+VVMF_Engine.wl next to this notebook. The complete exact catalogue is \
+computed and saved as VVMF_Results_Data.wl in this folder. The output file is \
+overwritten by the new order.\
+\>", "Text",ExpressionUUID->"c4930872-1310-4748-8a44-c6ffa658fbde"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"qOrder", " ", "=", " ", "25"}], ";"}]], "Input",
+ CellChangeTimes->{{4.002250781116876*^9, 4.0022507815259027`*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"335ec04f-bef0-40b3-b137-373e53d84607"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Get", "[", 
+   RowBox[{"FileNameJoin", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"NotebookDirectory", "[", "]"}], ",", 
+      "\"\<VVMF_Engine.wl\>\""}], "}"}], "]"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"VVMFBuild", "[", 
+  RowBox[{"qOrder", ",", 
+   RowBox[{"NotebookDirectory", "[", "]"}]}], "]"}]}], "Input",
+ Editable->False,
+ CellLabel->"In[2]:=",ExpressionUUID->"42c15ca4-41ff-4a18-82a4-9d7c1e617342"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Computing \"\>", "\[InvisibleSpace]", "174", 
+   "\[InvisibleSpace]", "\<\" models to relative order \"\>", 
+   "\[InvisibleSpace]", "25", "\[InvisibleSpace]", "\<\"...\"\>"}],
+  SequenceForm["Computing ", 174, " models to relative order ", 25, "..."],
+  Editable->False]], "Print",
+ CellChangeTimes->{4.002250784166393*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[2]:=",ExpressionUUID->"082aa211-97ad-45dd-a812-\
+32025ed4b2be"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+  "20", "\[InvisibleSpace]", "\<\" / \"\>", "\[InvisibleSpace]", "174"}],
+  SequenceForm[20, " / ", 174],
+  Editable->False]], "Print",
+ CellChangeTimes->{4.002250784408224*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[2]:=",ExpressionUUID->"1509cd9f-a687-494c-a8d1-\
+0318cf6b4298"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+  "40", "\[InvisibleSpace]", "\<\" / \"\>", "\[InvisibleSpace]", "174"}],
+  SequenceForm[40, " / ", 174],
+  Editable->False]], "Print",
+ CellChangeTimes->{4.002250787191246*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[2]:=",ExpressionUUID->"8d419fa7-a7f6-4053-a316-\
+61c0e3655f1d"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+  "60", "\[InvisibleSpace]", "\<\" / \"\>", "\[InvisibleSpace]", "174"}],
+  SequenceForm[60, " / ", 174],
+  Editable->False]], "Print",
+ CellChangeTimes->{4.0022507889080153`*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[2]:=",ExpressionUUID->"6ab67684-e01a-482d-bb4b-\
+e6377864b2c0"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+  "80", "\[InvisibleSpace]", "\<\" / \"\>", "\[InvisibleSpace]", "174"}],
+  SequenceForm[80, " / ", 174],
+  Editable->False]], "Print",
+ CellChangeTimes->{4.0022507983937044`*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[2]:=",ExpressionUUID->"84fd9110-60e9-40b7-a46b-\
+4af958a09bb4"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+  "100", "\[InvisibleSpace]", "\<\" / \"\>", "\[InvisibleSpace]", "174"}],
+  SequenceForm[100, " / ", 174],
+  Editable->False]], "Print",
+ CellChangeTimes->{4.0022508022328587`*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[2]:=",ExpressionUUID->"62f53060-7c6f-4609-b519-\
+1e35bf396086"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+  "120", "\[InvisibleSpace]", "\<\" / \"\>", "\[InvisibleSpace]", "174"}],
+  SequenceForm[120, " / ", 174],
+  Editable->False]], "Print",
+ CellChangeTimes->{4.0022508037848473`*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[2]:=",ExpressionUUID->"b614502e-9e6e-472b-9dbc-\
+ee1e61be830d"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+  "140", "\[InvisibleSpace]", "\<\" / \"\>", "\[InvisibleSpace]", "174"}],
+  SequenceForm[140, " / ", 174],
+  Editable->False]], "Print",
+ CellChangeTimes->{4.002250812036728*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[2]:=",ExpressionUUID->"2d5bb0a4-366c-43bc-8fef-\
+ac9952e22d9a"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+  "160", "\[InvisibleSpace]", "\<\" / \"\>", "\[InvisibleSpace]", "174"}],
+  SequenceForm[160, " / ", 174],
+  Editable->False]], "Print",
+ CellChangeTimes->{4.0022508257429523`*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[2]:=",ExpressionUUID->"5cf21e44-1dc3-4a1b-aa02-\
+c152832e7d73"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"\[LeftAssociation]", 
+  RowBox[{
+   RowBox[{"\<\"File\"\>", 
+    "\[Rule]", \
+"\<\"C:\\\\Users\\\\25160\\\\Documents\\\\BaiduSyncdisk\\\\WORK\\\\Handbook_\
+VVMF\\\\Codes_VVMF\\\\VVMF_Handbook_Package\\\\VVMF_Results_Data.wl\"\>"}], 
+   ",", 
+   RowBox[{"\<\"Order\"\>", "\[Rule]", "25"}], ",", 
+   RowBox[{"\<\"Vectors\"\>", "\[Rule]", "820"}], ",", 
+   RowBox[{"\<\"Models\"\>", "\[Rule]", "174"}], ",", 
+   RowBox[{"\<\"RoundTripVerified\"\>", "\[Rule]", "True"}]}], 
+  "\[RightAssociation]"}]], "Output",
+ CellChangeTimes->{4.002250829459182*^9},
+ CellLabel->"Out[3]=",ExpressionUUID->"c288443a-cc14-4c65-ac9f-f62bfe31eed0"]
+}, Open  ]],
+
+Cell["\<\
+The fixed engine uses exact modular differential equations and finite seeds. \
+Progress is printed every 20 models. Do not edit the remaining code or any \
+paths. After completion open VVMF_Results.nb; it needs only the generated \
+data file.\
+\>", "Text",ExpressionUUID->"762d3372-05a1-47b8-b807-05f38513d929"]
+}, Open  ]]
+},
+WindowSize->{1150, 721},
+WindowMargins->{{59.5, Automatic}, {Automatic, 0}},
+CellContext->"Global`",
+FrontEndVersion->"13.1 for Microsoft Windows (64-bit) (2022\:5e748\:670822\
+\:65e5)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"4430cb35-b424-49d6-b6af-33d9cc7e0da2"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 105, 0, 98, "Title",ExpressionUUID->"8a31ea83-852e-45c8-b211-3af1a1e857c2"],
+Cell[688, 24, 331, 5, 58, "Text",ExpressionUUID->"c4930872-1310-4748-8a44-c6ffa658fbde"],
+Cell[1022, 31, 229, 4, 28, "Input",ExpressionUUID->"335ec04f-bef0-40b3-b137-373e53d84607"],
+Cell[CellGroupData[{
+Cell[1276, 39, 468, 13, 48, "Input",ExpressionUUID->"42c15ca4-41ff-4a18-82a4-9d7c1e617342"],
+Cell[CellGroupData[{
+Cell[1769, 56, 480, 10, 22, "Print",ExpressionUUID->"082aa211-97ad-45dd-a812-32025ed4b2be"],
+Cell[2252, 68, 329, 9, 22, "Print",ExpressionUUID->"1509cd9f-a687-494c-a8d1-0318cf6b4298"],
+Cell[2584, 79, 329, 9, 22, "Print",ExpressionUUID->"8d419fa7-a7f6-4053-a316-61c0e3655f1d"],
+Cell[2916, 90, 331, 9, 22, "Print",ExpressionUUID->"6ab67684-e01a-482d-bb4b-e6377864b2c0"],
+Cell[3250, 101, 331, 9, 22, "Print",ExpressionUUID->"84fd9110-60e9-40b7-a46b-4af958a09bb4"],
+Cell[3584, 112, 333, 9, 22, "Print",ExpressionUUID->"62f53060-7c6f-4609-b519-1e35bf396086"],
+Cell[3920, 123, 333, 9, 22, "Print",ExpressionUUID->"b614502e-9e6e-472b-9dbc-ee1e61be830d"],
+Cell[4256, 134, 331, 9, 22, "Print",ExpressionUUID->"2d5bb0a4-366c-43bc-8fef-ac9952e22d9a"],
+Cell[4590, 145, 333, 9, 22, "Print",ExpressionUUID->"5cf21e44-1dc3-4a1b-aa02-c152832e7d73"]
+}, Open  ]],
+Cell[4938, 157, 651, 14, 52, "Output",ExpressionUUID->"c288443a-cc14-4c65-ac9f-f62bfe31eed0"]
+}, Open  ]],
+Cell[5604, 174, 321, 5, 58, "Text",ExpressionUUID->"762d3372-05a1-47b8-b807-05f38513d929"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+

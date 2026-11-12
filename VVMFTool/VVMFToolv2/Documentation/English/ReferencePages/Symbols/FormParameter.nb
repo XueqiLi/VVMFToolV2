@@ -1,0 +1,53 @@
+Notebook[{Cell["FormParameter", "ObjectName"], Cell["FormParameter[id] is an \
+inert relative-normalization unknown of a modular-form definition; its ID is \
+scoped by the definition's family.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["FormParameter[id] is an inert \
+relative-normalization unknown of a definition. Its ID is the definition \
+family's ID followed by the declared spelling, so the joint F and G recipes \
+of one family share their unknowns.", "Notes"], 
+  Cell["Unknowns are resolved by ModularFormGetCoeff or \
+SolveModularCoefficients; they are never Stage 5 model parameters.", 
+   "Notes"], Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["NormalizationParameters", 
+      BaseStyle -> "Hyperlink", ButtonData -> {"NormalizationParameters.nb", 
+        None}], "  |  ", ButtonBox["ModularFormGetCoeff", 
+      BaseStyle -> "Hyperlink", ButtonData -> {"ModularFormGetCoeff.nb", 
+        None}]}], "SeeAlso"], Cell["Examples Initialization", 
+   "ExamplesInitializationSection"], Cell["Open this notebook in its \
+repository location. GAP must be installed; LINS is required for its bounded \
+search page. Evaluate the setup before the examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Head", "[", RowBox[{"First", "[", 
+        RowBox[{"Cases", "[", RowBox[{RowBox[{RowBox[{"First", "[", 
+                RowBox[{"ModularFormDefinition", "[", RowBox[
+                   {RowBox[{"{", RowBox[{"c", " ", "q"}], "}"}], ",", "q", 
+                    ",", RowBox[{"NormalizationParameters", "\[Rule]", 
+                      RowBox[{"{", "c", "}"}]}]}], "]"}], "]"}], "[", 
+              "\"Components\"", "]"}], ",", "_FormParameter", ",", 
+            "\[Infinity]"}], "]"}], "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], Cell[BoxData["FormParameter"], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"ModularFormDefinition", "[", 
+        RowBox[{RowBox[{"{", RowBox[{"c", " ", "q"}], "}"}], ",", "q"}], 
+        "]"}], "]"}]], "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/FormParameter", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "FormParameter \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

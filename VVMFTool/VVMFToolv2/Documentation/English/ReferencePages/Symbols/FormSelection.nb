@@ -1,0 +1,50 @@
+Notebook[{Cell["FormSelection", "ObjectName"], Cell["FormSelection is an \
+option of ModularContractions and ModularTensorProductVectors: All \
+(exhaustive, needs every relevant count) or a list of slot IDs of the \
+candidate report.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["Option of ModularContractions and ModularTensorProductVectors: which \
+formal form slots are appended.", "Notes"], Cell["All (default) is exhaustive \
+and needs every relevant form-space count (otherwise IncompleteModularSpace); \
+a space established by SupplyModularFormSpace counts, conditional on the \
+user's spanning claim; a duplicate-free list of slot IDs from the candidate \
+report gives selected coverage.", "Notes"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["ModularContractions", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ModularContractions.nb", None}], "  |  ", 
+     ButtonBox["ModularFormCandidates", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ModularFormCandidates.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Lookup", "[", 
+      RowBox[{RowBox[{"Options", "[", "ModularContractions", "]"}], ",", 
+        "FormSelection"}], "]"}]], "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData["All"], "Output"], Cell["Possible Issues", "ExampleSection"], 
+  Cell["Invalid input returns a structured Failure. Check FailureQ before \
+using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"ModularContractions", "[", 
+        RowBox[{"1", ",", RowBox[{"{", "}"}], ",", 
+          RowBox[{"FormSelection", "\[Rule]", "5"}]}], "]"}], "]"}]], 
+   "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/FormSelection", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "FormSelection \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

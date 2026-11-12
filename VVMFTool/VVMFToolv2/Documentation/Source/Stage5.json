@@ -1,0 +1,179 @@
+{
+ "Field": {
+  "Kind": "Function",
+  "Details": [
+   "Field[data] is an immutable field that transforms in one irrep of a finite group: it stores its ID, display name, irrep ID, dimension, the accepted matrices of that irrep (its transformation law), the basis identity and the frozen RepresentationContext it was created in.",
+   "Its components are inert FieldComponent atoms; the name is a display label and never becomes a Wolfram variable. Later reordering or basis changes of the group do not rewrite a field: it keeps its frozen context.",
+   "Create fields with CreateField; a Field whose data was edited by hand is rejected by every operation."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, sign, l, r, m}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; sign = First[DeleteCases[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 1 &], g[\"CharacterData\"][\"TrivialIrrepID\"]]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; Head[l]]",
+  "Expected": "Field",
+  "ErrorExample": "FailureQ[FieldComponents[Field[<||>]]]",
+  "SeeAlso": [
+   "CreateField",
+   "FieldComponents",
+   "FieldVector",
+   "CreateModel"
+  ]
+ },
+ "FieldComponent": {
+  "Kind": "Function",
+  "Details": [
+   "FieldComponent[fieldID, i] is the inert i-th component of the Field with ID fieldID: an ordinary commuting scalar variable in polynomials.",
+   "Distinct fields have distinct components even when they transform in the same irrep; repeating one field in a contraction repeats the same components.",
+   "N leaves components unchanged (the index stays an integer), so numerical coefficients can be introduced with N without corrupting the variables."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, sign, l, r, m}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; sign = First[DeleteCases[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 1 &], g[\"CharacterData\"][\"TrivialIrrepID\"]]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; {Head[First[FieldComponents[l]]], N[First[FieldComponents[l]]] === First[FieldComponents[l]]}]",
+  "Expected": "{FieldComponent, True}",
+  "ErrorExample": "FailureQ[FieldComponents[\"no field\"]]",
+  "SeeAlso": [
+   "FieldComponents",
+   "Field",
+   "Coupling"
+  ]
+ },
+ "CreateField": {
+  "Kind": "Function",
+  "Details": [
+   "CreateField[g, id, name] creates a field in the irrep id of the Group or RepresentationContext g, with a fresh ID and inert components FieldComponent[ID, 1], ..., FieldComponent[ID, d].",
+   "The irrep's accepted matrices must already exist in g; the field records them and the context, which is frozen at this point.",
+   "Two calls with the same irrep give independent fields; names must be nonempty strings and are unique within a model."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, sign, l, r, m}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; sign = First[DeleteCases[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 1 &], g[\"CharacterData\"][\"TrivialIrrepID\"]]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; {Length[FieldComponents[l]], FieldComponents[l] =!= FieldComponents[r]}]",
+  "Expected": "{2, True}",
+  "ErrorExample": "FailureQ[CreateField[\"no group\", \"x\", \"L\"]]",
+  "SeeAlso": [
+   "Field",
+   "FieldComponents",
+   "CreateModel"
+  ]
+ },
+ "FieldComponents": {
+  "Kind": "Function",
+  "Details": [
+   "FieldComponents[f] lists the inert components of the Field f in the order of its representation matrices.",
+   "Join the lists of several fields to describe direct-sum content (for example a doublet and a singlet) in a chosen order."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, sign, l, r, m}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; sign = First[DeleteCases[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 1 &], g[\"CharacterData\"][\"TrivialIrrepID\"]]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; Length[FieldComponents[l]]]",
+  "Expected": "2",
+  "ErrorExample": "FailureQ[FieldComponents[\"no field\"]]",
+  "SeeAlso": [
+   "FieldComponent",
+   "CreateField",
+   "ExtractBilinearMatrix"
+  ]
+ },
+ "FieldVector": {
+  "Kind": "Function",
+  "Details": [
+   "FieldVector[f] is the RepVector of the Field f: one record whose components are the field's inert components, in the field's irrep and basis.",
+   "Use it with TensorProductVectors for vector-valued (not only scalar) products of fields."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, sign, l, r, m}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; sign = First[DeleteCases[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 1 &], g[\"CharacterData\"][\"TrivialIrrepID\"]]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; Head[FieldVector[l]]]",
+  "Expected": "RepVector",
+  "ErrorExample": "FailureQ[FieldVector[\"no field\"]]",
+  "SeeAlso": [
+   "Field",
+   "RepVector",
+   "TensorProductVectors"
+  ]
+ },
+ "Model": {
+  "Kind": "Function",
+  "Details": [
+   "Model[data] is an immutable finite-group model: its frozen context, ordered field records, a degree-one target irrep, the list of coupled terms, ordered parameter records, arithmetic settings and validation status.",
+   "Every operation returns a new Model; the input is never changed. A model built before a group's basis change keeps its frozen context and stays valid.",
+   "Stored statuses are not trusted: ValidateModel recomputes covariance, and records edited by hand are rejected."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, sign, l, r, m}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; sign = First[DeleteCases[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 1 &], g[\"CharacterData\"][\"TrivialIrrepID\"]]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; Head[m]]",
+  "Expected": "Model",
+  "ErrorExample": "FailureQ[ModelExpression[Model[<||>]]]",
+  "SeeAlso": [
+   "CreateModel",
+   "AddModelTerm",
+   "ModelExpression",
+   "ValidateModel"
+  ]
+ },
+ "CreateModel": {
+  "Kind": "Function",
+  "Details": [
+   "CreateModel[g, {f1, f2, ...}] creates an empty model (expression 0, no parameters) of the listed fields over the Group or RepresentationContext g.",
+   "Every field must belong to the same frozen context (same group, generators and bases); field IDs and names must be unique. An empty field list is allowed. With a Group, a model of fields whose context differs from the group's current one only by its state generation (a native GAP CG route ran a worker query) uses the fields' context; a changed basis or modular assignment, or fields of another group, fails with ContextMismatch.",
+   "Options: Name (default \"Model\"), TargetIrrep (Automatic: the trivial irrep), Arithmetic (\"Exact\" or \"Numerical\"), WorkingPrecision and Tolerance. When a field's or the target's accepted matrices are numerical (a Stage 2 numerical-tier variant), the model is numerical whatever arithmetic was requested, and its WorkingPrecision never exceeds the digits those matrices carry; matrices with fewer than 16 digits fail with NumericalInput. A Tolerance below 10^-digits of the effective precision fails with InvalidOption, and over numerical-tier matrices it must be at least the automatic tolerance 10^-Floor[digits/2] (numerical certificates never claim more accuracy than the data carry)."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, sign, l, r, m}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; sign = First[DeleteCases[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 1 &], g[\"CharacterData\"][\"TrivialIrrepID\"]]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; ModelExpression[m]]",
+  "Expected": "0",
+  "ErrorExample": "FailureQ[CreateModel[\"no group\", {}]]",
+  "SeeAlso": [
+   "Model",
+   "TargetIrrep",
+   "Contractions",
+   "AddModelTerm"
+  ]
+ },
+ "ContractionSet": {
+  "Kind": "Function",
+  "Details": [
+   "ContractionSet[data] holds every contraction path of a list of model fields into the model's target irrep: for each path its channel ID, CG channel IDs, scalar polynomial and zero status, in stable path order.",
+   "Zero paths and linearly dependent paths remain inspectable. After IndependentContractions it also carries Rank, the basis channels and Relations; set[\"Channels\"], set[\"RawChannels\"] and set[\"Relations\"] read the data."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, sign, l, r, m}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; sign = First[DeleteCases[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 1 &], g[\"CharacterData\"][\"TrivialIrrepID\"]]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; Head[Contractions[m, {l, r}]]]",
+  "Expected": "ContractionSet",
+  "ErrorExample": "FailureQ[SelectContractions[ContractionSet[<||>], {}]]",
+  "SeeAlso": [
+   "Contractions",
+   "IndependentContractions",
+   "SelectContractions",
+   "CoupleContractions"
+  ]
+ },
+ "Contractions": {
+  "Kind": "Function",
+  "Details": [
+   "Contractions[m, {f1, f2, ...}] gives every CG contraction of the listed fields of the model m into the model's target irrep, as a ContractionSet.",
+   "Factors are Field values or field IDs of the model, in order, repetitions allowed. Products run left-associatively through TensorProductVectors in the model's frozen context; no multiplicity copy is dropped and zero channels are kept.",
+   "CG options (Method, Normalization, ...) are passed on; accepted CG data may be cached by Stage 4 even if a later step fails. {} gives the unit only for the trivial target.",
+   "The precision of a numerical set is bounded by the representation matrices of its factors, its target and every irrep that can occur as an intermediate of the left-associated product; tolerances follow the CreateModel rule."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, sign, l, r, m}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; sign = First[DeleteCases[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 1 &], g[\"CharacterData\"][\"TrivialIrrepID\"]]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; Length[Contractions[m, {l, r}][\"Channels\"]]]",
+  "Expected": "1",
+  "ErrorExample": "FailureQ[Contractions[\"no model\", {}]]",
+  "SeeAlso": [
+   "ContractionSet",
+   "IndependentContractions",
+   "CoupleContractions",
+   "TensorProductVectors"
+  ]
+ },
+ "IndependentContractions": {
+  "Kind": "Function",
+  "Details": [
+   "IndependentContractions[set] chooses a linearly independent basis among the channel polynomials of set (over the scalar constants of the CG data, in path order) and records Relations: each original channel ID mapped to its coefficients in the basis channel IDs.",
+   "Field components are independent commuting variables, so a repeated field gives symmetric polynomials and fewer independent terms. Exact data give an exact rank; numerical data a numerical rank that fails when ambiguous at the declared tolerance.",
+   "The result's Channels are the basis; RawChannels keep every original path."
+  ],
+  "Example": "Module[{t, m2, q, raw, x, mass, g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, sign, l, r, m}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; sign = First[DeleteCases[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 1 &], g[\"CharacterData\"][\"TrivialIrrepID\"]]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; q = CreateModel[g, {l}]; raw = Contractions[q, {l, l, l, l}]; {Length[raw[\"Channels\"]], IndependentContractions[raw][\"Rank\"]}]",
+  "Expected": "{3, 1}",
+  "ErrorExample": "FailureQ[IndependentContractions[\"no set\"]]",
+  "SeeAlso": [
+   "Contractions",
+   "SelectContractions",
+   "CoupleContractions"
+  ]
+ },
+ "SelectContractions": {
+  "Kind": "Function",
+  "Details": [
+   "SelectContractions[set, ids] returns a new ContractionSet with exactly the listed known channel IDs, in the given order; the original set is unchanged.",
+   "IDs must be known and listed once; zero channels can be selected and remain inspectable."
+  ],
+  "Example": "Module[{t, m2, q, raw, x, mass, g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, sign, l, r, m}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; sign = First[DeleteCases[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 1 &], g[\"CharacterData\"][\"TrivialIrrepID\"]]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; q = CreateModel[g, {l}]; raw = Contractions[q, {l, l, l, l}]; With[{ids = Lookup[raw[\"Channels\"], \"ChannelID\"]}, Lookup[SelectContractions[raw, Reverse[ids]][\"Channels\"], \"ChannelID\"] === Reverse[ids]]]",
+  "Expected": "True",
+  "ErrorExample": "Module[{t, m2, q, raw, x, mass, g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, sign, l, r, m}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; sign = First[DeleteCases[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 1 &], g[\"CharacterData\"][\"TrivialIrrepID\"]]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; q = CreateModel[g, {l}]; raw = Contractions[q, {l, l, l, l}]; FailureQ[SelectContractions[raw, {\"unknown\"}]]]",
+  "SeeAlso": [
+   "Contractions",
+   "IndependentContractions"
+  ]
+ }
+}

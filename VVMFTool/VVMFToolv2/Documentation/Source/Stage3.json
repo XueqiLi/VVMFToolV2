@@ -1,0 +1,397 @@
+{
+ "DisplayDocument": {
+  "Kind": "Function",
+  "Details": [
+   "DisplayDocument[kind, data] is an immutable snapshot of accepted group data for display, with kind \"GroupSummary\", \"Representation\", \"RepresentationTable\" or \"CharacterTable\". Its data record the schema version, the source identities (state, generators, character table, modular assignment), revision and generation, the observation time, ordered exact cells, labels, the caption and the presentation defaults of the view.",
+   "A document is a value: later changes to the group, such as a basis change, a new irrep order or a new assignment, never alter it. Rebuild the view to show the new state. v[\"field\"] reads a field; DisplayData[v] returns the whole association. A document certifies nothing mathematically: it reproduces accepted data.",
+   "Views are built by GroupSummary, CharacterTableView, RepresentationTable and RepresentationView; ToNotebook, ToLaTeX and ExportDisplay render them. A manually built or altered document fails validation before rendering."
+  ],
+  "Example": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False], v}, v = CharacterTableView[g]; {Head[v], v[\"Kind\"], v[\"IrrepIDs\"] === g[\"IrrepOrder\"]}]",
+  "Expected": "{DisplayDocument,\"CharacterTable\",True}",
+  "ErrorExample": "FailureQ[DisplayData[DisplayDocument[\"CharacterTable\", <|\"Kind\" -> \"CharacterTable\"|>]]]",
+  "SeeAlso": [
+   "DisplayData",
+   "CharacterTableView",
+   "ToLaTeX"
+  ]
+ },
+ "TeXFragment": {
+  "Kind": "Function",
+  "Details": [
+   "TeXFragment[\"tex\"] marks explicitly supplied raw TeX, for IrrepLabels and Caption. Ordinary strings are escaped as text; a TeXFragment is inserted into LaTeX as given.",
+   "Notebook views show a TeXFragment as its literal source text; it is never parsed, evaluated or compiled. It is an output escape hatch, not a way to supply group data."
+  ],
+  "Example": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False], id}, id = First[g[\"IrrepOrder\"]]; StringContainsQ[ToLaTeX[CharacterTableView[g, IrrepLabels -> <|id -> TeXFragment[\"\\\\mathcal{A}\"]|>]], \"\\\\mathcal{A}\"]]",
+  "Expected": "True",
+  "ErrorExample": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False]}, FailureQ[CharacterTableView[g, IrrepLabels -> <|First[g[\"IrrepOrder\"]] -> TeXFragment[3]|>]]]",
+  "SeeAlso": [
+   "IrrepLabels",
+   "Caption",
+   "ToLaTeX"
+  ]
+ },
+ "GroupSummary": {
+  "Kind": "Function",
+  "Details": [
+   "GroupSummary[g] snapshots the group's name, finite order, catalogue ID (shown as unavailable when absent, never invented), recorded generators, modular assignment (its internal identity only with ShowIDs -> True; a group without one is not called modular), every AvailableData status including each subgroup query, and each irrep's representation status. A legend explains the availability, representation and GAP-state rows.",
+   "It records the availability of retained GAP state as observed at snapshot time: NotStored, Missing, Present (compatibility unchecked), Incompatible or Unreadable, with a reason. The check reads the cache index and file existence only: no GAP process is started, no state is restored, no cache time stamp changes, and a present workspace is not a promise that restoration will succeed.",
+   "Basis -> Automatic reports each irrep's actual status; an explicit basis also compares each active representation with it."
+  ],
+  "Example": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False], data}, data = DisplayData[GroupSummary[g]]; {data[\"GAPCache\"][\"State\"], data[\"AvailableData\"][\"Representations\"], data[\"Group\"][\"Assignment\"]}]",
+  "Expected": "{\"NotStored\",\"NotComputed\",Missing[\"NotAssigned\"]}",
+  "ErrorExample": "FailureQ[GroupSummary[3]]",
+  "SeeAlso": [
+   "RepresentationTable",
+   "CharacterTableView",
+   "ToLaTeX"
+  ]
+ },
+ "CharacterTableView": {
+  "Kind": "Function",
+  "Details": [
+   "CharacterTableView[g] snapshots the character table: one row per irrep (index, automatic label, user label when set), one column per class in the stored class order with its name (SetClassLabels) or class ID, exact character values, class sizes and element orders. ShowIDs -> True adds the irrep IDs. No representation matrices and no S,T assignment are needed.",
+   "RowOrder and ClassOrder take permutations of all irrep or class IDs; headers, values, sizes, orders and words move together. Labels follow LabelStyle and IrrepLabels; certified T phases of stored representations are used when available (read-only, bounded by DisplayTimeLimit), otherwise the dimension. Character values stay exact."
+  ],
+  "Example": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False], data}, data = DisplayData[CharacterTableView[g]]; {Total[data[\"Degrees\"]^2], data[\"ClassSizes\"] // Total}]",
+  "Expected": "{6,6}",
+  "ErrorExample": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False]}, FailureQ[CharacterTableView[g, RowOrder -> Rest[g[\"IrrepOrder\"]]]]]",
+  "SeeAlso": [
+   "RepresentationTable",
+   "ToLaTeX",
+   "ToNotebook"
+  ]
+ },
+ "RepresentationTable": {
+  "Kind": "Function",
+  "Details": [
+   "RepresentationTable[g] snapshots every irrep in presentation order; RepresentationTable[g, irreps] the given irreps (indices or IDs) in the given order. Each row shows the irrep's index, its automatic label (dimension with the T phases), its user label when one is set (SetIrrepLabels), the dimension and the selected matrices with readable entries. ShowIDs -> True adds the irrep ID; the status and basis columns appear with ShowStatus -> True, or automatically when a row needs attention, with a legend that explains every word.",
+   "Statuses: \"Complete\"; \"Active basis differs\" (with an explicit Basis the active representation does not meet); \"Partial: requested basis pending\" (only verified intermediate matrices exist; they are never shown as completed matrices); \"Not computed\". Nothing is computed by a view.",
+   "MatrixSet selects the columns: the assigned S and T of a modular realization by default, otherwise the recorded generators, or a list of generator names; MatrixSet -> \"Modular\" without an assignment fails."
+  ],
+  "Example": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False]}, {Union[#[\"Status\"] & /@ DisplayData[RepresentationTable[g]][\"Rows\"]], g[\"AvailableData\"][\"Representations\"]}]",
+  "Expected": "{{\"Not computed\"},\"NotComputed\"}",
+  "ErrorExample": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False]}, FailureQ[RepresentationTable[g, MatrixSet -> \"Modular\"]]]",
+  "SeeAlso": [
+   "RepresentationView",
+   "ComputeGroupRepresentations",
+   "ToLaTeX"
+  ]
+ },
+ "RepresentationView": {
+  "Kind": "Function",
+  "Details": [
+   "RepresentationView[r] snapshots the matrices of a representation value with generator labels g1, ..., gk, its dimension and arithmetic; its group validity is shown as unvalidated. It never invents S,T roles.",
+   "RepresentationView[c, r] uses the generator names and assignment of a group or bound context and shows the evidence already known: \"Stored variant\" when r is a stored variant of the group, \"Validated\" when a ValidateRepresentation result is cached, otherwise \"Unvalidated\". No validation or GAP work is started.",
+   "The validation column is shown with ShowStatus -> True (or automatically when it needs attention), with a legend explaining its words; irreps of a group are named by user label, else automatic label, else index.",
+   "Exact entries are shown as rationals, radicals, e^{2 pi i k/n}, or sums of rational multiples of roots of unity when the value lies in a cyclotomic field of a live group (the candidate fields Q(zeta_n) come from the exponents of the groups in the session); otherwise, or past the view's time budget, as a Root object. Every row is shown (no paging)."
+  ],
+  "Example": "DisplayData[RepresentationView[Rep[{{{0, 1}, {1, 0}}}]]][\"Validation\"][\"Status\"]",
+  "Expected": "\"Unvalidated\"",
+  "ErrorExample": "FailureQ[RepresentationView[Rep[{{{0, 1}, {1, 0}}}], MatrixSet -> \"Modular\"]]",
+  "SeeAlso": [
+   "RepresentationTable",
+   "RepresentationLabelData",
+   "ValidateRepresentation"
+  ]
+ },
+ "RepresentationLabelData": {
+  "Kind": "Function",
+  "Details": [
+   "RepresentationLabelData[c, r] returns \"Dimension\", \"IrrepID\" (Missing when r is not bound to an irrep of the group), \"TPhases\" (the certified phases k/n of the assigned T, or Missing), \"Arithmetic\", \"UniqueID\" (the stored variant's realization identity) and \"Style\".",
+   "T phases are a display convention, not an identifier: distinct irrep IDs stay distinct when dimensions and spectra coincide. They come from a T-diagonal stored variant, a kernel-local memo, or exact local certification (numerical eigenvalues propose each phase, exact nullities accept it), bounded by DisplayTimeLimit. With LabelStyle -> Automatic a failure falls back to the dimension; LabelStyle -> \"TPhases\" returns the failure. Nothing is computed on the group and no GAP process is started."
+  ],
+  "Example": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], id}, id = Last[g[\"IrrepOrder\"]]; RepresentationLabelData[g, GroupRepresentation[g, id]][\"IrrepID\"] === id]",
+  "Expected": "True",
+  "ErrorExample": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], id}, id = Last[g[\"IrrepOrder\"]]; FailureQ[RepresentationLabelData[g, GroupRepresentation[g, id], LabelStyle -> \"TPhases\"]]]",
+  "SeeAlso": [
+   "RepresentationTSpectrum",
+   "RepresentationTable"
+  ]
+ },
+ "DisplayData": {
+  "Kind": "Function",
+  "Details": [
+   "DisplayData[v] returns the immutable data association of a display document after validating it."
+  ],
+  "Example": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False]}, Keys[DisplayData[CharacterTableView[g]]] // MemberQ[#, \"Values\"] &]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[DisplayData[3]]",
+  "SeeAlso": [
+   "DisplayDocument"
+  ]
+ },
+ "ToNotebook": {
+  "Kind": "Function",
+  "Details": [
+   "ToNotebook[v] renders a display document for a notebook: a grid with headers, status badges and legends. With a front end and more rows than PageSize the view is paged; otherwise every row is shown statically.",
+   "Rendering options left Automatic use the view's saved presentation defaults. No group is read and no GAP work is started."
+  ],
+  "Example": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False]}, Head[ToNotebook[CharacterTableView[g]]]]",
+  "Expected": "Column",
+  "ErrorExample": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False]}, FailureQ[ToNotebook[CharacterTableView[g], PageSize -> 0]]]",
+  "SeeAlso": [
+   "ExportDisplay",
+   "ToLaTeX"
+  ]
+ },
+ "ToLaTeX": {
+  "Kind": "Function",
+  "Details": [
+   "ToLaTeX[v] renders a display document as LaTeX: longtable tables with booktabs rules whose headers repeat on every page; wide tables split into numbered panels that repeat the ID and label columns, and the split is width-aware: each column's natural width is estimated and a new panel opens before the panel would exceed the line, so matrices keep their size. Only a single column wider than a whole panel is scaled down to fit (adjustbox). Nothing is dropped. Panel widths are planned for a single-column page with a line width of about 500 pt (the Standalone document's geometry); a fragment included in a narrower or two-column layout may need Standalone -> True, a wider \\textwidth, or a one-column environment (longtable does not work in two-column mode). Text (names, captions, labels) is escaped; Greek letters and common symbols become LaTeX symbols, Latin-1 letters are kept and other characters are shown as their code point U+XXXX.",
+   "Standalone -> True gives a complete document; otherwise a fragment whose packages and macros LaTeXPreamble supplies. Matrices are pmatrix environments built structurally, entries keep their parentheses, and certified roots of unity use ScalarNotation. Numerical entries are marked approximate. Nothing is compiled."
+  ],
+  "Example": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False]}, StringStartsQ[ToLaTeX[CharacterTableView[g], Standalone -> True], \"\\\\documentclass\"]]",
+  "Expected": "True",
+  "ErrorExample": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False]}, FailureQ[ToLaTeX[CharacterTableView[g], Label -> \"bad label!\"]]]",
+  "SeeAlso": [
+   "LaTeXPreamble",
+   "ExportDisplay",
+   "ScalarLaTeX"
+  ]
+ },
+ "ScalarLaTeX": {
+  "Kind": "Function",
+  "Details": [
+   "ScalarLaTeX[x] returns LaTeX for an exact algebraic number or a numerical value. Rationals are fractions; certified roots of unity follow ScalarNotation; other exact values use radicals when an equal radical form exists (complex values as a + b i) and otherwise Root notation with the defining polynomial.",
+   "The value is never rounded, chopped or rationalized; a real branch such as Surd[-1, 3] stays -1. Digits limits the digits shown for numerical values only."
+  ],
+  "Example": "{ScalarLaTeX[3/4], ScalarLaTeX[I, ScalarNotation -> \"Omega\"]}",
+  "Expected": "{\"\\\\frac{3}{4}\",\"\\\\omega_{4}\"}",
+  "ErrorExample": "FailureQ[ScalarLaTeX[Pi]]",
+  "SeeAlso": [
+   "MatrixLaTeX",
+   "ScalarNotation"
+  ]
+ },
+ "MatrixLaTeX": {
+  "Kind": "Function",
+  "Details": [
+   "MatrixLaTeX[m] returns a pmatrix whose entries are ScalarLaTeX of each entry; parentheses inside entries are kept. A 1 x 1 matrix is written as its entry unless OneByOneMatrix -> \"Matrix\"."
+  ],
+  "Example": "MatrixLaTeX[{{1, 0}, {0, -1}}]",
+  "Expected": "\"\\\\begin{pmatrix}1 & 0 \\\\\\\\ 0 & -1\\\\end{pmatrix}\"",
+  "ErrorExample": "FailureQ[MatrixLaTeX[{{1, 2}, {3}}]]",
+  "SeeAlso": [
+   "ScalarLaTeX",
+   "OneByOneMatrix"
+  ]
+ },
+ "LaTeXPreamble": {
+  "Kind": "Function",
+  "Details": [
+   "LaTeXPreamble[] returns the \\usepackage lines (amsmath, amssymb, booktabs, longtable, array, adjustbox) that LaTeX fragments need. NotationStyle -> \"Paper\" adds \\ii, \\ee and \\rep through \\providecommand, so existing definitions are kept."
+  ],
+  "Example": "StringContainsQ[LaTeXPreamble[NotationStyle -> \"Paper\"], \"\\\\providecommand{\\\\ii}\"]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[LaTeXPreamble[NotationStyle -> \"Other\"]]",
+  "SeeAlso": [
+   "ToLaTeX",
+   "NotationStyle"
+  ]
+ },
+ "ExportDisplay": {
+  "Kind": "Function",
+  "Details": [
+   "ExportDisplay[file, v] writes the LaTeX of a display document; ExportDisplay[file, v, \"Notebook\"] writes a static, self-contained notebook of explicit boxes with every row (PageSize only organizes sections; no Dynamic content or package code).",
+   "The file is written to a temporary sibling and renamed; an existing file is refused unless Overwrite -> True, and a failure keeps the old file. Nothing is compiled. The result is the absolute path."
+  ],
+  "Example": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False], file = FileNameJoin[{$TemporaryDirectory, CreateUUID[] <> \".tex\"}], r}, r = ExportDisplay[file, CharacterTableView[g], Standalone -> True]; {r === file, FailureQ[ExportDisplay[file, CharacterTableView[g]]], DeleteFile[file]}]",
+  "Expected": "{True,True,Null}",
+  "ErrorExample": "Module[{g=BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False]}, FailureQ[ExportDisplay[FileNameJoin[{$TemporaryDirectory, \"x.pdf\"}], CharacterTableView[g], \"PDF\"]]]",
+  "SeeAlso": [
+   "ToLaTeX",
+   "ToNotebook",
+   "Overwrite"
+  ]
+ },
+ "MatrixSet": {
+  "Kind": "Option",
+  "Details": [
+   "Option for RepresentationTable and RepresentationView. Default: Automatic (the assigned S and T of a group with a modular assignment, otherwise the recorded generators).",
+   "\"Generators\" shows every recorded generator; \"Modular\" the assigned S and T (fails without an assignment); a duplicate-free list of generator names a subset. A bare representation accepts Automatic, \"Generators\" or generator indices, never names or S,T.",
+   "The owning function rejects other values before rendering or computation."
+  ],
+  "Example": "MemberQ[First /@ Options[RepresentationTable], MatrixSet]",
+  "Expected": "True",
+  "SeeAlso": [
+   "RepresentationTable",
+   "RepresentationView"
+  ]
+ },
+ "IrrepLabels": {
+  "Kind": "Option",
+  "Details": [
+   "Option for CharacterTableView and RepresentationTable. Default: <||>.",
+   "An association from known irrep IDs to plain strings (escaped) or TeXFragment values (raw TeX, shown literally in notebooks). Labels never replace the ID column.",
+   "The owning function rejects other values before rendering or computation."
+  ],
+  "Example": "MemberQ[First /@ Options[RepresentationTable], IrrepLabels]",
+  "Expected": "True",
+  "SeeAlso": [
+   "TeXFragment",
+   "RepresentationTable"
+  ]
+ },
+ "ClassOrder": {
+  "Kind": "Option",
+  "Details": [
+   "Option for CharacterTableView. Default: Automatic (the stored class order).",
+   "A permutation of all class IDs; sizes, orders, words and values move with their class.",
+   "The owning function rejects other values before rendering or computation."
+  ],
+  "Example": "MemberQ[First /@ Options[CharacterTableView], ClassOrder]",
+  "Expected": "True",
+  "SeeAlso": [
+   "CharacterTableView",
+   "RowOrder"
+  ]
+ },
+ "RowOrder": {
+  "Kind": "Option",
+  "Details": [
+   "Option for CharacterTableView. Default: Automatic (the group's IrrepOrder).",
+   "A permutation of all irrep IDs; labels, degrees and values move with their irrep.",
+   "The owning function rejects other values before rendering or computation."
+  ],
+  "Example": "MemberQ[First /@ Options[CharacterTableView], RowOrder]",
+  "Expected": "True",
+  "SeeAlso": [
+   "CharacterTableView",
+   "ClassOrder"
+  ]
+ },
+ "ScalarNotation": {
+  "Kind": "Option",
+  "Details": [
+   "Option for the view producers, the renderers, ScalarLaTeX and MatrixLaTeX. Default: \"Standard\".",
+   "\"Standard\" writes a certified root of unity as exact radicals a + b i when possible; \"Exponential\" as e^{2 pi i k/n}; \"Omega\" as omega_n^k (with its definition once when DefineOmega is True). Only exactly certified rational phases are converted; other values are unaffected. In \"Standard\" a table can therefore mix forms (fifth roots of unity have radical forms, 25th roots are written exponentially); \"Exponential\" and \"Omega\" give a uniform table.",
+   "The owning function rejects other values before rendering or computation."
+  ],
+  "Example": "MemberQ[First /@ Options[ScalarLaTeX], ScalarNotation]",
+  "Expected": "True",
+  "SeeAlso": [
+   "ScalarLaTeX",
+   "DefineOmega"
+  ]
+ },
+ "OneByOneMatrix": {
+  "Kind": "Option",
+  "Details": [
+   "Option for the view producers, the renderers and MatrixLaTeX. Default: \"Scalar\".",
+   "\"Scalar\" writes a 1 x 1 matrix as its entry (the row data still identify it as a one-dimensional matrix); \"Matrix\" writes a 1 x 1 pmatrix.",
+   "The owning function rejects other values before rendering or computation."
+  ],
+  "Example": "MemberQ[First /@ Options[MatrixLaTeX], OneByOneMatrix]",
+  "Expected": "True",
+  "SeeAlso": [
+   "MatrixLaTeX"
+  ]
+ },
+ "NotationStyle": {
+  "Kind": "Option",
+  "Details": [
+   "Option for the view producers, the renderers, ScalarLaTeX, MatrixLaTeX and LaTeXPreamble. Default: \"Standard\".",
+   "\"Standard\" uses ordinary LaTeX commands; \"Paper\" uses the macros \\ii, \\ee and \\rep, defined by the preamble with \\providecommand.",
+   "The owning function rejects other values before rendering or computation."
+  ],
+  "Example": "MemberQ[First /@ Options[LaTeXPreamble], NotationStyle]",
+  "Expected": "True",
+  "SeeAlso": [
+   "LaTeXPreamble"
+  ]
+ },
+ "DefineOmega": {
+  "Kind": "Option",
+  "Details": [
+   "Option for the view producers and renderers. Default: True.",
+   "True includes the definition omega_a^b = e^{2 pi i b/a} once in the legend when omega notation is used; False leaves it to the caller.",
+   "The owning function rejects other values before rendering or computation."
+  ],
+  "Example": "MemberQ[First /@ Options[ToLaTeX], DefineOmega]",
+  "Expected": "True",
+  "SeeAlso": [
+   "ScalarNotation"
+  ]
+ },
+ "Digits": {
+  "Kind": "Option",
+  "Details": [
+   "Option for the view producers, the renderers, ScalarLaTeX and MatrixLaTeX. Default: Automatic (the value's own precision).",
+   "A positive integer limits the digits displayed for numerical values. Exact values are never rounded, and stored values are not changed.",
+   "The owning function rejects other values before rendering or computation."
+  ],
+  "Example": "MemberQ[First /@ Options[ScalarLaTeX], Digits]",
+  "Expected": "True",
+  "SeeAlso": [
+   "ScalarLaTeX"
+  ]
+ },
+ "Caption": {
+  "Kind": "Option",
+  "Details": [
+   "Option for the view producers and renderers. Default: Automatic (group name, order, catalogue ID when present, modular assignment and its identity when used, selection).",
+   "A plain string (escaped) or a TeXFragment replaces the automatic caption.",
+   "The owning function rejects other values before rendering or computation."
+  ],
+  "Example": "MemberQ[First /@ Options[ToLaTeX], Caption]",
+  "Expected": "True",
+  "SeeAlso": [
+   "TeXFragment",
+   "ToLaTeX"
+  ]
+ },
+ "Standalone": {
+  "Kind": "Option",
+  "Details": [
+   "Option for ToLaTeX and ExportDisplay. Default: False.",
+   "True produces a complete LaTeX document (document class, packages, macros); False a fragment whose dependencies LaTeXPreamble gives.",
+   "The owning function rejects other values before rendering or computation."
+  ],
+  "Example": "MemberQ[First /@ Options[ToLaTeX], Standalone]",
+  "Expected": "True",
+  "SeeAlso": [
+   "ToLaTeX",
+   "LaTeXPreamble"
+  ]
+ },
+ "PageSize": {
+  "Kind": "Option",
+  "Details": [
+   "Option for the view producers, ToNotebook and ExportDisplay. Default: 20.",
+   "Rows per page of an interactive notebook view: a positive integer or All. Exports are always complete; in an exported notebook PageSize only organizes sections.",
+   "The owning function rejects other values before rendering or computation."
+  ],
+  "Example": "MemberQ[First /@ Options[ToNotebook], PageSize]",
+  "Expected": "True",
+  "SeeAlso": [
+   "ToNotebook",
+   "ExportDisplay"
+  ]
+ },
+ "DisplayTimeLimit": {
+  "Kind": "Option",
+  "Details": [
+   "Option for CharacterTableView, RepresentationTable, RepresentationView and RepresentationLabelData. Default: 5 seconds.",
+   "Bounds optional label work, such as certifying T phases; with LabelStyle -> Automatic a timeout falls back to dimension labels. Mandatory rendering is not affected.",
+   "The owning function rejects other values before rendering or computation."
+  ],
+  "Example": "MemberQ[First /@ Options[RepresentationLabelData], DisplayTimeLimit]",
+  "Expected": "True",
+  "SeeAlso": [
+   "RepresentationLabelData"
+  ]
+ },
+ "Overwrite": {
+  "Kind": "Option",
+  "Details": [
+   "Option for ExportDisplay. Default: False.",
+   "False refuses an existing file; True replaces it atomically.",
+   "The owning function rejects other values before rendering or computation."
+  ],
+  "Example": "MemberQ[First /@ Options[ExportDisplay], Overwrite]",
+  "Expected": "True",
+  "SeeAlso": [
+   "ExportDisplay"
+  ]
+ }
+}

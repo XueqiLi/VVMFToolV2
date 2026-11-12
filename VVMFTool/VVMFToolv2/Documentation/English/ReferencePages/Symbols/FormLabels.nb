@@ -1,0 +1,46 @@
+Notebook[{Cell["FormLabels", "ObjectName"], Cell["FormLabels is an option of \
+ModularFormView and ModularFormTable: an association from form IDs to label \
+strings or TeXFragment values.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["Option of ModularFormView and ModularFormTable: custom labels by form \
+ID (strings or TeXFragment) replacing the automatic label Y^(k)_r.", 
+   "Notes"], Cell["Default <||>; labels change appearance only, and a form ID \
+that is not displayed fails InvalidOption.", "Notes"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["ModularFormView", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ModularFormView.nb", None}], "  |  ", 
+     ButtonBox["ModularFormTable", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ModularFormTable.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Lookup", "[", 
+      RowBox[{RowBox[{"Options", "[", "ModularFormView", "]"}], ",", 
+        "FormLabels"}], "]"}]], "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"Association", "[", "]"}]], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"ModularDimensionView", "[", 
+        RowBox[{RowBox[{"Association", "[", "]"}], ",", 
+          RowBox[{"FormLabels", "\[Rule]", RowBox[{"Association", "[", 
+              "]"}]}]}], "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/FormLabels", "Categorization", CellLabel -> "URI"]}, 
+    Closed]]}, WindowTitle -> "FormLabels \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

@@ -1,0 +1,269 @@
+{
+ "FormVariable": {
+  "Kind": "Function",
+  "Details": [
+   "FormVariable[\"q\"] or FormVariable[\"tau\"] is the inert independent variable of a parsed modular-form definition.",
+   "ModularFormDefinition replaces the declared variable symbol by this atom before anything is evaluated, so a later assignment to the symbol never changes a definition."
+  ],
+  "Example": "First[ModularFormDefinition[{q^2}, q]][\"Components\"]",
+  "Expected": "{FormVariable[\"q\"]^2}",
+  "ErrorExample": "FailureQ[ModularFormDefinition[{q}, 3]]",
+  "SeeAlso": [
+   "ModularFormDefinition",
+   "FormParameter"
+  ]
+ },
+ "FormParameter": {
+  "Kind": "Function",
+  "Details": [
+   "FormParameter[id] is an inert relative-normalization unknown of a definition. Its ID is the definition family's ID followed by the declared spelling, so the joint F and G recipes of one family share their unknowns.",
+   "Unknowns are resolved by ModularFormGetCoeff or SolveModularCoefficients; they are never Stage 5 model parameters."
+  ],
+  "Example": "Head[First[Cases[First[ModularFormDefinition[{c q}, q, NormalizationParameters -> {c}]][\"Components\"], _FormParameter, Infinity]]]",
+  "Expected": "FormParameter",
+  "ErrorExample": "FailureQ[ModularFormDefinition[{c q}, q]]",
+  "SeeAlso": [
+   "NormalizationParameters",
+   "ModularFormGetCoeff"
+  ]
+ },
+ "ModularFormDefinition": {
+  "Kind": "Function",
+  "Details": [
+   "ModularFormDefinition[{f1, ...}, var, opts] parses a modular-form definition held: the components (a literal list, or a symbol whose stored value is the list) may use var, numeric constants, declared NormalizationParameters and the scalar ingredients ScalarModularExpression and HypergeometricK.",
+   "ModularFormDefinition[qexp] defines a form by an explicitly finite QExpansionData (a literal value or a symbol bound to it); a jet defines only its known coefficients.",
+   "Undeclared symbols fail with UndeclaredSymbol; executable or unsupported heads, symbols with DownValues and non-lists fail with InvalidDefinition. Options: Coordinate, NormalizationParameters, FamilyID."
+  ],
+  "Example": "First[ModularFormDefinition[{2 ScalarModularExpression[\"E4\", q]}, q]][\"Dimension\"]",
+  "Expected": "1",
+  "ErrorExample": "FailureQ[ModularFormDefinition[{Print[1] q}, q]]",
+  "SeeAlso": [
+   "CreateModularForm",
+   "QExpansionData",
+   "FormVariable"
+  ]
+ },
+ "QExpansionData": {
+  "Kind": "Function",
+  "Details": [
+   "QExpansionData[data] is an immutable vector q-series: per component an exponent -> coefficient map with exact rational exponents, the component cutoffs (every exponent below a cutoff is known; the remainder is O(q^cutoff)), the common cutoff, arithmetic, precision, coefficient binding and source.",
+   "qexp[\"Cutoff\"], qexp[\"Binding\"] and qexp[\"Components\"] read fields. An empty truncation is never evidence of the zero function."
+  ],
+  "Example": "ScalarQSeries[ScalarModularExpression[\"E4\", q], q, 3][\"Cutoff\"]",
+  "Expected": "3",
+  "ErrorExample": "FailureQ[QExpansionCoefficients[QExpansionData[<||>]]]",
+  "SeeAlso": [
+   "QExpansionExpression",
+   "QExpansionCoefficients",
+   "ModularFormQExp"
+  ]
+ },
+ "QExpansionExpression": {
+  "Kind": "Function",
+  "Details": [
+   "QExpansionExpression[qexp, z] gives the components of QExpansionData as finite sums in z with their remainders O[z]^cutoff; rational and negative exponents are kept and the remainder is never erased.",
+   "z must be a symbol without a value."
+  ],
+  "Example": "QExpansionExpression[ScalarQSeries[ScalarModularExpression[\"E4\", q], q, 3], z]",
+  "Expected": "{1 + 240 z + 2160 z^2 + O[z]^3}",
+  "ErrorExample": "FailureQ[QExpansionExpression[ScalarQSeries[ScalarModularExpression[\"E4\", q], q, 3], 3]]",
+  "SeeAlso": [
+   "QExpansionCoefficients",
+   "ScalarQSeries"
+  ]
+ },
+ "QExpansionCoefficients": {
+  "Kind": "Function",
+  "Details": [
+   "QExpansionCoefficients[qexp] gives <|\"Components\" -> exponent -> coefficient maps in ascending order, \"ComponentCutoffs\", \"Cutoff\"|>; leading coefficients come from these maps."
+  ],
+  "Example": "QExpansionCoefficients[ScalarQSeries[ScalarModularExpression[\"Eta\", q], q, 2]][\"Components\"]",
+  "Expected": "{<|1/24 -> 1, 25/24 -> -1|>}",
+  "ErrorExample": "FailureQ[QExpansionCoefficients[5]]",
+  "SeeAlso": [
+   "QExpansionExpression",
+   "QExpansionData"
+  ]
+ },
+ "ScalarModularExpression": {
+  "Kind": "Function",
+  "Details": [
+   "ScalarModularExpression[name, z] gives the inert scalar ingredient name in the variable z: \"Eta\" (with q^(1/24)), \"E2\", \"E4\", \"E6\", \"Delta\", \"j\" (q^-1 leading) and \"K\" = 1728/j.",
+   "The nodes may occur in modular-form definitions and scalar expressions; they never multiply modular-form objects. Option Coordinate (\"q\" or \"tau\")."
+  ],
+  "Example": "QExpansionCoefficients[ScalarQSeries[ScalarModularExpression[\"j\", q], q, 2]][\"Components\"]",
+  "Expected": "{<|-1 -> 1, 0 -> 744, 1 -> 196884|>}",
+  "ErrorExample": "FailureQ[ScalarModularExpression[\"E8\", q]]",
+  "SeeAlso": [
+   "ScalarQSeries",
+   "HypergeometricK",
+   "ModularDerivativeExpression"
+  ]
+ },
+ "HypergeometricK": {
+  "Kind": "Function",
+  "Details": [
+   "HypergeometricK[a, b, z] gives the inert generalized hypergeometric function Sum_m Product (a)_m / Product (b)_m K^m / m! of K(z) = 1728/j(z), with exact parameter lists a and b (v1's FK).",
+   "A denominator parameter that the series reaches as a nonpositive integer fails with SingularHypergeometric; a terminating series that stops first is accepted."
+  ],
+  "Example": "QExpansionCoefficients[ScalarQSeries[HypergeometricK[{1/12, 5/12}, {1/2}, q], q, 3]][\"Components\"]",
+  "Expected": "{<|0 -> 1, 1 -> 120, 2 -> 16800|>}",
+  "ErrorExample": "FailureQ[HypergeometricK[{1}, {-2}, q]]",
+  "SeeAlso": [
+   "ScalarModularExpression",
+   "ScalarQSeries"
+  ]
+ },
+ "ScalarQSeries": {
+  "Kind": "Function",
+  "Details": [
+   "ScalarQSeries[expr, var, n] gives the q-series of a scalar expression in var, numeric constants and scalar ingredients as one-component QExpansionData, keeping exponents below n (n = 0 is valid; a Laurent series keeps its negative powers).",
+   "Each ingredient is computed only to the order it can affect (valuation-aware), exactly. Option Coordinate: with \"tau\" the variable may occur as Exp[2 Pi I r tau]."
+  ],
+  "Example": "QExpansionCoefficients[ScalarQSeries[ScalarModularExpression[\"Eta\", q]^24 - ScalarModularExpression[\"Delta\", q], q, 8]][\"Components\"]",
+  "Expected": "{<||>}",
+  "ErrorExample": "FailureQ[ScalarQSeries[Sin[q], q, 3]]",
+  "SeeAlso": [
+   "ScalarModularExpression",
+   "QExpansionExpression"
+  ]
+ },
+ "ModularDerivativeExpression": {
+  "Kind": "Function",
+  "Details": [
+   "ModularDerivativeExpression[k, expr, var] gives q d/dq expr - k E2 expr/12 (in the tau coordinate (2 Pi I)^-1 d/dtau expr - k E2 expr/12) as an expression in var and scalar ingredients, using the Ramanujan identities and the derivative of the hypergeometric function."
+  ],
+  "Example": "QExpansionCoefficients[ScalarQSeries[ModularDerivativeExpression[4, ScalarModularExpression[\"E4\", q], q] + (1/3) ScalarModularExpression[\"E6\", q], q, 6]][\"Components\"]",
+  "Expected": "{<||>}",
+  "ErrorExample": "FailureQ[ModularDerivativeExpression[4, Sin[q], q]]",
+  "SeeAlso": [
+   "ModularFormDerivative",
+   "ScalarModularExpression"
+  ]
+ },
+ "EvaluateScalarModular": {
+  "Kind": "Function",
+  "Details": [
+   "EvaluateScalarModular[expr, var, point] evaluates a scalar modular expression at TauPoint[tau] or QPoint[q, sheet] by an adaptive q-series and returns <|\"Value\", \"WorkingPrecision\", \"EstimatedError\", \"Method\", \"Order\", \"Branch\", ...|>.",
+   "EstimatedError is the agreement of successive orders, not a tail bound. Options as ModularFormEvaluate plus Coordinate."
+  ],
+  "Example": "EvaluateScalarModular[ScalarModularExpression[\"E4\", q], q, TauPoint[I], WorkingPrecision -> 30][\"Converged\"]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[EvaluateScalarModular[ScalarModularExpression[\"E4\", q], q, TauPoint[-I]]]",
+  "SeeAlso": [
+   "ModularFormEvaluate",
+   "TauPoint",
+   "QPoint"
+  ]
+ },
+ "TauPoint": {
+  "Kind": "Function",
+  "Details": [
+   "TauPoint[tau] is a point of the upper half plane, Im tau > 0; fractional powers of q are evaluated as Exp[2 Pi I tau r] on the cusp branch."
+  ],
+  "Example": "EvaluateScalarModular[ScalarModularExpression[\"E4\", q], q, TauPoint[I], WorkingPrecision -> 20][\"Branch\"]",
+  "Expected": "\"Tau\"",
+  "ErrorExample": "FailureQ[EvaluateScalarModular[ScalarModularExpression[\"E4\", q], q, TauPoint[-I]]]",
+  "SeeAlso": [
+   "QPoint",
+   "EvaluateScalarModular",
+   "ModularFormEvaluate"
+  ]
+ },
+ "QPoint": {
+  "Kind": "Function",
+  "Details": [
+   "QPoint[q, sheet] is the point with q = Exp[2 Pi I tau] and log q = Log[q] + 2 Pi I sheet (sheet 0 by default), for 0 < |q| < 1; equal q on different sheets are different points. QPoint[0] is the cusp, accepted only when the leading terms determine the limit."
+  ],
+  "Example": "EvaluateScalarModular[ScalarModularExpression[\"E4\", q], q, QPoint[0]][\"Value\"]",
+  "Expected": "1",
+  "ErrorExample": "FailureQ[EvaluateScalarModular[ScalarModularExpression[\"E4\", q], q, QPoint[2]]]",
+  "SeeAlso": [
+   "TauPoint",
+   "EvaluateScalarModular"
+  ]
+ },
+ "Coordinate": {
+  "Kind": "Option",
+  "Details": [
+   "Option of ModularFormDefinition and the scalar recipe functions: the independent coordinate.",
+   "\"q\" (default) or \"tau\". Other values fail with InvalidOption."
+  ],
+  "Example": "QExpansionCoefficients[ScalarQSeries[Exp[2 Pi I tau] ScalarModularExpression[\"E4\", tau, Coordinate -> \"tau\"], tau, 3, Coordinate -> \"tau\"]][\"Components\"]",
+  "Expected": "{<|1 -> 1, 2 -> 240|>}",
+  "ErrorExample": "FailureQ[ScalarQSeries[q, q, 2, Coordinate -> \"z\"]]",
+  "SeeAlso": [
+   "ScalarQSeries",
+   "ModularFormDefinition"
+  ]
+ },
+ "NormalizationParameters": {
+  "Kind": "Option",
+  "Details": [
+   "Option of ModularFormDefinition: the coefficient symbols of the definition, captured held and lowered to FormParameter atoms of the definition's family.",
+   "{} (default) or a duplicate-free list of symbols or indexed atoms, distinct from the variable. Patterns and package atoms fail with InvalidOption; values assigned to the symbols never enter the definition."
+  ],
+  "Example": "Lookup[First[ModularFormDefinition[{a q + b q^2}, q, NormalizationParameters -> {a, b}]][\"Parameters\"], \"Label\"]",
+  "Expected": "{\"a\", \"b\"}",
+  "ErrorExample": "FailureQ[ModularFormDefinition[{q}, q, NormalizationParameters -> {_}]]",
+  "SeeAlso": [
+   "ModularFormDefinition",
+   "FormParameter"
+  ]
+ },
+ "FamilyID": {
+  "Kind": "Option",
+  "Details": [
+   "Option of ModularFormDefinition: the family whose relative-normalization unknowns the definition shares (parameter IDs are FamilyID <> \":\" <> label).",
+   "Automatic (default: a new family) or a string. Other values fail with InvalidOption."
+  ],
+  "Example": "Lookup[First[ModularFormDefinition[{a q}, q, NormalizationParameters -> {a}, FamilyID -> \"fam\"]][\"Parameters\"], \"ID\"]",
+  "Expected": "{\"fam:a\"}",
+  "ErrorExample": "FailureQ[ModularFormDefinition[{q}, q, FamilyID -> 3]]",
+  "SeeAlso": [
+   "ModularFormDefinition"
+  ]
+ },
+ "SeriesOrder": {
+  "Kind": "Option",
+  "Details": [
+   "Option of the constructors, coefficient solvers and evaluators: the q-series order used.",
+   "Automatic (default: chosen from the accuracy goal and the point, or 6 orders for construction checks) or a positive integer; an explicit order is required to evaluate a finite jet (the result then has EstimatedError Missing[\"NoTailBound\"] or the next-order difference)."
+  ],
+  "Example": "EvaluateScalarModular[ScalarModularExpression[\"E4\", q], q, TauPoint[I], SeriesOrder -> 5, WorkingPrecision -> 20][\"Order\"]",
+  "Expected": "5",
+  "ErrorExample": "FailureQ[EvaluateScalarModular[ScalarModularExpression[\"E4\", q], q, TauPoint[I], SeriesOrder -> 0]]",
+  "SeeAlso": [
+   "ModularFormEvaluate",
+   "ConstructModularForms"
+  ]
+ },
+ "MaxSeriesOrder": {
+  "Kind": "Option",
+  "Details": [
+   "Option of the modular-form evaluators: the largest order an adaptive evaluation may use.",
+   "2000 (default) or a positive integer; reaching it fails with ConvergenceFailure and the best estimate."
+  ],
+  "Example": "FailureQ[EvaluateScalarModular[ScalarModularExpression[\"E4\", q], q, TauPoint[1/2 + (1/100) I], WorkingPrecision -> 20, MaxSeriesOrder -> 30]]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[EvaluateScalarModular[ScalarModularExpression[\"E4\", q], q, TauPoint[I], MaxSeriesOrder -> 0]]",
+  "SeeAlso": [
+   "ModularFormEvaluate",
+   "EvaluateScalarModular"
+  ]
+ },
+ "TimeLimit": {
+  "Kind": "Option",
+  "Details": [
+   "Option of the expensive modular-form computations (coefficient solving, evaluation): a time bound in seconds.",
+   "600 (default), a positive number or Infinity; exceeding it fails with TimeLimit and changes nothing."
+  ],
+  "Example": "EvaluateScalarModular[ScalarModularExpression[\"E4\", q], q, TauPoint[I], TimeLimit -> 60, WorkingPrecision -> 20][\"Method\"]",
+  "Expected": "\"QSeries\"",
+  "ErrorExample": "FailureQ[EvaluateScalarModular[ScalarModularExpression[\"E4\", q], q, TauPoint[I], TimeLimit -> -1]]",
+  "SeeAlso": [
+   "ModularFormEvaluate",
+   "ModularFormGetCoeff"
+  ]
+ }
+}

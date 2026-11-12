@@ -1,0 +1,53 @@
+Notebook[{Cell["UnitarizationMethod", "ObjectName"], 
+  Cell["UnitarizationMethod selects the invariant-form method: Automatic, \
+\"BSGSAverage\", \"GroupAverage\" or \"GeneratorEquations\".", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["Option for UnitarizeRepresentation \
+and TransformGroupRepresentations. Default: Automatic \
+(UnitarizeRepresentation: GroupAverage, then GeneratorEquations; \
+TransformGroupRepresentations: the GAP unitarizers BSGSAverage, then \
+GroupAverage).", "Notes"], Cell["\"GroupAverage\" averages M^\[Dagger].M over \
+the image of the group; \"GeneratorEquations\" solves M^\[Dagger].H.M == H on \
+the generators and chooses a positive solution; \"BSGSAverage\" is a native \
+GAP route (automatic representation computation and \
+TransformGroupRepresentations in GAP) and is refused where the work runs in \
+Wolfram.", "Notes"], 
+  Cell["The owning function rejects other values before computation.", 
+   "Notes"], Cell["Also an option of ComputeGroupRepresentations and the \
+group builders (GAP unitarizers: Automatic, \"BSGSAverage\", \
+\"GroupAverage\"), of DecomposeRepresentation (the invariant form of the \
+unitary coordinates: Automatic, \"GroupAverage\", \"GeneratorEquations\") and \
+of the CG functions (the temporary unitarization of a transported spectral \
+route: Automatic, \"GroupAverage\", \"GeneratorEquations\"). An explicit \
+choice is used as given, without a fallback.", "Notes"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["UnitarizeRepresentation", 
+      BaseStyle -> "Hyperlink", ButtonData -> {"UnitarizeRepresentation.nb", 
+        None}]}], "SeeAlso"], Cell["Examples Initialization", 
+   "ExamplesInitializationSection"], Cell["Open this notebook in its \
+repository location. GAP must be installed; LINS is required for its bounded \
+search page. Evaluate the setup before the examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"MemberQ", "[", 
+      RowBox[{RowBox[{"First", "/@", RowBox[{"Options", "[", 
+            "UnitarizeRepresentation", "]"}]}], ",", "UnitarizationMethod"}], 
+      "]"}]], "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/UnitarizationMethod", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "UnitarizationMethod \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

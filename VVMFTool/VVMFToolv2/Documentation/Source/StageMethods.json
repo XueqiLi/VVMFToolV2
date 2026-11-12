@@ -1,0 +1,172 @@
+{
+ "FieldMethod": {
+  "Kind": "Option",
+  "Details": [
+   "Option of CGCoefficients, CacheCG, ValidateCG, Contractions, TensorProductVectors, CGPolynomialResult, TensorProductWeightedVectors, ModularTensorProductVectors and ModularContractions, and a session default of ConfigureVVMFTool: the exact arithmetic domain of CG work. Automatic (default) is the package's own choice. \"Cyclotomic\" uses Q(zeta_N) from the cyclotomic data of the representation entries, completing other values with certified coordinates and with no size gate. \"PrimitiveElement\" uses a primitive element of the values, \"Radical\" a field of prime radicals, \"RootReduce\" exact Root arithmetic; a list such as {\"Cyclotomic\", \"RootReduce\"} is tried in order.",
+   "Automatic, \"Cyclotomic\", \"PrimitiveElement\", \"Radical\", \"RootReduce\" or a duplicate-free list of these.",
+   "An explicit choice is used as given: when none of its domains applies the call fails with FieldMethodUnavailable (never another domain silently); a one-line note says when a cyclotomic field is much larger than the values. NumberField -> False allows only Automatic or \"RootReduce\", and NumberField -> True not \"RootReduce\" alone (InapplicableOption). The domain is recorded per target under the CGData's \"Provenance\" (\"Domain\" of the computation, \"ValidationDomain\" of its check); it is not part of the stored key, so a stored result is returned whatever FieldMethod says.",
+   "Since Phase 2 (2B) FieldMethod is also an option of UnitarizeRepresentation, DiagonalizeRepresentationT, DecomposeRepresentation, RepresentationTSpectrum, RepresentationCharacter, ValidateRepresentation, SetGroupRepresentation, ChangeGroupRepBasis, TransformGroupRepresentations and RepresentationElementMatrices (default Automatic; the session default applies to the CG functions only); their results record the domain under Validation \"Domain\"."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; Length[CGIntertwiners[CGCoefficients[g, {d, d}, d, FieldMethod -> {\"Cyclotomic\", \"RootReduce\"}], d]]]",
+  "Expected": "1",
+  "ErrorExample": "FailureQ[CGCoefficients[\"no group\", {\"a\", \"b\"}, FieldMethod -> \"Cyclotomic\"]]",
+  "SeeAlso": [
+   "CGCoefficients",
+   "NumberField",
+   "Verification",
+   "ConfigureVVMFTool"
+  ]
+ },
+ "Verification": {
+  "Kind": "Option",
+  "Details": [
+   "Option of the CG family (CGCoefficients, CacheCG, ValidateCG and the functions built on CG coefficients), of the Validate functions and of the Wolfram calculations that check their results (Phase 2C), and a session default of ConfigureVVMFTool for CGCoefficients and CacheCG: how a result is checked. Automatic (default) checks exactly for exact arithmetic and numerically for numerical arithmetic. \"Exact\" requires exact checks (with numerical data it is InapplicableOption). \"Numerical\" checks the identities on N[] at WorkingPrecision. None skips the checks of results (input, structural and positivity checks always run) and marks the result \"Unverified\".",
+   "Automatic, \"Exact\", \"Numerical\" or None (the Validate functions: Automatic, \"Exact\" or \"Numerical\"; the modular-form functions have no \"Exact\" route).",
+   "Every stored CG entry carries a VerificationStatus, \"Exact\", \"Numerical\" or \"Unverified\", that is saved with the group; CGData reports it per target (\"Provenance\") and overall (\"VerificationStatus\"), and CGCacheInformation counts it per pair. A later call at a higher level checks a weaker stored entry and raises its status, or recomputes and replaces it when the check fails; a call with None serves stored entries as they are. The functions built on CG coefficients (TensorProductVectors, Contractions, CGPolynomialResult, TensorProductWeightedVectors, ModularTensorProductVectors, ModularContractions) pass their Verification to the inner CG call; its default there is plain Automatic, not the session's CG value. A call whose level asks for more than its input representations are verified at serves its result at their status and says so in one notice. The package library holds exactly verified coefficients only.",
+   "Every record carries a verification status, the weakest of its own check and its inputs (Phase 2C): CG coefficients are served at the weakest of their own check, the participating representation variants and the group (Provenance \"Verification\"; \"CheckStatus\" is the entry's own check); vector records, contraction sets, model terms and models, mass matrices and modular forms follow the same rule; RepresentationView shows the status column when a stored variant is weaker than Exact.",
+   "The switch on other calculations (Phase 2C-ii): ValidateRepresentation, ValidateModel, ValidateMassMatrix, ValidateModularModel (the level of their checks), ValidateModularForm (Automatic or \"Numerical\"); UnitarizeRepresentation, DiagonalizeRepresentationT, DecomposeRepresentation (result identities; their Validation records \"VerificationStatus\" and \"NotChecked\" for skipped checks); AddModelTerm and AddModularFormCouplings (covariance; None adds unchecked terms whose Symmetry is \"Unchecked\"; a later ValidateModel checks them, bounded by their sources); BindModularForms (the Stage 7 validation of each form); ConstructModularForms (recipe evidence); SolveModularCoefficients and ModularFormGetCoeff (None: ProofStatus \"Unchecked\"); ImportModelData (the archive's model and matrices; None keeps a registered export's recorded statuses and makes any other file \"Unverified\"). The export ledger records the weakest record of every saved file, and model archives record weak term and model statuses. Functions without a result check of their own carry their inputs' statuses: CreateModel, CreateModularModel, CoupleContractions, CoupleExpressions, ImportModularFormData (structural checks only), the extraction and evaluation functions.",
+   "Representations (Phase 2C-iii): ComputeGroupRepresentations at None has GAP match class traces only and stores each new variant as an inert record with status \"Unverified\" (no GAP unitarization runs); at \"Numerical\" each one is then checked on N[] in Wolfram and stored again at \"Numerical\". SetGroupRepresentation, ChangeGroupRepBasis and TransformGroupRepresentations (Wolfram route) at \"Numerical\" or None store inert records with that status. GAP never holds an unverified variant natively: weak variants are inert there, never outrank a verified one and never satisfy a full-level request (a later full request computes verified variants, which become active). ValidateRepresentation[g, id] stores a verified copy of a weak active variant (same matrices and identity) and makes it active (write-back). A variant's status is not part of the context identity, so raising it keeps every context, vector and model built before.",
+   "Groups (Phase 2C-iii): BuildGroup, BuildGroupFromGAP and BuildModularGroup take Verification. At \"Numerical\" GAP computes the characters and their class transport without its consistency proof (the row comparison and orthogonality), and Wolfram checks orthogonality, degrees and integrality numerically: the group's status is \"Numerical\". At None nothing is checked: \"Unverified\" (BuildModularGroup and AssignModularGenerators at None also skip the S,T proof; AssignModularGenerators has no \"Numerical\"). The representations a weak build computes are weak too. Every record derived from a weak group is bounded by its status. ValidateGroup raises it. ImportGroupData and LoadGroup: a registered file (the user's export ledger or the package library) imports at its recorded level without re-checking anything (its CG coefficients keep their recorded statuses); \"Exact\" re-checks it in GAP (LoadGroup then loads a new copy); an unregistered file at Automatic or \"Exact\" is re-proved in GAP, at \"Numerical\" or None it imports without GAP, with its claims weakened to what was checked: \"Numerical\" when only its character table is checked numerically, \"Unverified\" at None or when it holds an S,T assignment, representations, a generator presentation certificate or element words (no numerical check exists for them); receipt \"UnverifiedImport\". The numerical check covers the character table only: such a group's order and GAP ID are the file's claims until ValidateGroup proves them, and its subgroup lists are not imported (GroupSubgroups recomputes them). Ordinary operations never raise such a group; ValidateGroup proves it. GroupSubgroups, NormalSubgroupsByIndex, GroupElementWords and CheckGeneratorMap are exact by construction (\"Numerical\" is InapplicableOption). The package library holds exactly verified groups only."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; Block[{Print}, {First[CGCoefficients[g, {d, d}, d, Verification -> None]][\"VerificationStatus\"], First[CGCoefficients[g, {d, d}, d]][\"VerificationStatus\"]}]]",
+  "Expected": "{\"Unverified\", \"Exact\"}",
+  "ErrorExample": "FailureQ[CGCoefficients[\"no group\", {\"a\", \"b\"}, Verification -> \"Sometimes\"]]",
+  "SeeAlso": [
+   "CGCoefficients",
+   "CacheCG",
+   "ValidateCG",
+   "FieldMethod",
+   "CGCacheInformation",
+   "ValidateModel",
+   "UnitarizeRepresentation",
+   "AddModelTerm",
+   "LoadGroup"
+  ]
+ },
+ "Recompute": {
+  "Kind": "Option",
+  "Details": [
+   "Option of CGCoefficients. Default: False. With an explicit Method, a target the store already holds is returned from the store with a one-line note naming the method that made it; Recompute -> True computes it with the requested Method instead.",
+   "True or False.",
+   "A recomputation never replaces a stored entry (vectors made earlier refer to its channels): it is returned with its own channel IDs and Provenance \"Recomputed\" -> True, and stored only where the store holds nothing for that target."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; Block[{Print}, CGCoefficients[g, {d, d}, d]; First[CGCoefficients[g, {d, d}, d, Method -> \"ProjectionLazy\", Recompute -> True]][\"Provenance\"][d][[{\"Method\", \"Recomputed\"}]]]]",
+  "Expected": "<|\"Method\" -> \"ProjectionLazy\", \"Recomputed\" -> True|>",
+  "ErrorExample": "FailureQ[CGCoefficients[\"no group\", {\"a\", \"b\"}, Recompute -> 1]]",
+  "SeeAlso": [
+   "CGCoefficients",
+   "CacheCG",
+   "CleanCGCache"
+  ]
+ },
+ "ReversePairs": {
+  "Kind": "Option",
+  "Details": [
+   "Option of CacheCG. Default: \"Flip\": the reverse orientation {q, p} of a pair computed in the same call is obtained by a verified tensor flip of {p, q}. \"Compute\" computes the reverse pair like any other pair.",
+   "\"Flip\" or \"Compute\"."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False]}, CacheCG[g, ReversePairs -> \"Compute\"][\"Complete\"]]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[CacheCG[\"no group\", ReversePairs -> \"Compute\"]]",
+  "SeeAlso": [
+   "CacheCG",
+   "CGCoefficients"
+  ]
+ },
+ "WitnessVariant": {
+  "Kind": "Option",
+  "Details": [
+   "Option of ComputeGroupRepresentations, the group builders and TransformGroupRepresentations: which stored variant of an irrep GAP unitarizes or T-diagonalizes. Automatic or \"SmallestConductor\": the variant whose entries lie in the smallest cyclotomic field (ties: the active variant); \"Active\": the active variant only (no other variant replaces it).",
+   "Automatic, \"SmallestConductor\" or \"Active\".",
+   "With Basis -> \"General\" nothing is unitarized and an explicit value is InapplicableOption. On TransformGroupRepresentations the Wolfram route always uses the active variant (\"SmallestConductor\" is InapplicableOption there; \"Active\" on a non-native active variant takes the Wolfram route), and the GeneratorEquations unitarization of a native witness honours \"Active\" and refuses \"SmallestConductor\". When the active variant cannot serve (inert, or the irrep holds only a partial), \"Active\" gives no witness instead of another variant."
+  ],
+  "Example": "MemberQ[First /@ Options[TransformGroupRepresentations], WitnessVariant]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[ComputeGroupRepresentations[\"no group\", All, WitnessVariant -> \"Active\"]]",
+  "SeeAlso": [
+   "TransformGroupRepresentations",
+   "ComputeGroupRepresentations",
+   "UnitarizationMethod"
+  ]
+ },
+ "Route": {
+  "Kind": "Option",
+  "Details": [
+   "Option of TransformGroupRepresentations: Automatic (GAP for irreps with a native variant, unless an option is honoured only in Wolfram), \"GAP\" or \"Wolfram\".",
+   "Automatic, \"GAP\" or \"Wolfram\".",
+   "Route -> \"GAP\" with an option only the Wolfram route honours is InapplicableOption: numerical arithmetic; a Spectral or explicit Cholesky/LDL factorization; numerical or explicit Exact T-diagonalization, or GeneratorEquations, with UnitaryTDiagonal; an explicit FieldMethod; WitnessVariant \"Active\" on a non-native active variant; or an irrep without a native variant. Route -> \"Wolfram\" transforms the active variants in Wolfram, where WorkingPrecision applies to numerical arithmetic and to the NumericalReconstruction diagonalization, and Tolerance to numerical arithmetic."
+  ],
+  "Example": "MemberQ[First /@ Options[TransformGroupRepresentations], Route]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[TransformGroupRepresentations[\"no group\", Route -> \"Wolfram\"]]",
+  "SeeAlso": [
+   "TransformGroupRepresentations",
+   "WitnessVariant"
+  ]
+ },
+ "WordRecovery": {
+  "Kind": "Option",
+  "Details": [
+   "Option of the group builders and the GAP group operations (GroupElementWords, GroupWordOrder, GroupSubgroups, AssignModularGenerators, CheckGeneratorMap): the order of the word-recovery strategies GAP tries. Automatic: \"Native\", then \"FP\", then \"Cayley\" (a strategy that worked before may go first); a list fixes the order and is never reordered.",
+   "Automatic or a duplicate-free list of \"Native\", \"FP\", \"Cayley\".",
+   "The builders pass it to their character, element-word and subgroup stages. GroupWordOrder and AssignModularGenerators use native recovery only: a list other than {\"Native\"} is InapplicableOption there."
+  ],
+  "Example": "MemberQ[First /@ Options[GroupElementWords], WordRecovery]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[GroupElementWords[\"no group\", WordRecovery -> {\"FP\"}]]",
+  "SeeAlso": [
+   "GroupModel",
+   "BuildGroup",
+   "GroupElementWords"
+  ]
+ },
+ "DimensionMethod": {
+  "Kind": "Option",
+  "Details": [
+   "Option of MinimumModularWeight, ModularFormCandidates, ModularTensorProductVectors and ModularContractions: the Method of the modular dimensions they use (as ModularDimensionData's Method): Automatic, \"Profile\" or \"TraceFormula\". For MinimumModularWeight, Automatic takes the weight profile when it decides and searches otherwise, \"Profile\" uses the profile only, and \"TraceFormula\" always searches with trace-formula dimensions.",
+   "Automatic, \"Profile\" or \"TraceFormula\"."
+  ],
+  "Example": "MemberQ[First /@ Options[MinimumModularWeight], DimensionMethod]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[MinimumModularWeight[\"no group\", \"a\", DimensionMethod -> \"Profile\"]]",
+  "SeeAlso": [
+   "ModularDimensionData",
+   "MinimumModularWeight",
+   "ModularFormCandidates"
+  ]
+ },
+ "ValidateGroup": {
+  "Kind": "Function",
+  "Details": [
+   "ValidateGroup[g] raises the verification status of a weakly built group (BuildGroup, BuildGroupFromGAP or BuildModularGroup with Verification -> None or \"Numerical\", or a group imported at those levels).",
+   "Verification -> Automatic or \"Exact\" proves the character table in GAP: the full check on the native characters when the GAP workspace is retained, otherwise a fresh native computation that must reproduce the stored rows; a skipped S,T check is proved too. Verification -> \"Numerical\" reads the table with Wolfram's numerical orthogonality, degree and integrality checks only (at most \"Numerical\"; a skipped S,T check stays \"Unverified\"). None is InvalidOption.",
+   "The status changes in place in one GAP generation with a new receipt; contexts, vectors and models built before keep their identities. The result is <|\"Previous\", \"VerificationStatus\", \"Raised\"|>."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"a\",\"b\"}, {\"a^2\",\"b^3\",\"(a.b)^3\"}], Verification -> None, ComputeRepresentations -> False, StoreGAPState -> False]}, Block[{Print}, ValidateGroup[g, StoreGAPState -> False][\"VerificationStatus\"]]]",
+  "Expected": "\"Exact\"",
+  "ErrorExample": "FailureQ[ValidateGroup[\"no group\"]]",
+  "SeeAlso": [
+   "BuildGroup",
+   "ImportGroupData",
+   "ValidateRepresentation"
+  ]
+ },
+ "Defaults": {
+  "Kind": "Option",
+  "Details": [
+   "Setting of ConfigureVVMFTool: session defaults per option family or per operation, <|family -> <|option -> value|>, operation -> <|option -> value|>|>. The families are \"CG\" (CGCoefficients, CacheCG, Contractions, ModularTensorProductVectors, ModularContractions), \"Representations\" (ComputeGroupRepresentations, SetGroupRepresentation, ChangeGroupRepBasis, TransformGroupRepresentations, UnitarizeRepresentation, DiagonalizeRepresentationT, DecomposeRepresentation, RepresentationTSpectrum, RepresentationCharacter, RepresentationElementMatrices), \"Models\" (CreateModel, AddModelTerm, CoupleContractions, CoupleExpressions, ExtractBilinearMatrix, ExtractQuadraticMatrix, ImportModelData, SaveModelData) and \"Modular\" (CreateModularModel, ConstructModularForms, SolveModularCoefficients, BindModularForms, AddModularFormCouplings, SupplyModularFormSpace, ModularFormCandidates, ImportModularFormData, EvaluateModularModel, EvaluateModularMassMatrix, ModularFormEvaluate); an operation key names one operation (for example \"ComputeGroupRepresentations\"). Each Defaults setting replaces the previous one as a whole (Defaults -> <||> clears it); the CG family's FieldMethod and Verification are stored in the flat keys and are not cleared with it.",
+   "An association of families or operation names to associations of options and values.",
+   "A call uses an explicit option first, then its operation's key, then its family's, then the option's built-in default. The Validate functions (ValidateCG, ValidateRepresentation, ValidateModel, ...) are checks and belong to no family (ValidateCG keeps the flat FieldMethod, as before). Steps an operation runs internally (representations a CG call computes, a diagonalization inside a modular construction, the form checks of a binding) inherit the caller's level: an explicit or session Verification of the call is passed on, and with the call at Automatic the step follows its own session defaults; the result is marked with the weakest status of what it used. Checks whose caller records no status (PrepareModelOutput, the representation check that rebinds an archived form on import) always run in full. A family Verification also sets how far input is checked where the operation takes input: SetGroupRepresentation (supplied matrices) and ImportModelData (a file); the results carry the status reached.",
+   "A family value is accepted only when every member that takes the option admits it; otherwise ConfigureVVMFTool fails with InvalidOption naming the operations that refuse it (set those as operation keys). Settings that would make every call of an operation without its own options fail (for example NumberField -> False with FieldMethod -> \"Cyclotomic\", or Verification -> \"Exact\" with Arithmetic -> \"Numerical\") are refused the same way. Method, Normalization, Basis, MethodData, Arithmetic, WorkingPrecision, TargetIrreps and SeriesOrder have a per-operation meaning, and the options that carry a call's data (Name, Overwrite, Recompute, ReplaceBindings, targets, couplings, values, ValidationGroup, ...) are per call: operation keys only. The setting survives a package reload; stored values the reloaded package refuses are cleared with a notice.",
+   "The CG family's FieldMethod and Verification are the flat keys ConfigureVVMFTool[FieldMethod -> ...] and ConfigureVVMFTool[Verification -> ...], with their earlier reach: FieldMethod for the CG family, Verification for CGCoefficients and CacheCG only (the functions built on CG coefficients default to Automatic)."
+  ],
+  "Example": "Block[{VVMFTool`Private`$Configuration = VVMFTool`Private`$Configuration}, ConfigureVVMFTool[Defaults -> <|\"Representations\" -> <|FieldMethod -> \"Cyclotomic\"|>|>][Defaults]]",
+  "Expected": "<|\"Representations\" -> <|FieldMethod -> \"Cyclotomic\"|>|>",
+  "ErrorExample": "FailureQ[Block[{VVMFTool`Private`$Configuration = VVMFTool`Private`$Configuration}, ConfigureVVMFTool[Defaults -> <|\"Modular\" -> <|Verification -> \"Exact\"|>|>]]]",
+  "SeeAlso": [
+   "ConfigureVVMFTool",
+   "FieldMethod",
+   "Verification"
+  ]
+ }
+}

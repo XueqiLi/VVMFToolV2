@@ -1,0 +1,423 @@
+{
+ "TensorDecomposition": {
+  "Kind": "Function",
+  "Details": [
+   "TensorDecomposition[g, {i1, i2, ...}] gives an association from the index of every irrep that occurs in the tensor product of the listed irreps (indices or IDs) to its exact multiplicity, in the presentation order of g. IrrepForm -> \"ID\" or \"Label\" keys it by irrep ID or user label; IncludeZeros -> True keeps the irreps that do not occur (with IrrepForm -> \"ID\", every irrep ID, as before the UX update).",
+   "Only the character table is used: no matrices, no GAP, no change to the group. Multiplicities are computed exactly in the cyclotomic field of the class orders, so integrality and the dimension identity are checked, not assumed.",
+   "TensorDecomposition[g, {}] is one copy of the trivial irrep (the tensor unit), whatever the row order; one factor gives itself. A RepresentationContext uses its character-table order."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False], d}, d = First[Pick[g[\"CharacterData\"][\"IrrepIDs\"], g[\"CharacterData\"][\"Degrees\"], 2]]; TensorDecomposition[g, {d, d}][IrrepIndex[g, d]]]",
+  "Expected": "1",
+  "ErrorExample": "FailureQ[TensorDecomposition[\"no group\", {}]]",
+  "SeeAlso": [
+   "TensorMultiplicity",
+   "TensorIrrepList",
+   "TensorDecompositionView",
+   "CGCoefficients"
+  ]
+ },
+ "TensorMultiplicity": {
+  "Kind": "Function",
+  "Details": [
+   "TensorMultiplicity[g, ids, target] gives the multiplicity of target in the tensor product of the irreps ids (a nonnegative integer), from the character table alone."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False], d}, d = First[Pick[g[\"CharacterData\"][\"IrrepIDs\"], g[\"CharacterData\"][\"Degrees\"], 2]]; TensorMultiplicity[g, {d, d}, g[\"CharacterData\"][\"TrivialIrrepID\"]]]",
+  "Expected": "1",
+  "ErrorExample": "FailureQ[TensorMultiplicity[\"no group\", {}, \"x\"]]",
+  "SeeAlso": [
+   "TensorDecomposition",
+   "TensorIrrepList"
+  ]
+ },
+ "TensorIrrepList": {
+  "Kind": "Function",
+  "Details": [
+   "TensorIrrepList[g, ids] lists the irreps of the tensor product of ids, each repeated by its multiplicity, in the presentation order."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False], d}, d = First[Pick[g[\"CharacterData\"][\"IrrepIDs\"], g[\"CharacterData\"][\"Degrees\"], 2]]; Length[TensorIrrepList[g, {d, d, d}]]]",
+  "Expected": "5",
+  "ErrorExample": "FailureQ[TensorIrrepList[\"no group\", {}]]",
+  "SeeAlso": [
+   "TensorDecomposition",
+   "TensorMultiplicity"
+  ]
+ },
+ "TensorDecompositionView": {
+  "Kind": "Function",
+  "Details": [
+   "TensorDecompositionView[g, products] is a read-only DisplayDocument of tensor-product decompositions: All (default) means every unordered pair of irreps; one list of irrep IDs or a list of such lists selects products.",
+   "Rows give each product's factors, dimension and constituents with multiplicities; labels follow LabelStyle and IrrepLabels as in CharacterTableView. Render it with ToNotebook, ToLaTeX or ExportDisplay. It needs no matrices and never changes the group."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False], d}, d = First[Pick[g[\"CharacterData\"][\"IrrepIDs\"], g[\"CharacterData\"][\"Degrees\"], 2]]; DisplayData[TensorDecompositionView[g, {d, d}]][\"Products\"][[1, \"Dimension\"]]]",
+  "Expected": "4",
+  "ErrorExample": "FailureQ[TensorDecompositionView[\"no group\"]]",
+  "SeeAlso": [
+   "TensorDecomposition",
+   "ToNotebook",
+   "ToLaTeX"
+  ]
+ },
+ "CGData": {
+  "Kind": "Function",
+  "Details": [
+   "CGData[data] is the immutable snapshot returned by CGCoefficients: the frozen input and target representations and their identities, the normalization, exchange-symmetry and arithmetic conventions, the multiplicities and coverage, and one channel per copy of each selected target.",
+   "A channel has ChannelID, TargetID, Copy, Symmetry (\"Symmetric\", \"Antisymmetric\" or \"Unspecified\"), Embedding K (N by dt, with row (i-1) dq + j for a_i b_j) and Dual W (dt by N). Accessors check the snapshot's shape; ValidateCG recomputes its mathematics."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; Head[CGCoefficients[g, {d, d}, d]]]",
+  "Expected": "CGData",
+  "ErrorExample": "FailureQ[CGIntertwiners[CGData[<||>], \"x\"]]",
+  "SeeAlso": [
+   "CGCoefficients",
+   "CGIntertwiners",
+   "CGMatrix",
+   "ValidateCG"
+  ]
+ },
+ "CGCoefficients": {
+  "Kind": "Function",
+  "Details": [
+   "CGCoefficients[g, {p, q}, targets] gives Clebsch-Gordan coefficients of the irreps p and q of a group or RepresentationContext: every copy of every selected target (All, an irrep ID or a list), with K satisfying R.K == K.D and W satisfying W.R == D.W on every recorded generator.",
+   "Normalization Automatic gives orthonormal copies with W = K^dagger for unitary matrices and dual-paired copies (W_a.K_b = delta_ab I) for general bases. Equal factors (the same stored variant) are split into symmetric and antisymmetric sectors.",
+   "Method Automatic uses the documented routes (GeneratorEquations, ProjectionLazy, SubgroupChain, AveragedBSGS, SerreBSGS, Serre, CanonicalHybrid, AveragedIntertwiners, AveragedOrbit, SubgroupEmbedding, CommutantSpectral, AdaptedStates, ProjectionEager), the Wolfram routes before the native GAP routes; stored coefficients are used first (with an explicit Method, a note names the method that made them). Exact results are proved exactly; Arithmetic -> \"Numerical\" gives verified numerical coefficients.",
+   "With CoreBudget of four or more, Method Automatic runs the Wolfram routes of a batch at the same time in Wolfram subkernels and takes the first result that validates in the calling kernel; the others are stopped. The subkernels are kept for the session (CloseCGPool closes them) and are not used while other parallel kernels run; stopping a race also cancels any other ParallelSubmit job queued on them. The winning route can differ between calls, so a repeated target may come with another valid phase or multiplicity basis; an explicit Method gives a reproducible choice. Under Method Automatic, CommutantSpectral and AdaptedStates are used only for stored unitary matrices, and SubgroupEmbedding only with subgroup information (MethodData, or a recorded proper subgroup).",
+   "Group calls store new coefficients in the group's Wolfram CG store (one atomic commit per call, reported under \"Publication\" -> <|\"Published\" -> n|>; no GAP work) and may compute missing representations with GAP. When another target fails, the validated targets are still stored and the failure's Coverage lists AcceptedTargets, ComputedTargets, FailedTargets and PendingTargets. Context calls never store coefficients; the native GAP routes (SubgroupChain, AveragedBSGS, Serre, SerreBSGS) still run their worker query on the live group, which advances its state generation without changing its data.",
+   "FieldMethod chooses the exact arithmetic domain and Verification how coefficients are checked (Automatic, \"Exact\", \"Numerical\" or None); both can be session defaults (ConfigureVVMFTool). The CGData records each target's domain and verification status under \"Provenance\" and the weakest status under \"VerificationStatus\".",
+   "Method may also be an ordered list of routes, tried one at a time in that order in the calling kernel (no race); members that do not apply are skipped and reported in the attempts. With an explicit Method, a target already stored is returned from the store with a note naming the method that made it; Recompute -> True computes it with the requested method (returned, stored only where nothing is stored)."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; Length[CGIntertwiners[CGCoefficients[g, {d, d}, All], d]]]",
+  "Expected": "1",
+  "ErrorExample": "FailureQ[CGCoefficients[\"no group\", {\"a\", \"b\"}]]",
+  "SeeAlso": [
+   "CGIntertwiners",
+   "CGMatrix",
+   "ValidateCG",
+   "CacheCG",
+   "TensorProductVectors",
+   "CloseCGPool"
+  ]
+ },
+ "CGIntertwiners": {
+  "Kind": "Function",
+  "Details": [
+   "CGIntertwiners[cg, target] lists the channel records of one target of CGData cg: {} for a selected target of multiplicity zero and Missing[\"NotSelected\"] for a target outside the selection."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; Lookup[CGIntertwiners[CGCoefficients[g, {d, d}, d], d], \"Symmetry\"]]",
+  "Expected": "{\"Symmetric\"}",
+  "ErrorExample": "FailureQ[CGIntertwiners[\"x\", \"y\"]]",
+  "SeeAlso": [
+   "CGCoefficients",
+   "CGMatrix"
+  ]
+ },
+ "CGMatrix": {
+  "Kind": "Function",
+  "Details": [
+   "CGMatrix[cg] assembles the embedding matrices of CGData side by side; CGMatrix[cg, \"Dual\"] stacks the duals. For a complete pair both are square and mutually inverse; a selected-target matrix is rectangular and not claimed invertible."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; Module[{cg = CGCoefficients[g, {d, d}, All]}, Simplify[CGMatrix[cg, \"Dual\"] . CGMatrix[cg]] === IdentityMatrix[4]]]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[CGMatrix[\"x\"]]",
+  "SeeAlso": [
+   "CGCoefficients",
+   "CGIntertwiners",
+   "ValidateCG"
+  ]
+ },
+ "ValidateCG": {
+  "Kind": "Function",
+  "Details": [
+   "ValidateCG[cg] recomputes covariance and dual covariance on every recorded generator, the pairing, the rank, the exchange symmetry and (Unitary normalization) W = K^dagger from the frozen matrices of CGData cg; a stored validation label is never trusted. \"FullInverse\" checks complete pairs.",
+   "FieldMethod sets the exact domain of the checks; Verification -> \"Numerical\" checks N[] of the matrices at WorkingPrecision (default 50) and \"Exact\" requires exact data. The result's \"VerificationStatus\" is the level the checks establish; nothing is written back."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; ValidateCG[CGCoefficients[g, {d, d}, d]][\"Valid\"]]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[ValidateCG[\"x\"]]",
+  "SeeAlso": [
+   "CGCoefficients",
+   "CGData"
+  ]
+ },
+ "CacheCG": {
+  "Kind": "Function",
+  "Details": [
+   "CacheCG[g] computes and stores CG coefficients for every ordered pair of irreps of the live group g (CacheCG[g, pairs] for selected pairs; TargetIrreps restricts targets) and reports Complete, AcceptedPairs, AcceptedTargets, PendingTargets and AttemptOutcomes (per attempted method: the outcome and whether it ran in a race of subkernels, in the calling kernel, or in the calling kernel because the race could not start; inapplicable methods are listed with their reason).",
+   "Reverse pairs are obtained by a verified tensor flip; all new coefficients of a call are one atomic commit to the Wolfram store, reported under \"Publication\" (the number stored). A pair with a failing target stays pending while the other pairs continue; a failure carries the same report with what the store actually accepted.",
+   "After ImportGroupData or LoadGroup of a registered snapshot, stored coefficients keep their recorded statuses and are served without a check (see ImportGroupData). CGCacheInformation counts them as stored.",
+   "FieldMethod and Verification apply as for CGCoefficients; a call at a higher level than a stored entry's status checks the entry and raises its status (reported with \"Upgraded\" under \"Publication\"), or recomputes and replaces it when the check fails.",
+   "ReversePairs -> \"Compute\" computes reverse pairs like any pair instead of flipping them."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; CacheCG[g][\"Complete\"]]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[CacheCG[\"no group\"]]",
+  "SeeAlso": [
+   "CGCoefficients",
+   "CGCacheInformation",
+   "CleanCGCache",
+   "CloseCGPool"
+  ]
+ },
+ "CGCacheInformation": {
+  "Kind": "Function",
+  "Details": [
+   "CGCacheInformation[g] reports the coverage of the CG store of a group or context (epoch, number of entries, targets, conventions and the count of entries by VerificationStatus per ordered pair, whether entries are in the current basis) without changing anything."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; (CGCoefficients[g, {d, d}, d]; CGCacheInformation[g][\"Entries\"])]",
+  "Expected": "1",
+  "ErrorExample": "FailureQ[CGCacheInformation[\"x\"]]",
+  "SeeAlso": [
+   "CacheCG",
+   "CleanCGCache"
+  ]
+ },
+ "CleanCGCache": {
+  "Kind": "Function",
+  "Details": [
+   "CleanCGCache[g] removes stored CG coefficients of the group (CleanCGCache[g, pairs] for selected pairs, in every basis namespace) and advances the store's eviction epoch, so a restored older GAP workspace cannot bring them back. Characters, representations and returned CGData values are untouched."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; (CGCoefficients[g, {d, d}, d]; CleanCGCache[g][\"Removed\"])]",
+  "Expected": "1",
+  "ErrorExample": "FailureQ[CleanCGCache[\"x\"]]",
+  "SeeAlso": [
+   "CacheCG",
+   "CGCacheInformation",
+   "CleanGAPCache"
+  ]
+ },
+ "CloseCGPool": {
+  "Kind": "Function",
+  "Details": [
+   "CloseCGPool[] closes the Wolfram subkernels that CGCoefficients and CacheCG launched to run the CG methods of Method Automatic at the same time, and reports <|\"Closed\" -> n|>. The subkernels are otherwise kept for the session, so a long series of calls (one pair at a time) does not launch them again.",
+   "Only the subkernels the package launched are closed. Closing is never needed for correctness: the subkernels end with the session, and a later Automatic call launches them again. A race's abort also cancels any other ParallelSubmit job queued on the pool's subkernels."
+  ],
+  "Example": "CloseCGPool[][\"Closed\"] >= 0",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[CloseCGPool[1]]",
+  "SeeAlso": [
+   "CGCoefficients",
+   "CacheCG"
+  ]
+ },
+ "RepVector": {
+  "Kind": "Function",
+  "Details": [
+   "RepVector[data] is an immutable representation-valued vector: ordered records (TargetID, Components, Path, ChannelIDs, BasisID, Arithmetic) bound to the frozen RepresentationContext it was made in. It stays usable with that context after the group's basis or order changes."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; Head[MakeRepVector[g, d, {x1, x2}]]]",
+  "Expected": "RepVector",
+  "ErrorExample": "FailureQ[VectorComponents[RepVector[<||>]]]",
+  "SeeAlso": [
+   "MakeRepVector",
+   "VectorComponents",
+   "TensorProductVectors"
+  ]
+ },
+ "VectorComponent": {
+  "Kind": "Function",
+  "Details": [
+   "VectorComponent[vectorID, i] is the inert i-th component of a vector made by MakeRepVector with automatic components; no global symbol is created or evaluated."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; MatchQ[VectorComponents[MakeRepVector[g, d]][[1, \"Components\"]], {VectorComponent[_, 1], VectorComponent[_, 2]}]]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[MakeRepVector[\"no group\", \"x\"]]",
+  "SeeAlso": [
+   "MakeRepVector"
+  ]
+ },
+ "MakeRepVector": {
+  "Kind": "Function",
+  "Details": [
+   "MakeRepVector[g, id] makes a vector of the irrep id with inert components (ComponentLabel gives their display label); MakeRepVector[g, id, {c1, ..., cd}] uses explicit components (numbers or expressions, already evaluated); MakeRepVector[g, id, a] with a symbol a uses the components a[1], ..., a[d]. The irrep needs stored matrices."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; VectorComponents[MakeRepVector[g, d, {x1, x2}]][[1, \"Components\"]]]",
+  "Expected": "{x1, x2}",
+  "ErrorExample": "FailureQ[MakeRepVector[\"no group\", \"x\"]]",
+  "SeeAlso": [
+   "VectorComponents",
+   "TensorProductVectors",
+   "CGPolynomialResult"
+  ]
+ },
+ "VectorComponents": {
+  "Kind": "Function",
+  "Details": [
+   "VectorComponents[v] lists the records of the RepVector v: TargetID, Components, Path (leaf, unit or ordered product with its channel), ChannelIDs, BasisID and Arithmetic (\"Exact\", or \"Numerical\" when the components, a factor or a CG dual are numerical)."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; Length[VectorComponents[MakeRepVector[g, d, {x1, x2}]]]]",
+  "Expected": "1",
+  "ErrorExample": "FailureQ[VectorComponents[\"x\"]]",
+  "SeeAlso": [
+   "MakeRepVector",
+   "TensorProductVectors"
+  ]
+ },
+ "JoinRepVectors": {
+  "Kind": "Function",
+  "Details": [
+   "JoinRepVectors[{v1, v2, ...}] concatenates the records of vectors of one frozen context, keeping equal and zero records. An empty list has no context: use EmptyRepVector."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; Module[{v = MakeRepVector[g, d, {x1, x2}]}, Length[VectorComponents[JoinRepVectors[{v, v}]]]]]",
+  "Expected": "2",
+  "ErrorExample": "FailureQ[JoinRepVectors[{}]]",
+  "SeeAlso": [
+   "EmptyRepVector",
+   "MakeRepVector"
+  ]
+ },
+ "EmptyRepVector": {
+  "Kind": "Function",
+  "Details": [
+   "EmptyRepVector[g] is the additive zero vector of a group or context: no records. A product with it is the additive zero."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; VectorComponents[EmptyRepVector[g]]]",
+  "Expected": "{}",
+  "ErrorExample": "FailureQ[EmptyRepVector[\"x\"]]",
+  "SeeAlso": [
+   "JoinRepVectors",
+   "TensorProductVectors"
+  ]
+ },
+ "TensorProductVectors": {
+  "Kind": "Function",
+  "Details": [
+   "TensorProductVectors[g, {v1, v2, ...}] multiplies representation-valued vectors left-associatively through CG duals: every copy and every zero is kept and each record's path names its contractions. TargetIrreps prunes the paths to the requested final irreps, computing only the CG coefficients needed.",
+   "{} gives the tensor unit (the trivial irrep with component 1). The vectors must share one frozen context; a group whose stored basis changed since they were made fails with StaleBasis (use their RepresentationContext). Components multiply commutatively."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; VectorComponents[TensorProductVectors[g, {MakeRepVector[g, d, {x1, x2}], MakeRepVector[g, d, {x1, x2}]}, TargetIrreps -> g[\"CharacterData\"][\"TrivialIrrepID\"]]][[1, \"Components\"]] // Length]",
+  "Expected": "1",
+  "ErrorExample": "FailureQ[TensorProductVectors[\"no group\", {}]]",
+  "SeeAlso": [
+   "MakeRepVector",
+   "CGPolynomialResult",
+   "CGCoefficients"
+  ]
+ },
+ "CGPolynomialResult": {
+  "Kind": "Function",
+  "Details": [
+   "CGPolynomialResult[g, {p, q}, target] gives every copy of target in the product of a p-vector and a q-vector as polynomials of their components: distinct inert vectors by default, or ComponentLists -> {listA, listB} of explicit components, or {a, b} with symbols naming them a[1], ..., b[1], ... (equal lists are allowed; for equal factors the antisymmetric copies then vanish)."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; Length[VectorComponents[CGPolynomialResult[g, {d, d}, d]]]]",
+  "Expected": "1",
+  "ErrorExample": "FailureQ[CGPolynomialResult[\"no group\", {\"a\", \"b\"}, \"c\"]]",
+  "SeeAlso": [
+   "TensorProductVectors",
+   "MakeRepVector"
+  ]
+ },
+ "Normalization": {
+  "Kind": "Option",
+  "Details": [
+   "Option for CGCoefficients, CacheCG and vector products: Automatic (\"Unitary\" when all participating stored matrices are unitary, else \"Dual\"), \"Unitary\" (requires unitary matrices) or \"Dual\" (dual-paired maps W_a.K_b = delta_ab I). An explicit \"Dual\" stays Dual also for unitary matrices (a note says that \"Unitary\" is available); Automatic chooses Unitary for unitary matrices.",
+   "Automatic (default) resolves from the participating matrices; \"Unitary\" or \"Dual\" fix the convention.",
+   "The owning function rejects other values before any computation."
+  ],
+  "Example": "MemberQ[First /@ Options[CGCoefficients], Normalization]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[CGCoefficients[\"no group\", {\"a\", \"b\"}]]",
+  "SeeAlso": [
+   "CGCoefficients"
+  ]
+ },
+ "ExchangeSymmetry": {
+  "Kind": "Option",
+  "Details": [
+   "Option for CGCoefficients: Automatic splits equal factors (the same stored variant) into symmetric and antisymmetric sectors, \"Separate\" requires that split, None keeps an unspecified multiplicity basis. The convention is part of the stored coefficients' key.",
+   "Automatic (default), \"Separate\" or None.",
+   "The owning function rejects other values before any computation."
+  ],
+  "Example": "MemberQ[First /@ Options[CGCoefficients], ExchangeSymmetry]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[CGCoefficients[\"no group\", {\"a\", \"b\"}]]",
+  "SeeAlso": [
+   "CGCoefficients"
+  ]
+ },
+ "Prefilter": {
+  "Kind": "Option",
+  "Details": [
+   "Option for CGCoefficients: True (default) eliminates unknowns forced to vanish by exactly certified distinct eigenvalues of diagonal generators before the full equations are solved; the full equations of every generator are always checked.",
+   "True (default) or False.",
+   "The owning function rejects other values before any computation."
+  ],
+  "Example": "MemberQ[First /@ Options[CGCoefficients], Prefilter]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[CGCoefficients[\"no group\", {\"a\", \"b\"}]]",
+  "SeeAlso": [
+   "CGCoefficients"
+  ]
+ },
+ "NumberField": {
+  "Kind": "Option",
+  "Details": [
+   "Option for CGCoefficients: Automatic (a common number field when one is found in budget, else exact Root arithmetic), True (require a number field; otherwise FieldConversionFailed) or False (exact Root arithmetic). It changes execution, not the result's key. FieldMethod chooses among the exact domains.",
+   "Automatic (default), True or False.",
+   "The owning function rejects other values before any computation."
+  ],
+  "Example": "MemberQ[First /@ Options[CGCoefficients], NumberField]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[CGCoefficients[\"no group\", {\"a\", \"b\"}]]",
+  "SeeAlso": [
+   "CGCoefficients",
+   "FieldMethod"
+  ]
+ },
+ "ComputeMissingRepresentations": {
+  "Kind": "Option",
+  "Details": [
+   "Option for group CG calls: True (default) computes only the missing input and positive-multiplicity target representations; False reports them with MissingRepresentations. Context calls never compute representations.",
+   "True (default) or False.",
+   "The owning function rejects other values before any computation."
+  ],
+  "Example": "MemberQ[First /@ Options[CGCoefficients], ComputeMissingRepresentations]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[CGCoefficients[\"no group\", {\"a\", \"b\"}]]",
+  "SeeAlso": [
+   "CGCoefficients",
+   "ComputeGroupRepresentations"
+  ]
+ },
+ "TargetIrreps": {
+  "Kind": "Option",
+  "Details": [
+   "Option for CacheCG, TensorProductVectors and CGPolynomialResult: All, an irrep ID or a list of IDs selecting final targets.",
+   "All (default), an irrep ID or a duplicate-free list of irrep IDs.",
+   "The owning function rejects other values before any computation."
+  ],
+  "Example": "MemberQ[First /@ Options[TensorProductVectors], TargetIrreps]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[CGCoefficients[\"no group\", {\"a\", \"b\"}]]",
+  "SeeAlso": [
+   "CacheCG",
+   "TensorProductVectors"
+  ]
+ },
+ "ComponentLabel": {
+  "Kind": "Option",
+  "Details": [
+   "Option for MakeRepVector and CGPolynomialResult: the display label of inert components (default \"x\"); it is cosmetic only.",
+   "A nonempty string; default \"x\".",
+   "The owning function rejects other values before any computation."
+  ],
+  "Example": "MemberQ[First /@ Options[MakeRepVector], ComponentLabel]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[CGCoefficients[\"no group\", {\"a\", \"b\"}]]",
+  "SeeAlso": [
+   "MakeRepVector",
+   "VectorComponent"
+  ]
+ },
+ "ComponentLists": {
+  "Kind": "Option",
+  "Details": [
+   "Option for CGPolynomialResult: Automatic (distinct inert vectors), {listA, listB} of explicit components, or symbols {a, b} naming the components a[1], ..., b[1], ... (as MakeRepVector).",
+   "Automatic (default), {listA, listB} or {a, b} (lists or symbols).",
+   "The owning function rejects other values before any computation."
+  ],
+  "Example": "MemberQ[First /@ Options[CGPolynomialResult], ComponentLists]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[CGCoefficients[\"no group\", {\"a\", \"b\"}]]",
+  "SeeAlso": [
+   "CGPolynomialResult"
+  ]
+ }
+}

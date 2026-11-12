@@ -1,0 +1,1103 @@
+{
+	"schemaVersion":1,
+	"groups":{
+		"108-8":{
+			"file":"Groups\/108-8.json",
+			"gapID":[
+				108,
+				8
+			],
+			"title":"$((\\Z{3}\\x\\Z{3})\\rtimes\\Z{3})\\rtimes\\Z{4}\\cong [108,8]$",
+			"titlePlain":"((Z3×Z3)⋊Z3)⋊Z4 ≅  [108,8]",
+			"order":108,
+			"irreps":20,
+			"representations":20,
+			"cgPairs":400,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"1633d0eed65dfd9fac91e0f9e977dae77b03dd9f6f46c0ebe911afaabba5a3a5",
+			"updated":"2026-10-21T12:45:30"
+		},
+		"114-1I":{
+			"file":"Groups\/114-1I.json",
+			"gapID":[
+				114,
+				1
+			],
+			"title":"$\\Z{19}\\rtimes\\Z{6}\\cong [114,1]I$",
+			"titlePlain":"Z19⋊Z6 ≅  [114,1]I",
+			"order":114,
+			"irreps":9,
+			"representations":9,
+			"cgPairs":81,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"8e6c90b44ca61e628ef1691b044be8a325a4ab1ba3e74f8155291ec2ad3046c4",
+			"updated":"2026-10-22T06:29:00"
+		},
+		"114-1II":{
+			"file":"Groups\/114-1II.json",
+			"gapID":[
+				114,
+				1
+			],
+			"title":"$\\Z{19}\\rtimes\\Z{6}\\cong [114,1]II$",
+			"titlePlain":"Z19⋊Z6 ≅  [114,1]II",
+			"order":114,
+			"irreps":9,
+			"representations":9,
+			"cgPairs":81,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"a97ae1a28c717ab0d544575ff108d729240db2ccea57839bb451ce89011bb018",
+			"updated":"2026-10-22T06:29:44"
+		},
+		"120-35":{
+			"file":"Groups\/120-35.json",
+			"gapID":[
+				120,
+				35
+			],
+			"title":"$\\Z2\\x A_5\\cong [120,35]$",
+			"titlePlain":"Z2× A5 ≅  [120,35]",
+			"order":120,
+			"irreps":10,
+			"representations":10,
+			"cgPairs":100,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"0ce9641cdba625f35348137d9f14f31995850c3bec6c7d25c942b5446250c972",
+			"updated":"2026-10-21T12:46:10"
+		},
+		"120-5I":{
+			"file":"Groups\/120-5I.json",
+			"gapID":[
+				120,
+				5
+			],
+			"title":"$\\Gamma_5'\\cong [120,5]I$",
+			"titlePlain":"Γ5' ≅  [120,5]I",
+			"order":120,
+			"irreps":9,
+			"representations":9,
+			"cgPairs":81,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"9ce661c9b35a832b0cc19bb613b6ba1d43dbf551eee49b14996803340280101d",
+			"updated":"2026-10-21T12:46:41"
+		},
+		"120-5II":{
+			"file":"Groups\/120-5II.json",
+			"gapID":[
+				120,
+				5
+			],
+			"title":"$2A_5\\cong [120,5]II$",
+			"titlePlain":"2A5 ≅  [120,5]II",
+			"order":120,
+			"irreps":9,
+			"representations":9,
+			"cgPairs":81,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"d845a3c3c038117de0811ddd790de350c11b88716a23cea393bf17fd17d389b4",
+			"updated":"2026-10-21T12:47:12"
+		},
+		"12-1":{
+			"file":"Groups\/12-1.json",
+			"gapID":[
+				12,
+				1
+			],
+			"title":"$2D_3\\cong [12, 1]$",
+			"titlePlain":"2D3 ≅  [12, 1]",
+			"order":12,
+			"irreps":6,
+			"representations":6,
+			"cgPairs":36,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"63581c6e159be8c0b3a3daba3cc95f5437b5ba5cdbebeb6fe705dca81811a89d",
+			"updated":"2026-10-21T12:45:35"
+		},
+		"12-3":{
+			"file":"Groups\/12-3.json",
+			"gapID":[
+				12,
+				3
+			],
+			"title":"$\\Gamma_3 \\cong A_4\\cong [12, 3]$",
+			"titlePlain":"Γ3  ≅  A4 ≅  [12, 3]",
+			"order":12,
+			"irreps":4,
+			"representations":4,
+			"cgPairs":16,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"6119fd8f74ba4d10c1676e9b3991e43262f91bfcd3b8a51cfa56c0c521be6cd5",
+			"updated":"2026-10-21T12:45:40"
+		},
+		"126-9I":{
+			"file":"Groups\/126-9I.json",
+			"gapID":[
+				126,
+				9
+			],
+			"title":"$\\Z7\\rtimes(\\Z3\\x S_3)\\cong [126,9]I$",
+			"titlePlain":"Z7⋊(Z3× S3) ≅  [126,9]I",
+			"order":126,
+			"irreps":12,
+			"representations":12,
+			"cgPairs":144,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"e5ce4ee9ef6c61d356fa51efe6b5b8d8d2b6b377b325126401ae0a0cd1dd1ba8",
+			"updated":"2026-10-21T12:47:49"
+		},
+		"126-9II":{
+			"file":"Groups\/126-9II.json",
+			"gapID":[
+				126,
+				9
+			],
+			"title":"$\\Z7\\rtimes(\\Z3\\x S_3)\\cong [126,9]II$",
+			"titlePlain":"Z7⋊(Z3× S3) ≅  [126,9]II",
+			"order":126,
+			"irreps":12,
+			"representations":12,
+			"cgPairs":144,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"4bb5e0d22a21dcb7959431fcb0d4b7cc7a5fbaee131663edea77c26a3bec160c",
+			"updated":"2026-10-21T12:48:27"
+		},
+		"144-121":{
+			"file":"Groups\/144-121.json",
+			"gapID":[
+				144,
+				121
+			],
+			"title":"$\\Z3\\x 2O\\cong [144,121]$",
+			"titlePlain":"Z3× 2O ≅  [144,121]",
+			"order":144,
+			"irreps":24,
+			"representations":24,
+			"cgPairs":576,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"2a16edd75aea002d0e180d529e237c4780686b25f086120f0e5cd7b19a2f2263",
+			"updated":"2026-10-21T12:49:09"
+		},
+		"144-122":{
+			"file":"Groups\/144-122.json",
+			"gapID":[
+				144,
+				122
+			],
+			"title":"$\\Z3\\x\\GL{2,3}\\cong [144,122]$",
+			"titlePlain":"Z3×GL(2,3) ≅  [144,122]",
+			"order":144,
+			"irreps":24,
+			"representations":24,
+			"cgPairs":576,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"00e852bc1c30f40697f02ee67f896592df8fa54058a290f4c70f599f2620e481",
+			"updated":"2026-10-21T12:49:51"
+		},
+		"144-123":{
+			"file":"Groups\/144-123.json",
+			"gapID":[
+				144,
+				123
+			],
+			"title":"$\\Z3\\x(A_4\\rtimes\\Z4)\\cong [144,123]$",
+			"titlePlain":"Z3×(A4⋊Z4) ≅  [144,123]",
+			"order":144,
+			"irreps":30,
+			"representations":30,
+			"cgPairs":900,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"46610bb466a9c36260b8f58dc9a4d6d6f18248d1a4b7c6da542cc17e7db28c73",
+			"updated":"2026-10-21T12:50:34"
+		},
+		"144-127":{
+			"file":"Groups\/144-127.json",
+			"gapID":[
+				144,
+				127
+			],
+			"title":"$(\\Z3\\x \\SL{2,3})\\rtimes\\Z2\\cong [144,127]$",
+			"titlePlain":"(Z3× SL(2,3))⋊Z2 ≅  [144,127]",
+			"order":144,
+			"irreps":21,
+			"representations":21,
+			"cgPairs":441,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"1c380906302ba9d863a22745a9017d7b43352f0721d35f8cb2dbf3fc1f5ccce0",
+			"updated":"2026-10-21T12:51:09"
+		},
+		"144-128":{
+			"file":"Groups\/144-128.json",
+			"gapID":[
+				144,
+				128
+			],
+			"title":"$\\Gamma_6'\\cong [144,128]$",
+			"titlePlain":"Γ6' ≅  [144,128]",
+			"order":144,
+			"irreps":21,
+			"representations":21,
+			"cgPairs":441,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"a76c34f475a8c3d199377318d5399119a40fb294b7035f5888fdb383e9fb5122",
+			"updated":"2026-10-21T12:51:43"
+		},
+		"144-129":{
+			"file":"Groups\/144-129.json",
+			"gapID":[
+				144,
+				129
+			],
+			"title":"$(\\Z3\\rtimes\\Z4)\\x A_4\\cong [144,129]$",
+			"titlePlain":"(Z3⋊Z4)× A4 ≅  [144,129]",
+			"order":144,
+			"irreps":24,
+			"representations":24,
+			"cgPairs":576,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"248170a8a5cba91b71614147f7c20dc776328318e651179f62f6dd8f790d5390",
+			"updated":"2026-10-21T12:52:16"
+		},
+		"150-5":{
+			"file":"Groups\/150-5.json",
+			"gapID":[
+				150,
+				5
+			],
+			"title":"$(\\Z{5}\\x\\Z{5})\\rtimes S_3\\cong [150,5]$",
+			"titlePlain":"(Z5×Z5)⋊ S3 ≅  [150,5]",
+			"order":150,
+			"irreps":13,
+			"representations":13,
+			"cgPairs":169,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"32d2210c516a107afc8e257a3eaa17b3140a9345830534b14ab59c539cdf3db2",
+			"updated":"2026-10-21T12:52:39"
+		},
+		"150-6":{
+			"file":"Groups\/150-6.json",
+			"gapID":[
+				150,
+				6
+			],
+			"title":"$(\\Z{5}\\x\\Z{5})\\rtimes\\Z{6}\\cong [150,6]$",
+			"titlePlain":"(Z5×Z5)⋊Z6 ≅  [150,6]",
+			"order":150,
+			"irreps":10,
+			"representations":10,
+			"cgPairs":100,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"76fad20cd98b6a36dd7e1f05261a776112057e360596c88055298139db93fb61",
+			"updated":"2026-10-21T12:53:21"
+		},
+		"156-1I":{
+			"file":"Groups\/156-1I.json",
+			"gapID":[
+				156,
+				1
+			],
+			"title":"$\\Z{13}\\rtimes\\Z{12}\\cong [156,1]I$",
+			"titlePlain":"Z13⋊Z12 ≅  [156,1]I",
+			"order":156,
+			"irreps":16,
+			"representations":16,
+			"cgPairs":256,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"efbea6073f53d1c0e1610c6a7a32ee441b211bc3ec870d780f08428f6d055485",
+			"updated":"2026-10-22T06:31:50"
+		},
+		"156-1II":{
+			"file":"Groups\/156-1II.json",
+			"gapID":[
+				156,
+				1
+			],
+			"title":"$\\Z{13}\\rtimes\\Z{12}\\cong [156,1]II$",
+			"titlePlain":"Z13⋊Z12 ≅  [156,1]II",
+			"order":156,
+			"irreps":16,
+			"representations":16,
+			"cgPairs":256,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"c391bea3528da6005c233d172978f063d8ee171cff6577bb02d966d32c238825",
+			"updated":"2026-10-22T06:33:16"
+		},
+		"162-14":{
+			"file":"Groups\/162-14.json",
+			"gapID":[
+				162,
+				14
+			],
+			"title":"$((\\Z{9}\\x\\Z{3})\\rtimes\\Z{3})\\rtimes\\Z{2}\\cong [162,14]$",
+			"titlePlain":"((Z9×Z3)⋊Z3)⋊Z2 ≅  [162,14]",
+			"order":162,
+			"irreps":22,
+			"representations":22,
+			"cgPairs":484,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"24ad18ed2894d7798d2c3b11f8189e8aaaf3e2e1281f67e3dbc2493a4eeeae85",
+			"updated":"2026-10-21T12:53:57"
+		},
+		"162-15":{
+			"file":"Groups\/162-15.json",
+			"gapID":[
+				162,
+				15
+			],
+			"title":"$((\\Z{9}\\x\\Z{3})\\rtimes\\Z{3})\\rtimes\\Z{2}\\cong [162,15]$",
+			"titlePlain":"((Z9×Z3)⋊Z3)⋊Z2 ≅  [162,15]",
+			"order":162,
+			"irreps":13,
+			"representations":13,
+			"cgPairs":169,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"554c26442c801e01ec25aeb739d5676b3ef221588df489ee2535017ce762c587",
+			"updated":"2026-10-21T12:57:34"
+		},
+		"168-42":{
+			"file":"Groups\/168-42.json",
+			"gapID":[
+				168,
+				42
+			],
+			"title":"$\\PSL{3,2}\\cong [168,42]$",
+			"titlePlain":"PSL3,2 ≅  [168,42]",
+			"order":168,
+			"irreps":6,
+			"representations":6,
+			"cgPairs":36,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"7081dca339563270a229939e4e5e924102452c659eb6ea4c1f2f00dc1ad897a1",
+			"updated":"2026-10-22T06:30:20"
+		},
+		"168-49I":{
+			"file":"Groups\/168-49I.json",
+			"gapID":[
+				168,
+				49
+			],
+			"title":"$\\Z{7}\\rtimes(\\Z{2}\\x A_4)\\cong [168,49]I$",
+			"titlePlain":"Z7⋊(Z2× A4) ≅  [168,49]I",
+			"order":168,
+			"irreps":12,
+			"representations":12,
+			"cgPairs":144,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"906312d3b0afcffe912a03903da43daeaafd1b03beef9cfdfddf04637a4ab091",
+			"updated":"2026-10-21T13:03:09"
+		},
+		"168-49II":{
+			"file":"Groups\/168-49II.json",
+			"gapID":[
+				168,
+				49
+			],
+			"title":"$\\Z{7}\\rtimes(\\Z{2}\\x A_4)\\cong [168,49]II$",
+			"titlePlain":"Z7⋊(Z2× A4) ≅  [168,49]II",
+			"order":168,
+			"irreps":12,
+			"representations":12,
+			"cgPairs":144,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"fcca0dc9689360749cf1696d9ab064f0e3cf059a2dfb0ecb958c66d8210b8556",
+			"updated":"2026-10-21T13:04:03"
+		},
+		"180-19":{
+			"file":"Groups\/180-19.json",
+			"gapID":[
+				180,
+				19
+			],
+			"title":"$\\GL{2,4}\\cong [180,19]$",
+			"titlePlain":"GL(2,4) ≅  [180,19]",
+			"order":180,
+			"irreps":15,
+			"representations":15,
+			"cgPairs":225,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"bfba0dbf8efab8a13c2a2750a820bc1773dc1b7c59a27aa0b8e8a08e4314758a",
+			"updated":"2026-10-21T13:05:01"
+		},
+		"18-3":{
+			"file":"Groups\/18-3.json",
+			"gapID":[
+				18,
+				3
+			],
+			"title":"$\\Z3 \\x S_3 \\cong [18,3]$",
+			"titlePlain":"Z3 × S3  ≅  [18,3]",
+			"order":18,
+			"irreps":9,
+			"representations":9,
+			"cgPairs":81,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"d8c5fed7cf9de8bccdbbb91cb091a02772fd817a2e933bab81ed860a20d44894",
+			"updated":"2026-10-21T13:04:10"
+		},
+		"186-1I":{
+			"file":"Groups\/186-1I.json",
+			"gapID":[
+				186,
+				1
+			],
+			"title":"$\\Z{31}\\rtimes\\Z{6}\\cong [186,1]I$",
+			"titlePlain":"Z31⋊Z6 ≅  [186,1]I",
+			"order":186,
+			"irreps":11,
+			"representations":11,
+			"cgPairs":121,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"1f31bc79850faab110ff0624e2e7ac39d11ac524682611aff4100248ede95499",
+			"updated":"2026-10-22T06:36:17"
+		},
+		"186-1II":{
+			"file":"Groups\/186-1II.json",
+			"gapID":[
+				186,
+				1
+			],
+			"title":"$\\Z{31}\\rtimes\\Z{6}\\cong [186,1]II$",
+			"titlePlain":"Z31⋊Z6 ≅  [186,1]II",
+			"order":186,
+			"irreps":11,
+			"representations":11,
+			"cgPairs":121,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"07d16713c108a498dd0a21f0361f0e2d8e858bc28b3e8eb925d8312cdb9d6146",
+			"updated":"2026-10-22T06:39:06"
+		},
+		"192-180":{
+			"file":"Groups\/192-180.json",
+			"gapID":[
+				192,
+				180
+			],
+			"title":"$\\Z{2}\\,.\\,((\\Z{4}\\x\\Z{4})\\rtimes S_3)\\cong [192,180]$",
+			"titlePlain":"Z2,.,((Z4×Z4)⋊ S3) ≅  [192,180]",
+			"order":192,
+			"irreps":15,
+			"representations":15,
+			"cgPairs":225,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"2645227c4bb1806a26ded8850803d8e2830bb6d8ee74dbf1b5f3fdc85e296770",
+			"updated":"2026-10-21T13:05:32"
+		},
+		"192-181":{
+			"file":"Groups\/192-181.json",
+			"gapID":[
+				192,
+				181
+			],
+			"title":"$((\\Z{4}\\x\\Z{2})\\rtimes\\Z{4})\\rtimes S_3\\cong [192,181]$",
+			"titlePlain":"((Z4×Z2)⋊Z4)⋊ S3 ≅  [192,181]",
+			"order":192,
+			"irreps":15,
+			"representations":15,
+			"cgPairs":225,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"ab7be7a02bf889740f4ebbe73f06b0a8d1c0461bfa79067dacd6c57c4f6bb5c7",
+			"updated":"2026-10-21T13:06:03"
+		},
+		"192-182":{
+			"file":"Groups\/192-182.json",
+			"gapID":[
+				192,
+				182
+			],
+			"title":"$(\\Z{4}\\x\\Z{4})\\rtimes(\\Z{3}\\rtimes\\Z{4})\\cong [192,182]$",
+			"titlePlain":"(Z4×Z4)⋊(Z3⋊Z4) ≅  [192,182]",
+			"order":192,
+			"irreps":20,
+			"representations":20,
+			"cgPairs":400,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"8303cb4dfeac143879edcf4f92180b123bb60524f17b2b378da6801ded4a559b",
+			"updated":"2026-10-21T13:06:36"
+		},
+		"192-193":{
+			"file":"Groups\/192-193.json",
+			"gapID":[
+				192,
+				193
+			],
+			"title":"$(\\Z{4}\\rtimes(\\Z{4}\\rtimes\\Z{4}))\\rtimes\\Z{3}\\cong [192,193]$",
+			"titlePlain":"(Z4⋊(Z4⋊Z4))⋊Z3 ≅  [192,193]",
+			"order":192,
+			"irreps":20,
+			"representations":20,
+			"cgPairs":400,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"1c481e04689d1026933e1a8569cff91ba5f367994cbe14cd37737e522abf53d3",
+			"updated":"2026-10-21T13:07:25"
+		},
+		"192-194":{
+			"file":"Groups\/192-194.json",
+			"gapID":[
+				192,
+				194
+			],
+			"title":"$((\\Z{2}\\x\\Z{2}\\x\\Z{2})\\rtimes D_8)\\rtimes\\Z{3}\\cong [192,194]$",
+			"titlePlain":"((Z2×Z2×Z2)⋊ D8)⋊Z3 ≅  [192,194]",
+			"order":192,
+			"irreps":18,
+			"representations":18,
+			"cgPairs":324,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"bcd9e979dfbb88f0382d02bf9a029cbe687eb8e02ea6f701816dfc6338ba4eb0",
+			"updated":"2026-10-21T13:08:21"
+		},
+		"192-198":{
+			"file":"Groups\/192-198.json",
+			"gapID":[
+				192,
+				198
+			],
+			"title":"$((\\Z{2}\\x(\\Z{4}\\rtimes\\Z{4}))\\rtimes\\Z{2})\\rtimes\\Z{3}\\cong [192,198]$",
+			"titlePlain":"((Z2×(Z4⋊Z4))⋊Z2)⋊Z3 ≅  [192,198]",
+			"order":192,
+			"irreps":18,
+			"representations":18,
+			"cgPairs":324,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"b02711aad46cff79e952175f53318cbe308a7d1606c260fd8effbca65970fc89",
+			"updated":"2026-10-21T13:09:19"
+		},
+		"24-12":{
+			"file":"Groups\/24-12.json",
+			"gapID":[
+				24,
+				12
+			],
+			"title":"$\\Gamma_4\\cong S_4\\cong [24,12]$",
+			"titlePlain":"Γ4 ≅  S4 ≅  [24,12]",
+			"order":24,
+			"irreps":5,
+			"representations":5,
+			"cgPairs":25,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"f96913775cecfe72b372004c281c99b8f56962a5eb542b6cf7dec1e181152d08",
+			"updated":"2026-10-21T13:09:25"
+		},
+		"24-13":{
+			"file":"Groups\/24-13.json",
+			"gapID":[
+				24,
+				13
+			],
+			"title":"$\\Z2 \\x A_4\\cong [24, 13]$",
+			"titlePlain":"Z2 × A4 ≅  [24, 13]",
+			"order":24,
+			"irreps":8,
+			"representations":8,
+			"cgPairs":64,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"f99dd4f304213fb8203aba9cc7b3dcd6bf8f9102886fb675ba09524b7888ca4d",
+			"updated":"2026-10-21T13:09:30"
+		},
+		"24-3I":{
+			"file":"Groups\/24-3I.json",
+			"gapID":[
+				24,
+				3
+			],
+			"title":"$\\Gamma'_3\\cong [24,3]I$",
+			"titlePlain":"Γ'3 ≅  [24,3]I",
+			"order":24,
+			"irreps":7,
+			"representations":7,
+			"cgPairs":49,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"df0aa5afe521f4336fe33b58c5516de53449691574f227d1e23e1a57f14b67bc",
+			"updated":"2026-10-21T13:09:36"
+		},
+		"24-3II":{
+			"file":"Groups\/24-3II.json",
+			"gapID":[
+				24,
+				3
+			],
+			"title":"$2T\\cong [24,3]II$",
+			"titlePlain":"2T ≅  [24,3]II",
+			"order":24,
+			"irreps":7,
+			"representations":7,
+			"cgPairs":49,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"4b70e7de1a8a003b0707a0ef1ebecfc1da95c3027a1a70f36e144e144cac1658",
+			"updated":"2026-10-21T13:09:42"
+		},
+		"36-6":{
+			"file":"Groups\/36-6.json",
+			"gapID":[
+				36,
+				6
+			],
+			"title":"$\\Z{3}\\x \\left(\\Z{3}\\rtimes\\Z{4}\\right)\\cong [36,6]$",
+			"titlePlain":"Z3× (Z3⋊Z4) ≅  [36,6]",
+			"order":36,
+			"irreps":18,
+			"representations":18,
+			"cgPairs":324,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"c2a065cab84595d259e446a0e1920c4784f574e8b03762b42b741af4b89b6b2d",
+			"updated":"2026-10-21T13:09:51"
+		},
+		"42-1I":{
+			"file":"Groups\/42-1I.json",
+			"gapID":[
+				42,
+				1
+			],
+			"title":"$\\Z{7}\\rtimes\\Z{6}\\cong [42,1]I$",
+			"titlePlain":"Z7⋊Z6 ≅  [42,1]I",
+			"order":42,
+			"irreps":7,
+			"representations":7,
+			"cgPairs":49,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"ef9c9987721f93fb3a87935b00493ffb2f54d7537dc171bfc034a64918387cb8",
+			"updated":"2026-10-21T13:10:00"
+		},
+		"42-1II":{
+			"file":"Groups\/42-1II.json",
+			"gapID":[
+				42,
+				1
+			],
+			"title":"$\\Z{7}\\rtimes\\Z{6}\\cong [42,1]II$",
+			"titlePlain":"Z7⋊Z6 ≅  [42,1]II",
+			"order":42,
+			"irreps":7,
+			"representations":7,
+			"cgPairs":49,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"ff4a6b8fead9e89eba028ed8ef0c7cf2cdedc136b72069d53458da946eec96da",
+			"updated":"2026-10-21T13:10:08"
+		},
+		"48-28":{
+			"file":"Groups\/48-28.json",
+			"gapID":[
+				48,
+				28
+			],
+			"title":"$2O\\cong[48,28]$",
+			"titlePlain":"2O ≅ [48,28]",
+			"order":48,
+			"irreps":8,
+			"representations":8,
+			"cgPairs":64,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"e99d07a526cef196e019d9806c0c58ca6eadd807ce26297c837dc681dcad7428",
+			"updated":"2026-10-21T13:10:17"
+		},
+		"48-29":{
+			"file":"Groups\/48-29.json",
+			"gapID":[
+				48,
+				29
+			],
+			"title":"$\\GL{2,3}\\cong[48,29]$",
+			"titlePlain":"GL(2,3) ≅ [48,29]",
+			"order":48,
+			"irreps":8,
+			"representations":8,
+			"cgPairs":64,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"26d6c867778a19a697896019743360017a1b941fd8fce66deabc36425acd26a6",
+			"updated":"2026-10-21T13:10:26"
+		},
+		"48-30":{
+			"file":"Groups\/48-30.json",
+			"gapID":[
+				48,
+				30
+			],
+			"title":"$\\Gamma'_4\\cong[48,30]$",
+			"titlePlain":"Γ'4 ≅ [48,30]",
+			"order":48,
+			"irreps":10,
+			"representations":10,
+			"cgPairs":100,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"1448eb455de379b44e88b9b5de7158b22487b9243bc6fb522d718c129eb86683",
+			"updated":"2026-10-21T13:10:35"
+		},
+		"48-31":{
+			"file":"Groups\/48-31.json",
+			"gapID":[
+				48,
+				31
+			],
+			"title":"$\\Z4\\x A_4\\cong [48,31]$",
+			"titlePlain":"Z4× A4 ≅  [48,31]",
+			"order":48,
+			"irreps":16,
+			"representations":16,
+			"cgPairs":256,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"62aabfbd673e0dfb9fe868b76a0d24809e4a57a5679c070a420dda995f428d87",
+			"updated":"2026-10-21T13:10:44"
+		},
+		"48-32":{
+			"file":"Groups\/48-32.json",
+			"gapID":[
+				48,
+				32
+			],
+			"title":"$\\Z2\\x \\SL{2,3} \\cong [48,32]$",
+			"titlePlain":"Z2× SL(2,3)  ≅  [48,32]",
+			"order":48,
+			"irreps":14,
+			"representations":14,
+			"cgPairs":196,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"2a604c571a98b081fb2024080a3b444c8f60ca953e8ac58c4c223a5aadcfdd5b",
+			"updated":"2026-10-21T13:10:55"
+		},
+		"48-33":{
+			"file":"Groups\/48-33.json",
+			"gapID":[
+				48,
+				33
+			],
+			"title":"$((\\Z4\\x\\Z2)\\rtimes\\Z2)\\rtimes\\Z3\\cong [48,33]$",
+			"titlePlain":"((Z4×Z2)⋊Z2)⋊Z3 ≅  [48,33]",
+			"order":48,
+			"irreps":14,
+			"representations":14,
+			"cgPairs":196,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"8e1f27e975f9dbcc967603a537e2eac1b383ad06b7c6437694b1f2deff741eae",
+			"updated":"2026-10-21T13:11:05"
+		},
+		"54-5":{
+			"file":"Groups\/54-5.json",
+			"gapID":[
+				54,
+				5
+			],
+			"title":"$(\\Z3\\x\\Z3)\\rtimes\\Z6 \\cong [54,5]$",
+			"titlePlain":"(Z3×Z3)⋊Z6  ≅  [54,5]",
+			"order":54,
+			"irreps":10,
+			"representations":10,
+			"cgPairs":100,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"cc32e0f9f1d06ffac065c6de19933613565ca122cd15bbbf853fb218f66c391b",
+			"updated":"2026-10-21T13:11:13"
+		},
+		"60-5":{
+			"file":"Groups\/60-5.json",
+			"gapID":[
+				60,
+				5
+			],
+			"title":"$\\Gamma_5 \\cong A_5 \\cong [60,5]$",
+			"titlePlain":"Γ5  ≅  A5  ≅  [60,5]",
+			"order":60,
+			"irreps":5,
+			"representations":5,
+			"cgPairs":25,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"26c640a1ec6d3ae97bea7c85e97b6bafcc186a9975507f024ff513eb368ddb2f",
+			"updated":"2026-10-21T13:11:30"
+		},
+		"6-1":{
+			"file":"Groups\/6-1.json",
+			"gapID":[
+				6,
+				1
+			],
+			"title":"$S_3\\cong [6, 1]$",
+			"titlePlain":"S3 ≅  [6, 1]",
+			"order":6,
+			"irreps":3,
+			"representations":3,
+			"cgPairs":9,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"08f29156b80ab7409e22f954c1a2d8e7c92bf5af435fb5fb12156f1ca286eacf",
+			"updated":"2026-10-21T13:11:17"
+		},
+		"72-42":{
+			"file":"Groups\/72-42.json",
+			"gapID":[
+				72,
+				42
+			],
+			"title":"$\\Z3\\x S_4 \\cong [72,42]$",
+			"titlePlain":"Z3× S4  ≅  [72,42]",
+			"order":72,
+			"irreps":15,
+			"representations":15,
+			"cgPairs":225,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"af23290ad74aaa53b170222ec820a3b8bb679f1a50eeb6928d85f6cfa4bc0e74",
+			"updated":"2026-10-21T13:11:44"
+		},
+		"72-44":{
+			"file":"Groups\/72-44.json",
+			"gapID":[
+				72,
+				44
+			],
+			"title":"$\\Gamma_6\\cong A_4 \\x S_3 \\cong [72,44]$",
+			"titlePlain":"Γ6 ≅  A4 × S3  ≅  [72,44]",
+			"order":72,
+			"irreps":12,
+			"representations":12,
+			"cgPairs":144,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"721a526f416df538a6de9b1df2890f02f0610c6fdc9a28f21a47cd24bc792f8e",
+			"updated":"2026-10-21T13:11:54"
+		},
+		"78-1I":{
+			"file":"Groups\/78-1I.json",
+			"gapID":[
+				78,
+				1
+			],
+			"title":"$\\Z{13}\\rtimes\\Z{6}\\cong [78,1]I$",
+			"titlePlain":"Z13⋊Z6 ≅  [78,1]I",
+			"order":78,
+			"irreps":8,
+			"representations":8,
+			"cgPairs":64,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"47be5df0f92bec78176f110c4970f2c5cfcc6f085f5c357fb2dd1ff99b67b2cf",
+			"updated":"2026-10-21T13:12:16"
+		},
+		"78-1II":{
+			"file":"Groups\/78-1II.json",
+			"gapID":[
+				78,
+				1
+			],
+			"title":"$\\Z{13}\\rtimes\\Z{6}\\cong [78,1]II$",
+			"titlePlain":"Z13⋊Z6 ≅  [78,1]II",
+			"order":78,
+			"irreps":8,
+			"representations":8,
+			"cgPairs":64,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"09fad9ed4ecbaadc7b592e06dc9925e530683fb5cbbb6e44713198ad83d9063f",
+			"updated":"2026-10-21T13:12:37"
+		},
+		"84-1I":{
+			"file":"Groups\/84-1I.json",
+			"gapID":[
+				84,
+				1
+			],
+			"title":"$\\Z{7}\\rtimes\\Z{12}\\cong [84,1]I$",
+			"titlePlain":"Z7⋊Z12 ≅  [84,1]I",
+			"order":84,
+			"irreps":14,
+			"representations":14,
+			"cgPairs":196,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"b59edb712f52ef5fd6afe0a40926b6edec86fa82ad0eb6d79c3610b4838f323a",
+			"updated":"2026-10-21T13:12:57"
+		},
+		"84-1II":{
+			"file":"Groups\/84-1II.json",
+			"gapID":[
+				84,
+				1
+			],
+			"title":"$\\Z{7}\\rtimes\\Z{12}\\cong [84,1]II$",
+			"titlePlain":"Z7⋊Z12 ≅  [84,1]II",
+			"order":84,
+			"irreps":14,
+			"representations":14,
+			"cgPairs":196,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"9cfab78683a03b2a3046ceb3af6132f7c77adb94e648b58f27a1e906a085b918",
+			"updated":"2026-10-21T13:13:17"
+		},
+		"96-64":{
+			"file":"Groups\/96-64.json",
+			"gapID":[
+				96,
+				64
+			],
+			"title":"$((\\Z{4}\\x\\Z{4})\\rtimes\\Z{3})\\rtimes\\Z{2}\\cong [96,64]$",
+			"titlePlain":"((Z4×Z4)⋊Z3)⋊Z2 ≅  [96,64]",
+			"order":96,
+			"irreps":10,
+			"representations":10,
+			"cgPairs":100,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"5a8cecfab3c93675c15e0bfbeb4a3f89ac28c300982a2b8e2016ae79a87f04fb",
+			"updated":"2026-10-21T13:13:29"
+		},
+		"96-66":{
+			"file":"Groups\/96-66.json",
+			"gapID":[
+				96,
+				66
+			],
+			"title":"$\\SL{2,3}\\rtimes\\Z{4}\\cong [96,66]$",
+			"titlePlain":"SL(2,3)⋊Z4 ≅  [96,66]",
+			"order":96,
+			"irreps":16,
+			"representations":16,
+			"cgPairs":256,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"3a2e7ffed53d7ed3691ec37b7be345d670fcb21d1638b95e536763b9b197fa2e",
+			"updated":"2026-10-21T13:13:49"
+		},
+		"96-69":{
+			"file":"Groups\/96-69.json",
+			"gapID":[
+				96,
+				69
+			],
+			"title":"$\\Z{4}\\x\\SL{2,3}\\cong [96,69]$",
+			"titlePlain":"Z4×SL(2,3) ≅  [96,69]",
+			"order":96,
+			"irreps":28,
+			"representations":28,
+			"cgPairs":784,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"82d012d98206cc0b3baf9e5b6f703e2c51e04ca496d9c0e886ccff7046d5f46a",
+			"updated":"2026-10-21T13:14:15"
+		},
+		"96-72":{
+			"file":"Groups\/96-72.json",
+			"gapID":[
+				96,
+				72
+			],
+			"title":"$((\\Z{4}\\x\\Z{4})\\rtimes\\Z{2})\\rtimes\\Z{3}\\cong [96,72]$",
+			"titlePlain":"((Z4×Z4)⋊Z2)⋊Z3 ≅  [96,72]",
+			"order":96,
+			"irreps":10,
+			"representations":10,
+			"cgPairs":100,
+			"slowPairs":0,
+			"status":"complete",
+			"labels":"display file",
+			"sourceDigest":"8cc0feed5ca46d30e769d63b0039290422f008f88446ca3b60c2c3b01f6291a2",
+			"updated":"2026-10-21T13:14:29"
+		}
+	}
+}

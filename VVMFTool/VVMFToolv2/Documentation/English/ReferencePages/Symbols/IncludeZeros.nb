@@ -1,0 +1,41 @@
+Notebook[{Cell["IncludeZeros", "ObjectName"], Cell["IncludeZeros is an option \
+of TensorDecomposition: True keeps the irreps of multiplicity 0.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["Option of TensorDecomposition. \
+Default: False (irreps that do not occur are dropped). IrrepForm -> \"ID\" \
+with IncludeZeros -> True gives every irrep ID with its multiplicity.", 
+   "Notes"], 
+  Cell["Whether irreps that do not occur are listed with multiplicity 0.", 
+   "Notes"], Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["TensorDecomposition", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"TensorDecomposition.nb", None}], "  |  ", 
+     ButtonBox["IrrepForm", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"IrrepForm.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Length", "[", RowBox[{"TensorDecomposition", "[", 
+        RowBox[{RowBox[{"LoadGroup", "[", "\"24-3I\"", "]"}], ",", 
+          RowBox[{"{", RowBox[{"7", ",", "7"}], "}"}], ",", 
+          RowBox[{"IncludeZeros", "\[Rule]", "True"}]}], "]"}], "]"}]], 
+   "Input", CellTags -> "VerifiedExample"], Cell[BoxData["7"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/IncludeZeros", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "IncludeZeros \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

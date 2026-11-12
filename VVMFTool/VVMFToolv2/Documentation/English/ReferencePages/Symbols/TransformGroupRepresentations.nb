@@ -1,0 +1,205 @@
+Notebook[{Cell["TransformGroupRepresentations", "ObjectName"], 
+  Cell["TransformGroupRepresentations[g] transforms the computed irreps of g \
+to a unitary (or unitary T-diagonal) basis, committing all selected irreps \
+together.\nTransformGroupRepresentations[g, ids] transforms the irreps with \
+the given IDs.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["TransformGroupRepresentations[g] transforms every computed irrep of g \
+whose active representation is not unitary to a unitary basis; \
+TransformGroupRepresentations[g, ids] restricts the transform to the given \
+irrep IDs.", "Notes"], Cell["Each result is derived from a stored variant and \
+verified; a result with the same matrices as a stored variant reuses that \
+variant. The selected irreps change together: if any one fails, no active \
+variant changes (AtomicTransformFailed). Computing missing irreps with \
+ComputeGroupRepresentations instead accepts verified irreps one at a time.", 
+   "Notes"], Cell["Basis -> \"UnitaryTDiagonal\" (with a modular assignment) \
+re-derives every selected irrep with a diagonal T, ordered by TPhaseOrder and \
+normalized by PhaseConvention. By default GAP unitarizes (BSGSAverage, then \
+GroupAverage) and diagonalizes, and verifies the result. UnitarizationMethod \
+-> \"GeneratorEquations\" with Basis -> \"Unitary\" unitarizes in Wolfram and \
+sends the conjugator and scales to GAP, which recomputes and verifies them.", 
+   "Notes"], Cell["The work runs in Wolfram instead \[LongDash] \
+UnitarizeRepresentation and DiagonalizeRepresentationT on each active \
+variant, verified in Wolfram and stored with Tier \"Wolfram\" (exact) or \
+\"Numerical\", derived from the active variant, with the methods used as its \
+source method \[LongDash] for Arithmetic -> \"Numerical\", \
+FormFactorizationMethod -> \"Spectral\", DiagonalizationMethod -> \
+\"NumericalReconstruction\" or \"Numerical\", GeneratorEquations with \
+UnitaryTDiagonal, and irreps without a native variant. UnitarizationMethod -> \
+\"BSGSAverage\" is refused there (InapplicableOption).", "Notes"], 
+  Cell["TPhaseOrder, PhaseConvention and an explicit DiagonalizationMethod \
+apply to Basis -> \"UnitaryTDiagonal\" only; with Basis -> \"Unitary\" they \
+are refused (InapplicableOption).", "Notes"], 
+  Cell["An explicit FormFactorizationMethod (\"Cholesky\" or \"LDL\") \
+unitarizes the active variant on the Wolfram route (the GAP route unitarizes \
+GAP's own witness variant). With Basis -> \"UnitaryTDiagonal\", an explicit \
+DiagonalizationMethod -> \"Exact\" also takes the Wolfram route, whose \
+eigenbasis choice it names.", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["GroupModel"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["Automatic, \"Original\", \"Permutation\" or \
+\"PC\" for new method calculations; PC requires a solvable group. Restoration \
+and compatible cache hits do not convert models. Import uses it only when \
+computing a new character-validation source.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["StoreGAPState"], 
+        "TableText"], Cell["True", "TableText"], Cell["True retains verified \
+state across calls; False keeps only call-local temporary checkpoints. Cached \
+mathematical values remain available.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["AttemptTimeLimit"], 
+        "TableText"], Cell["600", "TableText"], Cell["Positive seconds or \
+Infinity, per attempt including verification and saving. Automatic method \
+attempts each receive this limit.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["CoreBudget"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Positive integer at most \
+$ProcessorCount, or Automatic to use the available count. Sequential \
+algorithms run as separate worker processes.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["MemoryBudget"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Positive integer bytes, or \
+Automatic using half system memory less current kernel usage. Admission \
+estimates and sampled total worker RSS enforce the allocation.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["ProgressFunction"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Automatic shows a notebook \
+monitor when a front end is available; None is silent; a Function or user \
+symbol receives progress associations. Callbacks should return promptly; \
+failures/cancellation clean owned workers.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["FieldMethod"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Automatic, \"Cyclotomic\", \
+\"PrimitiveElement\", \"Radical\", \"RootReduce\" or a duplicate-free list of \
+these.", "TableText"]}, {Cell[" ", "TableRowIcon"], Cell[BoxData["Route"], 
+        "TableText"], Cell["Automatic", "TableText"], 
+       Cell["Automatic, \"GAP\" or \"Wolfram\".", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["WorkingPrecision"], 
+        "TableText"], Cell["50", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["Tolerance"], "TableText"], 
+       Cell["Automatic", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["WitnessVariant"], 
+        "TableText"], Cell["Automatic", "TableText"], 
+       Cell["Automatic, \"SmallestConductor\" or \"Active\".", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["Basis"], "TableText"], 
+       Cell["\"Unitary\"", "TableText"], Cell["\"Unitary\" requires unitary \
+matrices on every recorded generator; \"General\" accepts any verified basis. \
+\"UnitaryTDiagonal\" (ComputeGroupRepresentations, the builders and \
+TransformGroupRepresentations) additionally requires the assigned T to be \
+diagonal, with its phases in the TPhaseOrder order and the PhaseConvention \
+applied (the group needs a modular S,T assignment). SetGroupRepresentation \
+and ChangeGroupRepBasis accept \"Unitary\" and \"General\"; \
+TransformGroupRepresentations \"Unitary\" and \"UnitaryTDiagonal\". For \
+DiagonalizeRepresentationT, \"Unitary\" requires unitary input and keeps the \
+result unitary.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["UnitarizationMethod"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["\"GroupAverage\" averages \
+M^\[Dagger].M over the image of the group; \"GeneratorEquations\" solves \
+M^\[Dagger].H.M == H on the generators and chooses a positive solution; \
+\"BSGSAverage\" is a native GAP route (automatic representation computation \
+and TransformGroupRepresentations in GAP) and is refused where the work runs \
+in Wolfram.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["FormFactorizationMethod"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Each method returns B with H == \
+B^\[Dagger].B and is verified: \"Cholesky\" the upper-triangular factor, \
+\"LDL\" Sqrt[D].L^\[Dagger] from H == L.D.L^\[Dagger], \"Spectral\" the \
+positive square root.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["DiagonalizationMethod"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["\"Exact\" and \
+\"NumericalReconstruction\" prove every identity exactly and require \
+Arithmetic -> \"Exact\"; \"Numerical\" requires Arithmetic -> \"Numerical\"."\
+, "TableText"]}, {Cell[" ", "TableRowIcon"], Cell[BoxData["TPhaseOrder"], 
+        "TableText"], Cell["\"Ascending\"", "TableText"], 
+       Cell["\"Ascending\" orders the diagonal T by phase in [0,1) \
+(nondecreasing); \"Unchanged\" orders basis vectors by their first nonzero \
+coordinate, so an already diagonal T keeps its basis. Vectors of one \
+eigenvalue keep their order. With ComputeGroupRepresentations, an irrep whose \
+diagonal T is in another order (for example from SL2Reps) is diagonalized \
+again in GAP.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["PhaseConvention"], "TableText"], 
+       Cell["None", "TableText"], Cell["\"FirstSRow\" applies a diagonal \
+unitary rephasing after diagonalization: the first basis phase is one, and \
+each nonzero first-row entry of S after the first becomes real and \
+nonnegative; zero entries keep their phase and S11 is unchanged.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Arithmetic"], "TableText"], Cell["\"Exact\"", 
+        "TableText"], Cell["\"Exact\" proves identities exactly and refuses \
+numerical input; \"Numerical\" works at WorkingPrecision (default 50) and \
+checks residuals against Tolerance (default 10^(-Floor[p/2])). Tolerance is \
+accepted only with numerical arithmetic.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["Verification"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Automatic, \"Exact\", \
+\"Numerical\" or None (the Validate functions: Automatic, \"Exact\" or \
+\"Numerical\"; the modular-form functions have no \"Exact\" route).", 
+        "TableText"]}}, GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+     GridBoxItemSize -> {"Columns" -> {Scaled[0.02], Scaled[0.3], 
+         Scaled[0.18], Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["UnitarizeRepresentation", 
+      BaseStyle -> "Hyperlink", ButtonData -> {"UnitarizeRepresentation.nb", 
+        None}], "  |  ", ButtonBox["DiagonalizeRepresentationT", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"DiagonalizeRepresentationT.nb", None}], "  |  ", 
+     ButtonBox["ComputeGroupRepresentations", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ComputeGroupRepresentations.nb", None}], "  |  ", 
+     ButtonBox["AssignModularGenerators", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"AssignModularGenerators.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "id"}], "}"}], ",", RowBox[
+         {RowBox[{"id", "=", RowBox[{"Last", "[", RowBox[{"g", "[", 
+                "\"IrrepOrder\"", "]"}], "]"}]}], ";", 
+          RowBox[{"SetGroupRepresentation", "[", RowBox[{"g", ",", "id", ",", 
+              RowBox[{"ChangeRepBasis", "[", RowBox[{RowBox[
+                   {"GroupRepresentation", "[", RowBox[{"g", ",", "id"}], 
+                    "]"}], ",", RowBox[{"{", RowBox[{RowBox[{"{", RowBox[
+                         {"1", ",", "1"}], "}"}], ",", RowBox[{"{", RowBox[
+                         {"0", ",", "1"}], "}"}]}], "}"}]}], "]"}], ",", 
+              RowBox[{"Basis", "\[Rule]", "\"General\""}], ",", 
+              RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}], ";", 
+          RowBox[{"TransformGroupRepresentations", "[", 
+            RowBox[{"g", ",", RowBox[{"StoreGAPState", "\[Rule]", 
+                "False"}]}], "]"}], ";", RowBox[{"UnitaryRepresentationQ", 
+            "[", RowBox[{"GroupRepresentation", "[", RowBox[{"g", ",", 
+                "id"}], "]"}], "]"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{"g", "=", RowBox[{"BuildGroup", "[", 
+              RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                   {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], ",", 
+                    RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", ",", 
+                        "\"(s.t)^3\""}], "}"}]}], "]"}], ",", RowBox[
+                 {"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], "}"}], 
+        ",", RowBox[{"FailureQ", "[", RowBox[
+           {"TransformGroupRepresentations", "[", RowBox[{"g", ",", 
+              RowBox[{"Basis", "\[Rule]", "\"UnitaryTDiagonal\""}]}], "]"}], 
+          "]"}]}], "]"}]], "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/TransformGroupRepresentations", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "TransformGroupRepresentations \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

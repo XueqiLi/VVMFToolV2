@@ -1,0 +1,44 @@
+Notebook[{Cell["MatrixSet", "ObjectName"], Cell["MatrixSet selects the \
+matrices a representation view shows: Automatic, \"Generators\", \"Modular\", \
+or a list of generator names (indices for a bare representation).", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["Option for RepresentationTable and \
+RepresentationView. Default: Automatic (the assigned S and T of a group with \
+a modular assignment, otherwise the recorded generators).", "Notes"], 
+  Cell["\"Generators\" shows every recorded generator; \"Modular\" the \
+assigned S and T (fails without an assignment); a duplicate-free list of \
+generator names a subset. A bare representation accepts Automatic, \
+\"Generators\" or generator indices, never names or S,T.", "Notes"], 
+  Cell[
+   "The owning function rejects other values before rendering or \
+computation.", "Notes"], Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["RepresentationTable", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"RepresentationTable.nb", None}], "  |  ", 
+     ButtonBox["RepresentationView", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"RepresentationView.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"MemberQ", "[", 
+      RowBox[{RowBox[{"First", "/@", RowBox[{"Options", "[", 
+            "RepresentationTable", "]"}]}], ",", "MatrixSet"}], "]"}]], 
+   "Input", CellTags -> "VerifiedExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/MatrixSet", "Categorization", CellLabel -> "URI"]}, 
+    Closed]]}, WindowTitle -> "MatrixSet \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

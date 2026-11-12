@@ -1,0 +1,79 @@
+Notebook[{Cell["RepresentationData", "ObjectName"], 
+  Cell["RepresentationData[g, id] returns the stored data of the irrep with \
+ID id: its variants, active variant and accepted partial matrices.", 
+   "Usage"], Cell["Status: Alpha.", "Notes"], Cell["Returns CharacterID, \
+Dimension, GeneratorIdentity, Variants, ActiveVariant and AcceptedPartial. \
+Each variant holds its Rep, realization Identity, Tier, Arithmetic (\"Exact\" \
+or \"Numerical\"), BasisProperties (Unitary; TDiagonal and AssignmentIdentity \
+for an assigned S,T), SourceMethod, Scales and NativeMatrices (the positive \
+scales and cyclotomic matrices N of a scaled variant, or Missing) and \
+Derivation (the witness variant and conjugating matrix of a derived variant, \
+or Missing). An accepted partial is a verified general basis kept while a \
+unitary one is missing.", "Notes"], Cell["Tiers: \"Native\" and \
+\"ScaledNative\" variants are verified in GAP; \"Wolfram\" (exact, not \
+cyclotomic) and \"Numerical\" (declared precision) variants are verified in \
+Wolfram when accepted and again when a saved group is imported by \
+correspondence, and GAP stores them unchanged. A numerical variant becomes \
+active only when chosen explicitly (for example with SetGroupRepresentation), \
+and an exact computation of the irrep later replaces it. After a new modular \
+assignment, a Wolfram or Numerical variant reports TDiagonal False until it \
+is transformed again.", "Notes"], Cell["A variant's T-phase order and phase \
+convention are not stored separately: RepresentationTSpectrum (with \
+TPhaseOrder -> \"Unchanged\") and SRep recompute them from the matrices, and \
+SourceMethod names the route (for example TDiagonalize with its witness \
+variant as the model).", "Notes"], Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["GroupRepresentation", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"GroupRepresentation.nb", None}], "  |  ", 
+     ButtonBox["ComputeGroupRepresentations", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ComputeGroupRepresentations.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"CatalogueGroup", "[", RowBox[
+                     {"\"SymmetricGroup\"", ",", "3"}], "]"}], ",", 
+                  RowBox[{"ComputeRepresentations", "\[Rule]", "False"}], 
+                  ",", RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], 
+                "]"}]}], ",", "id"}], "}"}], ",", 
+        RowBox[{RowBox[{"id", "=", RowBox[{"First", "[", RowBox[{"g", "[", 
+                "\"IrrepOrder\"", "]"}], "]"}]}], ";", 
+          RowBox[{"Keys", "[", RowBox[{"RepresentationData", "[", 
+              RowBox[{"g", ",", "id"}], "]"}], "]"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{"\"CharacterID\"", ",", "\"Dimension\"", 
+        ",", "\"GeneratorIdentity\"", ",", "\"Variants\"", ",", 
+        "\"ActiveVariant\"", ",", "\"AcceptedPartial\""}], "}"}]], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{"g", "=", RowBox[{"BuildGroup", "[", 
+              RowBox[{RowBox[{"CatalogueGroup", "[", RowBox[
+                   {"\"SymmetricGroup\"", ",", "3"}], "]"}], ",", 
+                RowBox[{"ComputeRepresentations", "\[Rule]", "False"}], ",", 
+                RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+          "}"}], ",", RowBox[{"FailureQ", "[", RowBox[{"RepresentationData", 
+            "[", RowBox[{"g", ",", "\"unknown-irrep\""}], "]"}], "]"}]}], 
+      "]"}]], "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/RepresentationData", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "RepresentationData \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

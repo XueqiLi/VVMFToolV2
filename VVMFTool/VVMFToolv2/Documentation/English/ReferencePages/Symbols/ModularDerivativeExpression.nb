@@ -1,0 +1,63 @@
+Notebook[{Cell["ModularDerivativeExpression", "ObjectName"], 
+  Cell["ModularDerivativeExpression[k, expr, var] gives the modular \
+derivative q d/dq expr - k E2 expr/12 of a scalar expression of weight k.", 
+   "Usage"], Cell["Status: Alpha.", "Notes"], Cell["ModularDerivativeExpressi\
+on[k, expr, var] gives q d/dq expr - k E2 expr/12 (in the tau coordinate (2 \
+Pi I)^-1 d/dtau expr - k E2 expr/12) as an expression in var and scalar \
+ingredients, using the Ramanujan identities and the derivative of the \
+hypergeometric function.", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Coordinate"], "TableText"], Cell["\"q\"", "TableText"], 
+       Cell[
+        "\"q\" (default) or \"tau\". Other values fail with InvalidOption.", 
+        "TableText"]}}, GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+     GridBoxItemSize -> {"Columns" -> {Scaled[0.02], Scaled[0.3], 
+         Scaled[0.18], Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["ModularFormDerivative", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ModularFormDerivative.nb", None}], "  |  ", 
+     ButtonBox["ScalarModularExpression", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ScalarModularExpression.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{RowBox[{"QExpansionCoefficients", "[", 
+        RowBox[{"ScalarQSeries", "[", RowBox[
+           {RowBox[{RowBox[{"ModularDerivativeExpression", "[", 
+                RowBox[{"4", ",", RowBox[{"ScalarModularExpression", "[", 
+                    RowBox[{"\"E4\"", ",", "q"}], "]"}], ",", "q"}], "]"}], 
+              "+", RowBox[{FractionBox["1", "3"], " ", RowBox[
+                 {"ScalarModularExpression", "[", RowBox[{"\"E6\"", ",", 
+                    "q"}], "]"}]}]}], ",", "q", ",", "6"}], "]"}], "]"}], 
+      "[", "\"Components\"", "]"}]], "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{"Association", "[", "]"}], "}"}]], 
+   "Output"], Cell["Possible Issues", "ExampleSection"], 
+  Cell["Invalid input returns a structured Failure. Check FailureQ before \
+using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", 
+      RowBox[{"ModularDerivativeExpression", "[", 
+        RowBox[{"4", ",", RowBox[{"Sin", "[", "q", "]"}], ",", "q"}], "]"}], 
+      "]"}]], "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/ModularDerivativeExpression", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "ModularDerivativeExpression \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

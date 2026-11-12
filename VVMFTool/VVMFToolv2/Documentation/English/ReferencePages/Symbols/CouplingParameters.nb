@@ -1,0 +1,80 @@
+Notebook[{Cell["CouplingParameters", "ObjectName"], 
+  Cell["CouplingParameters[e] lists the parameter records (Atom, ID, Label, \
+Domain, SourceAtom) of a CoupledExpression.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["CouplingParameters[e] lists the \
+parameter records of the CoupledExpression e, each <|\"Atom\" -> \
+Coupling[ID], \"ID\", \"Label\", \"Domain\" -> \"Complex\", \"SourceAtom\"|>, \
+in first-appearance order.", "Notes"], Cell["SourceAtom holds a declared user \
+symbol (HoldForm) as metadata; later definitions of that symbol do not change \
+the term.", "Notes"], Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["Coupling", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"Coupling.nb", None}], "  |  ", 
+     ButtonBox["ModelParameters", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ModelParameters.nb", None}], "  |  ", 
+     ButtonBox["ParameterSymbols", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ParameterSymbols.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{"t", ",", "m2", ",", "q", ",", "raw", ",", 
+            "x", ",", "mass", ",", RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "d", ",", "sign", ",", "l", ",", "r", ",", "m"}], "}"}], 
+        ",", RowBox[{RowBox[{"d", "=", RowBox[{"First", "[", 
+              RowBox[{"Select", "[", RowBox[{RowBox[{"g", "[", 
+                    "\"IrrepOrder\"", "]"}], ",", RowBox[{RowBox[
+                     {RowBox[{"RepDim", "[", RowBox[{"GroupRepresentation", 
+                          "[", RowBox[{"g", ",", "#1"}], "]"}], "]"}], "===", 
+                      "2"}], "&"}]}], "]"}], "]"}]}], ";", 
+          RowBox[{"sign", "=", RowBox[{"First", "[", RowBox[{"DeleteCases", 
+                "[", RowBox[{RowBox[{"Select", "[", RowBox[{RowBox[{"g", "[", 
+                        "\"IrrepOrder\"", "]"}], ",", RowBox[{RowBox[
+                         {RowBox[{"RepDim", "[", RowBox[
+                          {"GroupRepresentation", "[", RowBox[{"g", ",", 
+                          "#1"}], "]"}], "]"}], "===", "1"}], "&"}]}], "]"}], 
+                  ",", RowBox[{RowBox[{"g", "[", "\"CharacterData\"", "]"}], 
+                    "[", "\"TrivialIrrepID\"", "]"}]}], "]"}], "]"}]}], ";", 
+          RowBox[{"l", "=", RowBox[{"CreateField", "[", RowBox[{"g", ",", 
+                "d", ",", "\"L\""}], "]"}]}], ";", 
+          RowBox[{"r", "=", RowBox[{"CreateField", "[", RowBox[{"g", ",", 
+                "d", ",", "\"R\""}], "]"}]}], ";", 
+          RowBox[{"m", "=", RowBox[{"CreateModel", "[", RowBox[{"g", ",", 
+                RowBox[{"{", RowBox[{"l", ",", "r"}], "}"}]}], "]"}]}], ";", 
+          RowBox[{"t", "=", RowBox[{"CoupleContractions", "[", 
+              RowBox[{"Contractions", "[", RowBox[{"m", ",", RowBox[
+                   {"{", RowBox[{"l", ",", "r"}], "}"}]}], "]"}], "]"}]}], 
+          ";", RowBox[{RowBox[{"First", "[", RowBox[{"CouplingParameters", 
+                "[", "t", "]"}], "]"}], "[", "\"Domain\"", "]"}]}]}], "]"}]], 
+   "Input", CellTags -> "VerifiedExample"], Cell[BoxData["\"Complex\""], 
+   "Output"], Cell["Possible Issues", "ExampleSection"], 
+  Cell["Invalid input returns a structured Failure. Check FailureQ before \
+using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"CouplingParameters", "[", 
+        "\"no term\"", "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/CouplingParameters", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "CouplingParameters \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

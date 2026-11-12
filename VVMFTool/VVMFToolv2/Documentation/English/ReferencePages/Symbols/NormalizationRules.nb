@@ -1,0 +1,81 @@
+Notebook[{Cell["NormalizationRules", "ObjectName"], 
+  Cell["NormalizationRules is an option of the coefficient solvers: Automatic \
+or explicit rules parameter ID -> value, checked through the same evidence \
+path.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["Option of the coefficient solvers: explicit coefficient values, \
+checked through the same evidence path (holdout transformation residuals and \
+the anchor).", "Notes"], Cell["Automatic (default: fit) or rules (or an \
+association) from every parameter ID to a value; incomplete rules fail with \
+InvalidOption and wrong values with InconsistentNormalization; checked exact \
+rules report ProofStatus \"NumericallyCheckedExplicitRules\" (inexact ones \
+\"NumericalExplicitRules\").", "Notes"], Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["ModularFormGetCoeff", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ModularFormGetCoeff.nb", None}], "  |  ", 
+     ButtonBox["SolveModularCoefficients", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"SolveModularCoefficients.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "d", ",", "one"}], "}"}], ",", 
+        RowBox[{RowBox[{"AssignModularGenerators", "[", 
+            RowBox[{"g", ",", RowBox[{"GroupWord", "[", "\"t^-1.s.t\"", 
+                "]"}], ",", RowBox[{"GroupWord", "[", "\"s\"", "]"}], ",", 
+              RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}], ";", 
+          RowBox[{"d", "=", RowBox[{"First", "[", RowBox[{"Select", "[", 
+                RowBox[{RowBox[{"g", "[", "\"IrrepOrder\"", "]"}], ",", 
+                  RowBox[{RowBox[{RowBox[{"RepDim", "[", RowBox[
+                         {"GroupRepresentation", "[", RowBox[{"g", ",", 
+                          "#1"}], "]"}], "]"}], "===", "2"}], "&"}]}], "]"}], 
+              "]"}]}], ";", RowBox[{"one", "=", RowBox[
+             {RowBox[{"g", "[", "\"CharacterData\"", "]"}], "[", 
+              "\"TrivialIrrepID\"", "]"}]}], ";", 
+          RowBox[{"Module", "[", RowBox[{RowBox[{"{", RowBox[{"y", "=", 
+                  RowBox[{"First", "[", RowBox[{"ConstructModularForms", "[", 
+                      RowBox[{"g", ",", "d"}], "]"}], "]"}]}], "}"}], ",", 
+              RowBox[{RowBox[{"ModularFormGetCoeff", "[", RowBox[{"y", ",", 
+                    RowBox[{"WorkingPrecision", "\[Rule]", "30"}], ",", 
+                    RowBox[{"NormalizationRules", "\[Rule]", RowBox[
+                       {"Thread", "[", RowBox[{RowBox[{"Lookup", "[", RowBox[
+                          {RowBox[{RowBox[{"y", "[", "\"Definition\"", "]"}], 
+                          "[", "\"Parameters\"", "]"}], ",", "\"ID\""}], 
+                          "]"}], "\[Rule]", RowBox[{"{", RowBox[{"-", "24"}], 
+                          "}"}]}], "]"}]}]}], "]"}], ";", RowBox[
+                 {RowBox[{"y", "[", "\"Coefficients\"", "]"}], "[", 
+                  "\"ProofStatus\"", "]"}]}]}], "]"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], 
+  Cell[BoxData["\"NumericallyCheckedExplicitRules\""], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"SolveModularCoefficients", 
+        "[", RowBox[{"1", ",", "2", ",", "3", ",", "4", ",", 
+          RowBox[{"NormalizationRules", "\[Rule]", "5"}]}], "]"}], "]"}]], 
+   "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/NormalizationRules", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "NormalizationRules \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

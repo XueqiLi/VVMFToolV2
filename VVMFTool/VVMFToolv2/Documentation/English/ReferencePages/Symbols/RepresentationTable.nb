@@ -1,0 +1,159 @@
+Notebook[{Cell["RepresentationTable", "ObjectName"], 
+  Cell["RepresentationTable[g] snapshots the stored irreducible \
+representations of g for display.\nRepresentationTable[g, ids] shows the \
+irreps with the given IDs, in that order.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["RepresentationTable[g] snapshots \
+every irrep in presentation order; RepresentationTable[g, irreps] the given \
+irreps (indices or IDs) in the given order. Each row shows the irrep's index, \
+its automatic label (dimension with the T phases), its user label when one is \
+set (SetIrrepLabels), the dimension and the selected matrices with readable \
+entries. ShowIDs -> True adds the irrep ID; the status and basis columns \
+appear with ShowStatus -> True, or automatically when a row needs attention, \
+with a legend that explains every word.", "Notes"], 
+  Cell["Statuses: \"Complete\"; \"Active basis differs\" (with an explicit \
+Basis the active representation does not meet); \"Partial: requested basis \
+pending\" (only verified intermediate matrices exist; they are never shown as \
+completed matrices); \"Not computed\". Nothing is computed by a view.", 
+   "Notes"], Cell["MatrixSet selects the columns: the assigned S and T of a \
+modular realization by default, otherwise the recorded generators, or a list \
+of generator names; MatrixSet -> \"Modular\" without an assignment fails.", 
+   "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["MatrixSet"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["\"Generators\" shows every recorded generator; \
+\"Modular\" the assigned S and T (fails without an assignment); a \
+duplicate-free list of generator names a subset. A bare representation \
+accepts Automatic, \"Generators\" or generator indices, never names or S,T.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["LabelStyle"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["See the method choices in this page's details.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["IrrepLabels"], "TableText"], Cell["<||>", "TableText"], 
+       Cell["An association from known irrep IDs to plain strings (escaped) \
+or TeXFragment values (raw TeX, shown literally in notebooks). Labels never \
+replace the ID column.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Basis"], "TableText"], Cell["Automatic", "TableText"], 
+       Cell["\"Unitary\" requires unitary matrices on every recorded \
+generator; \"General\" accepts any verified basis. \"UnitaryTDiagonal\" \
+(ComputeGroupRepresentations, the builders and TransformGroupRepresentations) \
+additionally requires the assigned T to be diagonal, with its phases in the \
+TPhaseOrder order and the PhaseConvention applied (the group needs a modular \
+S,T assignment). SetGroupRepresentation and ChangeGroupRepBasis accept \
+\"Unitary\" and \"General\"; TransformGroupRepresentations \"Unitary\" and \
+\"UnitaryTDiagonal\". For DiagonalizeRepresentationT, \"Unitary\" requires \
+unitary input and keeps the result unitary.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["DisplayTimeLimit"], 
+        "TableText"], Cell["5", "TableText"], Cell["Bounds optional label \
+work, such as certifying T phases; with LabelStyle -> Automatic a timeout \
+falls back to dimension labels. Mandatory rendering is not affected.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], Cell[BoxData["ShowIDs"], 
+        "TableText"], Cell["False", "TableText"], Cell["Whether internal \
+irrep IDs are shown (an ID column in tables; the modular assignment identity \
+in GroupSummary).", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["ShowStatus"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["Whether the status, basis and validation columns \
+are shown; a legend explains every word they use.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["ShowAutomaticLabels"], 
+        "TableText"], Cell["True", "TableText"], Cell["Whether the automatic \
+label (dimension with the T phases) of each irrep is shown.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["ScalarNotation"], 
+        "TableText"], Cell["\"Standard\"", "TableText"], 
+       Cell["\"Standard\" writes a certified root of unity as exact radicals \
+a + b i when possible; \"Exponential\" as e^{2 pi i k/n}; \"Omega\" as \
+omega_n^k (with its definition once when DefineOmega is True). Only exactly \
+certified rational phases are converted; other values are unaffected. In \
+\"Standard\" a table can therefore mix forms (fifth roots of unity have \
+radical forms, 25th roots are written exponentially); \"Exponential\" and \
+\"Omega\" give a uniform table.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["NotationStyle"], "TableText"], Cell["\"Standard\"", 
+        "TableText"], Cell["\"Standard\" uses ordinary LaTeX commands; \
+\"Paper\" uses the macros \\ii, \\ee and \\rep, defined by the preamble with \
+\\providecommand.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["OneByOneMatrix"], "TableText"], Cell["\"Scalar\"", 
+        "TableText"], Cell["\"Scalar\" writes a 1 x 1 matrix as its entry \
+(the row data still identify it as a one-dimensional matrix); \"Matrix\" \
+writes a 1 x 1 pmatrix.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["DefineOmega"], "TableText"], Cell["True", "TableText"], 
+       Cell["True includes the definition omega_a^b = e^{2 pi i b/a} once in \
+the legend when omega notation is used; False leaves it to the caller.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], Cell[BoxData["Digits"], 
+        "TableText"], Cell["Automatic", "TableText"], 
+       Cell["A positive integer limits the digits displayed for numerical \
+values. Exact values are never rounded, and stored values are not changed.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], Cell[BoxData["Caption"], 
+        "TableText"], Cell["Automatic", "TableText"], 
+       Cell["A plain string (escaped) or a TeXFragment replaces the automatic \
+caption.", "TableText"]}, {Cell[" ", "TableRowIcon"], Cell[BoxData["Label"], 
+        "TableText"], Cell["None", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["PageSize"], "TableText"], 
+       Cell["20", "TableText"], Cell["Rows per page of an interactive \
+notebook view: a positive integer or All. Exports are always complete; in an \
+exported notebook PageSize only organizes sections.", "TableText"]}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, GridBoxItemSize -> 
+      {"Columns" -> {Scaled[0.02], Scaled[0.3], Scaled[0.18], 
+         Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["RepresentationView", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"RepresentationView.nb", None}], "  |  ", 
+     ButtonBox["ComputeGroupRepresentations", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ComputeGroupRepresentations.nb", None}], "  |  ", 
+     ButtonBox["ToLaTeX", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ToLaTeX.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{"g", "=", RowBox[{"BuildGroup", "[", 
+              RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                   {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], ",", 
+                    RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", ",", 
+                        "\"(s.t)^3\""}], "}"}]}], "]"}], ",", RowBox[
+                 {"ComputeRepresentations", "\[Rule]", "False"}], ",", 
+                RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+          "}"}], ",", RowBox[{"{", RowBox[{RowBox[{"Union", "[", 
+              RowBox[{RowBox[{"(", RowBox[{RowBox[{"#1", "[", "\"Status\"", 
+                      "]"}], "&"}], ")"}], "/@", RowBox[
+                 {RowBox[{"DisplayData", "[", RowBox[{"RepresentationTable", 
+                      "[", "g", "]"}], "]"}], "[", "\"Rows\"", "]"}]}], 
+              "]"}], ",", RowBox[{RowBox[{"g", "[", "\"AvailableData\"", 
+                "]"}], "[", "\"Representations\"", "]"}]}], "}"}]}], "]"}]], 
+   "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{RowBox[{"{", "\"Not computed\"", "}"}], 
+        ",", "\"NotComputed\""}], "}"}]], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{"g", "=", RowBox[{"BuildGroup", "[", 
+              RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                   {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], ",", 
+                    RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", ",", 
+                        "\"(s.t)^3\""}], "}"}]}], "]"}], ",", RowBox[
+                 {"ComputeRepresentations", "\[Rule]", "False"}], ",", 
+                RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+          "}"}], ",", RowBox[{"FailureQ", "[", RowBox[{"RepresentationTable", 
+            "[", RowBox[{"g", ",", RowBox[{"MatrixSet", "\[Rule]", 
+                "\"Modular\""}]}], "]"}], "]"}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/RepresentationTable", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "RepresentationTable \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

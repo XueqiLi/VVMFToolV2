@@ -1,0 +1,303 @@
+{
+ "SetIrrepLabels": {
+  "Kind": "Function",
+  "Details": [
+   "SetIrrepLabels[g, {l1, ..., ln}] stores user labels of the irreps of g in irrep order (None for no label); SetIrrepLabels[g, <|irrep -> label, ...|>] adds or replaces labels of irreps given by index (position in g[\"IrrepOrder\"]) or ID.",
+   "A label is a base (letters and digits) with optional primes ', a superscript ^{...}, a subscript _{...}, an accent \\hat, \\bar or \\tilde, or the paper's \\rep{...} form: 1, 2'', 2^{iv}, 3_a, \\hat{3}, \\rep{2}'. One stored label renders as plain text, notebook boxes and LaTeX.",
+   "Tables of representations show the index, the automatic label and this label; other views name an irrep by its label, else its automatic label, else its index. Labels are saved with the group. Two irreps with the same label are refused unless AllowDuplicates -> True."
+  ],
+  "Example": "Module[{g = LoadGroup[\"24-3I\", Fresh -> True]}, SetIrrepLabels[g, {\"a\", \"b\", \"c\", \"d\", \"e\", \"f\", \"h\"}]; g[\"IrrepLabels\"][7]]",
+  "Expected": "\"h\"",
+  "ErrorExample": "FailureQ[SetIrrepLabels[1, {}]]",
+  "SeeAlso": [
+   "SetIrrepLabel",
+   "IrrepLabel",
+   "IrrepIndex",
+   "RemoveIrrepLabels"
+  ]
+ },
+ "SetIrrepLabel": {
+  "Kind": "Function",
+  "Details": [
+   "SetIrrepLabel[g, irrep, label] sets the user label of one irrep, given by index or ID."
+  ],
+  "Example": "Module[{g = LoadGroup[\"24-3I\", Fresh -> True]}, SetIrrepLabel[g, 7, \"3'\"]; IrrepLabel[g, 7]]",
+  "Expected": "\"3'\"",
+  "ErrorExample": "FailureQ[SetIrrepLabel[1, 1, \"x\"]]",
+  "SeeAlso": [
+   "SetIrrepLabels",
+   "RemoveIrrepLabel"
+  ]
+ },
+ "RemoveIrrepLabel": {
+  "Kind": "Function",
+  "Details": [
+   "RemoveIrrepLabel[g, irrep] removes the user label of one irrep (index or ID)."
+  ],
+  "Example": "Module[{g = LoadGroup[\"24-3I\", Fresh -> True]}, RemoveIrrepLabel[g, 7]; IrrepLabel[g, 7]]",
+  "Expected": "Missing[\"NoLabel\"]",
+  "ErrorExample": "FailureQ[RemoveIrrepLabel[1, 1]]",
+  "SeeAlso": [
+   "SetIrrepLabel",
+   "RemoveIrrepLabels"
+  ]
+ },
+ "RemoveIrrepLabels": {
+  "Kind": "Function",
+  "Details": [
+   "RemoveIrrepLabels[g] removes every user label of the irreps of g."
+  ],
+  "Example": "Module[{g = LoadGroup[\"24-3I\", Fresh -> True]}, RemoveIrrepLabels[g]; g[\"IrrepLabels\"]]",
+  "Expected": "<||>",
+  "ErrorExample": "FailureQ[RemoveIrrepLabels[1]]",
+  "SeeAlso": [
+   "SetIrrepLabels"
+  ]
+ },
+ "IrrepLabel": {
+  "Kind": "Function",
+  "Details": [
+   "IrrepLabel[g, irrep] gives the user label of an irrep (index or ID) as plain text, or Missing[\"NoLabel\"]. The library group 24-3I carries the paper's labels.",
+   "IrrepLabel[g, irrep, \"Display\"] gives the label typeset as in the views (bold base, primes, super- and subscripts, accents), for use in your own Row, Grid or Column; it evaluates to the plain text. IrrepLabel[g, irrep, \"TeX\"] gives its LaTeX."
+  ],
+  "Example": "IrrepLabel[LoadGroup[\"24-3I\", Fresh -> True], 6]",
+  "Expected": "\"2''\"",
+  "ErrorExample": "FailureQ[IrrepLabel[1, 1]]",
+  "SeeAlso": [
+   "SetIrrepLabels",
+   "IrrepIndex"
+  ]
+ },
+ "IrrepIndex": {
+  "Kind": "Function",
+  "Details": [
+   "IrrepIndex[g, label] gives the index of the irrep carrying a user label, in any spelling of the label grammar (\"2''\" or \"\\rep{2}''\"); IrrepIndex[g, id] gives the index of an irrep ID.",
+   "Irreps are given to every function by index (or ID), not by label; IrrepIndex converts a label. A label carried by several irreps gives AmbiguousIrrepLabel with their indices."
+  ],
+  "Example": "IrrepIndex[LoadGroup[\"24-3I\", Fresh -> True], \"\\\\rep{2}''\"]",
+  "Expected": "6",
+  "ErrorExample": "FailureQ[IrrepIndex[1, \"x\"]]",
+  "SeeAlso": [
+   "IrrepLabel",
+   "SetIrrepLabels"
+  ]
+ },
+ "SetClassLabels": {
+  "Kind": "Function",
+  "Details": [
+   "SetClassLabels[g, names] stores names of the conjugacy classes of g: a list in class order (None for no name; an entry may be {name, representative word}) or an association class (index or ID) -> name. Names such as 4C_{3}^{1} render as text, boxes and LaTeX; CharacterTableView uses them as column headers."
+  ],
+  "Example": "Module[{g = LoadGroup[\"24-3I\", Fresh -> True]}, SetClassLabels[g, <|1 -> \"e\"|>]; g[\"ClassLabels\"][1]]",
+  "Expected": "\"e\"",
+  "ErrorExample": "FailureQ[SetClassLabels[1, {}]]",
+  "SeeAlso": [
+   "ReorderGroupClasses",
+   "CharacterTableView"
+  ]
+ },
+ "ReorderGroupClasses": {
+  "Kind": "Function",
+  "Details": [
+   "ReorderGroupClasses[g, order] sets the presentation order of the classes of g (class IDs, or a permutation of 1..n of the current order). CharacterTableView uses it by default."
+  ],
+  "Example": "Module[{g = LoadGroup[\"24-3I\", Fresh -> True], o}, o = g[\"ClassOrder\"]; ReorderGroupClasses[g, Reverse[Range[Length[o]]]]; g[\"ClassOrder\"] === Reverse[o]]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[ReorderGroupClasses[1, {}]]",
+  "SeeAlso": [
+   "SetClassLabels"
+  ]
+ },
+ "SetGroupName": {
+  "Kind": "Function",
+  "Details": [
+   "SetGroupName[g, name] sets the display name of g (shown in captions and summaries)."
+  ],
+  "Example": "Module[{g = LoadGroup[\"24-3I\", Fresh -> True]}, SetGroupName[g, \"T'\"]; g[\"Name\"]]",
+  "Expected": "\"T'\"",
+  "ErrorExample": "FailureQ[SetGroupName[1, \"x\"]]",
+  "SeeAlso": [
+   "SetGroupTitle",
+   "SetCatalogueLabel"
+  ]
+ },
+ "SetGroupTitle": {
+  "Kind": "Function",
+  "Details": [
+   "SetGroupTitle[g, tex] sets the TeX title of g (None removes it)."
+  ],
+  "Example": "Module[{g = LoadGroup[\"24-3I\", Fresh -> True]}, SetGroupTitle[g, \"\\\\Gamma\"]; g[\"TitleTeX\"]]",
+  "Expected": "\"\\\\Gamma\"",
+  "ErrorExample": "FailureQ[SetGroupTitle[1, \"x\"]]",
+  "SeeAlso": [
+   "SetGroupName"
+  ]
+ },
+ "SetCatalogueLabel": {
+  "Kind": "Function",
+  "Details": [
+   "SetCatalogueLabel[g, label] records the paper's label of g, which names the group in its output: Group[24-3I] (Group[24-3I$2] for a second group with the same label). The label has the form order-number with an optional roman suffix (24-3I, 78-1I) and its order and number must be the group's GAP ID; a label of the modular catalogue is also accepted for a group whose GAP ID is unknown. Groups without a label are named by their GAP ID, Group[[24,3]], with II, III for further groups of the same GAP ID. BuildModularGroup with a label and LoadGroup set it."
+  ],
+  "Example": "Module[{g = LoadGroup[\"24-3I\", Fresh -> True]}, SetCatalogueLabel[g, None]; g[\"CatalogueLabel\"]]",
+  "Expected": "None",
+  "ErrorExample": "FailureQ[SetCatalogueLabel[LoadGroup[\"24-3I\", Fresh -> True], \"no-such-label\"]]",
+  "SeeAlso": [
+   "BuildModularGroup",
+   "LoadGroup"
+  ]
+ },
+ "RelationString": {
+  "Kind": "Function",
+  "Details": [
+   "RelationString[text] gives the GroupPresentation of a relation string in the v1 / GAP form, for example \"[S^4,(S*T)^3,S^-2*T^-1*S^2*T,T^3]\": relators separated by commas, optionally in brackets, with * or . products, ^n powers and parentheses; a relator a=b means a.b^-1.",
+   "Generator order: the names given as a second argument; otherwise {S, T} when the identifiers are S and T; otherwise the order of first appearance. BuildGroup and BuildModularGroup accept such a string directly."
+  ],
+  "Example": "First[RelationString[\"[T^7,S^3,T^-4*S*T*S^-1]\"]]",
+  "Expected": "{\"S\", \"T\"}",
+  "ErrorExample": "FailureQ[RelationString[\"[S^4,,T]\"]]",
+  "SeeAlso": [
+   "BuildGroup",
+   "BuildModularGroup",
+   "GroupPresentation"
+  ]
+ },
+ "LoadGroup": {
+  "Kind": "Function",
+  "Details": [
+   "LoadGroup[label] loads a group computed in the VVMFUse project from the package's library: irreps in the paper's basis, the S and T assignment, CG coefficients, element words, and the paper's names of irreps and classes. No GAP is started and nothing is re-checked: the library holds verified data only, and an unchanged library file is trusted through the package's own ledger, so its CG coefficients are served without a check. Verification -> \"Exact\" loads a new copy and re-checks everything (with GAP); Automatic (default), \"Numerical\" and None load without re-checking.",
+   "LoadGroup[label, \"Information\"] gives the library entry (status, numbers of irreps, representations, stored CG pairs and slow pairs). A group already loaded is returned again unless Fresh -> True. The loaded group is an ordinary group: it can be extended and saved anywhere."
+  ],
+  "Example": "Module[{g = LoadGroup[\"24-3I\"]}, {g[\"Order\"], g[\"CatalogueLabel\"]}]",
+  "Expected": "{24, \"24-3I\"}",
+  "ErrorExample": "FailureQ[LoadGroup[\"no-such-group\"]]",
+  "SeeAlso": [
+   "LibraryGroups",
+   "Fresh",
+   "Verification"
+  ]
+ },
+ "LibraryGroups": {
+  "Kind": "Function",
+  "Details": [
+   "LibraryGroups[] lists the groups of the package's library as a Dataset: label, title, GAP ID, order, irreps, computed representations, stored CG pairs, slow pairs and status."
+  ],
+  "Example": "MemberQ[Normal[LibraryGroups[][All, \"label\"]], \"24-3I\"]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[LibraryGroups[1]]",
+  "SeeAlso": [
+   "LoadGroup"
+  ]
+ },
+ "AllowDuplicates": {
+  "Kind": "Option",
+  "Details": [
+   "Option of SetIrrepLabels and SetIrrepLabel. Default: False (two irreps with the same label are refused).",
+   "Whether two irreps may carry the same label; IrrepIndex of a repeated label then fails AmbiguousIrrepLabel."
+  ],
+  "Example": "MemberQ[First /@ Options[SetIrrepLabels], AllowDuplicates]",
+  "Expected": "True",
+  "SeeAlso": [
+   "SetIrrepLabels"
+  ]
+ },
+ "ShowIDs": {
+  "Kind": "Option",
+  "Details": [
+   "Option of CharacterTableView, RepresentationTable and GroupSummary. Default: False. True adds the irrep ID column, and in GroupSummary the identity of the modular assignment; irreps are otherwise shown by index and labels.",
+   "Whether internal irrep IDs are shown (an ID column in tables; the modular assignment identity in GroupSummary)."
+  ],
+  "Example": "MemberQ[First /@ Options[RepresentationTable], ShowIDs]",
+  "Expected": "True",
+  "SeeAlso": [
+   "ShowStatus",
+   "RepresentationTable"
+  ]
+ },
+ "ShowStatus": {
+  "Kind": "Option",
+  "Details": [
+   "Option of RepresentationTable, RepresentationView and GroupSummary. Default: Automatic, which shows the status, basis and validation columns only when a row needs attention (not computed, partial, numerical). True always shows them, with a legend that explains every word; False never.",
+   "Whether the status, basis and validation columns are shown; a legend explains every word they use.",
+   "Views render themselves with every row (no paging), so a notebook output is the complete table."
+  ],
+  "Example": "MemberQ[First /@ Options[RepresentationTable], ShowStatus]",
+  "Expected": "True",
+  "SeeAlso": [
+   "ShowIDs",
+   "RepresentationTable"
+  ]
+ },
+ "ShowAutomaticLabels": {
+  "Kind": "Option",
+  "Details": [
+   "Option of CharacterTableView and RepresentationTable. Default: True. False hides the automatic label column (dimension and T phases).",
+   "Whether the automatic label (dimension with the T phases) of each irrep is shown."
+  ],
+  "Example": "MemberQ[First /@ Options[CharacterTableView], ShowAutomaticLabels]",
+  "Expected": "True",
+  "SeeAlso": [
+   "SetIrrepLabels"
+  ]
+ },
+ "IrrepForm": {
+  "Kind": "Option",
+  "Details": [
+   "Option of TensorDecomposition, TensorIrrepList, CGCacheInformation and ModularDimensionTable: how irreps key the result. \"Index\" (the default except for CGCacheInformation), \"ID\" or \"Label\" (user label, else index).",
+   "How irreps are named in the result: \"Index\", \"ID\" or \"Label\"."
+  ],
+  "Example": "TensorDecomposition[LoadGroup[\"24-3I\", Fresh -> True], {7, 7}, IrrepForm -> \"Label\"]",
+  "Expected": "<|\"1\" -> 1, \"1'\" -> 1, \"1''\" -> 1, \"3\" -> 2|>",
+  "SeeAlso": [
+   "TensorDecomposition",
+   "IncludeZeros"
+  ]
+ },
+ "IncludeZeros": {
+  "Kind": "Option",
+  "Details": [
+   "Option of TensorDecomposition. Default: False (irreps that do not occur are dropped). IrrepForm -> \"ID\" with IncludeZeros -> True gives every irrep ID with its multiplicity.",
+   "Whether irreps that do not occur are listed with multiplicity 0."
+  ],
+  "Example": "Length[TensorDecomposition[LoadGroup[\"24-3I\"], {7, 7}, IncludeZeros -> True]]",
+  "Expected": "7",
+  "SeeAlso": [
+   "TensorDecomposition",
+   "IrrepForm"
+  ]
+ },
+ "Weights": {
+  "Kind": "Option",
+  "Details": [
+   "Weights (the System symbol) is an option of ModularDimensionTable: the weights of the table, exact rationals. Default: Range[0, 20]. A list given as the second argument is the list of irreps, not of weights.",
+   "The weights of the table (exact rationals)."
+  ],
+  "Example": "Keys[First[DisplayData[ModularDimensionTable[LoadGroup[\"24-3I\"], {7}, Weights -> {2, 4}]][\"Table\"]]]",
+  "Expected": "{2, 4}",
+  "SeeAlso": [
+   "ModularDimensionTable"
+  ]
+ },
+ "Notices": {
+  "Kind": "Option",
+  "Details": [
+   "Option of ConfigureVVMFTool. Default: True. One-line notes, such as that a group with the same label already exists, are printed; they are never messages. False silences them.",
+   "Whether one-line notes are printed (never messages)."
+  ],
+  "Example": "MemberQ[Keys[VVMFToolConfiguration[]], Notices]",
+  "Expected": "True",
+  "SeeAlso": [
+   "ConfigureVVMFTool"
+  ]
+ },
+ "Fresh": {
+  "Kind": "Option",
+  "Details": [
+   "Option of LoadGroup. Default: False (a group already loaded is returned again). True loads a new copy.",
+   "Whether a new copy is loaded even if the group is already loaded."
+  ],
+  "Example": "MemberQ[First /@ Options[LoadGroup], Fresh]",
+  "Expected": "True",
+  "SeeAlso": [
+   "LoadGroup"
+  ]
+ }
+}

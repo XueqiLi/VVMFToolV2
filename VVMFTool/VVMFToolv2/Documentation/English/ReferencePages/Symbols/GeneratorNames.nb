@@ -1,0 +1,42 @@
+Notebook[{Cell["GeneratorNames", "ObjectName"], 
+  Cell["GeneratorNames specifies the ordered generator names for explicit \
+GAP-code construction.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["Option for BuildGroupFromGAP. Default: Automatic (must be supplied \
+for raw code).", "Notes"], Cell["Ordered distinct identifier strings matching \
+VVMFInputGenerators. An explicit list is required for BuildGroupFromGAP; an \
+empty list describes no generators.", "Notes"], 
+  Cell["Per-call shared settings override matching package configuration. The \
+owning function rejects unsupported values before computation.", "Notes"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["BuildGroupFromGAP", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"BuildGroupFromGAP.nb", None}], "  |  ", 
+     ButtonBox["ConfigureVVMFTool", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ConfigureVVMFTool.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"MemberQ", "[", 
+      RowBox[{RowBox[{"First", "/@", RowBox[{"Options", "[", 
+            "BuildGroupFromGAP", "]"}]}], ",", "GeneratorNames"}], "]"}]], 
+   "Input", CellTags -> "VerifiedExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/GeneratorNames", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "GeneratorNames \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

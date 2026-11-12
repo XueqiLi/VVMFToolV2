@@ -1,0 +1,56 @@
+Notebook[{Cell["WordRecovery", "ObjectName"], Cell["WordRecovery is an option \
+of the group builders and the GAP group operations (GroupElementWords, \
+GroupWordOrder, GroupSubgroups, AssignModularGenerators, CheckGeneratorMap): \
+Automatic (Native, then FP, then Cayley word recovery) or an ordered list of \
+\"Native\", \"FP\", \"Cayley\".", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["Option of the group builders and the GAP group operations \
+(GroupElementWords, GroupWordOrder, GroupSubgroups, AssignModularGenerators, \
+CheckGeneratorMap): the order of the word-recovery strategies GAP tries. \
+Automatic: \"Native\", then \"FP\", then \"Cayley\" (a strategy that worked \
+before may go first); a list fixes the order and is never reordered.", 
+   "Notes"], 
+  Cell["Automatic or a duplicate-free list of \"Native\", \"FP\", \
+\"Cayley\".", "Notes"], Cell["The builders pass it to their character, \
+element-word and subgroup stages. GroupWordOrder and AssignModularGenerators \
+use native recovery only: a list other than {\"Native\"} is \
+InapplicableOption there.", "Notes"], Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["GroupModel", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"GroupModel.nb", None}], "  |  ", 
+     ButtonBox["BuildGroup", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"BuildGroup.nb", None}], "  |  ", 
+     ButtonBox["GroupElementWords", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"GroupElementWords.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"MemberQ", "[", 
+      RowBox[{RowBox[{"First", "/@", RowBox[{"Options", "[", 
+            "GroupElementWords", "]"}]}], ",", "WordRecovery"}], "]"}]], 
+   "Input", CellTags -> "VerifiedExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"GroupElementWords", "[", 
+        RowBox[{"\"no group\"", ",", RowBox[{"WordRecovery", "\[Rule]", 
+            RowBox[{"{", "\"FP\"", "}"}]}]}], "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/WordRecovery", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "WordRecovery \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

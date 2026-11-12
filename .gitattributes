@@ -1,0 +1,4 @@
+# Library groups are trusted by their exact bytes (VVMFTool/VVMFToolv2/Library/ledger): never convert line endings.
+VVMFTool/VVMFToolv2/Library/** -text
+*.nb -text
+*.wl -text

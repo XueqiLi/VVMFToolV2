@@ -1,0 +1,100 @@
+{
+ "ModularFormView": {
+  "Kind": "Function",
+  "Details": [
+   "ModularFormView[y] gives a DisplayDocument of a modular form: representation and basis, weight, the definition (closed expression, MLDE or derivative recipe, or finite jet), the expression, the stored q-expansion or \"not computed\", the normalization and the evidence.",
+   "Read-only: no expansion, coefficient solve, validation or GAP; render with ToNotebook, ToLaTeX or ExportDisplay. Options: FormLabels, IrrepLabels, ExpressionMode, MaxQTerms, FactorQSeries and the presentation options."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, one, y}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; y = First[ConstructModularForms[g, d]]; ModularFormGetCoeff[y, WorkingPrecision -> 30]; DisplayData[ModularFormView[y]][\"Weight\"]]",
+  "Expected": "2",
+  "ErrorExample": "FailureQ[ModularFormView[1]]",
+  "SeeAlso": [
+   "ModularFormTable",
+   "QExpansionView",
+   "ToLaTeX"
+  ]
+ },
+ "ModularFormTable": {
+  "Kind": "Function",
+  "Details": [
+   "ModularFormTable[{y1, y2, ...}] tabulates modular forms in the given order with their labels, irreps, weights, expressions, stored expansions and status.",
+   "Every element is validated; forms over different groups or assignments get their own section titles. Options: as ModularFormView plus IncludeWeight."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, one, y}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; y = First[ConstructModularForms[g, d]]; ModularFormGetCoeff[y, WorkingPrecision -> 30]; Length[DisplayData[ModularFormTable[{y, y}, IncludeWeight -> False]][\"Rows\"]]]",
+  "Expected": "2",
+  "ErrorExample": "FailureQ[ModularFormTable[{1}]]",
+  "SeeAlso": [
+   "ModularFormView"
+  ]
+ },
+ "QExpansionView": {
+  "Kind": "Function",
+  "Details": [
+   "QExpansionView[y] or QExpansionView[qexp] gives a DisplayDocument of a stored or supplied q-expansion with exact rational powers, hidden-term markers and the stored cutoff.",
+   "A missing expansion shows \"not computed\" (ModularFormQExp stores one); an expansion that does not belong to the form's record fails StaleExpansion."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, one, y}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; y = First[ConstructModularForms[g, d]]; ModularFormGetCoeff[y, WorkingPrecision -> 30]; DisplayData[QExpansionView[y]][\"Status\"]]",
+  "Expected": "\"NotComputed\"",
+  "ErrorExample": "FailureQ[QExpansionView[1]]",
+  "SeeAlso": [
+   "ModularFormQExp",
+   "MaxQTerms"
+  ]
+ },
+ "ModularDimensionView": {
+  "Kind": "Function",
+  "Details": [
+   "ModularDimensionView[table] gives a DisplayDocument of a ModularDimensionTable result, keeping known zero, unknown (Missing), failed and not-requested cells distinct.",
+   "It computes nothing. Options: IrrepLabels and the presentation options."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, one, y}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; y = First[ConstructModularForms[g, d]]; ModularFormGetCoeff[y, WorkingPrecision -> 30]; DisplayData[ModularDimensionView[ModularDimensionTable[g, All, {0, 2}]]][\"Weights\"]]",
+  "Expected": "{0, 2}",
+  "ErrorExample": "FailureQ[ModularDimensionView[<|\"a\" -> <|0 -> -1|>|>]]",
+  "SeeAlso": [
+   "ModularDimensionTable"
+  ]
+ },
+ "FormSlotTable": {
+  "Kind": "Function",
+  "Details": [
+   "FormSlotTable[m] gives a DisplayDocument of the form slots of a modular model: labels, irreps, weights, copies, space dimensions, whether a term uses them and their frozen bindings.",
+   "Bindings are read from the model's frozen records, never from live forms. Options: FormSlotLabels, IrrepLabels and the presentation options."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, one, y}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; y = First[ConstructModularForms[g, d]]; ModularFormGetCoeff[y, WorkingPrecision -> 30]; Length[DisplayData[FormSlotTable[Module[{c = RepresentationContext[g], df, rf, m0}, df = CreateField[c, d, \"D\"]; rf = CreateField[c, one, \"R\"]; m0 = CreateModularModel[c, {df, rf}, FieldWeights -> <|df[\"ID\"] -> 1, rf[\"ID\"] -> 1|>]; AddModelTerm[m0, CoupleContractions[ModularContractions[m0, {df, rf}]]]]]][\"Slots\"]]]",
+  "Expected": "1",
+  "ErrorExample": "FailureQ[FormSlotTable[1]]",
+  "SeeAlso": [
+   "ModularFormCandidates",
+   "BindModularForms",
+   "ModelView"
+  ]
+ },
+ "SaveModularFormData": {
+  "Kind": "Function",
+  "Details": [
+   "SaveModularFormData[<|name -> y, ...|>, file] or SaveModularFormData[y, file] saves modular forms with their group as a versioned JSON archive (records, definitions, coefficients and anchor frames, stored expansions, evidence) and returns the path.",
+   "Forms of one group state per archive; an existing file needs Overwrite -> True; no code or GAP state is saved and nothing is computed."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, one, y}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; y = First[ConstructModularForms[g, d]]; ModularFormGetCoeff[y, WorkingPrecision -> 30]; FileExistsQ[SaveModularFormData[y, FileNameJoin[{$TemporaryDirectory, \"vvmf-doc-forms-\" <> CreateUUID[] <> \".json\"}]]]]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[SaveModularFormData[<||>, \"x.json\"]]",
+  "SeeAlso": [
+   "ImportModularFormData",
+   "SaveModelData"
+  ]
+ },
+ "ImportModularFormData": {
+  "Kind": "Function",
+  "Details": [
+   "ImportModularFormData[file] imports a modular form archive as fresh independent ModularForm handles (names of one archived form share one handle) at revision 1.",
+   "Every record is rebound to the admitted group, checked against its stored expansion and published all at once; archived proof claims are kept only for a trusted export. Options: ValidationGroup and the GAP job options."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, one, y}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; y = First[ConstructModularForms[g, d]]; ModularFormGetCoeff[y, WorkingPrecision -> 30]; ModularFormRep[ImportModularFormData[SaveModularFormData[y, FileNameJoin[{$TemporaryDirectory, \"vvmf-doc-forms-\" <> CreateUUID[] <> \".json\"}]]][\"Form\"]] === ModularFormRep[y]]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[ImportModularFormData[\"\"]]",
+  "SeeAlso": [
+   "SaveModularFormData",
+   "ImportModelData"
+  ]
+ }
+}

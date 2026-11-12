@@ -1,0 +1,62 @@
+Notebook[{Cell["ScalarQSeries", "ObjectName"], Cell["ScalarQSeries[expr, var, \
+n] gives the q-series of a scalar expression in var and scalar modular \
+ingredients, keeping exponents below n, as QExpansionData.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["ScalarQSeries[expr, var, n] gives \
+the q-series of a scalar expression in var, numeric constants and scalar \
+ingredients as one-component QExpansionData, keeping exponents below n (n = 0 \
+is valid; a Laurent series keeps its negative powers).", "Notes"], 
+  Cell["Each ingredient is computed only to the order it can affect \
+(valuation-aware), exactly. Option Coordinate: with \"tau\" the variable may \
+occur as Exp[2 Pi I r tau].", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Coordinate"], "TableText"], Cell["\"q\"", "TableText"], 
+       Cell[
+        "\"q\" (default) or \"tau\". Other values fail with InvalidOption.", 
+        "TableText"]}}, GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+     GridBoxItemSize -> {"Columns" -> {Scaled[0.02], Scaled[0.3], 
+         Scaled[0.18], Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["ScalarModularExpression", 
+      BaseStyle -> "Hyperlink", ButtonData -> {"ScalarModularExpression.nb", 
+        None}], "  |  ", ButtonBox["QExpansionExpression", 
+      BaseStyle -> "Hyperlink", ButtonData -> {"QExpansionExpression.nb", 
+        None}]}], "SeeAlso"], Cell["Examples Initialization", 
+   "ExamplesInitializationSection"], Cell["Open this notebook in its \
+repository location. GAP must be installed; LINS is required for its bounded \
+search page. Evaluate the setup before the examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{RowBox[{"QExpansionCoefficients", "[", 
+        RowBox[{"ScalarQSeries", "[", RowBox[
+           {RowBox[{SuperscriptBox[RowBox[{"ScalarModularExpression", "[", 
+                 RowBox[{"\"Eta\"", ",", "q"}], "]"}], "24"], "-", 
+              RowBox[{"ScalarModularExpression", "[", RowBox[{"\"Delta\"", 
+                  ",", "q"}], "]"}]}], ",", "q", ",", "8"}], "]"}], "]"}], 
+      "[", "\"Components\"", "]"}]], "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{"Association", "[", "]"}], "}"}]], 
+   "Output"], Cell["Possible Issues", "ExampleSection"], 
+  Cell["Invalid input returns a structured Failure. Check FailureQ before \
+using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"ScalarQSeries", "[", 
+        RowBox[{RowBox[{"Sin", "[", "q", "]"}], ",", "q", ",", "3"}], "]"}], 
+      "]"}]], "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/ScalarQSeries", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "ScalarQSeries \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

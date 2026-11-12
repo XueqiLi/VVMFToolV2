@@ -1,0 +1,89 @@
+Notebook[{Cell["IndependentContractions", "ObjectName"], 
+  Cell["IndependentContractions[set] keeps a linearly independent basis of \
+the set's channel polynomials and expresses every original channel in it \
+(Relations).", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["IndependentContractions[set] chooses a linearly independent basis \
+among the channel polynomials of set (over the scalar constants of the CG \
+data, in path order) and records Relations: each original channel ID mapped \
+to its coefficients in the basis channel IDs.", "Notes"], 
+  Cell["Field components are independent commuting variables, so a repeated \
+field gives symmetric polynomials and fewer independent terms. Exact data \
+give an exact rank; numerical data a numerical rank that fails when ambiguous \
+at the declared tolerance.", "Notes"], 
+  Cell["The result's Channels are the basis; RawChannels keep every original \
+path.", "Notes"], Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["Contractions", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"Contractions.nb", None}], "  |  ", 
+     ButtonBox["SelectContractions", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"SelectContractions.nb", None}], "  |  ", 
+     ButtonBox["CoupleContractions", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"CoupleContractions.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{"t", ",", "m2", ",", "q", ",", "raw", ",", 
+            "x", ",", "mass", ",", RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "d", ",", "sign", ",", "l", ",", "r", ",", "m"}], "}"}], 
+        ",", RowBox[{RowBox[{"d", "=", RowBox[{"First", "[", 
+              RowBox[{"Select", "[", RowBox[{RowBox[{"g", "[", 
+                    "\"IrrepOrder\"", "]"}], ",", RowBox[{RowBox[
+                     {RowBox[{"RepDim", "[", RowBox[{"GroupRepresentation", 
+                          "[", RowBox[{"g", ",", "#1"}], "]"}], "]"}], "===", 
+                      "2"}], "&"}]}], "]"}], "]"}]}], ";", 
+          RowBox[{"sign", "=", RowBox[{"First", "[", RowBox[{"DeleteCases", 
+                "[", RowBox[{RowBox[{"Select", "[", RowBox[{RowBox[{"g", "[", 
+                        "\"IrrepOrder\"", "]"}], ",", RowBox[{RowBox[
+                         {RowBox[{"RepDim", "[", RowBox[
+                          {"GroupRepresentation", "[", RowBox[{"g", ",", 
+                          "#1"}], "]"}], "]"}], "===", "1"}], "&"}]}], "]"}], 
+                  ",", RowBox[{RowBox[{"g", "[", "\"CharacterData\"", "]"}], 
+                    "[", "\"TrivialIrrepID\"", "]"}]}], "]"}], "]"}]}], ";", 
+          RowBox[{"l", "=", RowBox[{"CreateField", "[", RowBox[{"g", ",", 
+                "d", ",", "\"L\""}], "]"}]}], ";", 
+          RowBox[{"r", "=", RowBox[{"CreateField", "[", RowBox[{"g", ",", 
+                "d", ",", "\"R\""}], "]"}]}], ";", 
+          RowBox[{"m", "=", RowBox[{"CreateModel", "[", RowBox[{"g", ",", 
+                RowBox[{"{", RowBox[{"l", ",", "r"}], "}"}]}], "]"}]}], ";", 
+          RowBox[{"q", "=", RowBox[{"CreateModel", "[", RowBox[{"g", ",", 
+                RowBox[{"{", "l", "}"}]}], "]"}]}], ";", 
+          RowBox[{"raw", "=", RowBox[{"Contractions", "[", RowBox[{"q", ",", 
+                RowBox[{"{", RowBox[{"l", ",", "l", ",", "l", ",", "l"}], 
+                  "}"}]}], "]"}]}], ";", RowBox[
+           {"{", RowBox[{RowBox[{"Length", "[", RowBox[{"raw", "[", 
+                  "\"Channels\"", "]"}], "]"}], ",", RowBox[{RowBox[
+                 {"IndependentContractions", "[", "raw", "]"}], "[", 
+                "\"Rank\"", "]"}]}], "}"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{"3", ",", "1"}], "}"}]], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"IndependentContractions", 
+        "[", "\"no set\"", "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/IndependentContractions", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "IndependentContractions \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

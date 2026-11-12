@@ -1,0 +1,104 @@
+Notebook[{Cell["ModularFormCandidates", "ObjectName"], 
+  Cell["ModularFormCandidates[m, factors] gives the formal modular-form \
+spaces and copies (slots) a product of fields of the modular model m needs to \
+reach its target at the model's weight, with their counts and completeness.", 
+   "Usage"], Cell["Status: Alpha.", "Notes"], Cell["ModularFormCandidates[m, \
+factors] gives the formal modular-form spaces and copies (slots) that a \
+product of the model's fields needs to reach its target at the model's weight \
+kW.", "Notes"], Cell["For a choice of factor channels of actual weight w the \
+forms need kY = kW - w; a known count d gives d slots, an unknown count or \
+missing spectrum makes the report incomplete instead of zero. A space \
+established by SupplyModularFormSpace gives its supplied number of slots with \
+Status \"Supplied\" in \"Spaces\"; \"Complete\" is then conditional on the \
+user's spanning claim. Options: TargetIrreps, DimensionCache.", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["TargetIrreps"], "TableText"], Cell["Automatic", 
+        "TableText"], 
+       Cell[
+        "All (default), an irrep ID or a duplicate-free list of irrep IDs.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["DimensionCache"], "TableText"], 
+       Cell["True", "TableText"], Cell["True (default) or False.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["DimensionMethod"], "TableText"], 
+       Cell["Automatic", "TableText"], 
+       Cell["Automatic, \"Profile\" or \"TraceFormula\".", "TableText"]}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, GridBoxItemSize -> 
+      {"Columns" -> {Scaled[0.02], Scaled[0.3], Scaled[0.18], 
+         Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["ModularContractions", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ModularContractions.nb", None}], "  |  ", 
+     ButtonBox["ModularFormCandidateData", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ModularFormCandidateData.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "c", ",", "d", ",", "one", ",", "df", ",", "rf", ",", 
+            "m0"}], "}"}], ",", RowBox[{RowBox[{"AssignModularGenerators", 
+            "[", RowBox[{"g", ",", RowBox[{"GroupWord", "[", "\"t^-1.s.t\"", 
+                "]"}], ",", RowBox[{"GroupWord", "[", "\"s\"", "]"}], ",", 
+              RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}], ";", 
+          RowBox[{"c", "=", RowBox[{"RepresentationContext", "[", "g", 
+              "]"}]}], ";", RowBox[{"d", "=", RowBox[{"First", "[", 
+              RowBox[{"Select", "[", RowBox[{RowBox[{"g", "[", 
+                    "\"IrrepOrder\"", "]"}], ",", RowBox[{RowBox[
+                     {RowBox[{"RepDim", "[", RowBox[{"GroupRepresentation", 
+                          "[", RowBox[{"g", ",", "#1"}], "]"}], "]"}], "===", 
+                      "2"}], "&"}]}], "]"}], "]"}]}], ";", 
+          RowBox[{"one", "=", RowBox[{RowBox[{"g", "[", "\"CharacterData\"", 
+                "]"}], "[", "\"TrivialIrrepID\"", "]"}]}], ";", 
+          RowBox[{"df", "=", RowBox[{"CreateField", "[", RowBox[{"c", ",", 
+                "d", ",", "\"D\""}], "]"}]}], ";", 
+          RowBox[{"rf", "=", RowBox[{"CreateField", "[", RowBox[{"c", ",", 
+                "one", ",", "\"R\""}], "]"}]}], ";", 
+          RowBox[{"m0", "=", RowBox[{"CreateModularModel", "[", 
+              RowBox[{"c", ",", RowBox[{"{", RowBox[{"df", ",", "rf"}], 
+                  "}"}], ",", RowBox[{"FieldWeights", "\[Rule]", 
+                  RowBox[{"Association", "[", RowBox[{RowBox[{RowBox[{"df", 
+                          "[", "\"ID\"", "]"}], "\[Rule]", "1"}], ",", 
+                      RowBox[{RowBox[{"rf", "[", "\"ID\"", "]"}], "\[Rule]", 
+                        "1"}]}], "]"}]}]}], "]"}]}], ";", 
+          RowBox[{"With", "[", RowBox[{RowBox[{"{", RowBox[{"cand", "=", 
+                  RowBox[{"ModularFormCandidates", "[", RowBox[{"m0", ",", 
+                      RowBox[{"{", RowBox[{"df", ",", "rf"}], "}"}]}], 
+                    "]"}]}], "}"}], ",", RowBox[{"{", RowBox[
+                 {RowBox[{"cand", "[", "\"Complete\"", "]"}], ",", 
+                  RowBox[{"Length", "[", RowBox[{"cand", "[", "\"Slots\"", 
+                      "]"}], "]"}]}], "}"}]}], "]"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{"True", ",", "1"}], "}"}]], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"ModularFormCandidates", "[", 
+        RowBox[{"1", ",", RowBox[{"{", "}"}]}], "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/ModularFormCandidates", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "ModularFormCandidates \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

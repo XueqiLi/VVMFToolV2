@@ -1,0 +1,45 @@
+Notebook[{Cell["ModularGroupSpecification", "ObjectName"], 
+  Cell["ModularGroupSpecification[label] returns the recorded presentation of \
+a named modular realization.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["Returns a recorded GroupPresentation with named S,T. The catalogue \
+contains 48 v1 presentations. Labels including \"24-3I\" and \"24-3II\" \
+remain separate realizations.", "Notes"], Cell["This is a catalogue lookup; \
+it does not run GAP or classify arbitrary groups as modular quotients.", 
+   "Notes"], Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["BuildModularGroup", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"BuildModularGroup.nb", None}], "  |  ", 
+     ButtonBox["GroupPresentation", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"GroupPresentation.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"MatchQ", "[", 
+      RowBox[{RowBox[{"ModularGroupSpecification", "[", "\"24-3I\"", "]"}], 
+        ",", "_GroupPresentation"}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"ModularGroupSpecification", 
+        "[", "\"unknown\"", "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/ModularGroupSpecification", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "ModularGroupSpecification \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

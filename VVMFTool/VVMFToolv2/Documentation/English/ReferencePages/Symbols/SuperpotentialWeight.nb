@@ -1,0 +1,47 @@
+Notebook[{Cell["SuperpotentialWeight", "ObjectName"], 
+  Cell["SuperpotentialWeight is an option of CreateModularModel: the actual \
+modular weight kW (an exact rational) of the model's target expression \
+(default 0).", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["Option of CreateModularModel: the actual modular weight kW of the \
+model's target expression.", "Notes"], Cell["An exact rational, default 0; \
+every monomial of every term must have total actual weight kW (fields -kf, \
+forms kY).", "Notes"], Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["CreateModularModel", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"CreateModularModel.nb", None}], "  |  ", 
+     ButtonBox["FieldWeights", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"FieldWeights.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Lookup", "[", 
+      RowBox[{RowBox[{"Options", "[", "CreateModularModel", "]"}], ",", 
+        "SuperpotentialWeight"}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], Cell[BoxData["0"], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"CreateModularModel", "[", 
+        RowBox[{"1", ",", RowBox[{"{", "}"}], ",", 
+          RowBox[{"SuperpotentialWeight", "\[Rule]", FractionBox["1", 
+             "2"]}]}], "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/SuperpotentialWeight", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "SuperpotentialWeight \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

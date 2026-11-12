@@ -1,0 +1,141 @@
+Notebook[{Cell["ModelView", "ObjectName"], Cell["ModelView[m] is a read-only \
+display document of the Model m: target and covariance status as recorded, \
+fields, expression, terms and parameters. Render it with ToNotebook, ToLaTeX \
+or ExportDisplay.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["ModelView[m] is a read-only display document of the Model m: \
+identity, target and the covariance status recorded when the terms were added \
+(invariant or covariant with a nontrivial character), arithmetic, the field \
+table, the model expression, the terms and the parameter table.", "Notes"], 
+  Cell["Render it with ToNotebook, ToLaTeX or ExportDisplay. Options: \
+FieldLabels, CouplingLabels, IrrepLabels, DisplayTimeLimit and the \
+presentation options of the Stage 3 views. A display computes nothing and \
+certifies nothing new.", "Notes"], Cell["Stage 9: a modular model also shows \
+field weights kf and -kf, its target weight kW, binding status and form slots \
+(FormSlotLabels).", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["FieldLabels"], "TableText"], Cell["<||>", "TableText"], 
+       Cell["<||> (default: the fields' names) or an association from field \
+IDs to strings or TeXFragment. Unknown IDs fail with InvalidOption.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["CouplingLabels"], "TableText"], 
+       Cell["<||>", "TableText"], Cell["<||> (default: the parameters' own \
+labels) or an association from parameter IDs to strings or TeXFragment. \
+Unknown IDs fail with InvalidOption.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["IrrepLabels"], "TableText"], 
+       Cell["<||>", "TableText"], Cell["An association from known irrep IDs \
+to plain strings (escaped) or TeXFragment values (raw TeX, shown literally in \
+notebooks). Labels never replace the ID column.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["FormSlotLabels"], 
+        "TableText"], Cell["<||>", "TableText"], Cell["Default <||>; slot \
+labels otherwise come from the slot records (Y^(k)_r with a Roman copy index \
+when the space has more than one copy); unknown slot IDs fail InvalidOption."\
+, "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["DisplayTimeLimit"], "TableText"], 
+       Cell["5", "TableText"], Cell["Bounds optional label work, such as \
+certifying T phases; with LabelStyle -> Automatic a timeout falls back to \
+dimension labels. Mandatory rendering is not affected.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["ScalarNotation"], 
+        "TableText"], Cell["\"Standard\"", "TableText"], 
+       Cell["\"Standard\" writes a certified root of unity as exact radicals \
+a + b i when possible; \"Exponential\" as e^{2 pi i k/n}; \"Omega\" as \
+omega_n^k (with its definition once when DefineOmega is True). Only exactly \
+certified rational phases are converted; other values are unaffected. In \
+\"Standard\" a table can therefore mix forms (fifth roots of unity have \
+radical forms, 25th roots are written exponentially); \"Exponential\" and \
+\"Omega\" give a uniform table.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["NotationStyle"], "TableText"], Cell["\"Standard\"", 
+        "TableText"], Cell["\"Standard\" uses ordinary LaTeX commands; \
+\"Paper\" uses the macros \\ii, \\ee and \\rep, defined by the preamble with \
+\\providecommand.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["OneByOneMatrix"], "TableText"], Cell["\"Scalar\"", 
+        "TableText"], Cell["\"Scalar\" writes a 1 x 1 matrix as its entry \
+(the row data still identify it as a one-dimensional matrix); \"Matrix\" \
+writes a 1 x 1 pmatrix.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["DefineOmega"], "TableText"], Cell["True", "TableText"], 
+       Cell["True includes the definition omega_a^b = e^{2 pi i b/a} once in \
+the legend when omega notation is used; False leaves it to the caller.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], Cell[BoxData["Digits"], 
+        "TableText"], Cell["Automatic", "TableText"], 
+       Cell["A positive integer limits the digits displayed for numerical \
+values. Exact values are never rounded, and stored values are not changed.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], Cell[BoxData["Caption"], 
+        "TableText"], Cell["Automatic", "TableText"], 
+       Cell["A plain string (escaped) or a TeXFragment replaces the automatic \
+caption.", "TableText"]}, {Cell[" ", "TableRowIcon"], Cell[BoxData["Label"], 
+        "TableText"], Cell["None", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["PageSize"], "TableText"], 
+       Cell["20", "TableText"], Cell["Rows per page of an interactive \
+notebook view: a positive integer or All. Exports are always complete; in an \
+exported notebook PageSize only organizes sections.", "TableText"]}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, GridBoxItemSize -> 
+      {"Columns" -> {Scaled[0.02], Scaled[0.3], Scaled[0.18], 
+         Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["FieldTable", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"FieldTable.nb", None}], "  |  ", 
+     ButtonBox["CouplingTable", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"CouplingTable.nb", None}], "  |  ", 
+     ButtonBox["ToLaTeX", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ToLaTeX.nb", None}], "  |  ", 
+     ButtonBox["ToNotebook", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ToNotebook.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "d", ",", "l", ",", "r", ",", "m", ",", "mass"}], "}"}], 
+        ",", RowBox[{RowBox[{"d", "=", RowBox[{"First", "[", 
+              RowBox[{"Select", "[", RowBox[{RowBox[{"g", "[", 
+                    "\"IrrepOrder\"", "]"}], ",", RowBox[{RowBox[
+                     {RowBox[{"RepDim", "[", RowBox[{"GroupRepresentation", 
+                          "[", RowBox[{"g", ",", "#1"}], "]"}], "]"}], "===", 
+                      "2"}], "&"}]}], "]"}], "]"}]}], ";", 
+          RowBox[{"l", "=", RowBox[{"CreateField", "[", RowBox[{"g", ",", 
+                "d", ",", "\"L\""}], "]"}]}], ";", 
+          RowBox[{"r", "=", RowBox[{"CreateField", "[", RowBox[{"g", ",", 
+                "d", ",", "\"R\""}], "]"}]}], ";", 
+          RowBox[{"m", "=", RowBox[{"CreateModel", "[", RowBox[{"g", ",", 
+                RowBox[{"{", RowBox[{"l", ",", "r"}], "}"}]}], "]"}]}], ";", 
+          RowBox[{"m", "=", RowBox[{"AddModelTerm", "[", RowBox[{"m", ",", 
+                RowBox[{"CoupleContractions", "[", RowBox[{"Contractions", 
+                    "[", RowBox[{"m", ",", RowBox[{"{", RowBox[{"l", ",", 
+                          "r"}], "}"}]}], "]"}], "]"}]}], "]"}]}], ";", 
+          RowBox[{"mass", "=", RowBox[{"ExtractBilinearMatrix", "[", 
+              RowBox[{RowBox[{"ModelExpression", "[", "m", "]"}], ",", "l", 
+                ",", "r"}], "]"}]}], ";", RowBox[
+           {RowBox[{"DisplayData", "[", RowBox[{"ModelView", "[", "m", "]"}], 
+              "]"}], "[", "\"Kind\"", "]"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], Cell[BoxData["\"Model\""], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"ModelView", "[", "\"m\"", 
+        "]"}], "]"}]], "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/ModelView", "Categorization", CellLabel -> "URI"]}, 
+    Closed]]}, WindowTitle -> "ModelView \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

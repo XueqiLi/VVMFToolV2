@@ -1,0 +1,80 @@
+Notebook[{Cell["UnitaryRepresentationQ", "ObjectName"], 
+  Cell["UnitaryRepresentationQ[r] tests whether every generator matrix of the \
+representation value r is unitary.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["Tests every generator matrix of a \
+Rep value: M^\[Dagger].M == I. Unitary generators make every element matrix \
+unitary.", "Notes"], Cell["Exact matrices are decided exactly. Numerical \
+matrices are compared with Tolerance (default 10^(-Floor[p/2]) for precision \
+p; 16 digits for machine numbers); Tolerance with exact matrices is refused."\
+, "Notes"], Cell["Unitarity is a property of the matrices, so no group is \
+needed; an invalid or singular Rep gives a Failure rather than False.", 
+   "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Tolerance"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["See the method choices in this page's details.", 
+        "TableText"]}}, GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+     GridBoxItemSize -> {"Columns" -> {Scaled[0.02], Scaled[0.3], 
+         Scaled[0.18], Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["UnitarizeRepresentation", 
+      BaseStyle -> "Hyperlink", ButtonData -> {"UnitarizeRepresentation.nb", 
+        None}], "  |  ", ButtonBox["ChangeRepBasis", 
+      BaseStyle -> "Hyperlink", ButtonData -> {"ChangeRepBasis.nb", None}], 
+     "  |  ", ButtonBox["Rep", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"Rep.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{RowBox[{"UnitaryRepresentationQ", "[", 
+          InterpretationBox[TemplateBox[{"\"Rep[\"", TemplateBox[
+              {", ", "\", \"", TagBox[RowBox[{"(", "\[NoBreak]", GridBox[
+                   {{"0", "1"}, {"1", "0"}}, RowSpacings -> 1, 
+                   ColumnSpacings -> 1, RowAlignments -> Baseline, 
+                   ColumnAlignments -> Center], "\[NoBreak]", ")"}], 
+                Function[BoxForm`e$, MatrixForm[BoxForm`e$]]]}, 
+              "RowWithSeparators"], "\"]\""}, "RowDefault"], 
+           Rep[{{{0, 1}, {1, 0}}}]], "]"}], ",", 
+        RowBox[{"UnitaryRepresentationQ", "[", InterpretationBox[
+           TemplateBox[{"\"Rep[\"", TemplateBox[{", ", "\", \"", TagBox[
+                RowBox[{"(", "\[NoBreak]", GridBox[{{"1", "1"}, {"0", "1"}}, 
+                   RowSpacings -> 1, ColumnSpacings -> 1, RowAlignments -> 
+                    Baseline, ColumnAlignments -> Center], "\[NoBreak]", 
+                  ")"}], Function[BoxForm`e$, MatrixForm[BoxForm`e$]]]}, 
+              "RowWithSeparators"], "\"]\""}, "RowDefault"], 
+           Rep[{{{1, 1}, {0, 1}}}]], "]"}]}], "}"}]], "Input", 
+   CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{"True", ",", "False"}], "}"}]], 
+   "Output"], Cell["Possible Issues", "ExampleSection"], 
+  Cell["Invalid input returns a structured Failure. Check FailureQ before \
+using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"UnitaryRepresentationQ", 
+        "[", InterpretationBox[TemplateBox[{"\"Rep[\"", 
+           TemplateBox[{", ", "\", \"", TagBox[RowBox[{"(", "\[NoBreak]", 
+                GridBox[{{"0"}}, RowSpacings -> 1, ColumnSpacings -> 1, 
+                 RowAlignments -> Baseline, ColumnAlignments -> Center], 
+                "\[NoBreak]", ")"}], Function[BoxForm`e$, MatrixForm[
+                BoxForm`e$]]]}, "RowWithSeparators"], "\"]\""}, 
+          "RowDefault"], Rep[{{{0}}}]], "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/UnitaryRepresentationQ", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "UnitaryRepresentationQ \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

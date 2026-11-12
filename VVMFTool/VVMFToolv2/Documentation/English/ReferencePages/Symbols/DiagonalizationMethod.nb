@@ -1,0 +1,44 @@
+Notebook[{Cell["DiagonalizationMethod", "ObjectName"], 
+  Cell["DiagonalizationMethod selects T diagonalization: Automatic, \
+\"Exact\", \"NumericalReconstruction\" or \"Numerical\".", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["Option for \
+DiagonalizeRepresentationT and TransformGroupRepresentations. Default: \
+Automatic (Exact, then NumericalReconstruction; Numerical for numerical \
+arithmetic).", "Notes"], Cell["\"Exact\" and \"NumericalReconstruction\" \
+prove every identity exactly and require Arithmetic -> \"Exact\"; \
+\"Numerical\" requires Arithmetic -> \"Numerical\".", "Notes"], 
+  Cell["The owning function rejects other values and inapplicable \
+combinations before computation.", "Notes"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["DiagonalizeRepresentationT", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"DiagonalizeRepresentationT.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"MemberQ", "[", 
+      RowBox[{RowBox[{"First", "/@", RowBox[{"Options", "[", 
+            "DiagonalizeRepresentationT", "]"}]}], ",", 
+        "DiagonalizationMethod"}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/DiagonalizationMethod", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "DiagonalizationMethod \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

@@ -1,0 +1,84 @@
+Notebook[{Cell["MinimumModularWeight", "ObjectName"], 
+  Cell["MinimumModularWeight[c, irrep] gives the smallest weight with a \
+nonzero form, from the profile or a bounded search.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["MinimumModularWeight[c, irrep] gives \
+the smallest weight with a nonzero form: the first profile weight, or a \
+bounded search over established dimensions (WeightSearchLimit) that reports \
+Missing[\"UnknownMinimumWeight\", ...] for unknown weights before the first \
+positive one and Missing[\"SearchLimitReached\", limit] otherwise. An irrep \
+with rho(S^2) != +-1 (a cover group) has no admissible integer weight: \
+Missing[\"UnknownMinimumWeight\", <|\"CentralPhase\", \"Reason\"|>].", 
+   "Notes"], 
+  Cell["DimensionMethod chooses the Method of the dimensions it computes.", 
+   "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["WeightSearchLimit"], "TableText"], 
+       Cell["20", "TableText"], 
+       Cell["20 (default) or a nonnegative integer.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["DimensionCache"], 
+        "TableText"], Cell["True", "TableText"], 
+       Cell["True (default) or False.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["DimensionMethod"], 
+        "TableText"], Cell["Automatic", "TableText"], 
+       Cell["Automatic, \"Profile\" or \"TraceFormula\".", "TableText"]}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, GridBoxItemSize -> 
+      {"Columns" -> {Scaled[0.02], Scaled[0.3], Scaled[0.18], 
+         Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["ModularWeightProfile", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ModularWeightProfile.nb", None}], "  |  ", 
+     ButtonBox["WeightSearchLimit", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"WeightSearchLimit.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "d", ",", "one"}], "}"}], ",", 
+        RowBox[{RowBox[{"AssignModularGenerators", "[", 
+            RowBox[{"g", ",", RowBox[{"GroupWord", "[", "\"t^-1.s.t\"", 
+                "]"}], ",", RowBox[{"GroupWord", "[", "\"s\"", "]"}], ",", 
+              RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}], ";", 
+          RowBox[{"d", "=", RowBox[{"First", "[", RowBox[{"Select", "[", 
+                RowBox[{RowBox[{"g", "[", "\"IrrepOrder\"", "]"}], ",", 
+                  RowBox[{RowBox[{RowBox[{"RepDim", "[", RowBox[
+                         {"GroupRepresentation", "[", RowBox[{"g", ",", 
+                          "#1"}], "]"}], "]"}], "===", "2"}], "&"}]}], "]"}], 
+              "]"}]}], ";", RowBox[{"one", "=", RowBox[
+             {RowBox[{"g", "[", "\"CharacterData\"", "]"}], "[", 
+              "\"TrivialIrrepID\"", "]"}]}], ";", 
+          RowBox[{"MinimumModularWeight", "[", RowBox[{"g", ",", "d"}], 
+            "]"}]}]}], "]"}]], "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData["2"], "Output"], Cell["Possible Issues", "ExampleSection"], 
+  Cell["Invalid input returns a structured Failure. Check FailureQ before \
+using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"MinimumModularWeight", "[", 
+        RowBox[{"\"g\"", ",", "\"x\""}], "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/MinimumModularWeight", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "MinimumModularWeight \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

@@ -1,0 +1,702 @@
+{
+  "Group": {
+    "Details": [
+      "A Group is a live handle. Assigning h=g shares the same object; successful enrichment is visible through both handles. ImportGroupData creates a distinct handle.",
+      "Properties are read with strings: g[\"Order\"], g[\"CharacterData\"], g[\"Generators\"], g[\"AvailableData\"], g[\"ModularAssignment\"], g[\"Elements\"], g[\"SubgroupData\"], g[\"Representations\"], g[\"IrrepOrder\"] (presentation order of the irrep IDs, initially the character table's order), g[\"Name\"], g[\"InstanceID\"], g[\"Construction\"], g[\"CatalogueID\"], g[\"GAPCachePath\"], g[\"GAPCacheMetadata\"] and g[\"LastComputation\"]. Reading a property never starts GAP.",
+      "CharacterData contains Values, IrrepIDs, ClassIDs, ClassSizes, ClassOrders, ClassRepresentativeWords, IdentityClassID, TrivialIrrepID, Degrees and Identity. Values has one row per irreducible character and one column per conjugacy class. Public words are GroupWord values using recorded generator names; generator IDs are used in JSON interchange.",
+      "BuildGroup and BuildModularGroup create handles only after complete character validation. Missing[\"NotComputed\"] and Missing[\"NotAssigned\"] differ from a computed empty collection. Direct property assignment is unsupported."
+    ],
+    "Example": "Module[{g=BuildGroup[CatalogueGroup[\"CyclicGroup\", 3], ComputeRepresentations -> False, StoreGAPState -> False], h}, h=g; {h===g, g[\"Order\"], NumberOfRep[h]}]",
+    "Expected": "{True,3,3}",
+    "SeeAlso": [
+      "BuildGroup",
+      "ImportGroupData",
+      "GroupSubgroups"
+    ],
+    "ErrorExample": "FailureQ[NumberOfRep[Group[\"unknown-handle\"]]]",
+    "Kind": "Function"
+  },
+  "NumberOfRep": {
+    "Details": [
+      "Counts the complete irreducible character rows, without needing matrices. Does not mutate the group or invoke GAP."
+    ],
+    "Example": "Module[{g=BuildGroup[CatalogueGroup[\"SymmetricGroup\", 3], ComputeRepresentations -> False, StoreGAPState -> False]}, NumberOfRep[g]]",
+    "Expected": "3",
+    "SeeAlso": [
+      "Group",
+      "BuildGroup"
+    ],
+    "ErrorExample": "FailureQ[NumberOfRep[3]]",
+    "Kind": "Function"
+  },
+  "GroupWord": {
+    "Details": [
+      "GroupWord[{{\"a\",1},{\"b\",-2}}] is the ordered product a b^-2. GroupWord[{}] is the identity. Text accepts named generators, integer powers, parentheses and . or * for ordered multiplication.",
+      "Words are inert data. The receiving operation validates names and syntax without evaluating the text. Free reduction does not impose unproved group relations."
+    ],
+    "Example": "Module[{g=BuildGroup[GroupPresentation[{\"a\",\"b\"}, {\"a^2\",\"b^3\",\"(a.b)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False]}, GroupWordOrder[g, GroupWord[\"(a.b)^3\"]]]",
+    "Expected": "1",
+    "SeeAlso": [
+      "GroupWordOrder",
+      "GroupPresentation",
+      "AssignModularGenerators"
+    ],
+    "ErrorExample": "Module[{g=BuildGroup[CatalogueGroup[\"CyclicGroup\", 3], ComputeRepresentations -> False, StoreGAPState -> False]}, FailureQ[GroupWordOrder[g, GroupWord[\"unknown\"]]]]",
+    "Kind": "Function"
+  },
+  "GroupPresentation": {
+    "Details": [
+      "GroupPresentation[names,relators] keeps the ordered names and relator words. Each relator equals the identity. Names must be distinct identifiers beginning with a letter; subsequent letters, digits and underscores are allowed.",
+      "Relators may mix GroupWord values and text. No relators does not establish finiteness. BuildGroup establishes finite order within the requested resources."
+    ],
+    "Example": "Module[{g=BuildGroup[GroupPresentation[{\"a\",\"b\"}, {\"a^2\",\"b^3\",\"(a.b)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False]}, {g[\"Order\"], NumberOfRep[g]}]",
+    "Expected": "{12,4}",
+    "SeeAlso": [
+      "BuildGroup",
+      "GroupWord",
+      "NormalSubgroupsByIndex"
+    ],
+    "ErrorExample": "FailureQ[BuildGroup[GroupPresentation[{\"a\",\"a\"},{\"a^2\"}], ComputeRepresentations -> False]]",
+    "Kind": "Function"
+  },
+  "CatalogueGroup": {
+    "Details": [
+      "Supported catalogues: \"SmallGroup\" with positive {order,index}; \"AlternatingGroup\" and \"SymmetricGroup\" with nonnegative degree; \"CyclicGroup\" with positive order; \"DihedralGroup\" with even order at least two. Constructed generators receive ordered names g1, g2, ... .",
+      "A catalogue identity does not select a modular realization. Use BuildModularGroup for a recorded S,T assignment, or AssignModularGenerators explicitly."
+    ],
+    "Example": "Module[{g=BuildGroup[CatalogueGroup[\"SymmetricGroup\", 3], ComputeRepresentations -> False, StoreGAPState -> False]}, {g[\"Order\"],NumberOfRep[g]}]",
+    "Expected": "{6,3}",
+    "SeeAlso": [
+      "BuildGroup",
+      "BuildModularGroup"
+    ],
+    "ErrorExample": "FailureQ[BuildGroup[CatalogueGroup[\"Unknown\",1],ComputeRepresentations -> False]]",
+    "Kind": "Function"
+  },
+  "PermutationGroupSpecification": {
+    "Details": [
+      "Takes an ordered list of Cycles generators and equally many distinct names. Cycles contain disjoint positive integer points; omitted points are fixed. Generator order and orientation are preserved.",
+      "Empty generators and names specify the trivial group; repeated or identity generators are retained."
+    ],
+    "Example": "Module[{g=BuildGroup[PermutationGroupSpecification[{Cycles[{{1,2,3}}]}, {\"c\"}],ComputeRepresentations -> False,StoreGAPState -> False]},GroupWordOrder[g,GroupWord[\"c\"]]]",
+    "Expected": "3",
+    "SeeAlso": [
+      "BuildGroup",
+      "MatrixGroupSpecification"
+    ],
+    "ErrorExample": "FailureQ[BuildGroup[PermutationGroupSpecification[{Cycles[{{1,2}}]},{}],ComputeRepresentations -> False]]",
+    "Kind": "Function"
+  },
+  "MatrixGroupSpecification": {
+    "Details": [
+      "Square invertible generators share one positive dimension and an explicit exact domain. Domains are <|\"Type\"->\"Rationals\"|>, <|\"Type\"->\"Cyclotomics\"|>, <|\"Type\"->\"PrimeField\",\"Characteristic\"->p|> for prime p, or <|\"Type\"->\"IntegersMod\",\"Modulus\"->n|> for n>=2.",
+      "Rational entries are exact integers/rationals. Finite-domain entries are integers reduced in that domain. For cyclotomics, exact nonrational values use a scalar association with type=\"cyclotomic\", rootOrder=n and n rational coefficient pairs in ascending powers of Exp[2 Pi I/n]; coefficients are decimal-string numerator/positive-denominator pairs.",
+      "An empty matrix-generator list requires \"Dimension\" in the domain. Modular-ring determinants must be units. These are construction matrices; they are not the complex irreducible matrices supplied in stage 2."
+    ],
+    "Example": "Module[{g=BuildGroup[MatrixGroupSpecification[{{{0,-1},{1,0}}},{\"r\"},<|\"Type\"->\"Rationals\"|>],ComputeRepresentations -> False,StoreGAPState -> False]},GroupWordOrder[g,GroupWord[\"r\"]]]",
+    "Expected": "4",
+    "SeeAlso": [
+      "BuildGroup",
+      "PermutationGroupSpecification"
+    ],
+    "ErrorExample": "FailureQ[BuildGroup[MatrixGroupSpecification[{{{2,0},{0,1}}},{\"r\"},<|\"Type\"->\"IntegersMod\",\"Modulus\"->4|>],ComputeRepresentations -> False]]",
+    "Kind": "Function"
+  },
+  "ModularGroupSpecification": {
+    "Details": [
+      "Returns a recorded GroupPresentation with named S,T. The catalogue contains 48 v1 presentations. Labels including \"24-3I\" and \"24-3II\" remain separate realizations.",
+      "This is a catalogue lookup; it does not run GAP or classify arbitrary groups as modular quotients."
+    ],
+    "Example": "MatchQ[ModularGroupSpecification[\"24-3I\"],_GroupPresentation]",
+    "Expected": "True",
+    "SeeAlso": [
+      "BuildModularGroup",
+      "GroupPresentation"
+    ],
+    "ErrorExample": "FailureQ[ModularGroupSpecification[\"unknown\"]]",
+    "Kind": "Function"
+  },
+  "VVMFToolConfiguration": {
+    "Details": [
+      "Returns symbol-keyed session defaults. No discovery, directory creation or workers occur. Reloading preserves configuration and live objects."
+    ],
+    "Example": "AssociationQ[VVMFToolConfiguration[]] && KeyExistsQ[VVMFToolConfiguration[], StoreGAPState]",
+    "Expected": "True",
+    "SeeAlso": [
+      "ConfigureVVMFTool",
+      "CheckGAP"
+    ],
+    "ErrorExample": "FailureQ[VVMFToolConfiguration[1]]",
+    "Kind": "Function"
+  },
+  "ConfigureVVMFTool": {
+    "Details": [
+      "Changes only supplied defaults atomically; an invalid option leaves all previous settings unchanged. Per-call options override configured shared defaults. Duplicate rules follow first-occurrence precedence.",
+      "Configured executable/cache paths must be absolute. Automatic executable discovery uses the available GAP installation. Restore previous settings with ConfigureVVMFTool[Sequence@@Normal[previous]].",
+      "FieldMethod and Verification set the session defaults of the CG functions (CGCoefficients, CacheCG; FieldMethod also for the functions built on CG coefficients); per-call options override them. Defaults -> <|family -> <|option -> value|>, operation -> <|...|>|> sets session defaults for the option families \"CG\", \"Representations\", \"Models\" and \"Modular\" or for single operations (see Defaults); a call uses an explicit option, then the operation's key, then the family's, then the built-in default."
+    ],
+    "Example": "Module[{previous=VVMFToolConfiguration[],result},WithCleanup[Null,result=ConfigureVVMFTool[StoreGAPState->False][StoreGAPState],ConfigureVVMFTool[Sequence@@Normal[previous]]];result]",
+    "Expected": "False",
+    "SeeAlso": [
+      "VVMFToolConfiguration",
+      "CheckGAP"
+    ],
+    "ErrorExample": "FailureQ[ConfigureVVMFTool[CoreBudget->0]]",
+    "Kind": "Function"
+  },
+  "CheckGAP": {
+    "Details": [
+      "Starts a bounded discovery probe, including workspace save and fresh-process restoration. Reports executable/build/package capabilities; optional missing packages restrict their methods rather than preventing loading.",
+      "Requires a working local GAP with workspace support; JSON and IO are transport dependencies. Package loading alone does not run this probe. Operational failures return Failure."
+    ],
+    "Example": "AssociationQ[CheckGAP[]]",
+    "Expected": "True",
+    "SeeAlso": [
+      "ConfigureVVMFTool",
+      "RestoreGAPState"
+    ],
+    "ErrorExample": "FailureQ[CheckGAP[1]]",
+    "Kind": "Function"
+  },
+  "BuildGroup": {
+    "Details": [
+      "Accepts GroupPresentation, CatalogueGroup, PermutationGroupSpecification or MatrixGroupSpecification. Returns a Group with complete bound character data, or Failure. Optional expensive data are independent requests.",
+      "ComputeRepresentations -> True (default) then computes every irreducible representation exactly as ComputeGroupRepresentations with the builder's Basis (default \"Unitary\"), RepresentationMethod, MethodData, TPhaseOrder and PhaseConvention (the last two with Basis -> \"UnitaryTDiagonal\" only); a representation failure returns the accepted group as PartialResult with RemainingWork and the representation Suggestions. ComputeRepresentations -> False builds the group with characters only.",
+      "Automatic character routes include DixonSchneider, Unger, Conlon, BaumClausen, KnownTable and GAP. Partial outputs cannot become complete Groups. With StoreGAPState->True a failed or cancelled build retains its latest verified base or partial state as resumable, reported under Recovery when the failure is returned; the two observer exits, a ProgressFunction callback that aborts (Cancelled) or fails (ProgressCallbackFailed), end the call without a Recovery key but still retain that state; the next build of the same construction (for example with another CharacterMethod or a longer AttemptTimeLimit) resumes from it. The resumed group's LastComputation reports StateSource \"Resumed\".",
+      "Automatic computation uses bounded method/model attempts from accepted state. On machines with at least four available cores, independent sequential methods can run in batches; a result is verified and saved before rivals stop. AttemptTimeLimit includes validation and saving."
+    ],
+    "Example": "Module[{g=BuildGroup[CatalogueGroup[\"SymmetricGroup\", 3], ComputeRepresentations -> False, StoreGAPState -> False]},{g[\"Order\"],NumberOfRep[g],MissingQ[g[\"Elements\"]]}]",
+    "Expected": "{6,3,True}",
+    "SeeAlso": [
+      "CatalogueGroup",
+      "BuildModularGroup",
+      "BuildGroupFromGAP"
+    ],
+    "ErrorExample": "FailureQ[BuildGroup[\"not a specification\",ComputeRepresentations->False]]",
+    "Kind": "Function"
+  },
+  "BuildGroupFromGAP": {
+    "Details": [
+      "Executes explicitly supplied GAP code. It must assign VVMFInputGroup and VVMFInputGenerators, the ordered list that generates the whole finite group. GeneratorNames is required and gives corresponding names.",
+      "ConstructionDependencies lists absolute existing input files; their digests are recorded. Code and declared dependencies are retained as provenance, without promising undeclared reads are reproducible.",
+      "Imported source is never replayed implicitly. If retained raw state is unavailable, explicitly rebuild the recipe. StoreGAPState->False still permits temporary checkpoints within this build."
+    ],
+    "Example": "Module[{g=BuildGroupFromGAP[\"VVMFInputGroup := CyclicGroup(3);; VVMFInputGenerators := GeneratorsOfGroup(VVMFInputGroup);;\",GeneratorNames->{\"a\"},ComputeRepresentations->False,StoreGAPState->False]},g[\"Order\"]]",
+    "Expected": "3",
+    "SeeAlso": [
+      "BuildGroup",
+      "ImportGroupData",
+      "ConstructionDependencies"
+    ],
+    "ErrorExample": "FailureQ[BuildGroupFromGAP[\"\",GeneratorNames->{\"a\"},ComputeRepresentations->False]]",
+    "Kind": "Function"
+  },
+  "BuildModularGroup": {
+    "Details": [
+      "Accepts a recorded label or a GroupPresentation containing explicitly named S and T. Reordering those generators does not exchange their roles.",
+      "Verifies (ST)^3=S^4, centrality of S^2 and generation of the whole group using actual group elements. Generic construction never appoints S,T automatically. SL(2,Z) quotients are the case S^4=1; a finite quotient of the cover <S,T | S^2 central, (ST)^3=S^4> (for example a metaplectic quotient, where S^8=1) is accepted as well and carries forms of rational weight (see ModularDimension).",
+      "The representation stage is the same as for BuildGroup; with the recorded S,T, SL2Reps constructs unitary T-diagonal irreps directly (with Basis -> \"UnitaryTDiagonal\", irreps whose T phases are not in the TPhaseOrder order or lack the PhaseConvention are diagonalized again in GAP), and Basis -> \"UnitaryTDiagonal\" is available."
+    ],
+    "Example": "Module[{g=BuildModularGroup[\"24-3I\",ComputeRepresentations->False,StoreGAPState->True]}, {g[\"Order\"],NumberOfRep[g],GroupWordOrder[g,GroupWord[\"S^2\"]],GroupWordOrder[g,GroupWord[\"(S.T)^3\"]]}]",
+    "Expected": "{24,7,2,1}",
+    "SeeAlso": [
+      "ModularGroupSpecification",
+      "AssignModularGenerators",
+      "BuildGroup"
+    ],
+    "ErrorExample": "FailureQ[BuildModularGroup[\"unknown\",ComputeRepresentations->False]]",
+    "Kind": "Function"
+  },
+  "GroupElementWords": {
+    "Details": [
+      "Returns and stores all elements as GroupWord values in the recorded generator names. Requires no modular assignment or representation matrices.",
+      "A cached complete result is read without GAP. Otherwise retained state is reused, or typed construction is reconstructed and checked. Raw recipes require an explicit rebuild when their state is unavailable."
+    ],
+    "Example": "Module[{g=BuildGroup[CatalogueGroup[\"CyclicGroup\", 3], ComputeRepresentations -> False, StoreGAPState -> False]}, Length[GroupElementWords[g,StoreGAPState->False]]]",
+    "Expected": "3",
+    "SeeAlso": [
+      "GroupWord",
+      "GroupWordOrder",
+      "Group"
+    ],
+    "ErrorExample": "FailureQ[GroupElementWords[3]]",
+    "Kind": "Function"
+  },
+  "GroupWordOrder": {
+    "Details": [
+      "Returns the positive exact element order of an explicitly supplied GroupWord. Identity has order one. Computation can enrich the same group backend state; character data stay unchanged."
+    ],
+    "Example": "Module[{g=BuildGroup[CatalogueGroup[\"CyclicGroup\", 3], ComputeRepresentations -> False, StoreGAPState -> False]},GroupWordOrder[g,GroupWord[\"g1^-1\"],StoreGAPState->False]]",
+    "Expected": "3",
+    "SeeAlso": [
+      "GroupWord",
+      "GroupElementWords"
+    ],
+    "ErrorExample": "FailureQ[GroupWordOrder[Group[\"unknown\"],GroupWord[{}]]]",
+    "Kind": "Function"
+  },
+  "AssignModularGenerators": {
+    "Details": [
+      "Takes named generator words, checks (ST)^3=S^4, centrality of S^2 and whole-group generation, then updates the same Group with a new assignment identity.",
+      "Failed validation leaves the previous assignment unchanged. An abstract group isomorphism does not identify distinct modular realizations. Automatic pair discovery is not implemented."
+    ],
+    "Example": "Module[{g=BuildGroup[GroupPresentation[{\"a\",\"b\"}, {\"a^2\",\"b^3\",\"(a.b)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False]}, AssignModularGenerators[g,GroupWord[\"a\"],GroupWord[\"b\"],StoreGAPState->False];AssociationQ[g[\"ModularAssignment\"]]]",
+    "Expected": "True",
+    "SeeAlso": [
+      "BuildModularGroup",
+      "CheckGeneratorMap"
+    ],
+    "ErrorExample": "Module[{g=BuildGroup[GroupPresentation[{\"a\",\"b\"}, {\"a^2\",\"b^3\",\"(a.b)^3\"}], ComputeRepresentations -> False, StoreGAPState -> False]},FailureQ[AssignModularGenerators[g,GroupWord[\"b\"],GroupWord[\"a\"],StoreGAPState->False]]]",
+    "Kind": "Function"
+  },
+  "GroupSubgroups": {
+    "Details": [
+      "Returns an association with Items, Kind, Filters, Complete, Descriptions and Provenance. Items identify actual embedded subgroups by generator words, order, index and conjugacy-class information; descriptions are optional.",
+      "SubgroupKind=\"ConjugacyClasses\" chooses one representative per class; \"All\" gives each embedding; \"Normal\" gives normal subgroups. Filters preserve explicit empty complete results.",
+      "Method->\"GAP\" supports every kind; \"ClassExpansion\" supports All; \"ClassFilter\" supports Normal. Automatic retries eligible routes/models. Compatible cached data take priority over method selection. Description upgrades preserve embeddings and share class descriptions.",
+      "The whole-group structure description is available on demand: select SubgroupIndex->1 with SubgroupDescriptions->True, then read the sole item's \"Description\". The display name is independent of this mathematical description."
+    ],
+    "Example": "Module[{g=BuildGroup[CatalogueGroup[\"SymmetricGroup\", 3], ComputeRepresentations -> False, StoreGAPState -> False],q},q=GroupSubgroups[g,SubgroupKind->\"Normal\",StoreGAPState->False];{q[\"Complete\"],Sort[Lookup[q[\"Items\"],\"Order\"]]}]",
+    "Expected": "{True,{1,3,6}}",
+    "SeeAlso": [
+      "NormalSubgroupsByIndex",
+      "BuildGroup"
+    ],
+    "ErrorExample": "FailureQ[GroupSubgroups[Group[\"unknown\"],SubgroupKind->\"All\",Method->\"ClassFilter\"]]",
+    "Kind": "Function"
+  },
+  "NormalSubgroupsByIndex": {
+    "Details": [
+      "Searches a supplied possibly infinite presentation using LINS. No finite Group object or modular recognition is implied. IndexMode is Exact or UpTo; MaxResults may cap the returned list.",
+      "Each item has Index, GeneratorWords, GeneratorSemantics=\"Subgroup\" and a checked finite QuotientPresentation. The words generate the subgroup itself, not merely its normal closure. SmallGenerators requests reduction without promising minimality.",
+      "Result fields include Items, Complete, CapReached, Bound, IndexMode, MaxResults, SmallGenerators, Presentation, Method and LINSVersion. A capped result distinguishes proven exhaustion from truncation by lookahead. Unsupported bounds, timeout or interruption return Failure, not falsely complete data.",
+      "LINS is required. This operation runs one bounded sequential worker and has no StoreGAPState or GroupModel option."
+    ],
+    "Example": "Module[{r=NormalSubgroupsByIndex[GroupPresentation[{\"a\"},{}],3]}, {r[\"Complete\"],Lookup[r[\"Items\"],\"Index\"]}]",
+    "Expected": "{True,{3}}",
+    "SeeAlso": [
+      "GroupPresentation",
+      "GroupSubgroups"
+    ],
+    "ErrorExample": "FailureQ[NormalSubgroupsByIndex[GroupPresentation[{\"a\"},{}],0]]",
+    "Kind": "Function"
+  },
+  "CheckGeneratorMap": {
+    "Details": [
+      "Provide one target GroupWord for each source generator. Returns Homomorphism, Injective, Surjective and Isomorphism flags, Images and InverseImages; inverse words are available for verified isomorphisms.",
+      "A computed negative map result differs from Failure due to a timeout or unavailable method. Certificates refer to actual recorded generators. The operation may enrich backend data while preserving group mathematics and modular assignments."
+    ],
+    "Example": "Module[{g=BuildGroup[CatalogueGroup[\"CyclicGroup\", 3], ComputeRepresentations -> False, StoreGAPState -> False],r},r=CheckGeneratorMap[g,g,{GroupWord[\"g1^-1\"]},StoreGAPState->False];{r[\"Homomorphism\"],r[\"Isomorphism\"]}]",
+    "Expected": "{True,True}",
+    "SeeAlso": [
+      "GroupWord",
+      "AssignModularGenerators"
+    ],
+    "ErrorExample": "FailureQ[CheckGeneratorMap[3,4,{}]]",
+    "Kind": "Function"
+  },
+  "SaveGroupData": {
+    "Details": [
+      "Atomically writes a versioned JSON mathematical snapshot, including computed optional data and a reference to retained GAP state. Returns the absolute filename. No GAP computation or object mutation occurs.",
+      "Registers the completed bytes in an independent local export ledger. GAP cache eviction leaves this ledger intact. Registration failure returns Failure with SavedFile, identifying the usable but unregistered mathematical file.",
+      "The file contains inert values. A cache reference can outlive the workspace; it is not permission to load arbitrary binary state."
+    ],
+    "Example": "Module[{g=BuildGroup[CatalogueGroup[\"CyclicGroup\", 3], ComputeRepresentations -> False, StoreGAPState -> False],d=CreateDirectory[],p},WithCleanup[Null,p=SaveGroupData[g,FileNameJoin[{d,\"group.json\"}]];FileExistsQ[p],DeleteDirectory[d,DeleteContents->True]]]",
+    "Expected": "True",
+    "SeeAlso": [
+      "ImportGroupData",
+      "CleanGAPCache"
+    ],
+    "ErrorExample": "FailureQ[SaveGroupData[3,\"invalid.json\"]]",
+    "Kind": "Function"
+  },
+  "ImportGroupData": {
+    "Details": [
+      "Returns a fresh live Group with saved mathematical IDs/orderings. Every file passes schema checks. Matching independent locally registered bytes (the user's own export ledger or the package's library ledger) import without GAP, even after workspace eviction, and without re-checking their mathematics: they were verified when saved, so they are decoded once and their character table and CG coefficients are not re-proved. Verification -> \"Exact\" re-checks a registered file like an unknown one.",
+      "Unknown typed snapshots are verified against an independently constructed actual group, complete characters and optional data. ValidationGroup instead supplies accepted source state and never waives correspondence checks; the supplied object is unchanged.",
+      "Unregistered raw-code snapshots require ValidationGroup built explicitly from the same recipe and generator order. Neither imported code nor imported workspace paths are executed. Unsupported schema, changed files or false claims return Failure.",
+      "Known mathematical identities retain their accepted bindings, including after a restart through the independent export ledger. Reassigning character/class, generator, modular-assignment, subgroup or subgroup-class IDs returns Failure. Consistent row/class reorderings remain valid.",
+      "GroupModel affects character-source construction for an unknown typed snapshot with ValidationGroup->Automatic. Registered imports and an explicit ValidationGroup reuse accepted data; the final correspondence checks use the original recorded group.",
+      "Moving a large computation between machines: run BuildGroup and SaveGroupData where the resources are, copy the snapshot, and call ImportGroupData locally. A typed snapshot unknown to the local ledger is checked by rebuilding only the actual group and its characters in the local GAP. The saved representations are verified against them, never recomputed. A raw GAP result produced without the package cannot be imported, because it carries no checkable provenance.",
+      "Saved CG coefficients:\n- In a registered snapshot (the package's own unchanged export or a library file, with no ValidationGroup and Verification not \"Exact\"), only their identities and keys are checked on import; each keeps its recorded status and is served without a check (an \"Unverified\" entry is checked on its first use at a verifying level, a \"Numerical\" one when a call asks for \"Exact\").\n- In any other file imported at Automatic or \"Exact\", every saved bundle is validated exactly on import; at \"Numerical\" or None the bundles are kept \"Unverified\" and are checked on their first use at a verifying level."
+    ],
+    "Example": "Module[{g=BuildGroup[CatalogueGroup[\"CyclicGroup\", 3], ComputeRepresentations -> False, StoreGAPState -> False],d=CreateDirectory[],p,h},WithCleanup[Null,p=SaveGroupData[g,FileNameJoin[{d,\"group.json\"}]];h=ImportGroupData[p,StoreGAPState->False];{h=!=g,h[\"CharacterData\"]===g[\"CharacterData\"]},DeleteDirectory[d,DeleteContents->True]]]",
+    "Expected": "{True,True}",
+    "SeeAlso": [
+      "SaveGroupData",
+      "RestoreGAPState",
+      "ValidationGroup"
+    ],
+    "ErrorExample": "FailureQ[ImportGroupData[\"\"]]",
+    "Kind": "Function"
+  },
+  "RestoreGAPState": {
+    "Details": [
+      "Checks a retained checkpoint and restores it in a fresh GAP process, with independent native verification. Returns a report containing Restored->True on success.",
+      "Does not rebuild when restoration is impossible. Missing, evicted, changed or incompatible state returns Failure. Typed reconstruction is a separate behavior of later enrichment calls, reported by StateSource diagnostics.",
+      "Restoration updates use/diagnostic metadata and leaves accepted mathematical data unchanged.",
+      "Restoration reuses the saved native state and performs no model-selection calculation. The common GroupModel setting does not convert that state; StoreGAPState->False does not delete an existing checkpoint."
+    ],
+    "Example": "Module[{old=VVMFToolConfiguration[],d=AbsoluteFileName[CreateDirectory[]],g,r},WithCleanup[ConfigureVVMFTool[CacheDirectory->FileNameJoin[{d,\"cache\"}]],g=BuildGroup[CatalogueGroup[\"CyclicGroup\",3],ComputeRepresentations->False];r=RestoreGAPState[g];r[\"Restored\"],CleanGAPCache[\"All\"];ConfigureVVMFTool[Sequence@@Normal[old]];DeleteDirectory[d,DeleteContents->True]]]",
+    "Expected": "True",
+    "SeeAlso": [
+      "CleanGAPCache",
+      "ImportGroupData"
+    ],
+    "ErrorExample": "FailureQ[RestoreGAPState[Group[\"unknown\"]]]",
+    "Kind": "Function"
+  },
+  "CleanGAPCache": {
+    "Details": [
+      "CleanGAPCache[MaxBytes->n] evicts least-recently-used managed entries until the byte cap is met. Default n=10^9 bytes. CleanGAPCache[\"All\"] removes all eligible entries in the configured cache.",
+      "Only managed checkpoint files are eligible. Active leases defer deletion until release; the report records deferred entries and any unmet cap. Mathematical group data and the independent export ledger remain available.",
+      "Examples isolate CacheDirectory so cache cleanup cannot remove other project workspaces."
+    ],
+    "Example": "Module[{old=VVMFToolConfiguration[],d=AbsoluteFileName[CreateDirectory[]],r},WithCleanup[ConfigureVVMFTool[CacheDirectory->FileNameJoin[{d,\"cache\"}]],r=CleanGAPCache[\"All\"];AssociationQ[r],ConfigureVVMFTool[Sequence@@Normal[old]];DeleteDirectory[d,DeleteContents->True]]]",
+    "Expected": "True",
+    "SeeAlso": [
+      "StoreGAPState",
+      "RestoreGAPState"
+    ],
+    "ErrorExample": "FailureQ[CleanGAPCache[MaxBytes->-1]]",
+    "Kind": "Function"
+  },
+  "GAPExecutable": {
+    "Details": [
+      "Option for ConfigureVVMFTool. Default: Automatic.",
+      "Automatic or an absolute executable path. Used by CheckGAP and all GAP operations.",
+      "Per-call shared settings override matching package configuration. The owning function rejects unsupported values before computation."
+    ],
+    "Example": "MemberQ[First /@ Options[ConfigureVVMFTool],GAPExecutable]",
+    "Expected": "True",
+    "SeeAlso": [
+      "ConfigureVVMFTool",
+      "ConfigureVVMFTool"
+    ],
+    "Kind": "Option"
+  },
+  "CacheDirectory": {
+    "Details": [
+      "Option for ConfigureVVMFTool. Default: a user-local ApplicationData/VVMFTool/GAPCache directory.",
+      "Absolute cache directory. Only indexed managed files are cleaned. The export ledger is separate.",
+      "Per-call shared settings override matching package configuration. The owning function rejects unsupported values before computation."
+    ],
+    "Example": "MemberQ[First /@ Options[ConfigureVVMFTool],CacheDirectory]",
+    "Expected": "True",
+    "SeeAlso": [
+      "ConfigureVVMFTool",
+      "ConfigureVVMFTool"
+    ],
+    "Kind": "Option"
+  },
+  "StoreGAPState": {
+    "Details": [
+      "Option for the group builders and every GAP-backed group operation (GroupElementWords, GroupWordOrder, AssignModularGenerators, GroupSubgroups, CheckGeneratorMap, RestoreGAPState, ImportGroupData); also a ConfigureVVMFTool default. Default: True.",
+      "True retains verified state across calls; False keeps only call-local temporary checkpoints. Cached mathematical values remain available.",
+      "With True, a builder whose characters fail to complete retains its verified base or partial state as resumable; a later True build of the same construction and S,T words resumes it instead of recomputing. False neither resumes nor retains such state.",
+      "Per-call shared settings override matching package configuration. The owning function rejects unsupported values before computation."
+    ],
+    "Example": "MemberQ[First /@ Options[BuildGroup],StoreGAPState]",
+    "Expected": "True",
+    "SeeAlso": [
+      "BuildGroup",
+      "ConfigureVVMFTool"
+    ],
+    "Kind": "Option"
+  },
+  "ComputeRepresentations": {
+    "Details": [
+      "Option for BuildGroup, BuildModularGroup and BuildGroupFromGAP. Default: True.",
+      "True computes every irreducible representation after the mandatory group data, as ComputeGroupRepresentations does, using the builder's Basis, RepresentationMethod and MethodData. Set False for character-only work; the representation options are then refused.",
+      "Per-call shared settings override matching package configuration. The owning function rejects unsupported values before computation."
+    ],
+    "Example": "MemberQ[First /@ Options[BuildGroup],ComputeRepresentations]",
+    "Expected": "True",
+    "SeeAlso": [
+      "BuildGroup",
+      "ConfigureVVMFTool"
+    ],
+    "Kind": "Option"
+  },
+  "ComputeElements": {
+    "Details": [
+      "Option for BuildGroup, BuildModularGroup and BuildGroupFromGAP. Default: False.",
+      "True computes all recorded-generator element words during construction.",
+      "Per-call shared settings override matching package configuration. The owning function rejects unsupported values before computation."
+    ],
+    "Example": "MemberQ[First /@ Options[BuildGroup],ComputeElements]",
+    "Expected": "True",
+    "SeeAlso": [
+      "BuildGroup",
+      "ConfigureVVMFTool"
+    ],
+    "Kind": "Option"
+  },
+  "ComputeSubgroups": {
+    "Details": [
+      "Option for BuildGroup, BuildModularGroup and BuildGroupFromGAP. Default: False.",
+      "True computes the selected subgroup collection during construction.",
+      "Per-call shared settings override matching package configuration. The owning function rejects unsupported values before computation."
+    ],
+    "Example": "MemberQ[First /@ Options[BuildGroup],ComputeSubgroups]",
+    "Expected": "True",
+    "SeeAlso": [
+      "BuildGroup",
+      "ConfigureVVMFTool"
+    ],
+    "Kind": "Option"
+  },
+  "SubgroupDescriptions": {
+    "Details": [
+      "Option for BuildGroup, BuildModularGroup and BuildGroupFromGAP and GroupSubgroups. Default: False.",
+      "True requests actual subgroup structure descriptions; in builders it implies ComputeSubgroups.",
+      "Per-call shared settings override matching package configuration. The owning function rejects unsupported values before computation."
+    ],
+    "Example": "MemberQ[First /@ Options[GroupSubgroups],SubgroupDescriptions]",
+    "Expected": "True",
+    "SeeAlso": [
+      "GroupSubgroups",
+      "ConfigureVVMFTool"
+    ],
+    "Kind": "Option"
+  },
+  "CharacterMethod": {
+    "Details": [
+      "Option for BuildGroup, BuildModularGroup and BuildGroupFromGAP. Default: Automatic.",
+      "Automatic, \"DixonSchneider\", \"Unger\", \"Conlon\", \"BaumClausen\", \"KnownTable\" or \"GAP\". Eligibility depends on the group and installed packages; explicit partial methods can return resumable exhaustion.",
+      "Per-call shared settings override matching package configuration. The owning function rejects unsupported values before computation."
+    ],
+    "Example": "MemberQ[First /@ Options[BuildGroup],CharacterMethod]",
+    "Expected": "True",
+    "SeeAlso": [
+      "BuildGroup",
+      "ConfigureVVMFTool"
+    ],
+    "Kind": "Option"
+  },
+  "GroupModel": {
+    "Details": [
+      "Option for the group builders and every GAP-backed group operation (GroupElementWords, GroupWordOrder, AssignModularGenerators, GroupSubgroups, CheckGeneratorMap, RestoreGAPState, ImportGroupData). Default: Automatic.",
+      "Automatic, \"Original\", \"Permutation\" or \"PC\" for new method calculations; PC requires a solvable group. Restoration and compatible cache hits do not convert models. Import uses it only when computing a new character-validation source.",
+      "Per-call shared settings override matching package configuration. The owning function rejects unsupported values before computation.",
+      "A duplicate-free list of models fixes the order in which they are tried; a model that worked before goes first only under Automatic."
+    ],
+    "Example": "MemberQ[First /@ Options[BuildGroup],GroupModel]",
+    "Expected": "True",
+    "SeeAlso": [
+      "BuildGroup",
+      "ConfigureVVMFTool"
+    ],
+    "Kind": "Option"
+  },
+  "AttemptTimeLimit": {
+    "Details": [
+      "Option for the group builders and every GAP-backed group operation (GroupElementWords, GroupWordOrder, AssignModularGenerators, GroupSubgroups, CheckGeneratorMap, RestoreGAPState, ImportGroupData) and NormalSubgroupsByIndex; also a ConfigureVVMFTool default. Default: 600.",
+      "Positive seconds or Infinity, per attempt including verification and saving. Automatic method attempts each receive this limit.",
+      "Per-call shared settings override matching package configuration. The owning function rejects unsupported values before computation."
+    ],
+    "Example": "MemberQ[First /@ Options[BuildGroup],AttemptTimeLimit]",
+    "Expected": "True",
+    "SeeAlso": [
+      "BuildGroup",
+      "ConfigureVVMFTool"
+    ],
+    "Kind": "Option"
+  },
+  "CoreBudget": {
+    "Details": [
+      "Option for the group builders and every GAP-backed group operation (GroupElementWords, GroupWordOrder, AssignModularGenerators, GroupSubgroups, CheckGeneratorMap, RestoreGAPState, ImportGroupData) and NormalSubgroupsByIndex; also a ConfigureVVMFTool default. Default: Automatic.",
+      "Positive integer at most $ProcessorCount, or Automatic to use the available count. Sequential algorithms run as separate worker processes.",
+      "Per-call shared settings override matching package configuration. The owning function rejects unsupported values before computation."
+    ],
+    "Example": "MemberQ[First /@ Options[BuildGroup],CoreBudget]",
+    "Expected": "True",
+    "SeeAlso": [
+      "BuildGroup",
+      "ConfigureVVMFTool"
+    ],
+    "Kind": "Option"
+  },
+  "MemoryBudget": {
+    "Details": [
+      "Option for the group builders and every GAP-backed group operation (GroupElementWords, GroupWordOrder, AssignModularGenerators, GroupSubgroups, CheckGeneratorMap, RestoreGAPState, ImportGroupData) and NormalSubgroupsByIndex; also a ConfigureVVMFTool default. Default: Automatic.",
+      "Positive integer bytes, or Automatic using half system memory less current kernel usage. Admission estimates and sampled total worker RSS enforce the allocation.",
+      "Per-call shared settings override matching package configuration. The owning function rejects unsupported values before computation."
+    ],
+    "Example": "MemberQ[First /@ Options[BuildGroup],MemoryBudget]",
+    "Expected": "True",
+    "SeeAlso": [
+      "BuildGroup",
+      "ConfigureVVMFTool"
+    ],
+    "Kind": "Option"
+  },
+  "ProgressFunction": {
+    "Details": [
+      "Option for the group builders and every GAP-backed group operation (GroupElementWords, GroupWordOrder, AssignModularGenerators, GroupSubgroups, CheckGeneratorMap, RestoreGAPState, ImportGroupData) and NormalSubgroupsByIndex; also a ConfigureVVMFTool default. Default: Automatic.",
+      "Automatic shows a notebook monitor when a front end is available; None is silent; a Function or user symbol receives progress associations. Callbacks should return promptly; failures/cancellation clean owned workers.",
+      "Per-call shared settings override matching package configuration. The owning function rejects unsupported values before computation."
+    ],
+    "Example": "MemberQ[First /@ Options[BuildGroup],ProgressFunction]",
+    "Expected": "True",
+    "SeeAlso": [
+      "BuildGroup",
+      "ConfigureVVMFTool"
+    ],
+    "Kind": "Option"
+  },
+  "Name": {
+    "Details": [
+      "Option for BuildGroup, BuildModularGroup and BuildGroupFromGAP. Default: Automatic.",
+      "Automatic or a display-name string. Does not identify mathematical equivalence.",
+      "Per-call shared settings override matching package configuration. The owning function rejects unsupported values before computation."
+    ],
+    "Example": "MemberQ[First /@ Options[BuildGroup],Name]",
+    "Expected": "True",
+    "SeeAlso": [
+      "BuildGroup",
+      "ConfigureVVMFTool"
+    ],
+    "Kind": "Option"
+  },
+  "GeneratorNames": {
+    "Details": [
+      "Option for BuildGroupFromGAP. Default: Automatic (must be supplied for raw code).",
+      "Ordered distinct identifier strings matching VVMFInputGenerators. An explicit list is required for BuildGroupFromGAP; an empty list describes no generators.",
+      "Per-call shared settings override matching package configuration. The owning function rejects unsupported values before computation."
+    ],
+    "Example": "MemberQ[First /@ Options[BuildGroupFromGAP],GeneratorNames]",
+    "Expected": "True",
+    "SeeAlso": [
+      "BuildGroupFromGAP",
+      "ConfigureVVMFTool"
+    ],
+    "Kind": "Option"
+  },
+  "ConstructionDependencies": {
+    "Details": [
+      "Option for BuildGroupFromGAP. Default: {}.",
+      "Existing absolute file paths read by explicit construction code. Their hashes are recorded, without copying external files. Keep them unchanged throughout the build; changed or missing inputs are rejected before execution, after construction and before publication. Later edits do not invalidate accepted mathematics.",
+      "Per-call shared settings override matching package configuration. The owning function rejects unsupported values before computation."
+    ],
+    "Example": "MemberQ[First /@ Options[BuildGroupFromGAP],ConstructionDependencies]",
+    "Expected": "True",
+    "SeeAlso": [
+      "BuildGroupFromGAP",
+      "ConfigureVVMFTool"
+    ],
+    "Kind": "Option"
+  },
+  "ValidationGroup": {
+    "Details": [
+      "Option for ImportGroupData. Default: Automatic.",
+      "Automatic or a live accepted Group. Explicit validation is honored even for locally registered snapshots. Unknown raw snapshots require an explicit matching source.",
+      "Per-call shared settings override matching package configuration. The owning function rejects unsupported values before computation."
+    ],
+    "Example": "MemberQ[First /@ Options[ImportGroupData],ValidationGroup]",
+    "Expected": "True",
+    "SeeAlso": [
+      "ImportGroupData",
+      "ConfigureVVMFTool"
+    ],
+    "Kind": "Option"
+  },
+  "SubgroupKind": {
+    "Details": [
+      "Option for BuildGroup, BuildModularGroup and BuildGroupFromGAP and GroupSubgroups. Default: \"ConjugacyClasses\".",
+      "\"ConjugacyClasses\", \"All\" or \"Normal\". Class representatives and individual embeddings are distinct result kinds.",
+      "Per-call shared settings override matching package configuration. The owning function rejects unsupported values before computation."
+    ],
+    "Example": "MemberQ[First /@ Options[GroupSubgroups],SubgroupKind]",
+    "Expected": "True",
+    "SeeAlso": [
+      "GroupSubgroups",
+      "ConfigureVVMFTool"
+    ],
+    "Kind": "Option"
+  },
+  "SubgroupOrder": {
+    "Details": [
+      "Option for GroupSubgroups. Default: All.",
+      "All or a positive integer group order. An unmatched filter produces a complete empty collection.",
+      "Per-call shared settings override matching package configuration. The owning function rejects unsupported values before computation."
+    ],
+    "Example": "MemberQ[First /@ Options[GroupSubgroups],SubgroupOrder]",
+    "Expected": "True",
+    "SeeAlso": [
+      "GroupSubgroups",
+      "ConfigureVVMFTool"
+    ],
+    "Kind": "Option"
+  },
+  "SubgroupIndex": {
+    "Details": [
+      "Option for GroupSubgroups. Default: All.",
+      "All or a positive integer index in the parent group.",
+      "Per-call shared settings override matching package configuration. The owning function rejects unsupported values before computation."
+    ],
+    "Example": "MemberQ[First /@ Options[GroupSubgroups],SubgroupIndex]",
+    "Expected": "True",
+    "SeeAlso": [
+      "GroupSubgroups",
+      "ConfigureVVMFTool"
+    ],
+    "Kind": "Option"
+  },
+  "IndexMode": {
+    "Details": [
+      "Option for NormalSubgroupsByIndex. Default: \"Exact\".",
+      "\"Exact\" selects exactly the bound; \"UpTo\" selects indices at most the bound.",
+      "Per-call shared settings override matching package configuration. The owning function rejects unsupported values before computation."
+    ],
+    "Example": "MemberQ[First /@ Options[NormalSubgroupsByIndex],IndexMode]",
+    "Expected": "True",
+    "SeeAlso": [
+      "NormalSubgroupsByIndex",
+      "ConfigureVVMFTool"
+    ],
+    "Kind": "Option"
+  },
+  "MaxResults": {
+    "Details": [
+      "Option for NormalSubgroupsByIndex. Default: All.",
+      "All or a positive integer result cap. Completeness and CapReached distinguish exhaustion from truncation.",
+      "Per-call shared settings override matching package configuration. The owning function rejects unsupported values before computation."
+    ],
+    "Example": "MemberQ[First /@ Options[NormalSubgroupsByIndex],MaxResults]",
+    "Expected": "True",
+    "SeeAlso": [
+      "NormalSubgroupsByIndex",
+      "ConfigureVVMFTool"
+    ],
+    "Kind": "Option"
+  },
+  "SmallGenerators": {
+    "Details": [
+      "Option for NormalSubgroupsByIndex. Default: True.",
+      "True requests a smaller generating set for each normal subgroup; False retains the native one. No minimality guarantee.",
+      "Per-call shared settings override matching package configuration. The owning function rejects unsupported values before computation."
+    ],
+    "Example": "MemberQ[First /@ Options[NormalSubgroupsByIndex],SmallGenerators]",
+    "Expected": "True",
+    "SeeAlso": [
+      "NormalSubgroupsByIndex",
+      "ConfigureVVMFTool"
+    ],
+    "Kind": "Option"
+  },
+  "MaxBytes": {
+    "Details": [
+      "Option for CleanGAPCache. Default: 10^9.",
+      "Nonnegative integer bytes for least-recently-used cleanup. Zero removes every eligible entry.",
+      "Per-call shared settings override matching package configuration. The owning function rejects unsupported values before computation."
+    ],
+    "Example": "MemberQ[First /@ Options[CleanGAPCache],MaxBytes]",
+    "Expected": "True",
+    "SeeAlso": [
+      "CleanGAPCache",
+      "ConfigureVVMFTool"
+    ],
+    "Kind": "Option"
+  }
+}

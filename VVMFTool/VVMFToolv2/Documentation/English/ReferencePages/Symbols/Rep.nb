@@ -1,0 +1,73 @@
+Notebook[{Cell["Rep", "ObjectName"], Cell["Rep[{m1, m2, ...}] is a \
+representation value holding one invertible square matrix per recorded group \
+generator, in recorded order.\nRep[{}, d] is the d-dimensional representation \
+of a group with no recorded generators.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["Rep[{m1, ..., mk}] is a transparent \
+value: the generator matrices in the recorded generator order are exactly \
+what the value contains. Matrices are square, of one positive dimension and \
+invertible, with exact algebraic entries or explicit numerical entries. \
+Symbolic parameters are not supported.", "Notes"], 
+  Cell["Rep[{}, d] is the d-dimensional representation of a group with no \
+recorded generators; Rep[{}] without a dimension is invalid.", "Notes"], 
+  Cell["RepDim, NumberOfGenerator, GeneratorMatrix and RepMatrix are shared \
+methods of every Rep value. Operations return new values and never change an \
+existing Rep. A valid shape does not by itself certify the matrices as a \
+representation of a particular group.", "Notes"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["RepDim", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"RepDim.nb", None}], "  |  ", ButtonBox["RepMatrix", 
+      BaseStyle -> "Hyperlink", ButtonData -> {"RepMatrix.nb", None}], 
+     "  |  ", ButtonBox["RepresentationContext", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"RepresentationContext.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{"r", "=", InterpretationBox[
+             TemplateBox[{"\"Rep[\"", TemplateBox[{", ", "\", \"", 
+                 TagBox[RowBox[{"(", "\[NoBreak]", GridBox[{{"0", "1"}, 
+                      {"1", "0"}}, RowSpacings -> 1, ColumnSpacings -> 1, 
+                     RowAlignments -> Baseline, ColumnAlignments -> Center], 
+                    "\[NoBreak]", ")"}], Function[BoxForm`e$, MatrixForm[
+                    BoxForm`e$]]], TagBox[RowBox[{"(", "\[NoBreak]", 
+                    GridBox[{{SuperscriptBox["\[ExponentialE]", FractionBox[
+                         RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], 
+                         "3"]], "0"}, {"0", SuperscriptBox["\[ExponentialE]", 
+                        RowBox[{"-", FractionBox[RowBox[{"2", " ", 
+                          "\[ImaginaryI]", " ", "\[Pi]"}], "3"]}]]}}, 
+                     RowSpacings -> 1, ColumnSpacings -> 1, RowAlignments -> 
+                      Baseline, ColumnAlignments -> Center], "\[NoBreak]", 
+                    ")"}], Function[BoxForm`e$, MatrixForm[BoxForm`e$]]]}, 
+                "RowWithSeparators"], "\"]\""}, "RowDefault"], 
+             Rep[{{{0, 1}, {1, 0}}, {{Root[#1^2 + #1 + 1 & , 2], 0}, 
+                {0, Root[#1^2 + #1 + 1 & , 1]}}}]]}], "}"}], ",", 
+        RowBox[{"{", RowBox[{RowBox[{"RepDim", "[", "r", "]"}], ",", 
+            RowBox[{"NumberOfGenerator", "[", "r", "]"}]}], "}"}]}], "]"}]], 
+   "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{"2", ",", "2"}], "}"}]], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"RepDim", "[", 
+        InterpretationBox[TemplateBox[{"\"Rep[\"", "1", "\" parts]\""}, 
+          "RowDefault"], Rep[{}]], "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/Rep", "Categorization", CellLabel -> "URI"]}, 
+    Closed]]}, WindowTitle -> "Rep \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

@@ -1,0 +1,64 @@
+Notebook[{Cell["WitnessVariant", "ObjectName"], 
+  Cell["WitnessVariant is an option of ComputeGroupRepresentations, the group \
+builders and TransformGroupRepresentations: which stored variant GAP \
+unitarizes or T-diagonalizes: Automatic or \"SmallestConductor\" (the variant \
+with the smallest cyclotomic conductor) or \"Active\" (the active variant).", 
+   "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["Option of ComputeGroupRepresentations, the group builders and \
+TransformGroupRepresentations: which stored variant of an irrep GAP \
+unitarizes or T-diagonalizes. Automatic or \"SmallestConductor\": the variant \
+whose entries lie in the smallest cyclotomic field (ties: the active \
+variant); \"Active\": the active variant only (no other variant replaces \
+it).", "Notes"], Cell["Automatic, \"SmallestConductor\" or \"Active\".", 
+   "Notes"], Cell["With Basis -> \"General\" nothing is unitarized and an \
+explicit value is InapplicableOption. On TransformGroupRepresentations the \
+Wolfram route always uses the active variant (\"SmallestConductor\" is \
+InapplicableOption there; \"Active\" on a non-native active variant takes the \
+Wolfram route), and the GeneratorEquations unitarization of a native witness \
+honours \"Active\" and refuses \"SmallestConductor\". When the active variant \
+cannot serve (inert, or the irrep holds only a partial), \"Active\" gives no \
+witness instead of another variant.", "Notes"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["TransformGroupRepresentations", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"TransformGroupRepresentations.nb", None}], "  |  ", 
+     ButtonBox["ComputeGroupRepresentations", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ComputeGroupRepresentations.nb", None}], "  |  ", 
+     ButtonBox["UnitarizationMethod", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"UnitarizationMethod.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"MemberQ", "[", 
+      RowBox[{RowBox[{"First", "/@", RowBox[{"Options", "[", 
+            "TransformGroupRepresentations", "]"}]}], ",", 
+        "WitnessVariant"}], "]"}]], "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Possible Issues", "ExampleSection"], 
+  Cell["Invalid input returns a structured Failure. Check FailureQ before \
+using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", 
+      RowBox[{"ComputeGroupRepresentations", "[", 
+        RowBox[{"\"no group\"", ",", "All", ",", RowBox[{"WitnessVariant", 
+            "\[Rule]", "\"Active\""}]}], "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/WitnessVariant", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "WitnessVariant \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

@@ -1,0 +1,70 @@
+Notebook[{Cell["CGData", "ObjectName"], Cell["CGData[data] is an immutable \
+snapshot of Clebsch-Gordan coefficients: input and target bases, conventions, \
+coverage and one channel (embedding K and dual W) per copy of each selected \
+target.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["CGData[data] is the immutable snapshot returned by CGCoefficients: \
+the frozen input and target representations and their identities, the \
+normalization, exchange-symmetry and arithmetic conventions, the \
+multiplicities and coverage, and one channel per copy of each selected \
+target.", "Notes"], Cell["A channel has ChannelID, TargetID, Copy, Symmetry \
+(\"Symmetric\", \"Antisymmetric\" or \"Unspecified\"), Embedding K (N by dt, \
+with row (i-1) dq + j for a_i b_j) and Dual W (dt by N). Accessors check the \
+snapshot's shape; ValidateCG recomputes its mathematics.", "Notes"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["CGCoefficients", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"CGCoefficients.nb", None}], "  |  ", 
+     ButtonBox["CGIntertwiners", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"CGIntertwiners.nb", None}], "  |  ", 
+     ButtonBox["CGMatrix", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"CGMatrix.nb", None}], "  |  ", 
+     ButtonBox["ValidateCG", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ValidateCG.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "d"}], "}"}], ",", RowBox[
+         {RowBox[{"d", "=", RowBox[{"First", "[", RowBox[{"Select", "[", 
+                RowBox[{RowBox[{"g", "[", "\"IrrepOrder\"", "]"}], ",", 
+                  RowBox[{RowBox[{RowBox[{"RepDim", "[", RowBox[
+                         {"GroupRepresentation", "[", RowBox[{"g", ",", 
+                          "#1"}], "]"}], "]"}], "===", "2"}], "&"}]}], "]"}], 
+              "]"}]}], ";", RowBox[{"Head", "[", RowBox[{"CGCoefficients", 
+              "[", RowBox[{"g", ",", RowBox[{"{", RowBox[{"d", ",", "d"}], 
+                  "}"}], ",", "d"}], "]"}], "]"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], Cell[BoxData["CGData"], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"CGIntertwiners", "[", 
+        RowBox[{InterpretationBox[TemplateBox[{"\"CGData[\"", 
+             TagBox[RowBox[{"{", "}"}], Short[#1, 1] & ], "\" \[Rule] \"", 
+             "0", "\" targets, \"", "0", "\" channels, \"", "\"?\"", 
+             "\"]\""}, "RowDefault"], CGData[Association[]]], ",", "\"x\""}], 
+        "]"}], "]"}]], "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/CGData", "Categorization", CellLabel -> "URI"]}, 
+    Closed]]}, WindowTitle -> "CGData \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

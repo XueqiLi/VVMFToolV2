@@ -1,0 +1,106 @@
+Notebook[{Cell["ValidateModularModel", "ObjectName"], 
+  Cell["ValidateModularModel[m] gives the layered report of the modular model \
+m: schema, formal covariance and total weight, and binding completeness, \
+membership and independence evidence.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["ValidateModularModel[m] gives the \
+layered report: schema, formal covariance and total weight, and binding \
+completeness, membership and independence evidence; Proven needs exact formal \
+covariance and fully bound, proven forms.", "Notes"], 
+  Cell["Options: RequireBindings, RequireProof.", "Notes"], 
+  Cell["No implemented route produces Proven at present (there is no exact \
+identity certificate, and the S check is sampled), so RequireProof -> True \
+currently refuses every form and model result with ProofRequired.", "Notes"], 
+  Cell["The report's \"VerificationStatus\" is the weakest of the formal \
+status (ValidateModel) and the bound forms' statuses; each bound slot reports \
+its own.", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["RequireBindings"], "TableText"], 
+       Cell["False", "TableText"], Cell["False (default) reports the binding \
+status; True fails MissingBindings unless every used slot is bound with full \
+independent coverage of its space.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["RequireProof"], "TableText"], 
+       Cell["False", "TableText"], Cell["False (default) or True: a result \
+that is not Proven (numerical fits, verified reconstructions, sampled checks) \
+fails with ProofRequired.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Verification"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["Automatic, \"Exact\", \"Numerical\" or None (the \
+Validate functions: Automatic, \"Exact\" or \"Numerical\"; the modular-form \
+functions have no \"Exact\" route).", "TableText"]}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, GridBoxItemSize -> 
+      {"Columns" -> {Scaled[0.02], Scaled[0.3], Scaled[0.18], 
+         Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["BindModularForms", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"BindModularForms.nb", None}], "  |  ", 
+     ButtonBox["ValidateModel", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ValidateModel.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "c", ",", "d", ",", "one", ",", "df", ",", "rf", ",", 
+            "m0"}], "}"}], ",", RowBox[{RowBox[{"AssignModularGenerators", 
+            "[", RowBox[{"g", ",", RowBox[{"GroupWord", "[", "\"t^-1.s.t\"", 
+                "]"}], ",", RowBox[{"GroupWord", "[", "\"s\"", "]"}], ",", 
+              RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}], ";", 
+          RowBox[{"c", "=", RowBox[{"RepresentationContext", "[", "g", 
+              "]"}]}], ";", RowBox[{"d", "=", RowBox[{"First", "[", 
+              RowBox[{"Select", "[", RowBox[{RowBox[{"g", "[", 
+                    "\"IrrepOrder\"", "]"}], ",", RowBox[{RowBox[
+                     {RowBox[{"RepDim", "[", RowBox[{"GroupRepresentation", 
+                          "[", RowBox[{"g", ",", "#1"}], "]"}], "]"}], "===", 
+                      "2"}], "&"}]}], "]"}], "]"}]}], ";", 
+          RowBox[{"one", "=", RowBox[{RowBox[{"g", "[", "\"CharacterData\"", 
+                "]"}], "[", "\"TrivialIrrepID\"", "]"}]}], ";", 
+          RowBox[{"df", "=", RowBox[{"CreateField", "[", RowBox[{"c", ",", 
+                "d", ",", "\"D\""}], "]"}]}], ";", 
+          RowBox[{"rf", "=", RowBox[{"CreateField", "[", RowBox[{"c", ",", 
+                "one", ",", "\"R\""}], "]"}]}], ";", 
+          RowBox[{"m0", "=", RowBox[{"CreateModularModel", "[", 
+              RowBox[{"c", ",", RowBox[{"{", RowBox[{"df", ",", "rf"}], 
+                  "}"}], ",", RowBox[{"FieldWeights", "\[Rule]", 
+                  RowBox[{"Association", "[", RowBox[{RowBox[{RowBox[{"df", 
+                          "[", "\"ID\"", "]"}], "\[Rule]", "1"}], ",", 
+                      RowBox[{RowBox[{"rf", "[", "\"ID\"", "]"}], "\[Rule]", 
+                        "1"}]}], "]"}]}]}], "]"}]}], ";", 
+          RowBox[{RowBox[{RowBox[{"ValidateModularModel", "[", 
+                RowBox[{"AddModelTerm", "[", RowBox[{"m0", ",", RowBox[
+                     {"CoupleContractions", "[", RowBox[
+                       {"ModularContractions", "[", RowBox[{"m0", ",", 
+                          RowBox[{"{", RowBox[{"df", ",", "rf"}], "}"}]}], 
+                        "]"}], "]"}]}], "]"}], "]"}], "[", "\"Binding\"", 
+              "]"}], "[", "\"Status\"", "]"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], Cell[BoxData["\"Unbound\""], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"ValidateModularModel", "[", 
+        "5", "]"}], "]"}]], "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/ValidateModularModel", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "ValidateModularModel \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

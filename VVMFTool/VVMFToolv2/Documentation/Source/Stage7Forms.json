@@ -1,0 +1,198 @@
+{
+ "ModularForm": {
+  "Kind": "Function",
+  "Details": [
+   "ModularForm[id] is a handle to a registered modular form; aliases of one ID observe its validated updates (coefficients, expansions), and properties are read with y[\"Property\"].",
+   "Each record holds its frozen context, the actual representation and basis, weight, definition, expression, value, q-expansion, coefficient and normalization record, validation evidence and provenance; the group is provenance only."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, one}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; Head[First[ConstructModularForms[g, d]]]]",
+  "Expected": "ModularForm",
+  "ErrorExample": "FailureQ[ModularFormData[ModularForm[\"nope\"]]]",
+  "SeeAlso": [
+   "CreateModularForm",
+   "ConstructModularForms",
+   "ModularFormData"
+  ]
+ },
+ "CreateModularForm": {
+  "Kind": "Function",
+  "Details": [
+   "CreateModularForm[c, irrep, k, definition] creates a modular form of weight k for the irrep of the frozen context c from a ModularFormDefinition. Shape, the accepted representation and admissibility (rho(S^2) = e^{i Pi k}; for integer k the parity (-1)^k) are checked; modularity is not claimed (status Unverified).",
+   "The weight k is an exact rational. The convention is F(-1/tau) = (-tau)^k rho(S) F(tau), F(tau + 1) = rho(T) F(tau), with the principal branch of (-tau)^k. An SL(2,Z) quotient (rho(S^2) = +-1) admits integer weights only; a group with S^2 central and (ST)^3 = S^4 (for example Z_24 = <T> with S = T^3, which carries eta of weight 1/2) admits the weights k0 + 2Z with e^{i Pi k0} = rho(S^2). Rational-weight forms are user supplied (ConstructModularForms covers SL(2,Z) quotients).",
+   "A coefficient-free definition keeps its written scale (NoNormalizationNeeded); a parameterized one gets an anchor by the manual policy or the Normalization option. Available at every dimension."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, one}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; ModularFormWeight[CreateModularForm[g, one, 4, ModularFormDefinition[{2 ScalarModularExpression[\"E4\", q]}, q]]]]",
+  "Expected": "4",
+  "ErrorExample": "FailureQ[CreateModularForm[\"g\", \"x\", 4, 1]]",
+  "SeeAlso": [
+   "ModularFormDefinition",
+   "ConstructModularForms"
+  ]
+ },
+ "ModularFormData": {
+  "Kind": "Function",
+  "Details": [
+   "ModularFormData[y] gives the immutable record snapshot of the modular form y; later updates of y do not change a snapshot."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, one}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; ModularFormData[First[ConstructModularForms[g, d]]][\"Validation\"][\"Status\"]]",
+  "Expected": "\"Unverified\"",
+  "ErrorExample": "FailureQ[ModularFormData[5]]",
+  "SeeAlso": [
+   "ModularForm",
+   "ModularFormRep"
+  ]
+ },
+ "ModularFormRep": {
+  "Kind": "Function",
+  "Details": [
+   "ModularFormRep[y] gives the actual frozen representation of the modular form y (not a live group lookup)."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, one}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; ModularFormRep[First[ConstructModularForms[g, d]]] === GroupRepresentation[g, d]]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[ModularFormRep[5]]",
+  "SeeAlso": [
+   "ModularFormData",
+   "ChangeModularFormBasis"
+  ]
+ },
+ "ModularFormWeight": {
+  "Kind": "Function",
+  "Details": [
+   "ModularFormWeight[y] gives the weight of the modular form y, an exact rational (an integer for every form of an SL(2,Z) quotient)."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, one}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; ModularFormWeight[First[ConstructModularForms[g, d]]]]",
+  "Expected": "2",
+  "ErrorExample": "FailureQ[ModularFormWeight[5]]",
+  "SeeAlso": [
+   "ModularFormData",
+   "ModularFormDerivative"
+  ]
+ },
+ "ModularFormExpression": {
+  "Kind": "Function",
+  "Details": [
+   "ModularFormExpression[y] gives the component expressions of y with its resolved coefficients; with unresolved coefficients it gives Missing[\"UnresolvedCoefficients\", ids] (no coefficient is set to one). Option ApplyCoefficients."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, one}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; Length[ModularFormExpression[First[ConstructModularForms[g, d]], ApplyCoefficients -> False]]]",
+  "Expected": "2",
+  "ErrorExample": "FailureQ[ModularFormExpression[5]]",
+  "SeeAlso": [
+   "ModularFormValue",
+   "ApplyCoefficients"
+  ]
+ },
+ "ModularFormValue": {
+  "Kind": "Function",
+  "Details": [
+   "ModularFormValue[y] gives the computational recipe of y: <|\"Kind\", \"Coordinate\", \"Components\"|> (or the finite jet) with resolved coefficients. Option ApplyCoefficients."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, one}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; ModularFormValue[CreateModularForm[g, one, 4, ModularFormDefinition[{ScalarModularExpression[\"E4\", q]}, q]]][\"Kind\"]]",
+  "Expected": "\"Analytic\"",
+  "ErrorExample": "FailureQ[ModularFormValue[5]]",
+  "SeeAlso": [
+   "ModularFormExpression"
+  ]
+ },
+ "ModularFormCoefficients": {
+  "Kind": "Function",
+  "Details": [
+   "ModularFormCoefficients[y] gives the coefficient and normalization record of y: Kind (\"Anchor\" or \"NoNormalizationNeeded\"), Rules (Missing[\"Unresolved\"] before solving), ProofStatus, and the anchor frame, family, component, exponent and value."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, one}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; ModularFormCoefficients[First[ConstructModularForms[g, d]]][\"Kind\"]]",
+  "Expected": "\"Anchor\"",
+  "ErrorExample": "FailureQ[ModularFormCoefficients[5]]",
+  "SeeAlso": [
+   "ModularFormGetCoeff",
+   "CoefficientResult"
+  ]
+ },
+ "ConstructModularForms": {
+  "Kind": "Function",
+  "Details": [
+   "ConstructModularForms[c, irrep] gives the ordered list of generating forms the recipe for the irrep supplies: Eta1D, Hypergeometric2D, Hypergeometric3D (v1's analytic recipes in certified exponents), Cyclic4D, NonCyclic4D (F and G) and Coupled5D (F and G, profile k0 + {0, 2, 2, 4, 6}).",
+   "Recipes are built in an exact temporary T-diagonal frame and transported to the stored basis; leading exponents and MLDE residuals are checked; relative normalization is left unresolved (ModularFormGetCoeff). Beyond the recipes the result is UnsupportedConstruction, also for an irrep with rho(S)^4 != I (a cover of SL(2,Z), rational weights: supply the forms with CreateModularForm). Options Method and SeriesOrder.",
+   "DiagonalizationMethod (Automatic, \"Exact\" or \"NumericalReconstruction\") chooses how the construction frame's T is diagonalized."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, one}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; Map[ModularFormWeight, ConstructModularForms[g, d]]]",
+  "Expected": "{2}",
+  "ErrorExample": "FailureQ[ConstructModularForms[\"g\", \"x\"]]",
+  "SeeAlso": [
+   "ModularFormGetCoeff",
+   "ModularWeightProfile",
+   "CreateModularForm"
+  ]
+ },
+ "CoefficientResult": {
+  "Kind": "Function",
+  "Details": [
+   "CoefficientResult[data] is the immutable report of a normalization solve: Rules, NumericFit, ExactCandidates, the anchor (Normalization), Evidence (rank, residuals, orders, samples, holdouts) and ProofStatus (\"NumericalFit\", \"NumericallyCheckedReconstruction\", \"NumericallyCheckedExplicitRules\" or \"NumericalExplicitRules\" for explicit NormalizationRules, \"NotApplicable\"; \"Proven\" only from an exact identity).",
+   "No implemented route produces Proven at present (there is no exact identity certificate, and the S check is sampled), so RequireProof -> True currently refuses every form and model result with ProofRequired."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, one}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; Head[SolveModularCoefficients[g, one, 4, ModularFormDefinition[{ScalarModularExpression[\"E4\", q]}, q]]]]",
+  "Expected": "CoefficientResult",
+  "ErrorExample": "FailureQ[SolveModularCoefficients[1, 2, 3, 4]]",
+  "SeeAlso": [
+   "SolveModularCoefficients",
+   "ModularFormGetCoeff"
+  ]
+ },
+ "SolveModularCoefficients": {
+  "Kind": "Function",
+  "Details": [
+   "SolveModularCoefficients[c, r, k, definition] fits the relative-normalization unknowns of a raw definition of weight k for the representation r (a Rep bound to c, or an irrep ID) and returns a CoefficientResult; nothing is changed.",
+   "The unknowns must occur linearly; the S-transformation law is sampled at independent points with an exact anchor row, rank and stability are checked, and algebraic proposals are verified at doubled precision on holdout points.",
+   "An explicit Method -> \"Reconstruct\" fails with ReconstructionRejected when no exact candidate passes the checks (the numerical fit is attached under \"NumericalFit\"); Method -> Automatic returns the numerical fit in that case."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, one}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; SolveModularCoefficients[g, one, 4, ModularFormDefinition[{ScalarModularExpression[\"E4\", q] + c (ScalarModularExpression[\"E4\", q]^3 - ScalarModularExpression[\"E6\", q]^2)}, q, NormalizationParameters -> {c}], WorkingPrecision -> 30][\"ExactCandidates\"][[1, 2]]]",
+  "Expected": "0",
+  "ErrorExample": "FailureQ[SolveModularCoefficients[1, 2, 3, 4]]",
+  "SeeAlso": [
+   "ModularFormGetCoeff",
+   "CoefficientResult"
+  ]
+ },
+ "ModularFormGetCoeff": {
+  "Kind": "Function",
+  "Details": [
+   "ModularFormGetCoeff[y] resolves the relative-normalization coefficients of y with SolveModularCoefficients' method and commits them atomically (aliases see it); it returns y, and a Failure leaves y unchanged.",
+   "A coupled G is solved through its frozen companion F recipe; a derivative through its source recipe and anchor. A coefficient-free form is a no-op. Options as SolveModularCoefficients.",
+   "An explicit Method -> \"Reconstruct\" fails with ReconstructionRejected when no exact candidate passes the checks (the numerical fit is attached under \"NumericalFit\"); Method -> Automatic returns the numerical fit in that case."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, one}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; Module[{y = First[ConstructModularForms[g, d]]}, ModularFormGetCoeff[y, WorkingPrecision -> 30]; Values[y[\"Coefficients\"][\"Rules\"]]]]",
+  "Expected": "{-24}",
+  "ErrorExample": "FailureQ[ModularFormGetCoeff[5]]",
+  "SeeAlso": [
+   "SolveModularCoefficients",
+   "ConstructModularForms"
+  ]
+ },
+ "NormalizationRules": {
+  "Kind": "Option",
+  "Details": [
+   "Option of the coefficient solvers: explicit coefficient values, checked through the same evidence path (holdout transformation residuals and the anchor).",
+   "Automatic (default: fit) or rules (or an association) from every parameter ID to a value; incomplete rules fail with InvalidOption and wrong values with InconsistentNormalization; checked exact rules report ProofStatus \"NumericallyCheckedExplicitRules\" (inexact ones \"NumericalExplicitRules\")."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, one}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; Module[{y = First[ConstructModularForms[g, d]]}, ModularFormGetCoeff[y, WorkingPrecision -> 30, NormalizationRules -> Thread[Lookup[y[\"Definition\"][\"Parameters\"], \"ID\"] -> {-24}]]; y[\"Coefficients\"][\"ProofStatus\"]]]",
+  "Expected": "\"NumericallyCheckedExplicitRules\"",
+  "ErrorExample": "FailureQ[SolveModularCoefficients[1, 2, 3, 4, NormalizationRules -> 5]]",
+  "SeeAlso": [
+   "ModularFormGetCoeff",
+   "SolveModularCoefficients"
+  ]
+ },
+ "RequireProof": {
+  "Kind": "Option",
+  "Details": [
+   "Option of the coefficient solvers and ValidateModularForm: whether only a proof is acceptable.",
+   "False (default) or True: a result that is not Proven (numerical fits, verified reconstructions, sampled checks) fails with ProofRequired.",
+   "No implemented route produces Proven at present (there is no exact identity certificate, and the S check is sampled), so RequireProof -> True currently refuses every form and model result with ProofRequired."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, one}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; FailureQ[ModularFormGetCoeff[First[ConstructModularForms[g, d]], RequireProof -> True]]]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[SolveModularCoefficients[1, 2, 3, 4, RequireProof -> 5]]",
+  "SeeAlso": [
+   "ModularFormGetCoeff",
+   "ValidateModularForm"
+  ]
+ }
+}

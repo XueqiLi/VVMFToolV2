@@ -1,0 +1,142 @@
+Notebook[{Cell["ImportGroupData", "ObjectName"], 
+  Cell["ImportGroupData[file, opts] reads a mathematical snapshot into a \
+fresh Group after independent registered-export or actual native \
+correspondence validation.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["Returns a fresh live Group with saved mathematical IDs/orderings. \
+Every file passes schema checks. Matching independent locally registered \
+bytes (the user's own export ledger or the package's library ledger) import \
+without GAP, even after workspace eviction, and without re-checking their \
+mathematics: they were verified when saved, so they are decoded once and \
+their character table and CG coefficients are not re-proved. Verification -> \
+\"Exact\" re-checks a registered file like an unknown one.", "Notes"], 
+  Cell["Unknown typed snapshots are verified against an independently \
+constructed actual group, complete characters and optional data. \
+ValidationGroup instead supplies accepted source state and never waives \
+correspondence checks; the supplied object is unchanged.", "Notes"], 
+  Cell["Unregistered raw-code snapshots require ValidationGroup built \
+explicitly from the same recipe and generator order. Neither imported code \
+nor imported workspace paths are executed. Unsupported schema, changed files \
+or false claims return Failure.", "Notes"], Cell["Known mathematical \
+identities retain their accepted bindings, including after a restart through \
+the independent export ledger. Reassigning character/class, generator, \
+modular-assignment, subgroup or subgroup-class IDs returns Failure. \
+Consistent row/class reorderings remain valid.", "Notes"], 
+  Cell["GroupModel affects character-source construction for an unknown typed \
+snapshot with ValidationGroup->Automatic. Registered imports and an explicit \
+ValidationGroup reuse accepted data; the final correspondence checks use the \
+original recorded group.", "Notes"], Cell["Moving a large computation between \
+machines: run BuildGroup and SaveGroupData where the resources are, copy the \
+snapshot, and call ImportGroupData locally. A typed snapshot unknown to the \
+local ledger is checked by rebuilding only the actual group and its \
+characters in the local GAP. The saved representations are verified against \
+them, never recomputed. A raw GAP result produced without the package cannot \
+be imported, because it carries no checkable provenance.", "Notes"], 
+  Cell["Saved CG coefficients:\n- In a registered snapshot (the package's own \
+unchanged export or a library file, with no ValidationGroup and Verification \
+not \"Exact\"), only their identities and keys are checked on import; each \
+keeps its recorded status and is served without a check (an \"Unverified\" \
+entry is checked on its first use at a verifying level, a \"Numerical\" one \
+when a call asks for \"Exact\").\n- In any other file imported at Automatic \
+or \"Exact\", every saved bundle is validated exactly on import; at \
+\"Numerical\" or None the bundles are kept \"Unverified\" and are checked on \
+their first use at a verifying level.", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["GroupModel"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["Automatic, \"Original\", \"Permutation\" or \
+\"PC\" for new method calculations; PC requires a solvable group. Restoration \
+and compatible cache hits do not convert models. Import uses it only when \
+computing a new character-validation source.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["StoreGAPState"], 
+        "TableText"], Cell["True", "TableText"], Cell["True retains verified \
+state across calls; False keeps only call-local temporary checkpoints. Cached \
+mathematical values remain available.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["AttemptTimeLimit"], 
+        "TableText"], Cell["600", "TableText"], Cell["Positive seconds or \
+Infinity, per attempt including verification and saving. Automatic method \
+attempts each receive this limit.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["CoreBudget"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Positive integer at most \
+$ProcessorCount, or Automatic to use the available count. Sequential \
+algorithms run as separate worker processes.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["MemoryBudget"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Positive integer bytes, or \
+Automatic using half system memory less current kernel usage. Admission \
+estimates and sampled total worker RSS enforce the allocation.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["ProgressFunction"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Automatic shows a notebook \
+monitor when a front end is available; None is silent; a Function or user \
+symbol receives progress associations. Callbacks should return promptly; \
+failures/cancellation clean owned workers.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["ValidationGroup"], 
+        "TableText"], Cell["Automatic", "TableText"], 
+       Cell["Automatic or a live accepted Group. Explicit validation is \
+honored even for locally registered snapshots. Unknown raw snapshots require \
+an explicit matching source.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Verification"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["Automatic, \"Exact\", \"Numerical\" or None (the \
+Validate functions: Automatic, \"Exact\" or \"Numerical\"; the modular-form \
+functions have no \"Exact\" route).", "TableText"]}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, GridBoxItemSize -> 
+      {"Columns" -> {Scaled[0.02], Scaled[0.3], Scaled[0.18], 
+         Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["SaveGroupData", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"SaveGroupData.nb", None}], "  |  ", 
+     ButtonBox["RestoreGAPState", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"RestoreGAPState.nb", None}], "  |  ", 
+     ButtonBox["ValidationGroup", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ValidationGroup.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"CatalogueGroup", "[", RowBox[
+                     {"\"CyclicGroup\"", ",", "3"}], "]"}], ",", 
+                  RowBox[{"ComputeRepresentations", "\[Rule]", "False"}], 
+                  ",", RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], 
+                "]"}]}], ",", RowBox[{"d", "=", RowBox[{"CreateDirectory", 
+                "[", "]"}]}], ",", "p", ",", "h"}], "}"}], ",", 
+        RowBox[{"WithCleanup", "[", RowBox[{"Null", ",", 
+            RowBox[{RowBox[{"p", "=", RowBox[{"SaveGroupData", "[", 
+                  RowBox[{"g", ",", RowBox[{"FileNameJoin", "[", RowBox[
+                       {"{", RowBox[{"d", ",", "\"group.json\""}], "}"}], 
+                      "]"}]}], "]"}]}], ";", RowBox[{"h", "=", 
+                RowBox[{"ImportGroupData", "[", RowBox[{"p", ",", RowBox[
+                     {"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], ";", 
+              RowBox[{"{", RowBox[{RowBox[{"h", "=!=", "g"}], ",", 
+                  RowBox[{RowBox[{"h", "[", "\"CharacterData\"", "]"}], 
+                    "===", RowBox[{"g", "[", "\"CharacterData\"", "]"}]}]}], 
+                "}"}]}], ",", RowBox[{"DeleteDirectory", "[", 
+              RowBox[{"d", ",", RowBox[{"DeleteContents", "\[Rule]", 
+                  "True"}]}], "]"}]}], "]"}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{"True", ",", "True"}], "}"}]], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"ImportGroupData", "[", 
+        "\"\"", "]"}], "]"}]], "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/ImportGroupData", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "ImportGroupData \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

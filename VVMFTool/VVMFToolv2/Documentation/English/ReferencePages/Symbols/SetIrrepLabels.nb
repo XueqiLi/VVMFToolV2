@@ -1,0 +1,75 @@
+Notebook[{Cell["SetIrrepLabels", "ObjectName"], 
+  Cell["SetIrrepLabels[g, {l1, l2, ...}] sets the user labels of the irreps \
+of g in irrep order (None for no label); SetIrrepLabels[g, <|irrep -> label, \
+...|>] adds or replaces labels of irreps given by index or ID. Labels such as \
+1, 1', 2^{iv}, \\hat{3} or \\rep{2}' are stored with the group and shown by \
+every view.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["SetIrrepLabels[g, {l1, ..., ln}] stores user labels of the irreps of \
+g in irrep order (None for no label); SetIrrepLabels[g, <|irrep -> label, \
+...|>] adds or replaces labels of irreps given by index (position in \
+g[\"IrrepOrder\"]) or ID.", "Notes"], Cell["A label is a base (letters and \
+digits) with optional primes ', a superscript ^{...}, a subscript _{...}, an \
+accent \\hat, \\bar or \\tilde, or the paper's \\rep{...} form: 1, 2'', \
+2^{iv}, 3_a, \\hat{3}, \\rep{2}'. One stored label renders as plain text, \
+notebook boxes and LaTeX.", "Notes"], Cell["Tables of representations show \
+the index, the automatic label and this label; other views name an irrep by \
+its label, else its automatic label, else its index. Labels are saved with \
+the group. Two irreps with the same label are refused unless AllowDuplicates \
+-> True.", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["AllowDuplicates"], "TableText"], 
+       Cell["False", "TableText"], Cell["Whether two irreps may carry the \
+same label; IrrepIndex of a repeated label then fails AmbiguousIrrepLabel.", 
+        "TableText"]}}, GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+     GridBoxItemSize -> {"Columns" -> {Scaled[0.02], Scaled[0.3], 
+         Scaled[0.18], Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["SetIrrepLabel", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"SetIrrepLabel.nb", None}], "  |  ", 
+     ButtonBox["IrrepLabel", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"IrrepLabel.nb", None}], "  |  ", 
+     ButtonBox["IrrepIndex", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"IrrepIndex.nb", None}], "  |  ", 
+     ButtonBox["RemoveIrrepLabels", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"RemoveIrrepLabels.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{"g", "=", RowBox[{"LoadGroup", "[", 
+              RowBox[{"\"24-3I\"", ",", RowBox[{"Fresh", "\[Rule]", 
+                  "True"}]}], "]"}]}], "}"}], ",", 
+        RowBox[{RowBox[{"SetIrrepLabels", "[", RowBox[{"g", ",", 
+              RowBox[{"{", RowBox[{"\"a\"", ",", "\"b\"", ",", "\"c\"", ",", 
+                  "\"d\"", ",", "\"e\"", ",", "\"f\"", ",", "\"h\""}], 
+                "}"}]}], "]"}], ";", RowBox[
+           {RowBox[{"g", "[", "\"IrrepLabels\"", "]"}], "[", "7", "]"}]}]}], 
+      "]"}]], "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData["\"h\""], "Output"], Cell["Possible Issues", 
+   "ExampleSection"], Cell["Invalid input returns a structured Failure. Check \
+FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"SetIrrepLabels", "[", 
+        RowBox[{"1", ",", RowBox[{"{", "}"}]}], "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/SetIrrepLabels", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "SetIrrepLabels \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

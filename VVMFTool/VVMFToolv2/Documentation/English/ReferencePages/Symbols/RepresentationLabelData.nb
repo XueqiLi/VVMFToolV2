@@ -1,0 +1,90 @@
+Notebook[{Cell["RepresentationLabelData", "ObjectName"], 
+  Cell["RepresentationLabelData[c, r] returns the dimension, irrep ID, \
+certified T phases, arithmetic and unique ID of a representation for \
+labelling, without new computation on the group.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["RepresentationLabelData[c, r] \
+returns \"Dimension\", \"IrrepID\" (Missing when r is not bound to an irrep \
+of the group), \"TPhases\" (the certified phases k/n of the assigned T, or \
+Missing), \"Arithmetic\", \"UniqueID\" (the stored variant's realization \
+identity) and \"Style\".", "Notes"], Cell["T phases are a display convention, \
+not an identifier: distinct irrep IDs stay distinct when dimensions and \
+spectra coincide. They come from a T-diagonal stored variant, a kernel-local \
+memo, or exact local certification (numerical eigenvalues propose each phase, \
+exact nullities accept it), bounded by DisplayTimeLimit. With LabelStyle -> \
+Automatic a failure falls back to the dimension; LabelStyle -> \"TPhases\" \
+returns the failure. Nothing is computed on the group and no GAP process is \
+started.", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["LabelStyle"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["See the method choices in this page's details.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["DisplayTimeLimit"], "TableText"], 
+       Cell["5", "TableText"], Cell["Bounds optional label work, such as \
+certifying T phases; with LabelStyle -> Automatic a timeout falls back to \
+dimension labels. Mandatory rendering is not affected.", "TableText"]}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, GridBoxItemSize -> 
+      {"Columns" -> {Scaled[0.02], Scaled[0.3], Scaled[0.18], 
+         Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["RepresentationTSpectrum", 
+      BaseStyle -> "Hyperlink", ButtonData -> {"RepresentationTSpectrum.nb", 
+        None}], "  |  ", ButtonBox["RepresentationTable", 
+      BaseStyle -> "Hyperlink", ButtonData -> {"RepresentationTable.nb", 
+        None}]}], "SeeAlso"], Cell["Examples Initialization", 
+   "ExamplesInitializationSection"], Cell["Open this notebook in its \
+repository location. GAP must be installed; LINS is required for its bounded \
+search page. Evaluate the setup before the examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "id"}], "}"}], ",", RowBox[
+         {RowBox[{"id", "=", RowBox[{"Last", "[", RowBox[{"g", "[", 
+                "\"IrrepOrder\"", "]"}], "]"}]}], ";", 
+          RowBox[{RowBox[{RowBox[{"RepresentationLabelData", "[", 
+                RowBox[{"g", ",", RowBox[{"GroupRepresentation", "[", 
+                    RowBox[{"g", ",", "id"}], "]"}]}], "]"}], "[", 
+              "\"IrrepID\"", "]"}], "===", "id"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "id"}], "}"}], ",", RowBox[
+         {RowBox[{"id", "=", RowBox[{"Last", "[", RowBox[{"g", "[", 
+                "\"IrrepOrder\"", "]"}], "]"}]}], ";", 
+          RowBox[{"FailureQ", "[", RowBox[{"RepresentationLabelData", "[", 
+              RowBox[{"g", ",", RowBox[{"GroupRepresentation", "[", 
+                  RowBox[{"g", ",", "id"}], "]"}], ",", RowBox[{"LabelStyle", 
+                  "\[Rule]", "\"TPhases\""}]}], "]"}], "]"}]}]}], "]"}]], 
+   "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/RepresentationLabelData", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "RepresentationLabelData \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

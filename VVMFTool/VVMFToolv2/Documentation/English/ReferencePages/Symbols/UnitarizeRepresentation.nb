@@ -1,0 +1,158 @@
+Notebook[{Cell["UnitarizeRepresentation", "ObjectName"], 
+  Cell["UnitarizeRepresentation[g, r] transforms the representation r of the \
+group or context g to a unitary basis through a verified invariant form, \
+returning the new Rep, the basis change and validation data.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["UnitarizeRepresentation[g, r] finds \
+a positive Hermitian form H with M^\[Dagger].H.M == H on every recorded \
+generator, factors H == B^\[Dagger].B and returns the unitary Rep with \
+matrices B.M.Inverse[B], together with BasisChange, InverseBasisChange, \
+InvariantForm, Arithmetic, Validation and Attempts.", "Notes"], 
+  Cell["UnitarizationMethod: \"GroupAverage\" averages over the image of the \
+group (bounded by the group order), \"GeneratorEquations\" solves the \
+generator equations, and \"BSGSAverage\" is the native GAP route of automatic \
+representation computation. Automatic tries GroupAverage, then \
+GeneratorEquations. FormFactorizationMethod: Automatic tries \"Cholesky\", \
+\"LDL\", \"Spectral\". An explicit method never switches to another.", 
+   "Notes"], Cell["Arithmetic -> \"Exact\" (default) proves every identity \
+exactly, working in the number field of the input entries when one is found \
+quickly. Arithmetic -> \"Numerical\" uses WorkingPrecision and Tolerance and \
+records residuals; a numerical result is never labeled exact and keeps the \
+exact input's identity as ExactReference. AttemptTimeLimit bounds the call.", 
+   "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["FieldMethod"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["Automatic, \"Cyclotomic\", \"PrimitiveElement\", \
+\"Radical\", \"RootReduce\" or a duplicate-free list of these.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["UnitarizationMethod"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["\"GroupAverage\" averages \
+M^\[Dagger].M over the image of the group; \"GeneratorEquations\" solves \
+M^\[Dagger].H.M == H on the generators and chooses a positive solution; \
+\"BSGSAverage\" is a native GAP route (automatic representation computation \
+and TransformGroupRepresentations in GAP) and is refused where the work runs \
+in Wolfram.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["FormFactorizationMethod"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Each method returns B with H == \
+B^\[Dagger].B and is verified: \"Cholesky\" the upper-triangular factor, \
+\"LDL\" Sqrt[D].L^\[Dagger] from H == L.D.L^\[Dagger], \"Spectral\" the \
+positive square root.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Arithmetic"], "TableText"], Cell["\"Exact\"", 
+        "TableText"], Cell["\"Exact\" proves identities exactly and refuses \
+numerical input; \"Numerical\" works at WorkingPrecision (default 50) and \
+checks residuals against Tolerance (default 10^(-Floor[p/2])). Tolerance is \
+accepted only with numerical arithmetic.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["WorkingPrecision"], 
+        "TableText"], Cell["50", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["Tolerance"], "TableText"], 
+       Cell["Automatic", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["AttemptTimeLimit"], 
+        "TableText"], Cell["600", "TableText"], Cell["Positive seconds or \
+Infinity, per attempt including verification and saving. Automatic method \
+attempts each receive this limit.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["Verification"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Automatic, \"Exact\", \
+\"Numerical\" or None (the Validate functions: Automatic, \"Exact\" or \
+\"Numerical\"; the modular-form functions have no \"Exact\" route).", 
+        "TableText"]}}, GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+     GridBoxItemSize -> {"Columns" -> {Scaled[0.02], Scaled[0.3], 
+         Scaled[0.18], Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["UnitaryRepresentationQ", 
+      BaseStyle -> "Hyperlink", ButtonData -> {"UnitaryRepresentationQ.nb", 
+        None}], "  |  ", ButtonBox["DiagonalizeRepresentationT", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"DiagonalizeRepresentationT.nb", None}], "  |  ", 
+     ButtonBox["UnitarizationMethod", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"UnitarizationMethod.nb", None}], "  |  ", 
+     ButtonBox["FormFactorizationMethod", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"FormFactorizationMethod.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"ComputeRepresentations", "\[Rule]", "False"}], 
+                  ",", RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], 
+                "]"}]}], ",", "r", ",", "u"}], "}"}], ",", 
+        RowBox[{RowBox[{"r", "=", RowBox[{"ChangeRepBasis", "[", 
+              RowBox[{InterpretationBox[TemplateBox[{"\"Rep[\"", TemplateBox[
+                    {", ", "\", \"", TagBox[RowBox[{"(", "\[NoBreak]", 
+                        GridBox[{{"0", "1"}, {"1", "0"}}, RowSpacings -> 1, 
+                         ColumnSpacings -> 1, RowAlignments -> Baseline, 
+                         ColumnAlignments -> Center], "\[NoBreak]", ")"}], 
+                      Function[BoxForm`e$, MatrixForm[BoxForm`e$]]], 
+                     TagBox[RowBox[{"(", "\[NoBreak]", GridBox[{{"0", 
+                          SuperscriptBox["\[ExponentialE]", FractionBox[
+                          RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], 
+                          "3"]]}, {SuperscriptBox["\[ExponentialE]", RowBox[
+                          {"-", FractionBox[RowBox[{"2", " ", 
+                          "\[ImaginaryI]", " ", "\[Pi]"}], "3"]}]], "0"}}, 
+                         RowSpacings -> 1, ColumnSpacings -> 1, 
+                         RowAlignments -> Baseline, ColumnAlignments -> 
+                          Center], "\[NoBreak]", ")"}], Function[BoxForm`e$, 
+                       MatrixForm[BoxForm`e$]]]}, "RowWithSeparators"], 
+                   "\"]\""}, "RowDefault"], Rep[{{{0, 1}, {1, 0}}, 
+                   {{0, Root[#1^2 + #1 + 1 & , 2]}, {Root[#1^2 + #1 + 1 & , 
+                      1], 0}}}]], ",", RowBox[{"{", RowBox[{RowBox[
+                     {"{", RowBox[{"1", ",", "1"}], "}"}], ",", RowBox[
+                     {"{", RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}], 
+              "]"}]}], ";", RowBox[{"u", "=", RowBox[
+             {"UnitarizeRepresentation", "[", RowBox[{"g", ",", "r"}], 
+              "]"}]}], ";", RowBox[{"{", RowBox[
+             {RowBox[{"UnitaryRepresentationQ", "[", "r", "]"}], ",", 
+              RowBox[{"UnitaryRepresentationQ", "[", RowBox[{"u", "[", 
+                  "\"Rep\"", "]"}], "]"}], ",", RowBox[{RowBox[{"u", "[", 
+                  "\"Validation\"", "]"}], "[", "\"UnitarizationMethod\"", 
+                "]"}]}], "}"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{"False", ",", "True", ",", 
+        "\"GroupAverage\""}], "}"}]], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{"g", "=", RowBox[{"BuildGroup", "[", 
+              RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                   {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], ",", 
+                    RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", ",", 
+                        "\"(s.t)^3\""}], "}"}]}], "]"}], ",", RowBox[
+                 {"ComputeRepresentations", "\[Rule]", "False"}], ",", 
+                RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+          "}"}], ",", RowBox[{"FailureQ", "[", 
+          RowBox[{"UnitarizeRepresentation", "[", RowBox[{"g", ",", 
+              InterpretationBox[TemplateBox[{"\"Rep[\"", TemplateBox[
+                  {", ", "\", \"", TagBox[RowBox[{"(", "\[NoBreak]", 
+                      GridBox[{{"1"}}, RowSpacings -> 1, ColumnSpacings -> 1, 
+                       RowAlignments -> Baseline, ColumnAlignments -> 
+                        Center], "\[NoBreak]", ")"}], Function[BoxForm`e$, 
+                     MatrixForm[BoxForm`e$]]]}, "RowWithSeparators"], 
+                 "\"]\""}, "RowDefault"], Rep[{{{1}}}]]}], "]"}], "]"}]}], 
+      "]"}]], "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/UnitarizeRepresentation", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "UnitarizeRepresentation \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

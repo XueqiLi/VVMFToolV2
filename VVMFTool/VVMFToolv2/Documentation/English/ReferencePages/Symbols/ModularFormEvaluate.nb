@@ -1,0 +1,117 @@
+Notebook[{Cell["ModularFormEvaluate", "ObjectName"], 
+  Cell["ModularFormEvaluate[y, point] evaluates the modular form y at \
+TauPoint[tau] or QPoint[q, sheet] by an adaptive q-series and reports the \
+value with its evidence.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["ModularFormEvaluate[y, point] evaluates y at TauPoint[tau] or \
+QPoint[q, sheet] by an adaptive q-series and returns <|\"Value\", \
+\"WorkingPrecision\", \"AccuracyGoal\", \"EstimatedError\", \"Method\", \
+\"Order\", \"Branch\", \"Tau\", \"Converged\", \"ValidationStatus\", \
+\"VerificationStatus\"|>; read-only.", "Notes"], 
+  Cell["Options: Method (Automatic, \"QSeries\"; \"Analytic\" is \
+unavailable), WorkingPrecision (80), AccuracyGoal and PrecisionGoal \
+(Automatic), SeriesOrder, MaxSeriesOrder (2000), TimeLimit (600), \
+ApplyCoefficients.", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Method"], "TableText"], Cell["Automatic", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["WorkingPrecision"], 
+        "TableText"], Cell["80", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["AccuracyGoal"], "TableText"], 
+       Cell["Automatic", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["PrecisionGoal"], 
+        "TableText"], Cell["Automatic", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["SeriesOrder"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Automatic (default: chosen from \
+the accuracy goal and the point, or 6 orders for construction checks) or a \
+positive integer; an explicit order is required to evaluate a finite jet (the \
+result then has EstimatedError Missing[\"NoTailBound\"] or the next-order \
+difference).", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["MaxSeriesOrder"], "TableText"], 
+       Cell["2000", "TableText"], Cell["2000 (default) or a positive integer; \
+reaching it fails with ConvergenceFailure and the best estimate.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], Cell[BoxData["TimeLimit"], 
+        "TableText"], Cell["600", "TableText"], Cell["600 (default), a \
+positive number or Infinity; exceeding it fails with TimeLimit and changes \
+nothing.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["ApplyCoefficients"], "TableText"], 
+       Cell["True", "TableText"], Cell["True (default) or False (the raw \
+parameterized definition; numerical evaluation then fails with \
+SymbolicCoefficients).", "TableText"]}}, GridBoxAlignment -> 
+      {"Columns" -> {{Left}}}, GridBoxItemSize -> 
+      {"Columns" -> {Scaled[0.02], Scaled[0.3], Scaled[0.18], 
+         Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["TauPoint", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"TauPoint.nb", None}], "  |  ", 
+     ButtonBox["QPoint", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"QPoint.nb", None}], "  |  ", 
+     ButtonBox["ValidateModularForm", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ValidateModularForm.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "d", ",", "one"}], "}"}], ",", 
+        RowBox[{RowBox[{"AssignModularGenerators", "[", 
+            RowBox[{"g", ",", RowBox[{"GroupWord", "[", "\"t^-1.s.t\"", 
+                "]"}], ",", RowBox[{"GroupWord", "[", "\"s\"", "]"}], ",", 
+              RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}], ";", 
+          RowBox[{"d", "=", RowBox[{"First", "[", RowBox[{"Select", "[", 
+                RowBox[{RowBox[{"g", "[", "\"IrrepOrder\"", "]"}], ",", 
+                  RowBox[{RowBox[{RowBox[{"RepDim", "[", RowBox[
+                         {"GroupRepresentation", "[", RowBox[{"g", ",", 
+                          "#1"}], "]"}], "]"}], "===", "2"}], "&"}]}], "]"}], 
+              "]"}]}], ";", RowBox[{"one", "=", RowBox[
+             {RowBox[{"g", "[", "\"CharacterData\"", "]"}], "[", 
+              "\"TrivialIrrepID\"", "]"}]}], ";", 
+          RowBox[{"Module", "[", RowBox[{RowBox[{"{", RowBox[{"y", "=", 
+                  RowBox[{"First", "[", RowBox[{"ConstructModularForms", "[", 
+                      RowBox[{"g", ",", "d"}], "]"}], "]"}]}], "}"}], ",", 
+              RowBox[{RowBox[{"ModularFormGetCoeff", "[", RowBox[{"y", ",", 
+                    RowBox[{"WorkingPrecision", "\[Rule]", "30"}]}], "]"}], 
+                ";", RowBox[{"Length", "[", RowBox[{RowBox[
+                     {"ModularFormEvaluate", "[", RowBox[{"y", ",", 
+                        InterpretationBox[TemplateBox[{"\"TauPoint[\"", 
+                          "\[ImaginaryI]", "\"]\""}, "RowDefault"], TauPoint[
+                          I]], ",", RowBox[{"WorkingPrecision", "\[Rule]", 
+                          "30"}]}], "]"}], "[", "\"Value\"", "]"}], 
+                  "]"}]}]}], "]"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], Cell[BoxData["2"], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"ModularFormEvaluate", "[", 
+        RowBox[{"5", ",", InterpretationBox[TemplateBox[{"\"TauPoint[\"", 
+             "\[ImaginaryI]", "\"]\""}, "RowDefault"], TauPoint[I]]}], "]"}], 
+      "]"}]], "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/ModularFormEvaluate", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "ModularFormEvaluate \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

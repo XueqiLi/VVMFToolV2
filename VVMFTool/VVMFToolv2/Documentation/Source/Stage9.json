@@ -1,0 +1,142 @@
+{
+ "PrepareModularFormOutput": {
+  "Kind": "Function",
+  "Details": [
+   "PrepareModularFormOutput[<|name -> y, ...|>] snapshots named modular forms for export: every output is a vector (shape {d}, also d = 1) with its form ID and revision, weight, irrep, basis, assignment and group identities.",
+   "A form under several names shares one frozen node; the output carries every frozen record (definition, coefficients, anchor frame, stored expansion, evidence) and a content digest. Nothing is computed; Missing data stay Missing and ToPython decides what can be exported."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, one, y}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; y = First[ConstructModularForms[g, d]]; ModularFormGetCoeff[y, WorkingPrecision -> 30]; PrepareModularFormOutput[<|\"Y\" -> y, \"Same\" -> y|>][\"Outputs\"][[All, \"Shape\"]]]",
+  "Expected": "{{2}, {2}}",
+  "ErrorExample": "FailureQ[PrepareModularFormOutput[<|\"Y\" -> 1|>]]",
+  "SeeAlso": [
+   "ModularFormOutput",
+   "ToPython",
+   "SaveModularFormData"
+  ]
+ },
+ "ModularFormOutput": {
+  "Kind": "Function",
+  "Details": [
+   "ModularFormOutput[data] is the immutable export snapshot of named modular forms made by PrepareModularFormOutput; out[\"Outputs\"], out[\"Nodes\"] and out[\"Digest\"] read it.",
+   "Later coefficient solves, expansions or group changes never alter it; ToPython validates it (forged records or digests fail) before generating a module."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, one, y}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; y = First[ConstructModularForms[g, d]]; ModularFormGetCoeff[y, WorkingPrecision -> 30]; Head[PrepareModularFormOutput[<|\"Y\" -> y|>]]]",
+  "Expected": "ModularFormOutput",
+  "ErrorExample": "FailureQ[ToPython[ModularFormOutput[<||>]]]",
+  "SeeAlso": [
+   "PrepareModularFormOutput",
+   "ToPython"
+  ]
+ },
+ "FormLabels": {
+  "Kind": "Option",
+  "Details": [
+   "Option of ModularFormView and ModularFormTable: custom labels by form ID (strings or TeXFragment) replacing the automatic label Y^(k)_r.",
+   "Default <||>; labels change appearance only, and a form ID that is not displayed fails InvalidOption."
+  ],
+  "Example": "Lookup[Options[ModularFormView], FormLabels]",
+  "Expected": "<||>",
+  "ErrorExample": "FailureQ[ModularDimensionView[<||>, FormLabels -> <||>]]",
+  "SeeAlso": [
+   "ModularFormView",
+   "ModularFormTable"
+  ]
+ },
+ "FormSlotLabels": {
+  "Kind": "Option",
+  "Details": [
+   "Option of FormSlotTable and the model views (ModelView, FieldTable, ContractionTable, CouplingTable, MassMatrixView, ModelOutputView): custom labels by form-slot ID.",
+   "Default <||>; slot labels otherwise come from the slot records (Y^(k)_r with a Roman copy index when the space has more than one copy); unknown slot IDs fail InvalidOption."
+  ],
+  "Example": "Lookup[Options[FormSlotTable], FormSlotLabels]",
+  "Expected": "<||>",
+  "ErrorExample": "FailureQ[ModularDimensionView[<||>, FormSlotLabels -> <||>]]",
+  "SeeAlso": [
+   "FormSlotTable",
+   "ModelView"
+  ]
+ },
+ "ExpressionMode": {
+  "Kind": "Option",
+  "Details": [
+   "Option of ModularFormView and ModularFormTable: \"Normalized\" substitutes the stored resolved coefficients, \"Raw\" shows the normalization parameters.",
+   "Default \"Normalized\"; unresolved coefficients show the raw expression with the status Unresolved and assign no value."
+  ],
+  "Example": "Lookup[Options[ModularFormView], ExpressionMode]",
+  "Expected": "\"Normalized\"",
+  "ErrorExample": "FailureQ[ModularDimensionView[<||>, ExpressionMode -> \"Raw\"]]",
+  "SeeAlso": [
+   "ModularFormView",
+   "ModularFormGetCoeff"
+  ]
+ },
+ "MaxQTerms": {
+  "Kind": "Option",
+  "Details": [
+   "Option of the modular views: the number of known nonzero q-series terms shown per component.",
+   "Default 6, or All; hidden known terms are marked and the stored cutoff O(q^n) is always shown; the stored data are not changed."
+  ],
+  "Example": "Lookup[Options[QExpansionView], MaxQTerms]",
+  "Expected": "6",
+  "ErrorExample": "FailureQ[ModularDimensionView[<||>, MaxQTerms -> 3]]",
+  "SeeAlso": [
+   "QExpansionView",
+   "FactorQSeries"
+  ]
+ },
+ "FactorQSeries": {
+  "Kind": "Option",
+  "Details": [
+   "Option of the modular views: True writes a series as c q^r (1 + ...) when its first known coefficient is established nonzero.",
+   "Default True; the remainder is written inside as O(q^(n - r)) so the cutoff keeps its meaning; unresolved or ambiguous leading terms are not factored."
+  ],
+  "Example": "Lookup[Options[QExpansionView], FactorQSeries]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[ModularDimensionView[<||>, FactorQSeries -> False]]",
+  "SeeAlso": [
+   "QExpansionView",
+   "MaxQTerms"
+  ]
+ },
+ "IncludeWeight": {
+  "Kind": "Option",
+  "Details": [
+   "Option of ModularFormTable: True shows a column of the actual weight k of every form.",
+   "Default True; with False the weight stays in the document data."
+  ],
+  "Example": "Lookup[Options[ModularFormTable], IncludeWeight]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[ModularDimensionView[<||>, IncludeWeight -> True]]",
+  "SeeAlso": [
+   "ModularFormTable"
+  ]
+ },
+ "FormEvaluation": {
+  "Kind": "Option",
+  "Details": [
+   "Option of ToPython for modular outputs: \"Embedded\" evaluates the frozen bound forms inside the module, \"External\" (model outputs only) takes caller-supplied form_values keyed by slot ID.",
+   "Default \"Embedded\" (needs every used slot bound with resolved coefficients); External reports UnknownExternalError and is incompatible with RequireProof."
+  ],
+  "Example": "Lookup[Options[ToPython], FormEvaluation]",
+  "Expected": "\"Embedded\"",
+  "ErrorExample": "FailureQ[ToPython[1, FormEvaluation -> \"Other\"]]",
+  "SeeAlso": [
+   "ToPython",
+   "ExportEvaluationMethod"
+  ]
+ },
+ "ExportEvaluationMethod": {
+  "Kind": "Option",
+  "Details": [
+   "Option of ToPython for modular outputs: Automatic (\"QSeries\": adaptive q-series of the frozen recipes), \"FiniteSeries\" (a stored expansion or finite jet at an explicit SeriesOrder) or \"Analytic\" (unavailable, as in Stage 7).",
+   "Default Automatic; FiniteSeries reports a finite approximation without a tail bound and refuses accuracy goals."
+  ],
+  "Example": "Lookup[Options[ToPython], ExportEvaluationMethod]",
+  "Expected": "Automatic",
+  "ErrorExample": "FailureQ[ToPython[1, ExportEvaluationMethod -> \"Other\"]]",
+  "SeeAlso": [
+   "ToPython",
+   "FormEvaluation"
+  ]
+ }
+}

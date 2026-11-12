@@ -1,0 +1,134 @@
+{
+ "ModularTensorProductVectors": {
+  "Kind": "Function",
+  "Details": [
+   "ModularTensorProductVectors[m, factors] gives every representation-valued channel of the model's fields times formal form copies (all copies, paths and zeros) for TargetIrreps, with total actual weight kW.",
+   "No scalar claim is made for a component sum; couple selected components with CoupleExpressions (Unverified). Options: TargetIrreps, FormSelection, DimensionCache, CG options."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], c, d, one, df, rf, m0}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; c = RepresentationContext[g]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; df = CreateField[c, d, \"D\"]; rf = CreateField[c, one, \"R\"]; m0 = CreateModularModel[c, {df, rf}, FieldWeights -> <|df[\"ID\"] -> 1, rf[\"ID\"] -> 1|>]; Length[WeightedVectorData[ModularTensorProductVectors[m0, {df, rf}, TargetIrreps -> d]][\"ChannelIDs\"]]]",
+  "Expected": "1",
+  "ErrorExample": "FailureQ[ModularTensorProductVectors[1, {}]]",
+  "SeeAlso": [
+   "ModularContractions",
+   "CoupleExpressions"
+  ]
+ },
+ "ModularContractions": {
+  "Kind": "Function",
+  "Details": [
+   "ModularContractions[m, factors] gives every contraction of the model's fields with formal form copies into the model's degree-one target as a ContractionSet (Y components are formal variables).",
+   "CoupleContractions and AddModelTerm work as for field-only sets; the term's slots are registered in the model. Options: FormSelection, DimensionCache, CG options."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], c, d, one, df, rf, m0}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; c = RepresentationContext[g]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; df = CreateField[c, d, \"D\"]; rf = CreateField[c, one, \"R\"]; m0 = CreateModularModel[c, {df, rf}, FieldWeights -> <|df[\"ID\"] -> 1, rf[\"ID\"] -> 1|>]; Length[ModularContractions[m0, {df, rf}][\"Channels\"]]]",
+  "Expected": "1",
+  "ErrorExample": "FailureQ[ModularContractions[1, {}]]",
+  "SeeAlso": [
+   "ModularFormCandidates",
+   "CoupleContractions"
+  ]
+ },
+ "AddModularFormCouplings": {
+  "Kind": "Function",
+  "Details": [
+   "AddModularFormCouplings[m] multiplies every used formal form slot of the model by its own physical coupling in every term; AddModularFormCouplings[m, slotIDs] selects slots.",
+   "Repeated application reuses the recorded couplings (no second factor). Options: FormCouplings, CouplingPrefix (default \"a\"), ParameterSymbols."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], c, d, one, df, rf, m0}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; c = RepresentationContext[g]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; df = CreateField[c, d, \"D\"]; rf = CreateField[c, one, \"R\"]; m0 = CreateModularModel[c, {df, rf}, FieldWeights -> <|df[\"ID\"] -> 1, rf[\"ID\"] -> 1|>]; Module[{m = AddModelTerm[m0, CoupleContractions[ModularContractions[m0, {df, rf}]]]}, Length[ModelParameters[AddModularFormCouplings[m]]]]]",
+  "Expected": "2",
+  "ErrorExample": "FailureQ[AddModularFormCouplings[1]]",
+  "SeeAlso": [
+   "ModularContractions",
+   "ExtractBilinearMatrix"
+  ]
+ },
+ "BindModularForms": {
+  "Kind": "Function",
+  "Details": [
+   "BindModularForms[m, <|slotID -> y, ...|>] binds Stage 7 forms to registered slots as frozen snapshots after exact compatibility (group, generators, assignment, basis, representation, weight), holomorphy at the cusp, resolved coefficients, a passed Stage 7 S/T check (finite jets are sampled at their explicit SeriesOrder) and independence checks.",
+   "Options: ReplaceBindings, RequireProof, WorkingPrecision, SeriesOrder, TimeLimit. Later updates of y do not change the model.",
+   "No implemented route produces Proven at present (there is no exact identity certificate, and the S check is sampled), so RequireProof -> True currently refuses every form and model result with ProofRequired."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], c, d, one, df, rf, m0}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; c = RepresentationContext[g]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; df = CreateField[c, d, \"D\"]; rf = CreateField[c, one, \"R\"]; m0 = CreateModularModel[c, {df, rf}, FieldWeights -> <|df[\"ID\"] -> 1, rf[\"ID\"] -> 1|>]; Module[{m = AddModelTerm[m0, CoupleContractions[ModularContractions[m0, {df, rf}]]], y = First[ConstructModularForms[c, d]], slot, mb, values}, ModularFormGetCoeff[y, WorkingPrecision -> 30]; slot = First[Keys[First[m][\"ModularData\"][\"Slots\"]]]; mb = BindModularForms[m, <|slot -> y|>]; values = AssociationThread[Lookup[ModelParameters[mb], \"ID\"], ConstantArray[1, Length[ModelParameters[mb]]]]; ValidateModularModel[mb][\"Binding\"][\"Status\"]]]",
+  "Expected": "\"Full\"",
+  "ErrorExample": "FailureQ[BindModularForms[1, <||>]]",
+  "SeeAlso": [
+   "ModularFormBindings",
+   "ValidateModularModel"
+  ]
+ },
+ "ModularFormBindings": {
+  "Kind": "Function",
+  "Details": [
+   "ModularFormBindings[m] gives the frozen form bindings of the modular model m by slot ID (form ID, revision, record, kind and Stage 7 validation)."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], c, d, one, df, rf, m0}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; c = RepresentationContext[g]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; df = CreateField[c, d, \"D\"]; rf = CreateField[c, one, \"R\"]; m0 = CreateModularModel[c, {df, rf}, FieldWeights -> <|df[\"ID\"] -> 1, rf[\"ID\"] -> 1|>]; Module[{m = AddModelTerm[m0, CoupleContractions[ModularContractions[m0, {df, rf}]]], y = First[ConstructModularForms[c, d]], slot, mb, values}, ModularFormGetCoeff[y, WorkingPrecision -> 30]; slot = First[Keys[First[m][\"ModularData\"][\"Slots\"]]]; mb = BindModularForms[m, <|slot -> y|>]; values = AssociationThread[Lookup[ModelParameters[mb], \"ID\"], ConstantArray[1, Length[ModelParameters[mb]]]]; Keys[ModularFormBindings[mb]] === {slot}]]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[ModularFormBindings[5]]",
+  "SeeAlso": [
+   "BindModularForms"
+  ]
+ },
+ "ValidateModularModel": {
+  "Kind": "Function",
+  "Details": [
+   "ValidateModularModel[m] gives the layered report: schema, formal covariance and total weight, and binding completeness, membership and independence evidence; Proven needs exact formal covariance and fully bound, proven forms.",
+   "Options: RequireBindings, RequireProof.",
+   "No implemented route produces Proven at present (there is no exact identity certificate, and the S check is sampled), so RequireProof -> True currently refuses every form and model result with ProofRequired.",
+   "The report's \"VerificationStatus\" is the weakest of the formal status (ValidateModel) and the bound forms' statuses; each bound slot reports its own."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], c, d, one, df, rf, m0}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; c = RepresentationContext[g]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; df = CreateField[c, d, \"D\"]; rf = CreateField[c, one, \"R\"]; m0 = CreateModularModel[c, {df, rf}, FieldWeights -> <|df[\"ID\"] -> 1, rf[\"ID\"] -> 1|>]; ValidateModularModel[AddModelTerm[m0, CoupleContractions[ModularContractions[m0, {df, rf}]]]][\"Binding\"][\"Status\"]]",
+  "Expected": "\"Unbound\"",
+  "ErrorExample": "FailureQ[ValidateModularModel[5]]",
+  "SeeAlso": [
+   "BindModularForms",
+   "ValidateModel"
+  ]
+ },
+ "EvaluateModularModel": {
+  "Kind": "Function",
+  "Details": [
+   "EvaluateModularModel[m, point] evaluates the model's expression at TauPoint[tau] or QPoint[q, sheet] with each bound slot evaluated once from its frozen record, and ParameterValues and FieldValues.",
+   "Missing bindings or inputs fail by name; the report gives the slot evaluations, the output's estimated error, the goals, the refinements and convergence.",
+   "EstimatedError is the output's own estimate: the change of the output when every slot takes its previous successive approximation, at least the output's roundoff; it is not a certified bound. The output is accepted when the estimate is at most Max[10^-AccuracyGoal, 10^-PrecisionGoal |value|]. Otherwise the slot goals rise by five digits per round, up to three rounds and at most WorkingPrecision - 2; if the goals are still missed, the evaluation fails with OutputAccuracy. Raise WorkingPrecision for strongly cancelling or amplified outputs. An explicit SeriesOrder gives a truncated value with Converged False.",
+   "The report's \"VerificationStatus\" is at best \"Numerical\" (a numerical value), bounded by the formal status and the bound forms' statuses."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], c, d, one, df, rf, m0}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; c = RepresentationContext[g]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; df = CreateField[c, d, \"D\"]; rf = CreateField[c, one, \"R\"]; m0 = CreateModularModel[c, {df, rf}, FieldWeights -> <|df[\"ID\"] -> 1, rf[\"ID\"] -> 1|>]; Module[{m = AddModelTerm[m0, CoupleContractions[ModularContractions[m0, {df, rf}]]], y = First[ConstructModularForms[c, d]], slot, mb, values}, ModularFormGetCoeff[y, WorkingPrecision -> 30]; slot = First[Keys[First[m][\"ModularData\"][\"Slots\"]]]; mb = BindModularForms[m, <|slot -> y|>]; values = AssociationThread[Lookup[ModelParameters[mb], \"ID\"], ConstantArray[1, Length[ModelParameters[mb]]]]; NumericQ[EvaluateModularModel[mb, TauPoint[I], ParameterValues -> values, FieldValues -> <|df[\"ID\"] -> {1, 2}, rf[\"ID\"] -> {3}|>][\"Value\"]]]]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[EvaluateModularModel[5, 6]]",
+  "SeeAlso": [
+   "EvaluateModularMassMatrix",
+   "BindModularForms"
+  ]
+ },
+ "EvaluateModularMassMatrix": {
+  "Kind": "Function",
+  "Details": [
+   "EvaluateModularMassMatrix[m, mass, point] validates the matrix against the model (source, covariance, entry weights) and evaluates its entries at the point; the 2D shape is kept.",
+   "The matrix is one output: its EstimatedError, acceptance and refinement follow EvaluateModularModel, using the largest entry.",
+   "The report's \"VerificationStatus\" is at best \"Numerical\", bounded by the matrix's validation (ValidateMassMatrix) and the bound forms' statuses."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], c, d, one, df, rf, m0}, AssignModularGenerators[g, GroupWord[\"t^-1.s.t\"], GroupWord[\"s\"], StoreGAPState -> False]; c = RepresentationContext[g]; d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; one = g[\"CharacterData\"][\"TrivialIrrepID\"]; df = CreateField[c, d, \"D\"]; rf = CreateField[c, one, \"R\"]; m0 = CreateModularModel[c, {df, rf}, FieldWeights -> <|df[\"ID\"] -> 1, rf[\"ID\"] -> 1|>]; Module[{m = AddModelTerm[m0, CoupleContractions[ModularContractions[m0, {df, rf}]]], y = First[ConstructModularForms[c, d]], slot, mb, values}, ModularFormGetCoeff[y, WorkingPrecision -> 30]; slot = First[Keys[First[m][\"ModularData\"][\"Slots\"]]]; mb = BindModularForms[m, <|slot -> y|>]; values = AssociationThread[Lookup[ModelParameters[mb], \"ID\"], ConstantArray[1, Length[ModelParameters[mb]]]]; Dimensions[EvaluateModularMassMatrix[mb, ExtractBilinearMatrix[ModelExpression[mb], df, rf], TauPoint[I], ParameterValues -> values][\"Value\"]]]]",
+  "Expected": "{2, 1}",
+  "ErrorExample": "FailureQ[EvaluateModularMassMatrix[5, 6, 7]]",
+  "SeeAlso": [
+   "EvaluateModularModel",
+   "ExtractBilinearMatrix"
+  ]
+ },
+ "SupplyModularFormSpace": {
+  "Kind": "Function",
+  "Details": [
+   "SupplyModularFormSpace[m, {y1, ...}] establishes the space of the forms' irrep and weight for the modular model m from the supplied forms, when Stage 7 has no count for it: a rational weight on a cover of SL(2,Z) (a group with S^2 central and (ST)^3 = S^4, for example Z_24 = <T> with S = T^3, which carries eta of weight 1/2) has Missing[\"UnknownDimension\"]. The space gets Status \"Supplied\", dimension Length[{y1, ...}] and slots, so ModularFormCandidates and ModularContractions can use it.",
+   "The forms must have one irrep and one weight, fit the model's context exactly (group, assignment, basis, representation), be holomorphic at the cusp, pass their Stage 7 S/T check and be independent by q-coefficient rank. The spanning claim itself is the user's: a model that uses a supplied space is never Proven (ValidateModularModel reports \"Established\" -> \"Supplied\"), and its contractions, terms and model report \"VerificationStatus\" \"Unverified\". The forms are not bound; bind them with BindModularForms.",
+   "A space Stage 7 counts is refused (EstablishedSpace); a supplied space that already has slots in the model is refused (SuppliedSpaceInUse). Options WorkingPrecision, SeriesOrder, TimeLimit. Model archives keep the supplied spaces as the user's claim (the supplying forms are not archived, so their independence is not recomputed on import). If Stage 7 later counts the space, the count wins. FormSlotTable marks such a space dimension \"(supplied)\"."
+  ],
+  "Example": "Module[{g = BuildModularGroup[GroupPresentation[{\"S\", \"T\"}, {\"T^24\", \"S.T^-3\"}], StoreGAPState -> False], c, eta, conj, l, r, m}, c = RepresentationContext[g]; eta = First[Select[g[\"IrrepOrder\"], RootReduce[First[Flatten[RepresentationElementMatrices[g, #, {GroupWord[\"T\"]}]]] - (-1)^(1/12)] === 0 &]]; conj = First[Select[g[\"IrrepOrder\"], RootReduce[First[Flatten[RepresentationElementMatrices[g, #, {GroupWord[\"T\"]}]]] - (-1)^(-1/12)] === 0 &]]; l = CreateField[c, conj, \"L\"]; r = CreateField[c, g[\"CharacterData\"][\"TrivialIrrepID\"], \"R\"]; m = CreateModularModel[c, {l, r}, FieldWeights -> <|l[\"ID\"] -> 1/4, r[\"ID\"] -> 1/4|>]; m = SupplyModularFormSpace[m, {CreateModularForm[g, eta, 1/2, ModularFormDefinition[{ScalarModularExpression[\"Eta\", q]}, q]]}]; {#[\"Weight\"], #[\"Copy\"]} & /@ ModularFormCandidates[m, {l, r}][\"Slots\"]]",
+  "Expected": "{{1/2, 1}}",
+  "ErrorExample": "FailureQ[SupplyModularFormSpace[1, {}]]",
+  "SeeAlso": [
+   "BindModularForms",
+   "ModularFormCandidates",
+   "CreateModularForm"
+  ]
+ }
+}

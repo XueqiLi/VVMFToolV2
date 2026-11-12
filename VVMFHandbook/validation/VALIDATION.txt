@@ -1,0 +1,42 @@
+Validation record — simplified VVMF package, revision 5
+
+Runtime: Mathics3 10.0.1, exact symbolic arithmetic. Native Mathematica and
+its front end are unavailable in this environment. Notebook files use
+standard Notebook/Cell/BoxData expressions. This is not a native Wolfram
+front-end certification.
+
+Executed in this revision:
+* Loaded the single engine and actually computed all 174 independent models
+  through relative order 1 with the delivered Wolfram recurrence.
+* Wrote the new single-file payload using the delivered VVMFBuild exporter.
+* Removed the engine from the test folder. In a fresh session the actual
+  Results loader read the only remaining data file successfully.
+* All 174 normalized coefficient arrays agreed exactly with reference data.
+* All 820 aliases were installed. Default order followed the stored order;
+  requesting a higher order returned Failure. Group indices follow Section 7.
+* LaTeX export retained algebraic parameter definitions and removed leaked
+  internal formatting contexts.
+
+Bundled relative-order-20 data:
+* Exported by the delivered writer from the previously independently checked
+  exact reference arrays, rather than by rerunning every order-20 recurrence
+  in this revision. No reference coefficient table is embedded in the engine.
+* A fresh Results session read this data and all 174 arrays were compared
+  exactly, including all coefficients through order 20.
+* The preceding revision's all-174 order-20 recurrence checks are included
+  as previous_recurrence_validation.json for provenance. The mathematical
+  recurrence has not been changed in this simplification.
+
+Manuscript:
+* Only the originally empty subsection 6.2 was replaced. The rest of the
+  uploaded TeX was preserved byte for byte.
+* The bibliography was preserved byte for byte.
+* The data/engine source digest matches the revised full manuscript.
+* The isolated usage subsection was compiled and visually checked as one page,
+  using the original mmacode environment and fallback fonts in this environment.
+  The full manuscript was not recompiled here.
+
+No Python, Mathics, CSV, JSON or validation file is required by either
+notebook in normal Mathematica use. The operational dependencies are exactly:
+  Compute.nb -> Engine.wl
+  Results.nb -> Results_Data.wl

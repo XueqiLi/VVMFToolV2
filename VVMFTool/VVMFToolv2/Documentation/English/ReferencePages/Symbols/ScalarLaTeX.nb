@@ -1,0 +1,71 @@
+Notebook[{Cell["ScalarLaTeX", "ObjectName"], Cell["ScalarLaTeX[x] returns the \
+LaTeX of an exact algebraic or numerical scalar without changing its value.", 
+   "Usage"], Cell["Status: Alpha.", "Notes"], Cell["ScalarLaTeX[x] returns \
+LaTeX for an exact algebraic number or a numerical value. Rationals are \
+fractions; certified roots of unity follow ScalarNotation; other exact values \
+use radicals when an equal radical form exists (complex values as a + b i) \
+and otherwise Root notation with the defining polynomial.", "Notes"], 
+  Cell["The value is never rounded, chopped or rationalized; a real branch \
+such as Surd[-1, 3] stays -1. Digits limits the digits shown for numerical \
+values only.", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["ScalarNotation"], "TableText"], Cell["\"Standard\"", 
+        "TableText"], Cell["\"Standard\" writes a certified root of unity as \
+exact radicals a + b i when possible; \"Exponential\" as e^{2 pi i k/n}; \
+\"Omega\" as omega_n^k (with its definition once when DefineOmega is True). \
+Only exactly certified rational phases are converted; other values are \
+unaffected. In \"Standard\" a table can therefore mix forms (fifth roots of \
+unity have radical forms, 25th roots are written exponentially); \
+\"Exponential\" and \"Omega\" give a uniform table.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["NotationStyle"], 
+        "TableText"], Cell["\"Standard\"", "TableText"], 
+       Cell["\"Standard\" uses ordinary LaTeX commands; \"Paper\" uses the \
+macros \\ii, \\ee and \\rep, defined by the preamble with \\providecommand.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], Cell[BoxData["Digits"], 
+        "TableText"], Cell["Automatic", "TableText"], 
+       Cell["A positive integer limits the digits displayed for numerical \
+values. Exact values are never rounded, and stored values are not changed.", 
+        "TableText"]}}, GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+     GridBoxItemSize -> {"Columns" -> {Scaled[0.02], Scaled[0.3], 
+         Scaled[0.18], Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["MatrixLaTeX", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"MatrixLaTeX.nb", None}], "  |  ", 
+     ButtonBox["ScalarNotation", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ScalarNotation.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{RowBox[{"ScalarLaTeX", "[", 
+          FractionBox["3", "4"], "]"}], ",", RowBox[{"ScalarLaTeX", "[", 
+          RowBox[{"\[ImaginaryI]", ",", RowBox[{"ScalarNotation", "\[Rule]", 
+              "\"Omega\""}]}], "]"}]}], "}"}]], "Input", 
+   CellTags -> "VerifiedExample"], 
+  Cell[BoxData[RowBox[{"{", RowBox[{"\"\\\\frac{3}{4}\"", ",", 
+        "\"\\\\omega_{4}\""}], "}"}]], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"ScalarLaTeX", "[", "\[Pi]", 
+        "]"}], "]"}]], "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/ScalarLaTeX", "Categorization", CellLabel -> "URI"]}, 
+    Closed]]}, WindowTitle -> "ScalarLaTeX \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

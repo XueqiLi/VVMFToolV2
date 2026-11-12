@@ -1,0 +1,111 @@
+{
+ "FieldWeights": {
+  "Kind": "Option",
+  "Details": [
+   "Option of CreateModularModel: the weight label kf of every field, an exact rational such as 1/2 (actual modular weight -kf), as an association from field IDs.",
+   "Required (Automatic fails MissingFieldWeights); unknown field IDs or labels that are not exact rationals (for example 0.5) fail InvalidFieldWeights. A term with one form of weight kY is admitted when kY - Sum kf = kW."
+  ],
+  "Example": "Lookup[Options[CreateModularModel], FieldWeights]",
+  "Expected": "Automatic",
+  "ErrorExample": "FailureQ[CreateModularModel[1, {}, FieldWeights -> 5]]",
+  "SeeAlso": [
+   "CreateModularModel",
+   "SuperpotentialWeight"
+  ]
+ },
+ "SuperpotentialWeight": {
+  "Kind": "Option",
+  "Details": [
+   "Option of CreateModularModel: the actual modular weight kW of the model's target expression.",
+   "An exact rational, default 0; every monomial of every term must have total actual weight kW (fields -kf, forms kY)."
+  ],
+  "Example": "Lookup[Options[CreateModularModel], SuperpotentialWeight]",
+  "Expected": "0",
+  "ErrorExample": "FailureQ[CreateModularModel[1, {}, SuperpotentialWeight -> 1/2]]",
+  "SeeAlso": [
+   "CreateModularModel",
+   "FieldWeights"
+  ]
+ },
+ "FormSelection": {
+  "Kind": "Option",
+  "Details": [
+   "Option of ModularContractions and ModularTensorProductVectors: which formal form slots are appended.",
+   "All (default) is exhaustive and needs every relevant form-space count (otherwise IncompleteModularSpace); a space established by SupplyModularFormSpace counts, conditional on the user's spanning claim; a duplicate-free list of slot IDs from the candidate report gives selected coverage."
+  ],
+  "Example": "Lookup[Options[ModularContractions], FormSelection]",
+  "Expected": "All",
+  "ErrorExample": "FailureQ[ModularContractions[1, {}, FormSelection -> 5]]",
+  "SeeAlso": [
+   "ModularContractions",
+   "ModularFormCandidates"
+  ]
+ },
+ "FormCouplings": {
+  "Kind": "Option",
+  "Details": [
+   "Option of AddModularFormCouplings: the per-slot coefficients.",
+   "Automatic (default) makes a fresh coupling per selected slot; an association from exactly the selected slot IDs to coefficients uses those (declare symbols with ParameterSymbols)."
+  ],
+  "Example": "Lookup[Options[AddModularFormCouplings], FormCouplings]",
+  "Expected": "Automatic",
+  "ErrorExample": "FailureQ[AddModularFormCouplings[1, FormCouplings -> 5]]",
+  "SeeAlso": [
+   "AddModularFormCouplings"
+  ]
+ },
+ "ReplaceBindings": {
+  "Kind": "Option",
+  "Details": [
+   "Option of BindModularForms: whether existing bindings of the given slots may be replaced.",
+   "False (default) fails AlreadyBound; True replaces them and checks the combined bound set of every affected space again."
+  ],
+  "Example": "Lookup[Options[BindModularForms], ReplaceBindings]",
+  "Expected": "False",
+  "ErrorExample": "FailureQ[BindModularForms[1, <||>, ReplaceBindings -> 5]]",
+  "SeeAlso": [
+   "BindModularForms"
+  ]
+ },
+ "RequireBindings": {
+  "Kind": "Option",
+  "Details": [
+   "Option of ValidateModularModel: whether every used slot must be bound.",
+   "False (default) reports the binding status; True fails MissingBindings unless every used slot is bound with full independent coverage of its space."
+  ],
+  "Example": "Lookup[Options[ValidateModularModel], RequireBindings]",
+  "Expected": "False",
+  "ErrorExample": "FailureQ[ValidateModularModel[1, RequireBindings -> 5]]",
+  "SeeAlso": [
+   "ValidateModularModel"
+  ]
+ },
+ "FieldValues": {
+  "Kind": "Option",
+  "Details": [
+   "Option of EvaluateModularModel and EvaluateModularMassMatrix: the values of the fields the expression needs.",
+   "An association from field IDs to full ordered vectors of finite numbers (default <||>); a required field without a value fails MissingFieldValues, a wrong length InvalidFieldValues."
+  ],
+  "Example": "Lookup[Options[EvaluateModularModel], FieldValues]",
+  "Expected": "<||>",
+  "ErrorExample": "FailureQ[EvaluateModularModel[1, 2, FieldValues -> 5]]",
+  "SeeAlso": [
+   "EvaluateModularModel",
+   "ParameterValues"
+  ]
+ },
+ "FormComponent": {
+  "Kind": "Function",
+  "Details": [
+   "FormComponent[slotID, i] is the inert i-th component of a formal modular-form slot of a modular model (a symbolic Y copy); N leaves it unevaluated.",
+   "Slot IDs come from ModularFormCandidates; a model registers a slot when a term using it is added, and only registered slot components may appear in a modular model's terms."
+  ],
+  "Example": "N[FormComponent[\"slot:x\", 2]]",
+  "Expected": "FormComponent[\"slot:x\", 2]",
+  "ErrorExample": "FailureQ[CoupleExpressions[{FormComponent[\"s\", 1]}, Couplings -> {FormComponent[\"s\", 1]}]]",
+  "SeeAlso": [
+   "ModularFormCandidates",
+   "ModularContractions"
+  ]
+ }
+}

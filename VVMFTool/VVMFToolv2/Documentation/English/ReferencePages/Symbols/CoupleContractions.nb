@@ -1,0 +1,105 @@
+Notebook[{Cell["CoupleContractions", "ObjectName"], 
+  Cell["CoupleContractions[set] attaches one fresh coupling to each \
+independent channel of a ContractionSet (ChannelPolicy -> \"AllChannels\" for \
+every nonzero channel).", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["CoupleContractions[set] attaches one fresh Coupling to each \
+independent channel of the ContractionSet set (computing \
+IndependentContractions when needed) and returns a CoupledExpression that is \
+covariant by construction.", "Notes"], Cell["Options: ChannelPolicy, \
+Couplings, CouplingPrefix and ParameterSymbols. The set itself is not \
+changed. Approximate explicit couplings (real or complex) need a numerical \
+set (NumericalInput otherwise) and bound the term's precision: a \
+machine-precision coupling gives a MachinePrecision term.", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["ChannelPolicy"], "TableText"], Cell["\"Independent\"", 
+        "TableText"], Cell["\"Independent\" (default) or \"AllChannels\".", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], Cell[BoxData["Couplings"], 
+        "TableText"], Cell["Automatic", "TableText"], 
+       Cell["Automatic (default, one fresh Coupling per retained term) or a \
+list of coefficient expressions, one per retained term.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["CouplingPrefix"], 
+        "TableText"], Cell["\"c\"", "TableText"], 
+       Cell["A string (default \"c\").", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["ParameterSymbols"], 
+        "TableText"], Cell["{}", "TableText"], Cell["{} (default) or a \
+duplicate-free list of symbols or indexed atoms; known constants such as Pi \
+need no declaration. A spelling that already labels a parameter in this \
+session gets a suffixed label (lambda_2): to share one parameter between \
+terms, use its Coupling atom from CouplingParameters.", "TableText"]}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, GridBoxItemSize -> 
+      {"Columns" -> {Scaled[0.02], Scaled[0.3], Scaled[0.18], 
+         Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["Contractions", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"Contractions.nb", None}], "  |  ", 
+     ButtonBox["ChannelPolicy", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ChannelPolicy.nb", None}], "  |  ", 
+     ButtonBox["Couplings", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"Couplings.nb", None}], "  |  ", 
+     ButtonBox["AddModelTerm", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"AddModelTerm.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{"t", ",", "m2", ",", "q", ",", "raw", ",", 
+            "x", ",", "mass", ",", RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "d", ",", "sign", ",", "l", ",", "r", ",", "m"}], "}"}], 
+        ",", RowBox[{RowBox[{"d", "=", RowBox[{"First", "[", 
+              RowBox[{"Select", "[", RowBox[{RowBox[{"g", "[", 
+                    "\"IrrepOrder\"", "]"}], ",", RowBox[{RowBox[
+                     {RowBox[{"RepDim", "[", RowBox[{"GroupRepresentation", 
+                          "[", RowBox[{"g", ",", "#1"}], "]"}], "]"}], "===", 
+                      "2"}], "&"}]}], "]"}], "]"}]}], ";", 
+          RowBox[{"sign", "=", RowBox[{"First", "[", RowBox[{"DeleteCases", 
+                "[", RowBox[{RowBox[{"Select", "[", RowBox[{RowBox[{"g", "[", 
+                        "\"IrrepOrder\"", "]"}], ",", RowBox[{RowBox[
+                         {RowBox[{"RepDim", "[", RowBox[
+                          {"GroupRepresentation", "[", RowBox[{"g", ",", 
+                          "#1"}], "]"}], "]"}], "===", "1"}], "&"}]}], "]"}], 
+                  ",", RowBox[{RowBox[{"g", "[", "\"CharacterData\"", "]"}], 
+                    "[", "\"TrivialIrrepID\"", "]"}]}], "]"}], "]"}]}], ";", 
+          RowBox[{"l", "=", RowBox[{"CreateField", "[", RowBox[{"g", ",", 
+                "d", ",", "\"L\""}], "]"}]}], ";", 
+          RowBox[{"r", "=", RowBox[{"CreateField", "[", RowBox[{"g", ",", 
+                "d", ",", "\"R\""}], "]"}]}], ";", 
+          RowBox[{"m", "=", RowBox[{"CreateModel", "[", RowBox[{"g", ",", 
+                RowBox[{"{", RowBox[{"l", ",", "r"}], "}"}]}], "]"}]}], ";", 
+          RowBox[{"t", "=", RowBox[{"CoupleContractions", "[", 
+              RowBox[{"Contractions", "[", RowBox[{"m", ",", RowBox[
+                   {"{", RowBox[{"l", ",", "r"}], "}"}]}], "]"}], "]"}]}], 
+          ";", RowBox[{"Length", "[", RowBox[{"CouplingParameters", "[", "t", 
+              "]"}], "]"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], Cell[BoxData["1"], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"CoupleContractions", "[", 
+        "\"no set\"", "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/CoupleContractions", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "CoupleContractions \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

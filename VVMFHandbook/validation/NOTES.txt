@@ -1,0 +1,31 @@
+The user's error reports refer to line 4 of their local Results_Data.wl.
+The displayed fraction bars and vertically positioned powers identify a
+non-input display rendering in that local file. The exact damaged local bytes
+were not supplied; the offending printer's exact call cannot be reconstructed
+from the log alone. The previous notebook-only fix was insufficient.
+
+Revision 6 eliminates generic formatting-based persistence. Data only are
+written with Put, whose documented default is InputForm. A temporary file is
+read back with Get and compared using SameQ before the previous target is
+replaced. Code definitions are now ordinary source in Results.nb, not part of
+the data payload. The supplied ASCII data use explicit functional syntax.
+
+Validation runtime: Mathics3 10.0.1. Native Mathematica is unavailable.
+Validation records must not be interpreted as native Mathematica execution.
+The exact modular differential equations, finite seeds, basis choices and
+normalizations have not been changed. The supplied order-20 reference arrays
+have not been recomputed in this revision.
+
+Official persistence reference:
+https://reference.wolfram.com/language/ref/Put.html
+
+Execution detail:
+* The complete order-20 payload was written with Put, read back, compared with
+  SameQ, written over an existing target, and loaded in a fresh reader session.
+* A separate actual all-174 order-0 computation reached file output. That run
+  exposed Mathics Check incorrectly counting preceding Print output as an
+  error. The final writer avoids that Check/Print interaction and tests the
+  actual file and round-trip equality directly. Its final build/export test
+  reused the freshly computed order-0 arrays, then passed a fresh reader test
+  with q and algebraic placeholders initially assigned.
+* No mathematical recurrence or coefficient table was changed for this fix.

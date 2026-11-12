@@ -1,0 +1,55 @@
+Notebook[{Cell["SeriesOrder", "ObjectName"], Cell["SeriesOrder is an option \
+of the modular-form constructors, coefficient solvers and evaluators: \
+Automatic or a positive integer order of the q-series used.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["Option of the constructors, \
+coefficient solvers and evaluators: the q-series order used.", "Notes"], 
+  Cell["Automatic (default: chosen from the accuracy goal and the point, or 6 \
+orders for construction checks) or a positive integer; an explicit order is \
+required to evaluate a finite jet (the result then has EstimatedError \
+Missing[\"NoTailBound\"] or the next-order difference).", "Notes"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["ModularFormEvaluate", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ModularFormEvaluate.nb", None}], "  |  ", 
+     ButtonBox["ConstructModularForms", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ConstructModularForms.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{RowBox[{"EvaluateScalarModular", "[", 
+        RowBox[{RowBox[{"ScalarModularExpression", "[", 
+            RowBox[{"\"E4\"", ",", "q"}], "]"}], ",", "q", ",", 
+          InterpretationBox[TemplateBox[{"\"TauPoint[\"", "\[ImaginaryI]", 
+             "\"]\""}, "RowDefault"], TauPoint[I]], ",", 
+          RowBox[{"SeriesOrder", "\[Rule]", "5"}], ",", 
+          RowBox[{"WorkingPrecision", "\[Rule]", "20"}]}], "]"}], "[", 
+      "\"Order\"", "]"}]], "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData["5"], "Output"], Cell["Possible Issues", "ExampleSection"], 
+  Cell["Invalid input returns a structured Failure. Check FailureQ before \
+using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"EvaluateScalarModular", "[", 
+        RowBox[{RowBox[{"ScalarModularExpression", "[", 
+            RowBox[{"\"E4\"", ",", "q"}], "]"}], ",", "q", ",", 
+          InterpretationBox[TemplateBox[{"\"TauPoint[\"", "\[ImaginaryI]", 
+             "\"]\""}, "RowDefault"], TauPoint[I]], ",", 
+          RowBox[{"SeriesOrder", "\[Rule]", "0"}]}], "]"}], "]"}]], "Input", 
+   CellTags -> "VerifiedErrorExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Related Guides", "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/SeriesOrder", "Categorization", CellLabel -> "URI"]}, 
+    Closed]]}, WindowTitle -> "SeriesOrder \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

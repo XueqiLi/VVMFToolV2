@@ -1,0 +1,14 @@
+{
+  "notebook_input_cells": 65,
+  "names": 820,
+  "independent_models": 174,
+  "order": 20,
+  "all_174_coefficient_arrays_match_reference": true,
+  "full_payload_put_get_roundtrip": true,
+  "replace_existing_file": true,
+  "fresh_reader_from_actual_export": true,
+  "broken_file_returns_failure_without_cascade": true,
+  "runtime": "Mathics3 10.0.1",
+  "native_mathematica_available": false,
+  "export_test_directory": "/tmp/vvmf-io-v6-l7wau5da"
+}

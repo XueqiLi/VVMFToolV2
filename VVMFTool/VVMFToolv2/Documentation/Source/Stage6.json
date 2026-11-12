@@ -1,0 +1,209 @@
+{
+ "ModelOutput": {
+  "Kind": "Function",
+  "Details": [
+   "ModelOutput[data] is an immutable prepared output of a model, made by PrepareModelOutput: named scalar and matrix outputs as typed expression trees (exact values keep their structure; approximate values their precision), explicit parameter substitutions, the runtime parameter IDs in model order and the required fields with their dimensions.",
+   "out[\"RuntimeParameters\"], out[\"RuntimeFields\"] and out[\"Outputs\"] read fields. Each output records its kind (Scalar or Matrix), origin (ModelExpression, MassMatrix certified against the model, or UserSelected), shape, convention and arithmetic status derived from its actual values.",
+   "A ModelOutput is input to ToPython and ModelOutputView; it certifies nothing beyond what PrepareModelOutput checked."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, l, r, m, mass}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; m = AddModelTerm[m, CoupleContractions[Contractions[m, {l, r}]]]; mass = ExtractBilinearMatrix[ModelExpression[m], l, r]; Head[PrepareModelOutput[m]]]",
+  "Expected": "ModelOutput",
+  "ErrorExample": "FailureQ[ToPython[ModelOutput[<||>]]]",
+  "SeeAlso": [
+   "PrepareModelOutput",
+   "ToPython",
+   "ModelOutputView"
+  ]
+ },
+ "PrepareModelOutput": {
+  "Kind": "Function",
+  "Details": [
+   "PrepareModelOutput[m] prepares the model expression of the Model m; PrepareModelOutput[m, <|name -> output, ...|>] prepares named scalar expressions, rectangular matrices or MassMatrix values. A MassMatrix is certified with ValidateMassMatrix against m before it is marked model-derived; other outputs are user-selected (membership is not a covariance certificate).",
+   "Option ParameterValues -> <|id -> value|> fixes parameters explicitly by ID (finite numeric constants). Parameters fixed or unused by every selected output are not runtime inputs; the runtime order is the model's parameter order; a shared parameter has one slot. Required fields are taken as full vectors.",
+   "Unsupported functions, undeclared atoms, infinite values (also after substitution), empty or ragged outputs and unknown parameter IDs fail with a tag naming the output.",
+   "Stage 9: a modular model's output freezes its used form slots and bindings (formal and binding status separate); matrices with inconsistent modular weights are refused."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, l, r, m, mass}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; m = AddModelTerm[m, CoupleContractions[Contractions[m, {l, r}]]]; mass = ExtractBilinearMatrix[ModelExpression[m], l, r]; Length[PrepareModelOutput[m, <|\"M\" -> mass|>][\"RuntimeParameters\"]]]",
+  "Expected": "1",
+  "ErrorExample": "FailureQ[PrepareModelOutput[\"x\"]]",
+  "SeeAlso": [
+   "ModelOutput",
+   "ToPython",
+   "ParameterValues"
+  ]
+ },
+ "ModelView": {
+  "Kind": "Function",
+  "Details": [
+   "ModelView[m] is a read-only display document of the Model m: identity, target and the covariance status recorded when the terms were added (invariant or covariant with a nontrivial character), arithmetic, the field table, the model expression, the terms and the parameter table.",
+   "Render it with ToNotebook, ToLaTeX or ExportDisplay. Options: FieldLabels, CouplingLabels, IrrepLabels, DisplayTimeLimit and the presentation options of the Stage 3 views. A display computes nothing and certifies nothing new.",
+   "Stage 9: a modular model also shows field weights kf and -kf, its target weight kW, binding status and form slots (FormSlotLabels)."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, l, r, m, mass}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; m = AddModelTerm[m, CoupleContractions[Contractions[m, {l, r}]]]; mass = ExtractBilinearMatrix[ModelExpression[m], l, r]; DisplayData[ModelView[m]][\"Kind\"]]",
+  "Expected": "\"Model\"",
+  "ErrorExample": "FailureQ[ModelView[\"m\"]]",
+  "SeeAlso": [
+   "FieldTable",
+   "CouplingTable",
+   "ToLaTeX",
+   "ToNotebook"
+  ]
+ },
+ "FieldTable": {
+  "Kind": "Function",
+  "Details": [
+   "FieldTable[m] is a display document of the fields of the Model m: name, field ID, irrep label and ID, dimension, basis identity and ordered components."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, l, r, m, mass}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; m = AddModelTerm[m, CoupleContractions[Contractions[m, {l, r}]]]; mass = ExtractBilinearMatrix[ModelExpression[m], l, r]; Lookup[DisplayData[FieldTable[m]][\"Fields\"], \"Name\"]]",
+  "Expected": "{\"L\", \"R\"}",
+  "ErrorExample": "FailureQ[FieldTable[\"m\"]]",
+  "SeeAlso": [
+   "ModelView",
+   "FieldLabels"
+  ]
+ },
+ "ContractionTable": {
+  "Kind": "Function",
+  "Details": [
+   "ContractionTable[s] is a display document of the ContractionSet s: the factor order with repetitions, every channel with its full ID, contraction path, polynomial and zero status, and its independence role: basis channel, relation to the basis, or not computed.",
+   "Independence is never computed by the display; use IndependentContractions first."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, l, r, m, mass}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; m = AddModelTerm[m, CoupleContractions[Contractions[m, {l, r}]]]; mass = ExtractBilinearMatrix[ModelExpression[m], l, r]; Length[DisplayData[ContractionTable[Contractions[m, {l, r}]]][\"Channels\"]]]",
+  "Expected": "1",
+  "ErrorExample": "FailureQ[ContractionTable[ContractionSet[<||>]]]",
+  "SeeAlso": [
+   "Contractions",
+   "IndependentContractions"
+  ]
+ },
+ "CouplingTable": {
+  "Kind": "Function",
+  "Details": [
+   "CouplingTable[x] is a display document of the parameters of a Model or CoupledExpression x: parameter ID, label, domain and source spelling; a coupled term also shows its value. Parameters with the same label stay distinguishable by ID."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, l, r, m, mass}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; m = AddModelTerm[m, CoupleContractions[Contractions[m, {l, r}]]]; mass = ExtractBilinearMatrix[ModelExpression[m], l, r]; Length[DisplayData[CouplingTable[m]][\"Parameters\"]]]",
+  "Expected": "1",
+  "ErrorExample": "FailureQ[CouplingTable[\"m\"]]",
+  "SeeAlso": [
+   "ModelParameters",
+   "CouplingParameters",
+   "CouplingLabels"
+  ]
+ },
+ "MassMatrixView": {
+  "Kind": "Function",
+  "Details": [
+   "MassMatrixView[mass] is a display document of a MassMatrix: shape (a 1 x 1 matrix keeps its shape), ordered row and column variables, entries, the convention (selected = rows . M . columns, x . M . x or (x . M . x)/2), the selected sector, the remainder, the arithmetic and the extraction status. ValidateMassMatrix is never run by the display.",
+   "Stage 9: MassMatrixView[m, mass] labels form slots from the modular model m and shows the actual weight every entry needs."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, l, r, m, mass}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; m = AddModelTerm[m, CoupleContractions[Contractions[m, {l, r}]]]; mass = ExtractBilinearMatrix[ModelExpression[m], l, r]; DisplayData[MassMatrixView[mass]][\"Shape\"]]",
+  "Expected": "{2, 2}",
+  "ErrorExample": "FailureQ[MassMatrixView[MassMatrix[<||>]]]",
+  "SeeAlso": [
+   "ExtractBilinearMatrix",
+   "ExtractQuadraticMatrix",
+   "ValidateMassMatrix"
+  ]
+ },
+ "ModelOutputView": {
+  "Kind": "Function",
+  "Details": [
+   "ModelOutputView[out] is a display document of a ModelOutput: every output with its kind, origin, shape, arithmetic and value, the explicit substitutions, the runtime parameters in Python order and the required fields. A substituted output is not presented as the unchanged model.",
+   "Stage 9: a modular output also lists its runtime form slots and frozen bindings."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, l, r, m, mass}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; m = AddModelTerm[m, CoupleContractions[Contractions[m, {l, r}]]]; mass = ExtractBilinearMatrix[ModelExpression[m], l, r]; DisplayData[ModelOutputView[PrepareModelOutput[m]]][\"Outputs\"][[1, \"Name\"]]]",
+  "Expected": "\"ModelExpression\"",
+  "ErrorExample": "FailureQ[ModelOutputView[ModelOutput[<||>]]]",
+  "SeeAlso": [
+   "PrepareModelOutput",
+   "ToPython"
+  ]
+ },
+ "SaveModelData": {
+  "Kind": "Function",
+  "Details": [
+   "SaveModelData[m, file] saves the Model m as a versioned JSON archive: its fields, parameters (with their source spelling as text) and terms as typed expression trees, its frozen context, and the mathematical snapshot of its group (no retained GAP state, no CG data). It returns the absolute path.",
+   "Option MassMatrices -> <|name -> mass|> adds coefficient matrices, each certified against m; Overwrite (default False). The archive bytes are registered in the export ledger with the group's identities, so ImportModelData admits them without GAP.",
+   "A model whose group is not loaded, or whose frozen context the group's current state cannot rebind (a changed modular assignment), fails before writing.",
+   "Stage 9: a modular model is saved with its formal slots, per-slot couplings and frozen bindings."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, l, r, m, mass}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; m = AddModelTerm[m, CoupleContractions[Contractions[m, {l, r}]]]; mass = ExtractBilinearMatrix[ModelExpression[m], l, r]; StringQ[SaveModelData[m, FileNameJoin[{$TemporaryDirectory, CreateUUID[] <> \".json\"}], MassMatrices -> <|\"M\" -> mass|>]]]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[SaveModelData[\"m\", \"x.json\"]]",
+  "SeeAlso": [
+   "ImportModelData",
+   "MassMatrices",
+   "SaveGroupData"
+  ]
+ },
+ "ImportModelData": {
+  "Kind": "Function",
+  "Details": [
+   "ImportModelData[file] imports a model archive and returns <|\"Model\" -> Model, \"MassMatrices\" -> <|name -> MassMatrix|>, \"Group\" -> Group|>. The embedded group is admitted as ImportGroupData admits a snapshot (registered bytes, or native correspondence with typed construction or ValidationGroup); the frozen context is rebuilt and rebound; the model's covariance and every matrix are recomputed before anything is returned.",
+   "Model, field, term and parameter IDs are kept; exact values come back identical. A parameter ID already known in the session must have the same label, domain and source. No imported string is evaluated and no GAP source is executed.",
+   "Stage 9: a modular model is rebuilt with recomputed slots and independence evidence; archived binding proofs are kept only for a trusted export."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, l, r, m, mass}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; m = AddModelTerm[m, CoupleContractions[Contractions[m, {l, r}]]]; mass = ExtractBilinearMatrix[ModelExpression[m], l, r]; With[{p = SaveModelData[m, FileNameJoin[{$TemporaryDirectory, CreateUUID[] <> \".json\"}]]}, ModelExpression[ImportModelData[p][\"Model\"]] === ModelExpression[m]]]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[ImportModelData[FileNameJoin[{$TemporaryDirectory, \"missing-\" <> CreateUUID[] <> \".json\"}]]]",
+  "SeeAlso": [
+   "SaveModelData",
+   "ImportGroupData"
+  ]
+ },
+ "ParameterValues": {
+  "Kind": "Option",
+  "Details": [
+   "Option for PrepareModelOutput: explicit parameter substitutions, an association from parameter IDs to finite numeric constants (exact constants such as Pi or Sqrt[2] allowed).",
+   "<||> (default). Fixed parameters are recorded in the output and its manifest and are not Python inputs; fixing a coupling to 1 is an explicit choice, never an automatic scale removal. Unknown IDs or values with parameters, fields or infinities fail with InvalidOption."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, l, r, m, mass}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; m = AddModelTerm[m, CoupleContractions[Contractions[m, {l, r}]]]; mass = ExtractBilinearMatrix[ModelExpression[m], l, r]; PrepareModelOutput[m, <|\"M\" -> mass|>, ParameterValues -> <|First[ModelParameters[m]][\"ID\"] -> 1|>][\"RuntimeParameters\"]]",
+  "Expected": "{}",
+  "ErrorExample": "FailureQ[Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, l, r, m, mass}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; m = AddModelTerm[m, CoupleContractions[Contractions[m, {l, r}]]]; mass = ExtractBilinearMatrix[ModelExpression[m], l, r]; PrepareModelOutput[m, ParameterValues -> <|\"unknown\" -> 1|>]]]",
+  "SeeAlso": [
+   "PrepareModelOutput"
+  ]
+ },
+ "MassMatrices": {
+  "Kind": "Option",
+  "Details": [
+   "Option for SaveModelData: named coefficient matrices stored with the model; each must be certified against the model by ValidateMassMatrix.",
+   "<||> (default) or an association from names to MassMatrix values. Other values fail with InvalidOption."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, l, r, m, mass}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; m = AddModelTerm[m, CoupleContractions[Contractions[m, {l, r}]]]; mass = ExtractBilinearMatrix[ModelExpression[m], l, r]; With[{p = SaveModelData[m, FileNameJoin[{$TemporaryDirectory, CreateUUID[] <> \".json\"}], MassMatrices -> <|\"M\" -> mass|>]}, Keys[ImportModelData[p][\"MassMatrices\"]]]]",
+  "Expected": "{\"M\"}",
+  "ErrorExample": "FailureQ[Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, l, r, m, mass}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; m = AddModelTerm[m, CoupleContractions[Contractions[m, {l, r}]]]; mass = ExtractBilinearMatrix[ModelExpression[m], l, r]; SaveModelData[m, FileNameJoin[{$TemporaryDirectory, CreateUUID[] <> \".json\"}], MassMatrices -> <|\"M\" -> 5|>]]]",
+  "SeeAlso": [
+   "SaveModelData",
+   "ImportModelData"
+  ]
+ },
+ "FieldLabels": {
+  "Kind": "Option",
+  "Details": [
+   "Option for the model views (ModelView, FieldTable, ContractionTable, CouplingTable, MassMatrixView, ModelOutputView): display labels of fields; labels never replace IDs.",
+   "<||> (default: the fields' names) or an association from field IDs to strings or TeXFragment. Unknown IDs fail with InvalidOption."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, l, r, m, mass}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; m = AddModelTerm[m, CoupleContractions[Contractions[m, {l, r}]]]; mass = ExtractBilinearMatrix[ModelExpression[m], l, r]; StringContainsQ[ToLaTeX[FieldTable[m, FieldLabels -> <|First[l][\"ID\"] -> \"Left\"|>]], \"Left\"]]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, l, r, m, mass}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; m = AddModelTerm[m, CoupleContractions[Contractions[m, {l, r}]]]; mass = ExtractBilinearMatrix[ModelExpression[m], l, r]; FieldTable[m, FieldLabels -> <|\"unknown\" -> \"x\"|>]]]",
+  "SeeAlso": [
+   "FieldTable",
+   "CouplingLabels"
+  ]
+ },
+ "CouplingLabels": {
+  "Kind": "Option",
+  "Details": [
+   "Option for the model views: display labels of parameters; labels shared by several parameters get a short ID suffix.",
+   "<||> (default: the parameters' own labels) or an association from parameter IDs to strings or TeXFragment. Unknown IDs fail with InvalidOption."
+  ],
+  "Example": "Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, l, r, m, mass}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; m = AddModelTerm[m, CoupleContractions[Contractions[m, {l, r}]]]; mass = ExtractBilinearMatrix[ModelExpression[m], l, r]; StringContainsQ[ToLaTeX[CouplingTable[m, CouplingLabels -> <|First[ModelParameters[m]][\"ID\"] -> TeXFragment[\"\\\\lambda\"]|>]], \"\\\\lambda\"]]",
+  "Expected": "True",
+  "ErrorExample": "FailureQ[Module[{g = BuildGroup[GroupPresentation[{\"s\",\"t\"}, {\"s^2\",\"t^2\",\"(s.t)^3\"}], StoreGAPState -> False], d, l, r, m, mass}, d = First[Select[g[\"IrrepOrder\"], RepDim[GroupRepresentation[g, #]] === 2 &]]; l = CreateField[g, d, \"L\"]; r = CreateField[g, d, \"R\"]; m = CreateModel[g, {l, r}]; m = AddModelTerm[m, CoupleContractions[Contractions[m, {l, r}]]]; mass = ExtractBilinearMatrix[ModelExpression[m], l, r]; CouplingTable[m, CouplingLabels -> <|\"unknown\" -> \"x\"|>]]]",
+  "SeeAlso": [
+   "CouplingTable",
+   "FieldLabels"
+  ]
+ }
+}

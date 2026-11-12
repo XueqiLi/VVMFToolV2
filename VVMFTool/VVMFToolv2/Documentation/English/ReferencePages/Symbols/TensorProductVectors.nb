@@ -1,0 +1,160 @@
+Notebook[{Cell["TensorProductVectors", "ObjectName"], 
+  Cell["TensorProductVectors[g, {v1, v2, ...}] multiplies \
+representation-valued vectors left-associatively through CG duals, keeping \
+every copy and every zero; TargetIrreps prunes the paths to the requested \
+final irreps. {} gives the tensor unit.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["TensorProductVectors[g, {v1, v2, \
+...}] multiplies representation-valued vectors left-associatively through CG \
+duals: every copy and every zero is kept and each record's path names its \
+contractions. TargetIrreps prunes the paths to the requested final irreps, \
+computing only the CG coefficients needed.", "Notes"], 
+  Cell["{} gives the tensor unit (the trivial irrep with component 1). The \
+vectors must share one frozen context; a group whose stored basis changed \
+since they were made fails with StaleBasis (use their RepresentationContext). \
+Components multiply commutatively.", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Method"], "TableText"], Cell["Automatic", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["Normalization"], 
+        "TableText"], Cell["Automatic", "TableText"], 
+       Cell["Automatic (default) resolves from the participating matrices; \
+\"Unitary\" or \"Dual\" fix the convention.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["ExchangeSymmetry"], 
+        "TableText"], Cell["Automatic", "TableText"], 
+       Cell["Automatic (default), \"Separate\" or None.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["Arithmetic"], "TableText"], 
+       Cell["\"Exact\"", "TableText"], Cell["\"Exact\" proves identities \
+exactly and refuses numerical input; \"Numerical\" works at WorkingPrecision \
+(default 50) and checks residuals against Tolerance (default \
+10^(-Floor[p/2])). Tolerance is accepted only with numerical arithmetic.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["WorkingPrecision"], "TableText"], 
+       Cell["50", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["Tolerance"], "TableText"], 
+       Cell["Automatic", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["Prefilter"], "TableText"], 
+       Cell["True", "TableText"], Cell["True (default) or False.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["NumberField"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["Automatic (default), True or False.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["MethodData"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["<|\"SubgroupGenerators\" -> {GroupWord..}, \
+\"Representation\" -> Rep|> for CharacterSubgroup, Induction, InducedUnitary, \
+Extension and NormalExtension (the Representation is optional and not used by \
+CharacterSubgroup); <|\"AtlasName\" -> name, \"RepresentationNumber\" -> n|> \
+for AtlasRep.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["ComputeMissingRepresentations"], "TableText"], 
+       Cell["True", "TableText"], Cell["True (default) or False.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["StoreGAPState"], "TableText"], 
+       Cell["True", "TableText"], Cell["True retains verified state across \
+calls; False keeps only call-local temporary checkpoints. Cached mathematical \
+values remain available.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["AttemptTimeLimit"], "TableText"], 
+       Cell["600", "TableText"], Cell["Positive seconds or Infinity, per \
+attempt including verification and saving. Automatic method attempts each \
+receive this limit.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["CoreBudget"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["Positive integer at most $ProcessorCount, or \
+Automatic to use the available count. Sequential algorithms run as separate \
+worker processes.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["MemoryBudget"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["Positive integer bytes, or Automatic using half \
+system memory less current kernel usage. Admission estimates and sampled \
+total worker RSS enforce the allocation.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["ProgressFunction"], 
+        "TableText"], Cell["Automatic", "TableText"], Cell["Automatic shows a \
+notebook monitor when a front end is available; None is silent; a Function or \
+user symbol receives progress associations. Callbacks should return promptly; \
+failures/cancellation clean owned workers.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["FieldMethod"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["Automatic, \"Cyclotomic\", \
+\"PrimitiveElement\", \"Radical\", \"RootReduce\" or a duplicate-free list of \
+these.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["UnitarizationMethod"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["\"GroupAverage\" averages \
+M^\[Dagger].M over the image of the group; \"GeneratorEquations\" solves \
+M^\[Dagger].H.M == H on the generators and chooses a positive solution; \
+\"BSGSAverage\" is a native GAP route (automatic representation computation \
+and TransformGroupRepresentations in GAP) and is refused where the work runs \
+in Wolfram.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Verification"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["Automatic, \"Exact\", \"Numerical\" or None (the \
+Validate functions: Automatic, \"Exact\" or \"Numerical\"; the modular-form \
+functions have no \"Exact\" route).", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["TargetIrreps"], "TableText"], 
+       Cell["All", "TableText"], 
+       Cell[
+        "All (default), an irrep ID or a duplicate-free list of irrep IDs.", 
+        "TableText"]}}, GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+     GridBoxItemSize -> {"Columns" -> {Scaled[0.02], Scaled[0.3], 
+         Scaled[0.18], Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["MakeRepVector", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"MakeRepVector.nb", None}], "  |  ", 
+     ButtonBox["CGPolynomialResult", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"CGPolynomialResult.nb", None}], "  |  ", 
+     ButtonBox["CGCoefficients", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"CGCoefficients.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "d"}], "}"}], ",", RowBox[
+         {RowBox[{"d", "=", RowBox[{"First", "[", RowBox[{"Select", "[", 
+                RowBox[{RowBox[{"g", "[", "\"IrrepOrder\"", "]"}], ",", 
+                  RowBox[{RowBox[{RowBox[{"RepDim", "[", RowBox[
+                         {"GroupRepresentation", "[", RowBox[{"g", ",", 
+                          "#1"}], "]"}], "]"}], "===", "2"}], "&"}]}], "]"}], 
+              "]"}]}], ";", RowBox[{"Length", "[", 
+            RowBox[{RowBox[{"VectorComponents", "[", RowBox[
+                 {"TensorProductVectors", "[", RowBox[{"g", ",", RowBox[
+                     {"{", RowBox[{RowBox[{"MakeRepVector", "[", RowBox[
+                          {"g", ",", "d", ",", RowBox[{"{", RowBox[{"x1", 
+                          ",", "x2"}], "}"}]}], "]"}], ",", RowBox[
+                         {"MakeRepVector", "[", RowBox[{"g", ",", "d", ",", 
+                          RowBox[{"{", RowBox[{"x1", ",", "x2"}], "}"}]}], 
+                          "]"}]}], "}"}], ",", RowBox[{"TargetIrreps", 
+                      "\[Rule]", RowBox[{RowBox[{"g", "[", 
+                          "\"CharacterData\"", "]"}], "[", 
+                        "\"TrivialIrrepID\"", "]"}]}]}], "]"}], "]"}], 
+              "\[LeftDoubleBracket]", RowBox[{"1", ",", "\"Components\""}], 
+              "\[RightDoubleBracket]"}], "]"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], Cell[BoxData["1"], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"TensorProductVectors", "[", 
+        RowBox[{"\"no group\"", ",", RowBox[{"{", "}"}]}], "]"}], "]"}]], 
+   "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/TensorProductVectors", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "TensorProductVectors \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

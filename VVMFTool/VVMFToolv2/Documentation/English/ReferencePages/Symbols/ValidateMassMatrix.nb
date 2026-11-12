@@ -1,0 +1,143 @@
+Notebook[{Cell["ValidateMassMatrix", "ObjectName"], 
+  Cell["ValidateMassMatrix[m, mass] certifies that mass was extracted from \
+the model's expression, selects whole field multiplets and transforms \
+covariantly.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["ValidateMassMatrix[m, mass] certifies that mass was extracted from \
+ModelExpression[m], that its rows, columns or quadratic variables consist of \
+whole field multiplets of m, that the selected sector and remainder \
+reconstruct the input, and that P_i^T . M . Q_i == chi_target(g_i) M on every \
+generator (spectator fields in M transformed too).", "Notes"], 
+  Cell["A matrix extracted from another expression fails with \
+SourceModelMismatch; partial multiplets fail with NonClosedFieldSelection.", 
+   "Notes"], Cell["The source and covariance checks use the model's own \
+arithmetic settings, never the matrix's: an exact model judges exactly, and a \
+numerical model (or one with a numerical term) judges residuals with the \
+model's WorkingPrecision and Tolerance, giving Status \"Covariant \
+(numerical)\", never an exact certificate. The matrix, selected sector and \
+remainder are re-derived from the input expression with those settings and \
+must agree with the record; a record's own tolerance never certifies it \
+(InvalidMassMatrix otherwise). The result reports the \"Precision\" and \
+\"Tolerance\" used (Infinity and Missing[\"Exact\"] for exact arithmetic). \
+Recorded row and column fields must be the fields of the matrix variables.", 
+   "Notes"], Cell["The report's \"VerificationStatus\" is the weakest of the \
+model's status, the matrix's (its fields' variants) and the level of the \
+check.", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Verification"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["Automatic, \"Exact\", \"Numerical\" or None (the \
+Validate functions: Automatic, \"Exact\" or \"Numerical\"; the modular-form \
+functions have no \"Exact\" route).", "TableText"]}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, GridBoxItemSize -> 
+      {"Columns" -> {Scaled[0.02], Scaled[0.3], Scaled[0.18], 
+         Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["ExtractBilinearMatrix", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ExtractBilinearMatrix.nb", None}], "  |  ", 
+     ButtonBox["ValidateModel", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ValidateModel.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{"t", ",", "m2", ",", "q", ",", "raw", ",", 
+            "x", ",", "mass", ",", RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "d", ",", "sign", ",", "l", ",", "r", ",", "m"}], "}"}], 
+        ",", RowBox[{RowBox[{"d", "=", RowBox[{"First", "[", 
+              RowBox[{"Select", "[", RowBox[{RowBox[{"g", "[", 
+                    "\"IrrepOrder\"", "]"}], ",", RowBox[{RowBox[
+                     {RowBox[{"RepDim", "[", RowBox[{"GroupRepresentation", 
+                          "[", RowBox[{"g", ",", "#1"}], "]"}], "]"}], "===", 
+                      "2"}], "&"}]}], "]"}], "]"}]}], ";", 
+          RowBox[{"sign", "=", RowBox[{"First", "[", RowBox[{"DeleteCases", 
+                "[", RowBox[{RowBox[{"Select", "[", RowBox[{RowBox[{"g", "[", 
+                        "\"IrrepOrder\"", "]"}], ",", RowBox[{RowBox[
+                         {RowBox[{"RepDim", "[", RowBox[
+                          {"GroupRepresentation", "[", RowBox[{"g", ",", 
+                          "#1"}], "]"}], "]"}], "===", "1"}], "&"}]}], "]"}], 
+                  ",", RowBox[{RowBox[{"g", "[", "\"CharacterData\"", "]"}], 
+                    "[", "\"TrivialIrrepID\"", "]"}]}], "]"}], "]"}]}], ";", 
+          RowBox[{"l", "=", RowBox[{"CreateField", "[", RowBox[{"g", ",", 
+                "d", ",", "\"L\""}], "]"}]}], ";", 
+          RowBox[{"r", "=", RowBox[{"CreateField", "[", RowBox[{"g", ",", 
+                "d", ",", "\"R\""}], "]"}]}], ";", 
+          RowBox[{"m", "=", RowBox[{"CreateModel", "[", RowBox[{"g", ",", 
+                RowBox[{"{", RowBox[{"l", ",", "r"}], "}"}]}], "]"}]}], ";", 
+          RowBox[{"t", "=", RowBox[{"CoupleContractions", "[", 
+              RowBox[{"Contractions", "[", RowBox[{"m", ",", RowBox[
+                   {"{", RowBox[{"l", ",", "r"}], "}"}]}], "]"}], "]"}]}], 
+          ";", RowBox[{"m2", "=", RowBox[{"AddModelTerm", "[", 
+              RowBox[{"m", ",", "t"}], "]"}]}], ";", 
+          RowBox[{"mass", "=", RowBox[{"ExtractBilinearMatrix", "[", 
+              RowBox[{RowBox[{"ModelExpression", "[", "m2", "]"}], ",", "l", 
+                ",", "r"}], "]"}]}], ";", RowBox[
+           {RowBox[{"ValidateMassMatrix", "[", RowBox[{"m2", ",", "mass"}], 
+              "]"}], "[", "\"Covariant\"", "]"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{"t", ",", "m2", ",", "q", ",", "raw", ",", 
+            "x", ",", "mass", ",", RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "d", ",", "sign", ",", "l", ",", "r", ",", "m"}], "}"}], 
+        ",", RowBox[{RowBox[{"d", "=", RowBox[{"First", "[", 
+              RowBox[{"Select", "[", RowBox[{RowBox[{"g", "[", 
+                    "\"IrrepOrder\"", "]"}], ",", RowBox[{RowBox[
+                     {RowBox[{"RepDim", "[", RowBox[{"GroupRepresentation", 
+                          "[", RowBox[{"g", ",", "#1"}], "]"}], "]"}], "===", 
+                      "2"}], "&"}]}], "]"}], "]"}]}], ";", 
+          RowBox[{"sign", "=", RowBox[{"First", "[", RowBox[{"DeleteCases", 
+                "[", RowBox[{RowBox[{"Select", "[", RowBox[{RowBox[{"g", "[", 
+                        "\"IrrepOrder\"", "]"}], ",", RowBox[{RowBox[
+                         {RowBox[{"RepDim", "[", RowBox[
+                          {"GroupRepresentation", "[", RowBox[{"g", ",", 
+                          "#1"}], "]"}], "]"}], "===", "1"}], "&"}]}], "]"}], 
+                  ",", RowBox[{RowBox[{"g", "[", "\"CharacterData\"", "]"}], 
+                    "[", "\"TrivialIrrepID\"", "]"}]}], "]"}], "]"}]}], ";", 
+          RowBox[{"l", "=", RowBox[{"CreateField", "[", RowBox[{"g", ",", 
+                "d", ",", "\"L\""}], "]"}]}], ";", 
+          RowBox[{"r", "=", RowBox[{"CreateField", "[", RowBox[{"g", ",", 
+                "d", ",", "\"R\""}], "]"}]}], ";", 
+          RowBox[{"m", "=", RowBox[{"CreateModel", "[", RowBox[{"g", ",", 
+                RowBox[{"{", RowBox[{"l", ",", "r"}], "}"}]}], "]"}]}], ";", 
+          RowBox[{"t", "=", RowBox[{"CoupleContractions", "[", 
+              RowBox[{"Contractions", "[", RowBox[{"m", ",", RowBox[
+                   {"{", RowBox[{"l", ",", "r"}], "}"}]}], "]"}], "]"}]}], 
+          ";", RowBox[{"m2", "=", RowBox[{"AddModelTerm", "[", 
+              RowBox[{"m", ",", "t"}], "]"}]}], ";", 
+          RowBox[{"FailureQ", "[", RowBox[{"ValidateMassMatrix", "[", 
+              RowBox[{"m2", ",", RowBox[{"ExtractBilinearMatrix", "[", 
+                  RowBox[{"0", ",", "l", ",", "r"}], "]"}]}], "]"}], 
+            "]"}]}]}], "]"}]], "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/ValidateMassMatrix", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "ValidateMassMatrix \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

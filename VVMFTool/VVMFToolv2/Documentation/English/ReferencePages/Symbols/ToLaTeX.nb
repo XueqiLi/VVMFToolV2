@@ -1,0 +1,117 @@
+Notebook[{Cell["ToLaTeX", "ObjectName"], 
+  Cell["ToLaTeX[v] renders the display document v as LaTeX.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["ToLaTeX[v] renders a display \
+document as LaTeX: longtable tables with booktabs rules whose headers repeat \
+on every page; wide tables split into numbered panels that repeat the ID and \
+label columns, and the split is width-aware: each column's natural width is \
+estimated and a new panel opens before the panel would exceed the line, so \
+matrices keep their size. Only a single column wider than a whole panel is \
+scaled down to fit (adjustbox). Nothing is dropped. Panel widths are planned \
+for a single-column page with a line width of about 500 pt (the Standalone \
+document's geometry); a fragment included in a narrower or two-column layout \
+may need Standalone -> True, a wider \\textwidth, or a one-column environment \
+(longtable does not work in two-column mode). Text (names, captions, labels) \
+is escaped; Greek letters and common symbols become LaTeX symbols, Latin-1 \
+letters are kept and other characters are shown as their code point U+XXXX.", 
+   "Notes"], Cell["Standalone -> True gives a complete document; otherwise a \
+fragment whose packages and macros LaTeXPreamble supplies. Matrices are \
+pmatrix environments built structurally, entries keep their parentheses, and \
+certified roots of unity use ScalarNotation. Numerical entries are marked \
+approximate. Nothing is compiled.", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["ScalarNotation"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["\"Standard\" writes a certified root of unity as \
+exact radicals a + b i when possible; \"Exponential\" as e^{2 pi i k/n}; \
+\"Omega\" as omega_n^k (with its definition once when DefineOmega is True). \
+Only exactly certified rational phases are converted; other values are \
+unaffected. In \"Standard\" a table can therefore mix forms (fifth roots of \
+unity have radical forms, 25th roots are written exponentially); \
+\"Exponential\" and \"Omega\" give a uniform table.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["NotationStyle"], 
+        "TableText"], Cell["Automatic", "TableText"], Cell["\"Standard\" uses \
+ordinary LaTeX commands; \"Paper\" uses the macros \\ii, \\ee and \\rep, \
+defined by the preamble with \\providecommand.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["OneByOneMatrix"], 
+        "TableText"], Cell["Automatic", "TableText"], Cell["\"Scalar\" writes \
+a 1 x 1 matrix as its entry (the row data still identify it as a \
+one-dimensional matrix); \"Matrix\" writes a 1 x 1 pmatrix.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["DefineOmega"], "TableText"], 
+       Cell["Automatic", "TableText"], Cell["True includes the definition \
+omega_a^b = e^{2 pi i b/a} once in the legend when omega notation is used; \
+False leaves it to the caller.", "TableText"]}, {Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Digits"], "TableText"], Cell["Automatic", "TableText"], 
+       Cell["A positive integer limits the digits displayed for numerical \
+values. Exact values are never rounded, and stored values are not changed.", 
+        "TableText"]}, {Cell[" ", "TableRowIcon"], Cell[BoxData["Caption"], 
+        "TableText"], Cell["Automatic", "TableText"], 
+       Cell["A plain string (escaped) or a TeXFragment replaces the automatic \
+caption.", "TableText"]}, {Cell[" ", "TableRowIcon"], Cell[BoxData["Label"], 
+        "TableText"], Cell["Automatic", "TableText"], 
+       Cell["See the method choices in this page's details.", "TableText"]}, 
+      {Cell[" ", "TableRowIcon"], Cell[BoxData["Standalone"], "TableText"], 
+       Cell["False", "TableText"], Cell["True produces a complete LaTeX \
+document (document class, packages, macros); False a fragment whose \
+dependencies LaTeXPreamble gives.", "TableText"]}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, GridBoxItemSize -> 
+      {"Columns" -> {Scaled[0.02], Scaled[0.3], Scaled[0.18], 
+         Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["LaTeXPreamble", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"LaTeXPreamble.nb", None}], "  |  ", 
+     ButtonBox["ExportDisplay", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ExportDisplay.nb", None}], "  |  ", 
+     ButtonBox["ScalarLaTeX", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ScalarLaTeX.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{"g", "=", RowBox[{"BuildGroup", "[", 
+              RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                   {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], ",", 
+                    RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", ",", 
+                        "\"(s.t)^3\""}], "}"}]}], "]"}], ",", RowBox[
+                 {"ComputeRepresentations", "\[Rule]", "False"}], ",", 
+                RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+          "}"}], ",", RowBox[{"StringStartsQ", "[", 
+          RowBox[{RowBox[{"ToLaTeX", "[", RowBox[{RowBox[
+                 {"CharacterTableView", "[", "g", "]"}], ",", RowBox[
+                 {"Standalone", "\[Rule]", "True"}]}], "]"}], ",", 
+            "\"\\\\documentclass\""}], "]"}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], Cell[BoxData["True"], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{"g", "=", RowBox[{"BuildGroup", "[", 
+              RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                   {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], ",", 
+                    RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", ",", 
+                        "\"(s.t)^3\""}], "}"}]}], "]"}], ",", RowBox[
+                 {"ComputeRepresentations", "\[Rule]", "False"}], ",", 
+                RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+          "}"}], ",", RowBox[{"FailureQ", "[", RowBox[{"ToLaTeX", "[", 
+            RowBox[{RowBox[{"CharacterTableView", "[", "g", "]"}], ",", 
+              RowBox[{"Label", "\[Rule]", "\"bad label!\""}]}], "]"}], 
+          "]"}]}], "]"}]], "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/ToLaTeX", "Categorization", CellLabel -> "URI"]}, 
+    Closed]]}, WindowTitle -> "ToLaTeX \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

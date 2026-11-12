@@ -1,0 +1,89 @@
+Notebook[{Cell["CreateModularForm", "ObjectName"], 
+  Cell["CreateModularForm[c, irrep, k, definition] creates a modular form of \
+exact rational weight k for the irrep of the frozen context c from a \
+ModularFormDefinition, checking shape and rho(S^2) = e^{i Pi k} but not \
+modularity.", "Usage"], Cell["Status: Alpha.", "Notes"], 
+  Cell["CreateModularForm[c, irrep, k, definition] creates a modular form of \
+weight k for the irrep of the frozen context c from a ModularFormDefinition. \
+Shape, the accepted representation and admissibility (rho(S^2) = e^{i Pi k}; \
+for integer k the parity (-1)^k) are checked; modularity is not claimed \
+(status Unverified).", "Notes"], Cell["The weight k is an exact rational. The \
+convention is F(-1/tau) = (-tau)^k rho(S) F(tau), F(tau + 1) = rho(T) F(tau), \
+with the principal branch of (-tau)^k. An SL(2,Z) quotient (rho(S^2) = +-1) \
+admits integer weights only; a group with S^2 central and (ST)^3 = S^4 (for \
+example Z_24 = <T> with S = T^3, which carries eta of weight 1/2) admits the \
+weights k0 + 2Z with e^{i Pi k0} = rho(S^2). Rational-weight forms are user \
+supplied (ConstructModularForms covers SL(2,Z) quotients).", "Notes"], 
+  Cell["A coefficient-free definition keeps its written scale \
+(NoNormalizationNeeded); a parameterized one gets an anchor by the manual \
+policy or the Normalization option. Available at every dimension.", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["Normalization"], "TableText"], Cell["Automatic", 
+        "TableText"], Cell["Automatic (default) resolves from the \
+participating matrices; \"Unitary\" or \"Dual\" fix the convention.", 
+        "TableText"]}}, GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+     GridBoxItemSize -> {"Columns" -> {Scaled[0.02], Scaled[0.3], 
+         Scaled[0.18], Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["ModularFormDefinition", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ModularFormDefinition.nb", None}], "  |  ", 
+     ButtonBox["ConstructModularForms", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"ConstructModularForms.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}]}], 
+            ",", "d", ",", "one"}], "}"}], ",", 
+        RowBox[{RowBox[{"AssignModularGenerators", "[", 
+            RowBox[{"g", ",", RowBox[{"GroupWord", "[", "\"t^-1.s.t\"", 
+                "]"}], ",", RowBox[{"GroupWord", "[", "\"s\"", "]"}], ",", 
+              RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], "]"}], ";", 
+          RowBox[{"d", "=", RowBox[{"First", "[", RowBox[{"Select", "[", 
+                RowBox[{RowBox[{"g", "[", "\"IrrepOrder\"", "]"}], ",", 
+                  RowBox[{RowBox[{RowBox[{"RepDim", "[", RowBox[
+                         {"GroupRepresentation", "[", RowBox[{"g", ",", 
+                          "#1"}], "]"}], "]"}], "===", "2"}], "&"}]}], "]"}], 
+              "]"}]}], ";", RowBox[{"one", "=", RowBox[
+             {RowBox[{"g", "[", "\"CharacterData\"", "]"}], "[", 
+              "\"TrivialIrrepID\"", "]"}]}], ";", 
+          RowBox[{"ModularFormWeight", "[", RowBox[{"CreateModularForm", "[", 
+              RowBox[{"g", ",", "one", ",", "4", ",", RowBox[
+                 {"ModularFormDefinition", "[", RowBox[{RowBox[{"{", 
+                      RowBox[{"2", " ", RowBox[{"ScalarModularExpression", 
+                          "[", RowBox[{"\"E4\"", ",", "q"}], "]"}]}], "}"}], 
+                    ",", "q"}], "]"}]}], "]"}], "]"}]}]}], "]"}]], "Input", 
+   CellTags -> "VerifiedExample"], Cell[BoxData["4"], "Output"], 
+  Cell["Possible Issues", "ExampleSection"], Cell["Invalid input returns a \
+structured Failure. Check FailureQ before using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"CreateModularForm", "[", 
+        RowBox[{"\"g\"", ",", "\"x\"", ",", "4", ",", "1"}], "]"}], "]"}]], 
+   "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/CreateModularForm", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "CreateModularForm \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]

@@ -1,0 +1,1678 @@
+{
+  "models": 174,
+  "passed": 174,
+  "checks": [
+    {
+      "model": "Mc9836c4b8a02",
+      "order": 20,
+      "dimension": 1,
+      "degree": 1,
+      "passed": true,
+      "seconds": 0.171,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 3.1
+    },
+    {
+      "model": "Me08d3e26e4be",
+      "order": 20,
+      "dimension": 1,
+      "degree": 1,
+      "passed": true,
+      "seconds": 0.243,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 3.5
+    },
+    {
+      "model": "Mb5cc1dab37bd",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 4.352,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 7.0
+    },
+    {
+      "model": "Md4c93082bd0f",
+      "order": 20,
+      "dimension": 1,
+      "degree": 1,
+      "passed": true,
+      "seconds": 0.205,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 3.4
+    },
+    {
+      "model": "Mc82abb4fddca",
+      "order": 20,
+      "dimension": 1,
+      "degree": 1,
+      "passed": true,
+      "seconds": 0.215,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 3.2
+    },
+    {
+      "model": "M2db05ffcc1b8",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 4.673,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 7.5
+    },
+    {
+      "model": "Mfdb76f214844",
+      "order": 20,
+      "dimension": 1,
+      "degree": 1,
+      "passed": true,
+      "seconds": 0.214,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 3.2
+    },
+    {
+      "model": "M87c25113e0d3",
+      "order": 20,
+      "dimension": 1,
+      "degree": 1,
+      "passed": true,
+      "seconds": 0.194,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 3.2
+    },
+    {
+      "model": "M4621ea07a864",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 10.165,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 13.5
+    },
+    {
+      "model": "M1106b0694bb0",
+      "order": 20,
+      "dimension": 1,
+      "degree": 1,
+      "passed": true,
+      "seconds": 0.19,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 3.0
+    },
+    {
+      "model": "Mdf01038be148",
+      "order": 20,
+      "dimension": 1,
+      "degree": 1,
+      "passed": true,
+      "seconds": 0.208,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 3.3
+    },
+    {
+      "model": "M06fa9c400e56",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 4.459,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 7.3
+    },
+    {
+      "model": "M1cea84cb1163",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 4.478,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 7.4
+    },
+    {
+      "model": "M458df34267b8",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 4.214,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 7.0
+    },
+    {
+      "model": "M0846d3e23375",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 4.11,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 7.0
+    },
+    {
+      "model": "M43ec9064ce2c",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 4.068,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 7.0
+    },
+    {
+      "model": "M3c7e7e4c9aff",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 4.261,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 7.1
+    },
+    {
+      "model": "M677debeff2f1",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 4.758,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 7.5
+    },
+    {
+      "model": "Mb95481f1e6ec",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 4.802,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 8.1
+    },
+    {
+      "model": "M4f3903e43751",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 71.211,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "Ma968ccb8bc8c",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 34.228,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M7e8047506234",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.748,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 12.0
+    },
+    {
+      "model": "M343b8f4018d4",
+      "order": 20,
+      "dimension": 1,
+      "degree": 1,
+      "passed": true,
+      "seconds": 0.251,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 3.2
+    },
+    {
+      "model": "M9a4706e90c2a",
+      "order": 20,
+      "dimension": 1,
+      "degree": 1,
+      "passed": true,
+      "seconds": 0.162,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 2.8
+    },
+    {
+      "model": "M8b28fae84195",
+      "order": 20,
+      "dimension": 1,
+      "degree": 1,
+      "passed": true,
+      "seconds": 0.194,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 2.8
+    },
+    {
+      "model": "M37b631f43961",
+      "order": 20,
+      "dimension": 1,
+      "degree": 1,
+      "passed": true,
+      "seconds": 0.181,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 2.8
+    },
+    {
+      "model": "M0081d2cc16e9",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 4.674,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 7.7
+    },
+    {
+      "model": "Mfd71a28b48ef",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 4.391,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 7.4
+    },
+    {
+      "model": "M5acaf8a3fce8",
+      "order": 20,
+      "dimension": 6,
+      "degree": 2,
+      "passed": true,
+      "seconds": 300.413,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M01cb3150eb98",
+      "order": 20,
+      "dimension": 6,
+      "degree": 2,
+      "passed": true,
+      "seconds": 208.756,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "Me70a861c9b8c",
+      "order": 20,
+      "dimension": 6,
+      "degree": 2,
+      "passed": true,
+      "seconds": 212.734,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M0f38bd76ad0e",
+      "order": 20,
+      "dimension": 6,
+      "degree": 2,
+      "passed": true,
+      "seconds": 310.26,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M3270607c4fdc",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 3.664,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 6.4
+    },
+    {
+      "model": "Ma2b47c16c468",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 3.919,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 6.6
+    },
+    {
+      "model": "Mecc3fcefb9b4",
+      "order": 20,
+      "dimension": 4,
+      "degree": 1,
+      "passed": true,
+      "seconds": 133.754,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "Mfe14ff96f51c",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 3.98,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 6.5
+    },
+    {
+      "model": "M141122335259",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 4.087,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 6.8
+    },
+    {
+      "model": "Me0376bce6ec6",
+      "order": 20,
+      "dimension": 4,
+      "degree": 1,
+      "passed": true,
+      "seconds": 69.595,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "Mab07aaa425d8",
+      "order": 20,
+      "dimension": 4,
+      "degree": 1,
+      "passed": true,
+      "seconds": 74.091,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M937931302bb9",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.304,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 11.3
+    },
+    {
+      "model": "M1810f0e836d3",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 9.269,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 12.2
+    },
+    {
+      "model": "M0bbf0e0ea70b",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 9.005,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 12.0
+    },
+    {
+      "model": "Mf0907963914d",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.347,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 11.5
+    },
+    {
+      "model": "M23e3de5f9e90",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 4.059,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 6.9
+    },
+    {
+      "model": "Mcca917d06596",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 4.142,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 6.9
+    },
+    {
+      "model": "M6529593b3413",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 4.033,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 6.9
+    },
+    {
+      "model": "M1e63a09fff92",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 3.904,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 6.7
+    },
+    {
+      "model": "M9cdfcc5fa5f2",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 4.663,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 7.4
+    },
+    {
+      "model": "M833a2b115a38",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 4.187,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 7.2
+    },
+    {
+      "model": "Mea80a8aeac3c",
+      "order": 20,
+      "dimension": 6,
+      "degree": 1,
+      "passed": true,
+      "seconds": 190.769,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M2c1e9495ceed",
+      "order": 20,
+      "dimension": 6,
+      "degree": 1,
+      "passed": true,
+      "seconds": 194.607,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M64fb1459aa2d",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 36.381,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M0e358efd4558",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.759,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 11.9
+    },
+    {
+      "model": "M12b1f7df1080",
+      "order": 20,
+      "dimension": 4,
+      "degree": 1,
+      "passed": true,
+      "seconds": 87.425,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "Mda5f9b00c502",
+      "order": 20,
+      "dimension": 4,
+      "degree": 1,
+      "passed": true,
+      "seconds": 26.093,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 29.4
+    },
+    {
+      "model": "M0732011a90d3",
+      "order": 20,
+      "dimension": 5,
+      "degree": 1,
+      "passed": true,
+      "seconds": 168.813,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "Ma3cb70603d6c",
+      "order": 20,
+      "dimension": 5,
+      "degree": 1,
+      "passed": true,
+      "seconds": 127.78,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M365e6bca5f02",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.938,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 12.2
+    },
+    {
+      "model": "M473ddde49c60",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.894,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 11.7
+    },
+    {
+      "model": "M63d63cd2f0d1",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.395,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 11.2
+    },
+    {
+      "model": "Maf52f87f8487",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.562,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 11.6
+    },
+    {
+      "model": "M5afb3cbbf747",
+      "order": 20,
+      "dimension": 6,
+      "degree": 1,
+      "passed": true,
+      "seconds": 192.855,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M11a6223f00bd",
+      "order": 20,
+      "dimension": 6,
+      "degree": 4,
+      "passed": true,
+      "seconds": 276.766,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "Mae5d458b8aa3",
+      "order": 20,
+      "dimension": 6,
+      "degree": 2,
+      "passed": true,
+      "seconds": 199.605,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M73ea41e65c83",
+      "order": 20,
+      "dimension": 6,
+      "degree": 2,
+      "passed": true,
+      "seconds": 195.098,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "Me59c42009f79",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 34.34,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M013982fa3040",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 9.647,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 12.7
+    },
+    {
+      "model": "M51ff9a49db57",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 9.712,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 12.8
+    },
+    {
+      "model": "M5d8074cd9534",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 9.756,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 12.8
+    },
+    {
+      "model": "Mcc919b7f7d25",
+      "order": 20,
+      "dimension": 6,
+      "degree": 1,
+      "passed": true,
+      "seconds": 187.55,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "Mc5160302804e",
+      "order": 20,
+      "dimension": 6,
+      "degree": 2,
+      "passed": true,
+      "seconds": 195.875,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M8bd183189a81",
+      "order": 20,
+      "dimension": 6,
+      "degree": 2,
+      "passed": true,
+      "seconds": 199.587,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "Mcf8f25a653e9",
+      "order": 20,
+      "dimension": 6,
+      "degree": 1,
+      "passed": true,
+      "seconds": 199.469,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "Me94f9d8c4c7f",
+      "order": 20,
+      "dimension": 6,
+      "degree": 6,
+      "passed": true,
+      "seconds": 318.328,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M523f13f358e7",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 4.048,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 6.9
+    },
+    {
+      "model": "Me611c16e2889",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 4.274,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 7.3
+    },
+    {
+      "model": "Med233fbb7e54",
+      "order": 20,
+      "dimension": 4,
+      "degree": 1,
+      "passed": true,
+      "seconds": 16.222,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 19.3
+    },
+    {
+      "model": "M61d1a1dce134",
+      "order": 20,
+      "dimension": 6,
+      "degree": 1,
+      "passed": true,
+      "seconds": 138.381,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "Med3b7bd1e869",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 4.006,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 6.9
+    },
+    {
+      "model": "M827defb30153",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 3.891,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 6.5
+    },
+    {
+      "model": "M332bba3fffa1",
+      "order": 20,
+      "dimension": 4,
+      "degree": 1,
+      "passed": true,
+      "seconds": 16.134,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 19.3
+    },
+    {
+      "model": "M204b9a5b2923",
+      "order": 20,
+      "dimension": 6,
+      "degree": 1,
+      "passed": true,
+      "seconds": 137.922,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M2b877e2e9b8d",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 9.866,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 13.0
+    },
+    {
+      "model": "Mf40f4450aa14",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 10.141,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 13.2
+    },
+    {
+      "model": "Mec5f75ee6014",
+      "order": 20,
+      "dimension": 4,
+      "degree": 1,
+      "passed": true,
+      "seconds": 79.044,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M8f753e022fe5",
+      "order": 20,
+      "dimension": 4,
+      "degree": 1,
+      "passed": true,
+      "seconds": 100.037,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M0e80778784a3",
+      "order": 20,
+      "dimension": 5,
+      "degree": 1,
+      "passed": true,
+      "seconds": 88.813,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M835e14e0cb73",
+      "order": 20,
+      "dimension": 6,
+      "degree": 4,
+      "passed": true,
+      "seconds": 273.126,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M3b400cdabc33",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 4.771,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 7.7
+    },
+    {
+      "model": "Md652076eb0c8",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 5.114,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 8.4
+    },
+    {
+      "model": "M55c16eaac4d8",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 4.39,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 7.4
+    },
+    {
+      "model": "M347c70951155",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 3.997,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 7.1
+    },
+    {
+      "model": "M705d30749360",
+      "order": 20,
+      "dimension": 4,
+      "degree": 1,
+      "passed": true,
+      "seconds": 77.269,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "Ma850a27c3fab",
+      "order": 20,
+      "dimension": 4,
+      "degree": 1,
+      "passed": true,
+      "seconds": 24.411,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 27.8
+    },
+    {
+      "model": "Mfcf8e0bd4b2e",
+      "order": 20,
+      "dimension": 4,
+      "degree": 1,
+      "passed": true,
+      "seconds": 18.086,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 21.1
+    },
+    {
+      "model": "Ma261dfd32585",
+      "order": 20,
+      "dimension": 4,
+      "degree": 1,
+      "passed": true,
+      "seconds": 26.741,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 29.8
+    },
+    {
+      "model": "M6ca0b353dca1",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 3.98,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 6.5
+    },
+    {
+      "model": "M6b80f218a190",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 3.888,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 6.5
+    },
+    {
+      "model": "M6f4122992b10",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 3.789,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 6.6
+    },
+    {
+      "model": "M9612f67f4d68",
+      "order": 20,
+      "dimension": 2,
+      "degree": 1,
+      "passed": true,
+      "seconds": 4.115,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 6.8
+    },
+    {
+      "model": "Me95e51ab8308",
+      "order": 20,
+      "dimension": 4,
+      "degree": 1,
+      "passed": true,
+      "seconds": 129.593,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M891992c8943c",
+      "order": 20,
+      "dimension": 4,
+      "degree": 1,
+      "passed": true,
+      "seconds": 63.462,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M75fe14c570c3",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 40.846,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "Mfd967c1f5c0d",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 10.394,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 13.7
+    },
+    {
+      "model": "Ma00ec27f17f4",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 9.524,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 12.7
+    },
+    {
+      "model": "Mb88bb372016b",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.161,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 11.1
+    },
+    {
+      "model": "M23e44787e078",
+      "order": 20,
+      "dimension": 4,
+      "degree": 1,
+      "passed": true,
+      "seconds": 68.666,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M2cb43e0d5548",
+      "order": 20,
+      "dimension": 4,
+      "degree": 1,
+      "passed": true,
+      "seconds": 16.758,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 19.6
+    },
+    {
+      "model": "M7cd5f6d20c33",
+      "order": 20,
+      "dimension": 4,
+      "degree": 1,
+      "passed": true,
+      "seconds": 19.485,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 22.6
+    },
+    {
+      "model": "Mc3f3877ac04d",
+      "order": 20,
+      "dimension": 4,
+      "degree": 1,
+      "passed": true,
+      "seconds": 27.062,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 30.3
+    },
+    {
+      "model": "Me078e5c76b2b",
+      "order": 20,
+      "dimension": 4,
+      "degree": 1,
+      "passed": true,
+      "seconds": 131.421,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "Mab3206e3eb95",
+      "order": 20,
+      "dimension": 4,
+      "degree": 1,
+      "passed": true,
+      "seconds": 74.577,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "Mb4d0c88d8feb",
+      "order": 20,
+      "dimension": 4,
+      "degree": 1,
+      "passed": true,
+      "seconds": 66.611,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M08e06bc7b102",
+      "order": 20,
+      "dimension": 6,
+      "degree": 1,
+      "passed": true,
+      "seconds": 193.545,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "Mac1d7f2da061",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 9.353,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 12.7
+    },
+    {
+      "model": "M5c75bfac0b05",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 9.72,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 13.0
+    },
+    {
+      "model": "M19b14a41dc4c",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 9.448,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 12.3
+    },
+    {
+      "model": "M93f8628ce474",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 9.637,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 12.6
+    },
+    {
+      "model": "M024b3251384c",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 9.756,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 13.0
+    },
+    {
+      "model": "M40528fa70d6c",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 9.667,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 13.1
+    },
+    {
+      "model": "M3d6565434342",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.858,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 11.6
+    },
+    {
+      "model": "Maf2f1a0aca6a",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.769,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 11.7
+    },
+    {
+      "model": "M80302305f165",
+      "order": 20,
+      "dimension": 6,
+      "degree": 1,
+      "passed": true,
+      "seconds": 211.883,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M51fa9b599411",
+      "order": 20,
+      "dimension": 6,
+      "degree": 1,
+      "passed": true,
+      "seconds": 224.767,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "Mfdafdba026f9",
+      "order": 20,
+      "dimension": 6,
+      "degree": 4,
+      "passed": true,
+      "seconds": 273.62,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "Mf72099e638ee",
+      "order": 20,
+      "dimension": 6,
+      "degree": 4,
+      "passed": true,
+      "seconds": 229.985,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M8d4ba7a76bba",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.441,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 11.3
+    },
+    {
+      "model": "M409d14012027",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.673,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 11.6
+    },
+    {
+      "model": "Mcffbee9061fe",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.481,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 11.3
+    },
+    {
+      "model": "Md2cac080bc30",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.362,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 11.0
+    },
+    {
+      "model": "Maaf5328fc0d6",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.322,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 11.0
+    },
+    {
+      "model": "M41e718f6e48b",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.511,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 11.2
+    },
+    {
+      "model": "M48cee5dc0a38",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.579,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 11.4
+    },
+    {
+      "model": "M10172d09a826",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.591,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 11.3
+    },
+    {
+      "model": "M2f922ca6fbd0",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.619,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 11.2
+    },
+    {
+      "model": "Mbffa1fe4405c",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.236,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 10.7
+    },
+    {
+      "model": "Mb51da0cb3ddd",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.631,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 11.4
+    },
+    {
+      "model": "M13f3b9335934",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.506,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 11.4
+    },
+    {
+      "model": "M537606051a72",
+      "order": 20,
+      "dimension": 6,
+      "degree": 3,
+      "passed": true,
+      "seconds": 218.73,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M65c1abda5cc1",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 10.101,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 12.9
+    },
+    {
+      "model": "Mfe1f8ef2a372",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 9.552,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 12.6
+    },
+    {
+      "model": "Mc00bbff48d17",
+      "order": 20,
+      "dimension": 6,
+      "degree": 1,
+      "passed": true,
+      "seconds": 159.556,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M26a7381bdef4",
+      "order": 20,
+      "dimension": 6,
+      "degree": 1,
+      "passed": true,
+      "seconds": 155.376,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M8abf8d00b21b",
+      "order": 20,
+      "dimension": 7,
+      "degree": 1,
+      "passed": true,
+      "seconds": 308.708,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "Me6fd83c65979",
+      "order": 20,
+      "dimension": 8,
+      "degree": 1,
+      "passed": true,
+      "seconds": 392.186,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M95dc2b8a9d87",
+      "order": 20,
+      "dimension": 8,
+      "degree": 1,
+      "passed": true,
+      "seconds": 379.916,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M55f7cc6e7ad5",
+      "order": 20,
+      "dimension": 6,
+      "degree": 6,
+      "passed": true,
+      "seconds": 317.126,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M3728ee1bbd5d",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.229,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 11.2
+    },
+    {
+      "model": "M013ecadd0460",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 7.971,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 10.8
+    },
+    {
+      "model": "M98291257c24f",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.205,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 11.0
+    },
+    {
+      "model": "M018da642603f",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.335,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 11.1
+    },
+    {
+      "model": "M03686964161c",
+      "order": 20,
+      "dimension": 4,
+      "degree": 1,
+      "passed": true,
+      "seconds": 17.41,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 20.4
+    },
+    {
+      "model": "M63968ea6fcb0",
+      "order": 20,
+      "dimension": 4,
+      "degree": 1,
+      "passed": true,
+      "seconds": 16.975,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 20.3
+    },
+    {
+      "model": "M62202d8b0a0f",
+      "order": 20,
+      "dimension": 5,
+      "degree": 1,
+      "passed": true,
+      "seconds": 102.12,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M3026d0b9c461",
+      "order": 20,
+      "dimension": 5,
+      "degree": 1,
+      "passed": true,
+      "seconds": 23.331,
+      "runtime": "Mathics with exact rational Dot acceleration"
+    },
+    {
+      "model": "M9ef98ea825c9",
+      "order": 20,
+      "dimension": 5,
+      "degree": 1,
+      "passed": true,
+      "seconds": 35.07,
+      "runtime": "Mathics with exact rational Dot acceleration"
+    },
+    {
+      "model": "Md4be340db1c9",
+      "order": 20,
+      "dimension": 6,
+      "degree": 10,
+      "passed": true,
+      "seconds": 449.16,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M12b7d7266cde",
+      "order": 20,
+      "dimension": 6,
+      "degree": 1,
+      "passed": true,
+      "seconds": 200.969,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M5b6f93ea3055",
+      "order": 20,
+      "dimension": 6,
+      "degree": 1,
+      "passed": true,
+      "seconds": 202.929,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "Ma2f601c6f590",
+      "order": 20,
+      "dimension": 6,
+      "degree": 1,
+      "passed": true,
+      "seconds": 206.065,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M4b3e38ab1fdb",
+      "order": 20,
+      "dimension": 6,
+      "degree": 1,
+      "passed": true,
+      "seconds": 230.445,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M9244cc40a19a",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 8.827,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 11.9
+    },
+    {
+      "model": "M47576e934967",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 9.306,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 12.2
+    },
+    {
+      "model": "Mea3abd1685b2",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 9.546,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 12.9
+    },
+    {
+      "model": "M084959c5561f",
+      "order": 20,
+      "dimension": 3,
+      "degree": 1,
+      "passed": true,
+      "seconds": 9.277,
+      "runtime": "Mathics with exact rational Dot acceleration",
+      "total_seconds": 12.4
+    },
+    {
+      "model": "Mc9cda637796c",
+      "order": 20,
+      "dimension": 6,
+      "degree": 1,
+      "passed": true,
+      "seconds": 216.578,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M3fe8db34d977",
+      "order": 20,
+      "dimension": 6,
+      "degree": 2,
+      "passed": true,
+      "seconds": 200.802,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M312edc5919a4",
+      "order": 20,
+      "dimension": 6,
+      "degree": 2,
+      "passed": true,
+      "seconds": 204.747,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "Md484581ae607",
+      "order": 20,
+      "dimension": 6,
+      "degree": 1,
+      "passed": true,
+      "seconds": 153.665,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "Md49750a5fad6",
+      "order": 20,
+      "dimension": 6,
+      "degree": 1,
+      "passed": true,
+      "seconds": 156.518,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "Meff34fa5548b",
+      "order": 20,
+      "dimension": 6,
+      "degree": 1,
+      "passed": true,
+      "seconds": 149.71,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M619bdee042fd",
+      "order": 20,
+      "dimension": 6,
+      "degree": 1,
+      "passed": true,
+      "seconds": 156.992,
+      "runtime": "unmodified Mathics"
+    },
+    {
+      "model": "M35af7eae68f5",
+      "order": 20,
+      "dimension": 6,
+      "degree": 1,
+      "passed": true,
+      "seconds": 37.678,
+      "runtime": "Mathics with exact rational Dot acceleration"
+    },
+    {
+      "model": "M5cfcd037ce05",
+      "order": 20,
+      "dimension": 6,
+      "degree": 1,
+      "passed": true,
+      "seconds": 182.789,
+      "runtime": "unmodified Mathics"
+    }
+  ]
+}

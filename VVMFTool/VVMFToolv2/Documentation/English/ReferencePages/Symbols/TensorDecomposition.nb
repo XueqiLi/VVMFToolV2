@@ -1,0 +1,88 @@
+Notebook[{Cell["TensorDecomposition", "ObjectName"], 
+  Cell["TensorDecomposition[g, {id1, id2, ...}] gives the exact multiplicity \
+of every irrep in the tensor product of the listed irreps of the group or \
+context g, from the character table alone (no matrices, no GAP). The empty \
+product is one copy of the trivial irrep.", "Usage"], 
+  Cell["Status: Alpha.", "Notes"], Cell["TensorDecomposition[g, {i1, i2, \
+...}] gives an association from the index of every irrep that occurs in the \
+tensor product of the listed irreps (indices or IDs) to its exact \
+multiplicity, in the presentation order of g. IrrepForm -> \"ID\" or \
+\"Label\" keys it by irrep ID or user label; IncludeZeros -> True keeps the \
+irreps that do not occur (with IrrepForm -> \"ID\", every irrep ID, as before \
+the UX update).", "Notes"], Cell["Only the character table is used: no \
+matrices, no GAP, no change to the group. Multiplicities are computed exactly \
+in the cyclotomic field of the class orders, so integrality and the dimension \
+identity are checked, not assumed.", "Notes"], Cell["TensorDecomposition[g, \
+{}] is one copy of the trivial irrep (the tensor unit), whatever the row \
+order; one factor gives itself. A RepresentationContext uses its \
+character-table order.", "Notes"], 
+  Cell["Options (shared configured settings can override these defaults):", 
+   "Notes"], Cell[BoxData[GridBox[{{Cell[" ", "TableRowIcon"], 
+       Cell[BoxData["IrrepForm"], "TableText"], Cell["\"Index\"", 
+        "TableText"], 
+       Cell[
+        "How irreps are named in the result: \"Index\", \"ID\" or \"Label\"."\
+, "TableText"]}, {Cell[" ", "TableRowIcon"], Cell[BoxData["IncludeZeros"], 
+        "TableText"], Cell["False", "TableText"], 
+       Cell["Whether irreps that do not occur are listed with multiplicity \
+0.", "TableText"]}}, GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+     GridBoxItemSize -> {"Columns" -> {Scaled[0.02], Scaled[0.3], 
+         Scaled[0.18], Scaled[0.5]}}]], "3ColumnTableMod"], 
+  Cell["See Also", "SeeAlsoSection"], 
+  Cell[TextData[{ButtonBox["TensorMultiplicity", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"TensorMultiplicity.nb", None}], "  |  ", 
+     ButtonBox["TensorIrrepList", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"TensorIrrepList.nb", None}], "  |  ", 
+     ButtonBox["TensorDecompositionView", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"TensorDecompositionView.nb", None}], "  |  ", 
+     ButtonBox["CGCoefficients", BaseStyle -> "Hyperlink", 
+      ButtonData -> {"CGCoefficients.nb", None}]}], "SeeAlso"], 
+  Cell["Examples Initialization", "ExamplesInitializationSection"], 
+  Cell["Open this notebook in its repository location. GAP must be installed; \
+LINS is required for its bounded search page. Evaluate the setup before the \
+examples.", "ExampleText"], 
+  Cell[BoxData[RowBox[{RowBox[{"Get", "[", RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", RowBox[{RowBox[{"Nest", "[", RowBox[{"DirectoryName", 
+                  ",", RowBox[{"NotebookFileName", "[", "]"}], ",", "5"}], 
+                "]"}], ",", "\"Kernel\"", ",", "\"init.m\""}], "}"}], "]"}], 
+        "]"}], ";"}]], "ExampleInitialization"], 
+  Cell["Basic Examples", "PrimaryExamplesSection"], 
+  Cell[BoxData[RowBox[{"Module", "[", 
+      RowBox[{RowBox[{"{", RowBox[{RowBox[{"g", "=", RowBox[{"BuildGroup", 
+                "[", RowBox[{RowBox[{"GroupPresentation", "[", RowBox[
+                     {RowBox[{"{", RowBox[{"\"s\"", ",", "\"t\""}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"\"s^2\"", ",", "\"t^2\"", 
+                          ",", "\"(s.t)^3\""}], "}"}]}], "]"}], ",", 
+                  RowBox[{"ComputeRepresentations", "\[Rule]", "False"}], 
+                  ",", RowBox[{"StoreGAPState", "\[Rule]", "False"}]}], 
+                "]"}]}], ",", "d"}], "}"}], ",", 
+        RowBox[{RowBox[{"d", "=", RowBox[{"First", "[", RowBox[{"Pick", "[", 
+                RowBox[{RowBox[{RowBox[{"g", "[", "\"CharacterData\"", "]"}], 
+                    "[", "\"IrrepIDs\"", "]"}], ",", RowBox[
+                   {RowBox[{"g", "[", "\"CharacterData\"", "]"}], "[", 
+                    "\"Degrees\"", "]"}], ",", "2"}], "]"}], "]"}]}], ";", 
+          RowBox[{RowBox[{"TensorDecomposition", "[", RowBox[{"g", ",", 
+                RowBox[{"{", RowBox[{"d", ",", "d"}], "}"}]}], "]"}], "[", 
+            RowBox[{"IrrepIndex", "[", RowBox[{"g", ",", "d"}], "]"}], 
+            "]"}]}]}], "]"}]], "Input", CellTags -> "VerifiedExample"], 
+  Cell[BoxData["1"], "Output"], Cell["Possible Issues", "ExampleSection"], 
+  Cell["Invalid input returns a structured Failure. Check FailureQ before \
+using the result.", "ExampleText"], 
+  Cell[BoxData[RowBox[{"FailureQ", "[", RowBox[{"TensorDecomposition", "[", 
+        RowBox[{"\"no group\"", ",", RowBox[{"{", "}"}]}], "]"}], "]"}]], 
+   "Input", CellTags -> "VerifiedErrorExample"], 
+  Cell[BoxData["True"], "Output"], Cell["Related Guides", 
+   "MoreAboutSection"], 
+  Cell[TextData[{ButtonBox["Constructing finite groups", 
+      BaseStyle -> "Hyperlink", ButtonData -> 
+       {"../../Tutorials/ConstructingFiniteGroups.nb", None}]}], 
+   "MoreAbout"], Cell[CellGroupData[{Cell["Metadata", "MetadataSection"], 
+     Cell["Symbol", "Categorization", CellLabel -> "Entity Type"], 
+     Cell["VVMFTool", "Categorization", CellLabel -> "Paclet Name"], 
+     Cell["VVMFTool`", "Categorization", CellLabel -> "Context"], 
+     Cell["VVMFTool/ref/TensorDecomposition", "Categorization", 
+      CellLabel -> "URI"]}, Closed]]}, 
+ WindowTitle -> "TensorDecomposition \[LongDash] VVMFTool", 
+ WindowSize -> {1000, 850}, TaggingRules -> <|"Paclet" -> "VVMFTool", 
+   "Status" -> "Alpha"|>, StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, 
+   "FunctionPageStylesExt.nb", CharacterEncoding -> "UTF-8"]]
